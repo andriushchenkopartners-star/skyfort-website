@@ -1,0 +1,18 @@
+{
+  "name": "SkyFort · Wealth for Ukrainian Canadians",
+  "short_name": "SkyFort",
+  "description": "Canadian finance for newcomers — TFSA, RRSP, FHSA, exempt market, real estate.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "lang": "uk",
+  "categories": ["finance", "education"]
+}
