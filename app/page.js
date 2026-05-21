@@ -230,12 +230,12 @@ const t = {
 };
 
 const CONFIG = {
-  calendlyUrl: "https://calendly.com/andrii-andriushchenko/discovery-call",
+  calendlyUrl: "https://calendly.com/andriushchenko-partners/new-meeting",
   email: "andrii.andriushchenko@axcesscapital.com",
   phone: "(403) 397-2553",
   instagram: "https://instagram.com/andrii.wealthcanada",
   telegram: "https://t.me/skyfortwealth",
-  pdfBaseUrl: "/guides",
+  pdfBaseUrl: "https://frhitqmsmqybggcmowag.supabase.co/storage/v1/object/public/lead-magnets-uk",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
