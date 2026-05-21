@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import {
   PiggyBank, ShieldCheck, TrendingUp, CalendarCheck,
-  Home, GraduationCap, Compass, Download, ArrowRight,
+  Home, GraduationCap, Compass, MessageCircle, Download, ArrowRight,
   Globe, Mail, Phone, AtSign, Send,
 } from "lucide-react";
 
@@ -80,8 +80,8 @@ const t = {
       { icon: Home, title: "FHSA · перша квартира", desc: "$8K/рік tax-deductible, $40K lifetime. Як використати правильно.", file: "05_SkyFort_FHSA_First_Home.pdf" },
       { icon: GraduationCap, title: "RESP · освіта дитини", desc: "Уряд додає $7,200 безкоштовно. Три стратегії.", file: "06_SkyFort_RESP_Education.pdf" },
       { icon: Compass, title: "Newcomer · 30 кроків", desc: "Що зробити в перші 90 днів у Канаді. Від SIN до першого TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
+      { icon: MessageCircle, title: "Підготовка до консультації", desc: "Що принести, які питання поставити. Зробить твою першу зустріч у 2× продуктивнішою.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
-    stepsTitle: "Як це працює",
     steps: [
       { n: "01", title: "Завантаж гайд", desc: "Вибери тему. Прочитай. Без email-форм, без spam." },
       { n: "02", title: "Запишись на дзвінок", desc: "30 хвилин. Безкоштовно. Discovery call — регуляторний KYC + suitability крок." },
@@ -140,6 +140,7 @@ const t = {
       { icon: Home, title: "FHSA · первая квартира", desc: "$8K/год tax-deductible, $40K lifetime. Как использовать правильно.", file: "05_SkyFort_FHSA_First_Home.pdf" },
       { icon: GraduationCap, title: "RESP · образование", desc: "Правительство добавляет $7,200 бесплатно. Три стратегии.", file: "06_SkyFort_RESP_Education.pdf" },
       { icon: Compass, title: "Newcomer · 30 шагов", desc: "Что сделать в первые 90 дней в Канаде. От SIN до первого TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
+      { icon: MessageCircle, title: "Подготовка к консультации", desc: "Что принести, какие вопросы задать. Сделает первую встречу в 2× продуктивнее.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
     stepsTitle: "Как это работает",
     steps: [
@@ -200,6 +201,7 @@ const t = {
       { icon: Home, title: "FHSA · first home", desc: "$8K/yr tax-deductible, $40K lifetime. How to use it right.", file: "05_SkyFort_FHSA_First_Home.pdf" },
       { icon: GraduationCap, title: "RESP · child's education", desc: "Government adds $7,200 for free. Three strategies.", file: "06_SkyFort_RESP_Education.pdf" },
       { icon: Compass, title: "Newcomer · 30 steps", desc: "What to do in your first 90 days in Canada. From SIN to first TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
+      { icon: MessageCircle, title: "Consultation prep", desc: "What to bring, what to ask. Makes your first call 2× more productive.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
     stepsTitle: "How it works",
     steps: [
