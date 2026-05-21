@@ -4,8 +4,8 @@
   "description": "Canadian finance for newcomers — TFSA, RRSP, FHSA, exempt market, real estate.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#09090b",
-  "theme_color": "#09090b",
+  "background_color": "#191919",
+  "theme_color": "#2D73E3",
   "icons": [
     {
       "src": "/icon.svg",
