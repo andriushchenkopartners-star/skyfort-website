@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   PiggyBank, ShieldCheck, TrendingUp, CalendarCheck,
-  Home, GraduationCap, Compass, MessageCircle, Download, ArrowRight,
+  Home, GraduationCap, Compass, MessageCircle, Calculator, Download, ArrowRight,
   Globe, Mail, Phone, AtSign, Send,
 } from "lucide-react";
 
@@ -82,6 +83,13 @@ const t = {
       { icon: Compass, title: "Newcomer · 30 кроків", desc: "Що зробити в перші 90 днів у Канаді. Від SIN до першого TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
       { icon: MessageCircle, title: "Підготовка до консультації", desc: "Що принести, які питання поставити. Зробить твою першу зустріч у 2× продуктивнішою.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
+    calcPromo: {
+      kicker: "Інтерактивний інструмент",
+      title: "Скільки буде у твоєму TFSA через 20 років?",
+      desc: "Не теорія. Введи свої цифри, побач різницю між банком, GIC і ETF своїми очима.",
+      cta: "Відкрити калькулятор",
+    },
+    stepsTitle: "Як це працює",
     steps: [
       { n: "01", title: "Завантаж гайд", desc: "Вибери тему. Прочитай. Без email-форм, без spam." },
       { n: "02", title: "Запишись на дзвінок", desc: "30 хвилин. Безкоштовно. Discovery call — регуляторний KYC + suitability крок." },
@@ -142,6 +150,12 @@ const t = {
       { icon: Compass, title: "Newcomer · 30 шагов", desc: "Что сделать в первые 90 дней в Канаде. От SIN до первого TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
       { icon: MessageCircle, title: "Подготовка к консультации", desc: "Что принести, какие вопросы задать. Сделает первую встречу в 2× продуктивнее.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
+    calcPromo: {
+      kicker: "Интерактивный инструмент",
+      title: "Сколько будет в твоём TFSA через 20 лет?",
+      desc: "Не теория. Введи свои цифры, увидь разницу между банком, GIC и ETF своими глазами.",
+      cta: "Открыть калькулятор",
+    },
     stepsTitle: "Как это работает",
     steps: [
       { n: "01", title: "Скачай гайд", desc: "Выбери тему. Прочитай. Без email-форм, без spam." },
@@ -203,6 +217,12 @@ const t = {
       { icon: Compass, title: "Newcomer · 30 steps", desc: "What to do in your first 90 days in Canada. From SIN to first TFSA.", file: "07_SkyFort_Newcomer_30_Steps.pdf" },
       { icon: MessageCircle, title: "Consultation prep", desc: "What to bring, what to ask. Makes your first call 2× more productive.", file: "08_SkyFort_Consultation_Prep.pdf" },
     ],
+    calcPromo: {
+      kicker: "Interactive tool",
+      title: "How much will your TFSA have in 20 years?",
+      desc: "Not theory. Enter your numbers, see the gap between bank, GIC, and ETF with your own eyes.",
+      cta: "Open the calculator",
+    },
     stepsTitle: "How it works",
     steps: [
       { n: "01", title: "Download a guide", desc: "Pick the topic you're thinking about. Read. No email forms, no spam." },
@@ -418,6 +438,48 @@ function Guides({ content }) {
   );
 }
 
+function CalcPromo({ content }) {
+  return (
+    <section className="relative overflow-hidden py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2D73E3] opacity-[0.07] blur-3xl" />
+      </div>
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="overflow-hidden rounded-3xl border border-[#2D73E3]/30 bg-gradient-to-br from-[#1f1f1f] to-[#1a2d4a] p-10 md:p-14">
+          <div className="grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
+            <div>
+              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">
+                <Calculator className="h-3.5 w-3.5" />
+                {content.calcPromo.kicker}
+              </p>
+              <h2 className="font-display-tight text-3xl text-white md:text-5xl">
+                {content.calcPromo.title}
+              </h2>
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-[#a3a3a3] md:text-lg">
+                {content.calcPromo.desc}
+              </p>
+              <Link
+                href="/calculators/tfsa-growth"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2D73E3] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+              >
+                {content.calcPromo.cta}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
+                <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">$500/міс · 20 років · ETF 8%</p>
+                <p className="mt-3 font-display-tight text-5xl text-[#2D73E3]">$295K</p>
+                <p className="mt-2 text-xs text-[#6b6b6b]">vs $120K у банку</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Steps({ content }) {
   return (
     <section className="py-28 md:py-36">
@@ -569,6 +631,7 @@ export default function SkyFortLanding() {
       <Stats content={content} />
       <About content={content} />
       <Guides content={content} />
+      <CalcPromo content={content} />
       <Steps content={content} />
       <FAQ content={content} />
       <FinalCTA content={content} />
