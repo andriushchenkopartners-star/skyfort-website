@@ -49,7 +49,7 @@ function Logo({ variant = "full", className = "" }) {
 const t = {
   uk: {
     htmlLang: "uk",
-    nav: { book: "Записатись" },
+    nav: { book: "Записатись", about: "Про мене" },
     hero: {
       kicker: "Licensed DR · Alberta · BC · Ontario",
       title: "Фінанси для українців",
@@ -116,7 +116,7 @@ const t = {
 
   ru: {
     htmlLang: "ru",
-    nav: { book: "Записаться" },
+    nav: { book: "Записаться", about: "Обо мне" },
     hero: {
       kicker: "Licensed DR · Alberta · BC · Ontario",
       title: "Финансы для русскоязычных",
@@ -183,7 +183,7 @@ const t = {
 
   en: {
     htmlLang: "en",
-    nav: { book: "Book a call" },
+    nav: { book: "Book a call", about: "About" },
     hero: {
       kicker: "Licensed DR · Alberta · BC · Ontario",
       title: "Canadian finance",
@@ -296,6 +296,12 @@ function Nav({ lang, setLang, content }) {
         </a>
         <div className="flex items-center gap-3">
           <LangSwitcher lang={lang} setLang={setLang} />
+          <a
+            href="/pro-mene"
+            className="hidden text-xs font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors hover:text-white sm:inline-flex"
+          >
+            {content.nav.about}
+          </a>
           <a
             href={CONFIG.calendlyUrl}
             target="_blank"
