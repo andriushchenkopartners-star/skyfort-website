@@ -49,6 +49,9 @@ export const metadata = {
     description: "Licensed Dealing Representative · 7 free guides",
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "dOuBBo24wiTaB5nFxBV-IVJ3LpRRz3bxjn2i09Dfijw",
+  },
   robots: {
     index: true, follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
