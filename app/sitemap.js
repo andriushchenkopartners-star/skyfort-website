@@ -17,8 +17,29 @@ export default function sitemap() {
         },
       },
     },
-    // Add more pages here as they're built:
-    // /tfsa-guide, /rrsp-guide, /exempt-market, /about, /book-call
-    // Each with same alternates.languages structure
+    {
+      url: `${baseUrl}/pro-mene`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/calculators/tfsa-growth`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/calculators/financial-freedom`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/calculators/mortgage`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 }
