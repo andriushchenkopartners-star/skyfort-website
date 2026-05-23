@@ -1,5 +1,6 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import Nav from "./Nav";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -103,7 +104,10 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
