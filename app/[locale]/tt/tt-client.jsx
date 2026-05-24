@@ -13,7 +13,9 @@ import Button from "../../_components/Button";
 import Card from "../../_components/Card";
 import Container from "../../_components/Container";
 import Logo from "../../_components/Logo";
+import TikTokIcon from "../../_components/TikTokIcon";
 import { resolveLocale } from "../../_i18n/dictionary";
+import { CONFIG } from "../../_i18n/config";
 import {
   captureUtmsOnLoad,
   trackTtLandingView,
@@ -21,8 +23,9 @@ import {
   withUtms,
 } from "../../_lib/analytics";
 
-const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
-const WHATSAPP = "https://wa.me/14033972553";
+const CALENDLY = CONFIG.calendlyUrl;
+const WHATSAPP = CONFIG.whatsapp;
+const TIKTOK = CONFIG.tiktok;
 const NRD_LOOKUP =
   "https://aretrieval.securities-administrators.ca/aretrieval/individuals/4575551";
 
@@ -40,6 +43,7 @@ const COPY = {
     ],
     disclaimer: "Освітні матеріали. Не є інвестиційною рекомендацією. Exempt market інвестиції доступні лише Eligible Investors під CSA NI 45-106.",
     verifyLink: "Перевірити реєстрацію у ASC",
+    followCta: "Слідкуй на TikTok",
   },
   ru: {
     h1: "Видел меня в TikTok?",
@@ -54,6 +58,7 @@ const COPY = {
     ],
     disclaimer: "Образовательные материалы. Не является инвестиционной рекомендацией. Exempt market доступен только Eligible Investors под CSA NI 45-106.",
     verifyLink: "Проверить регистрацию в ASC",
+    followCta: "Подписаться в TikTok",
   },
   en: {
     h1: "Saw me on TikTok?",
@@ -68,6 +73,7 @@ const COPY = {
     ],
     disclaimer: "Educational only. Not investment advice. Exempt market investments are restricted to Eligible Investors per CSA NI 45-106.",
     verifyLink: "Verify ASC registration",
+    followCta: "Follow on TikTok",
   },
 };
 
@@ -173,7 +179,20 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
         ))}
       </div>
 
-      <footer className="mt-10 text-center space-y-3">
+      <div className="mt-8 flex justify-center">
+        <a
+          href={TIKTOK}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackTtCtaClick("follow_tiktok")}
+          className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-5 py-2.5 text-sm font-semibold text-[var(--color-fg)] transition-all hover:border-[var(--color-brand)] hover:bg-[var(--color-bg-card)]"
+        >
+          <TikTokIcon className="h-4 w-4" />
+          {copy.followCta} · {CONFIG.tiktokHandle}
+        </a>
+      </div>
+
+      <footer className="mt-8 text-center space-y-3">
         <p className="text-xs text-[var(--color-fg-subtle)] leading-relaxed">
           {copy.disclaimer}
         </p>

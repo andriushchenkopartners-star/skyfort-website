@@ -1,5 +1,6 @@
 import { Mail, Phone, AtSign, Send } from "lucide-react";
 import Logo from "../_components/Logo";
+import TikTokIcon from "../_components/TikTokIcon";
 import { CONFIG } from "../_i18n/config";
 
 export default function Footer({ content }) {
@@ -32,6 +33,17 @@ export default function Footer({ content }) {
                 >
                   <Phone className="h-3.5 w-3.5" aria-hidden="true" />
                   {CONFIG.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONFIG.tiktok}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                >
+                  <TikTokIcon className="h-3.5 w-3.5" />
+                  TikTok · {CONFIG.tiktokHandle}
                 </a>
               </li>
               <li>
