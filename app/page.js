@@ -701,7 +701,7 @@ function FinalCTA({ content }) {
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
       </div>
-      <div className="mx-auto max-w-3xl px-6 text-center">
+      <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         <h2 className="font-display-tight text-5xl text-white md:text-7xl">
           {content.ctaTitle}
         </h2>
