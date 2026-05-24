@@ -1,0 +1,13 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="#2563EB"/>
+  <g transform="translate(106 106)">
+    <g fill="#FFFFFF">
+      <path d="M98 2 A96 96 0 0 0 98 194 Z"/>
+      <path d="M102 2 H198 A96 96 0 0 1 102 98 Z"/>
+      <path d="M204 2 H298 V96 Z"/>
+      <path d="M102 106 A96 96 0 0 1 102 298 Z"/>
+      <circle cx="50" cy="250" r="48"/>
+      <circle cx="250" cy="150" r="48"/>
+    </g>
+  </g>
+</svg>

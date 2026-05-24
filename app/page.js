@@ -13,32 +13,17 @@ import {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Logo({ variant = "full", className = "" }) {
-  if (variant === "mark") {
-    return (
-      <svg viewBox="0 0 97 90" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z" fill="currentColor"/>
-        <path d="M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z" fill="currentColor"/>
-        <path d="M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z" fill="currentColor"/>
-        <path d="M96.92 27.69L69.23 0H96.92V27.69Z" fill="currentColor"/>
-        <path d="M27.69 76.16C27.69 68.51 21.49 62.31 13.84 62.31C6.2 62.31 0 68.51 0 76.16C0 83.8 6.2 90 13.84 90C21.49 90 27.69 83.8 27.69 76.16Z" fill="currentColor"/>
-        <path d="M96.92 48.47C96.92 40.82 90.72 34.62 83.08 34.62C75.43 34.62 69.23 40.82 69.23 48.47C69.23 56.11 75.43 62.31 83.08 62.31C90.72 62.31 96.92 56.11 96.92 48.47Z" fill="currentColor"/>
-      </svg>
-    );
-  }
-
-  // Full lockup (mark + SKYFORT text)
+  // SkyFort mark only (per brand). 3x3 grid, cell=100, ~2px gutters. currentColor.
+  const cls = variant === "full" ? `h-7 w-auto text-[#2563EB] ${className}` : className;
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <svg viewBox="0 0 97 90" className="h-7 w-auto text-[#2D73E3]" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z" fill="currentColor"/>
-        <path d="M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z" fill="currentColor"/>
-        <path d="M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z" fill="currentColor"/>
-        <path d="M96.92 27.69L69.23 0H96.92V27.69Z" fill="currentColor"/>
-        <path d="M27.69 76.16C27.69 68.51 21.49 62.31 13.84 62.31C6.2 62.31 0 68.51 0 76.16C0 83.8 6.2 90 13.84 90C21.49 90 27.69 83.8 27.69 76.16Z" fill="currentColor"/>
-        <path d="M96.92 48.47C96.92 40.82 90.72 34.62 83.08 34.62C75.43 34.62 69.23 40.82 69.23 48.47C69.23 56.11 75.43 62.31 83.08 62.31C90.72 62.31 96.92 56.11 96.92 48.47Z" fill="currentColor"/>
-      </svg>
-      <span className="text-lg font-bold tracking-wider text-white">SKYFORT</span>
-    </div>
+    <svg viewBox="0 0 300 300" className={cls} fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SkyFort">
+      <path d="M98 2 A96 96 0 0 0 98 194 Z" fill="currentColor" />
+      <path d="M102 2 H198 A96 96 0 0 1 102 98 Z" fill="currentColor" />
+      <path d="M204 2 H298 V96 Z" fill="currentColor" />
+      <path d="M102 106 A96 96 0 0 1 102 298 Z" fill="currentColor" />
+      <circle cx="50" cy="250" r="48" fill="currentColor" />
+      <circle cx="250" cy="150" r="48" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -277,7 +262,7 @@ function LangSwitcher({ lang, setLang }) {
           onClick={() => setLang(l.code)}
           aria-pressed={lang === l.code}
           className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            lang === l.code ? "bg-[#2D73E3] text-white" : "text-[#a3a3a3] hover:text-white"
+            lang === l.code ? "bg-[#2563EB] text-white" : "text-[#a3a3a3] hover:text-white"
           }`}
         >
           {l.label}
@@ -306,7 +291,7 @@ function Nav({ lang, setLang, content }) {
             href={CONFIG.calendlyUrl}
             target="_blank"
             rel="noopener"
-            className="hidden rounded-full bg-[#2D73E3] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec] sm:inline-flex"
+            className="hidden rounded-full bg-[#2563EB] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4f86ff] sm:inline-flex"
           >
             {content.nav.book}
           </a>
@@ -322,22 +307,22 @@ function Hero({ content }) {
     <section id="top" className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
       {/* Background brand shapes */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[#2D73E3] opacity-[0.08] blur-3xl" />
-        <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[#2D73E3] opacity-[0.06] blur-3xl" />
+        <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
+        <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[#2563EB] opacity-[0.06] blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#191919_70%)]" />
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
         {/* LEFT: text */}
         <div>
-          <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">
+          <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">
             {content.hero.kicker}
           </p>
 
           <h1 className="font-display-tight text-5xl text-white md:text-7xl lg:text-[80px]">
             {content.hero.title}
             <br />
-            <span className="text-[#2D73E3]">{content.hero.titleAccent}.</span>
+            <span className="text-[#2563EB]">{content.hero.titleAccent}.</span>
           </h1>
 
           <p className="mt-6 font-display text-2xl text-[#a3a3a3] md:text-3xl">
@@ -353,14 +338,14 @@ function Hero({ content }) {
               href={CONFIG.calendlyUrl}
               target="_blank"
               rel="noopener"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#2D73E3] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4f86ff]"
             >
               {content.hero.ctaPrimary}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
             </a>
             <a
               href="#guides"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#3a3a3a] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-[#2D73E3] hover:bg-[#222]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#3a3a3a] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-[#2563EB] hover:bg-[#222]"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               {content.hero.ctaSecondary}
@@ -371,7 +356,7 @@ function Hero({ content }) {
         {/* RIGHT: portrait */}
         <div className="order-first lg:order-last">
           <div className="relative mx-auto w-full max-w-[360px] lg:max-w-none">
-            <div className="absolute -inset-4 rounded-[32px] bg-[#2D73E3] opacity-20 blur-3xl" aria-hidden="true" />
+            <div className="absolute -inset-4 rounded-[32px] bg-[#2563EB] opacity-20 blur-3xl" aria-hidden="true" />
             <img
               src="/andrii.jpg"
               alt="Andrii Andriushchenko — Licensed Dealing Representative"
@@ -391,7 +376,7 @@ function Stats({ content }) {
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px bg-[#2a2a2a] md:grid-cols-4">
         {content.stats.map((s, i) => (
           <div key={i} className="bg-[#1f1f1f] p-8 md:p-10">
-            <div className="font-display-tight text-3xl text-[#2D73E3] md:text-5xl">{s.value}</div>
+            <div className="font-display-tight text-3xl text-[#2563EB] md:text-5xl">{s.value}</div>
             <div className="mt-3 text-xs leading-relaxed text-[#a3a3a3] md:text-sm">{s.label}</div>
           </div>
         ))}
@@ -439,12 +424,12 @@ function Guides({ content }) {
                 className="card-glow group relative flex flex-col rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-7"
                 aria-label={`Download ${g.title} PDF`}
               >
-                <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-lg bg-[#2D73E3]/10 text-[#2D73E3]">
+                <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-lg bg-[#2563EB]/10 text-[#2563EB]">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <h3 className="font-display text-xl text-white">{g.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-[#a3a3a3]">{g.desc}</p>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#2D73E3]">
+                <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#2563EB]">
                   PDF
                   <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </div>
@@ -461,13 +446,13 @@ function CalcPromo({ content }) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2D73E3] opacity-[0.07] blur-3xl" />
+        <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-[#2D73E3]/30 bg-gradient-to-br from-[#1f1f1f] to-[#1a2d4a] p-10 md:p-14">
+        <div className="overflow-hidden rounded-3xl border border-[#2563EB]/30 bg-gradient-to-br from-[#1f1f1f] to-[#1a2d4a] p-10 md:p-14">
           <div className="grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
             <div>
-              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">
+              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">
                 <Calculator className="h-3.5 w-3.5" />
                 {content.calcPromo.kicker}
               </p>
@@ -479,7 +464,7 @@ function CalcPromo({ content }) {
               </p>
               <Link
                 href="/calculators/tfsa-growth"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2D73E3] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2563EB] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4f86ff]"
               >
                 {content.calcPromo.cta}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
@@ -488,7 +473,7 @@ function CalcPromo({ content }) {
             <div className="hidden md:block">
               <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
                 <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">$500/міс · 20 років · ETF 8%</p>
-                <p className="mt-3 font-display-tight text-5xl text-[#2D73E3]">$295K</p>
+                <p className="mt-3 font-display-tight text-5xl text-[#2563EB]">$295K</p>
                 <p className="mt-2 text-xs text-[#6b6b6b]">vs $120K у банку</p>
               </div>
             </div>
@@ -534,13 +519,13 @@ function MortgagePromo({ lang }) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2D73E3] opacity-[0.07] blur-3xl" />
+        <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-[#2D73E3]/30 bg-gradient-to-br from-[#1f1f1f] to-[#1a2438] p-10 md:p-14">
+        <div className="overflow-hidden rounded-3xl border border-[#2563EB]/30 bg-gradient-to-br from-[#1f1f1f] to-[#1a2438] p-10 md:p-14">
           <div className="grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
             <div>
-              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">
+              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">
                 <Home className="h-3.5 w-3.5" />
                 {c.kicker}
               </p>
@@ -552,7 +537,7 @@ function MortgagePromo({ lang }) {
               </p>
               <Link
                 href="/calculators/mortgage"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2D73E3] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2563EB] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4f86ff]"
               >
                 {c.cta}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
@@ -561,7 +546,7 @@ function MortgagePromo({ lang }) {
             <div className="hidden md:block">
               <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
                 <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.stat1}</p>
-                <p className="mt-3 font-display-tight text-5xl text-[#2D73E3]">{c.stat2}</p>
+                <p className="mt-3 font-display-tight text-5xl text-[#2563EB]">{c.stat2}</p>
                 <p className="mt-2 text-xs text-green-400">{c.stat3}</p>
               </div>
             </div>
@@ -655,7 +640,7 @@ function Steps({ content }) {
         <ol className="grid gap-12 md:grid-cols-3">
           {content.steps.map((s, i) => (
             <li key={i} className="relative">
-              <div className="mb-6 font-display-tight text-6xl text-[#2D73E3]">{s.n}</div>
+              <div className="mb-6 font-display-tight text-6xl text-[#2563EB]">{s.n}</div>
               <h3 className="font-display text-2xl text-white">{s.title}</h3>
               <p className="mt-4 leading-relaxed text-[#a3a3a3]">{s.desc}</p>
             </li>
@@ -684,7 +669,7 @@ function FAQ({ content }) {
                   className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-[#222]"
                 >
                   <span className="font-bold uppercase tracking-wide text-white">{item.q}</span>
-                  <span className={`mt-1 text-2xl leading-none text-[#2D73E3] transition-transform ${open === i ? "rotate-45" : ""}`} aria-hidden="true">+</span>
+                  <span className={`mt-1 text-2xl leading-none text-[#2563EB] transition-transform ${open === i ? "rotate-45" : ""}`} aria-hidden="true">+</span>
                 </button>
               </dt>
               {open === i && (
@@ -703,7 +688,7 @@ function FinalCTA({ content }) {
     <section className="relative overflow-hidden py-28 md:py-36">
       {/* Background blue shape */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2D73E3] opacity-[0.08] blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
       </div>
       <div className="mx-auto max-w-3xl px-6 text-center">
         <h2 className="font-display-tight text-5xl text-white md:text-7xl">
@@ -714,7 +699,7 @@ function FinalCTA({ content }) {
           href={CONFIG.calendlyUrl}
           target="_blank"
           rel="noopener"
-          className="group mt-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2D73E3] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+          className="group mt-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4f86ff]"
         >
           {content.ctaBtn}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
@@ -737,10 +722,10 @@ function Footer({ content }) {
           <div>
             <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#6b6b6b]">{content.footer.contactTitle}</h3>
             <ul className="space-y-3 text-sm text-[#a3a3a3]">
-              <li><a href={`mailto:${CONFIG.email}`} className="inline-flex items-center gap-2 transition-colors hover:text-[#2D73E3]"><Mail className="h-3.5 w-3.5" aria-hidden="true" />{CONFIG.email}</a></li>
-              <li><a href={`tel:${CONFIG.phone.replace(/\D/g, "")}`} className="inline-flex items-center gap-2 transition-colors hover:text-[#2D73E3]"><Phone className="h-3.5 w-3.5" aria-hidden="true" />{CONFIG.phone}</a></li>
-              <li><a href={CONFIG.instagram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 transition-colors hover:text-[#2D73E3]"><AtSign className="h-3.5 w-3.5" aria-hidden="true" />Instagram</a></li>
-              <li><a href={CONFIG.telegram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 transition-colors hover:text-[#2D73E3]"><Send className="h-3.5 w-3.5" aria-hidden="true" />Telegram</a></li>
+              <li><a href={`mailto:${CONFIG.email}`} className="inline-flex items-center gap-2 transition-colors hover:text-[#2563EB]"><Mail className="h-3.5 w-3.5" aria-hidden="true" />{CONFIG.email}</a></li>
+              <li><a href={`tel:${CONFIG.phone.replace(/\D/g, "")}`} className="inline-flex items-center gap-2 transition-colors hover:text-[#2563EB]"><Phone className="h-3.5 w-3.5" aria-hidden="true" />{CONFIG.phone}</a></li>
+              <li><a href={CONFIG.instagram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 transition-colors hover:text-[#2563EB]"><AtSign className="h-3.5 w-3.5" aria-hidden="true" />Instagram</a></li>
+              <li><a href={CONFIG.telegram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 transition-colors hover:text-[#2563EB]"><Send className="h-3.5 w-3.5" aria-hidden="true" />Telegram</a></li>
             </ul>
           </div>
 
