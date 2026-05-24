@@ -2,15 +2,23 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer, ReferenceLine,
-} from "recharts";
+import dynamic from "next/dynamic";
 import { ArrowRight, Flame, Calculator, TrendingUp, Sparkles, Users } from "lucide-react";
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
-import { SUPPORTED_LOCALES, resolveLocale } from "../../../_i18n/dictionary";
+import LangSwitcher from "../../../_components/LangSwitcher";
+import { resolveLocale } from "../../../_i18n/dictionary";
+
+// Lazy-load recharts (~80KB gzip) — only loads when this chart mounts.
+const FireChart = dynamic(() => import("./chart"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="h-[460px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+      aria-label="Loading chart"
+    />
+  ),
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TRANSLATIONS
@@ -310,38 +318,7 @@ function formatFIDate(yearsFromNow, lang) {
 // LANG SWITCHER
 // ─────────────────────────────────────────────────────────────────────────────
 
-function LangSwitcher({ locale }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const langs = [
-    { code: "uk", label: "УК" },
-    { code: "ru", label: "RU" },
-    { code: "en", label: "EN" },
-  ];
-  const switchTo = (newLocale) => {
-    if (newLocale === locale) return;
-    const segments = pathname.split("/");
-    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
-    else segments.splice(1, 0, newLocale);
-    router.push(segments.join("/") || `/${newLocale}`);
-  };
-  return (
-    <div className="flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1">
-      {langs.map((l) => (
-        <button
-          key={l.code}
-          onClick={() => switchTo(l.code)}
-          aria-pressed={locale === l.code}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            locale === l.code ? "bg-[var(--color-brand)] text-white" : "text-[#a3a3a3] hover:text-white"
-          }`}
-        >
-          {l.label}
-        </button>
-      ))}
-    </div>
-  );
-}
+// LangSwitcher imported from shared _components
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN
@@ -632,58 +609,13 @@ export default function FIRECalculator({ locale: rawLocale }) {
         <section className="pb-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-4 md:p-6">
-              <div className="h-[460px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-                    <XAxis
-                      dataKey="year"
-                      stroke="#6b6b6b"
-                      style={{ fontSize: 12 }}
-                      label={{ value: content.chartLabels.year, position: "insideBottom", offset: -5, fill: "#6b6b6b", fontSize: 12 }}
-                    />
-                    <YAxis
-                      stroke="#6b6b6b"
-                      style={{ fontSize: 12 }}
-                      tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "#1f1f1f",
-                        border: "1px solid #2D73E3",
-                        borderRadius: 8,
-                        color: "#fff",
-                      }}
-                      formatter={(value) => formatMoney(value)}
-                    />
-                    <Legend wrapperStyle={{ fontSize: 12, paddingTop: 16 }} />
-                    <ReferenceLine
-                      y={fiStandard}
-                      stroke="#fff"
-                      strokeDasharray="5 5"
-                      strokeOpacity={0.5}
-                      label={{
-                        value: content.chartLabels.fiThreshold + ` ${formatMoney(fiStandard)}`,
-                        fill: "#fff",
-                        fontSize: 11,
-                        position: "insideTopRight",
-                      }}
-                    />
-                    {STRATEGIES.map((s) => (
-                      <Line
-                        key={s.key}
-                        type="monotone"
-                        dataKey={s.key}
-                        name={content.strategyLabels[s.key]}
-                        stroke={s.color}
-                        strokeWidth={s.strokeWidth}
-                        strokeDasharray={s.dashed ? "5 5" : undefined}
-                        dot={false}
-                      />
-                    ))}
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <FireChart
+                data={chartData}
+                labels={content.chartLabels}
+                strategyLabels={content.strategyLabels}
+                strategies={STRATEGIES}
+                fiStandard={fiStandard}
+              />
             </div>
           </div>
         </section>

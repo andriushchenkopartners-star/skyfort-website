@@ -9,6 +9,7 @@ const ROOT_PASSTHROUGH = [
   "/tfsa-kalkulyator",
   "/ipoteka-kalhari",
   "/exempt-market-ukrayintsyam",
+  "/blog/rss.xml",
   "/api",
   "/_next",
   "/favicon.ico",

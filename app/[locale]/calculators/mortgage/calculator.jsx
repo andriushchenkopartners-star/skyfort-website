@@ -2,18 +2,31 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer, BarChart, Bar,
-} from "recharts";
+import dynamic from "next/dynamic";
 import {
   ArrowRight, Home, Building2, CreditCard,
   Zap, RefreshCw, Star, TrendingUp, DollarSign, AlertTriangle, CheckCircle2,
 } from "lucide-react";
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
-import { SUPPORTED_LOCALES, resolveLocale } from "../../../_i18n/dictionary";
+import LangSwitcher from "../../../_components/LangSwitcher";
+import { resolveLocale } from "../../../_i18n/dictionary";
+
+// Lazy-load recharts (~80KB gzip) — one shared chunk for both chart variants.
+const chartSkeleton = (
+  <div
+    className="h-[280px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+    aria-label="Loading chart"
+  />
+);
+const MortgageBalanceChart = dynamic(
+  () => import("./chart").then((m) => m.MortgageBalanceChart),
+  { ssr: false, loading: () => chartSkeleton }
+);
+const MortgageComparisonChart = dynamic(
+  () => import("./chart").then((m) => m.MortgageComparisonChart),
+  { ssr: false, loading: () => chartSkeleton }
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MATH HELPERS
@@ -111,27 +124,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 // ─────────────────────────────────────────────────────────────────────────────
 // SHARED UI
 // ─────────────────────────────────────────────────────────────────────────────
-function LangSwitcher({ locale }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const switchTo = (newLocale) => {
-    if (newLocale === locale) return;
-    const segments = pathname.split("/");
-    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
-    else segments.splice(1, 0, newLocale);
-    router.push(segments.join("/") || `/${newLocale}`);
-  };
-  return (
-    <div className="flex items-center rounded-full border border-[#2a2a2a] bg-[#222] p-1">
-      {["uk","ru","en"].map(c => (
-        <button key={c} onClick={() => switchTo(c)} aria-pressed={locale===c}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${locale===c?"bg-[var(--color-brand)] text-white":"text-[#a3a3a3] hover:text-white"}`}>
-          {c==="uk"?"УК":c.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-}
+// LangSwitcher imported from shared _components
 
 function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=9999999, note }) {
   return (
@@ -334,17 +327,10 @@ function ModeResidence({ lang }) {
           <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[#6b6b6b]">
             {lang==="en"?"Balance over time":lang==="ru"?"Остаток по годам":"Залишок по роках"}
           </p>
-          <div className="h-[280px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={schedBase} margin={{top:5,right:20,left:10,bottom:5}}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-                <XAxis dataKey="year" stroke="#6b6b6b" style={{fontSize:11}} />
-                <YAxis stroke="#6b6b6b" style={{fontSize:11}} tickFormatter={v=>`$${(v/1000).toFixed(0)}K`} />
-                <Tooltip contentStyle={{backgroundColor:"#1f1f1f",border:"1px solid #2D73E3",borderRadius:8,color:"#fff"}} formatter={v=>C(v)} />
-                <Line type="monotone" dataKey="balance" name={lang==="en"?"Balance":lang==="ru"?"Остаток":"Залишок"} stroke="#2D73E3" strokeWidth={3} dot={false} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          <MortgageBalanceChart
+            data={schedBase}
+            balanceLabel={lang==="en"?"Balance":lang==="ru"?"Остаток":"Залишок"}
+          />
         </div>
       )}
     </div>
@@ -670,21 +656,7 @@ function ModeEarlyPayoff({ lang }) {
         <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[#6b6b6b]">
           {lang==="en"?"Balance comparison":lang==="ru"?"Сравнение остатков":"Порівняння залишків"}
         </p>
-        <div className="h-[280px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData} margin={{top:5,right:20,left:10,bottom:5}}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-              <XAxis dataKey="year" stroke="#6b6b6b" style={{fontSize:11}} />
-              <YAxis stroke="#6b6b6b" style={{fontSize:11}} tickFormatter={v=>`$${(v/1000).toFixed(0)}K`} />
-              <Tooltip contentStyle={{backgroundColor:"#1f1f1f",border:"1px solid #2D73E3",borderRadius:8,color:"#fff"}} formatter={v=>C(v)} />
-              <Legend wrapperStyle={{fontSize:11,paddingTop:12}} />
-              {scenarios.map((s,i) => (
-                <Line key={i} type="monotone" dataKey={`s${i}`} name={s.label} stroke={s.color}
-                  strokeWidth={i===0?2:3} dot={false} connectNulls={false} />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        <MortgageComparisonChart data={chartData} scenarios={scenarios} />
       </div>
     </div>
   );

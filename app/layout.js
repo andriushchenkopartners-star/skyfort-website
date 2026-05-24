@@ -247,6 +247,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://calendly.com" />
         <link rel="dns-prefetch" href="https://calendly.com" />
+        <link rel="alternate" type="application/rss+xml" title="SkyFort Blog" href="/blog/rss.xml" />
         {GA_ID && <link rel="dns-prefetch" href="https://www.googletagmanager.com" />}
         {CLARITY_ID && <link rel="dns-prefetch" href="https://www.clarity.ms" />}
         <script

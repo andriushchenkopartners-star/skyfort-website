@@ -2,49 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
-import { Globe, ArrowRight, ShieldCheck, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import { ArrowRight, ShieldCheck, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
 import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
-import { SUPPORTED_LOCALES, resolveLocale } from "../../_i18n/dictionary";
+import LangSwitcher from "../../_components/LangSwitcher";
+import { resolveLocale } from "../../_i18n/dictionary";
+import { CONFIG } from "../../_i18n/config";
 
-const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
+const CALENDLY = CONFIG.calendlyUrl;
 const NRD_URL =
   "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search|indiv&indivId=4575551";
-
-function LangSwitcher({ locale }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const langs = [
-    { code: "uk", label: "УК" },
-    { code: "ru", label: "RU" },
-    { code: "en", label: "EN" },
-  ];
-  const switchTo = (newLocale) => {
-    if (newLocale === locale) return;
-    const segments = pathname.split("/");
-    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
-    else segments.splice(1, 0, newLocale);
-    router.push(segments.join("/") || `/${newLocale}`);
-  };
-  return (
-    <div className="flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1" role="group" aria-label="Language">
-      <Globe className="ml-2 h-3.5 w-3.5 text-[#6b6b6b]" aria-hidden="true" />
-      {langs.map((l) => (
-        <button
-          key={l.code}
-          onClick={() => switchTo(l.code)}
-          aria-pressed={locale === l.code}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            locale === l.code ? "bg-[var(--color-brand)] text-white" : "text-[#a3a3a3] hover:text-white"
-          }`}
-        >
-          {l.label}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 const t = {
   uk: {

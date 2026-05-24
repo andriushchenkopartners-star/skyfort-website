@@ -12,3 +12,4 @@ export { default as FaqJsonLd } from "./FaqJsonLd";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as WhatsAppButton } from "./WhatsAppButton";
 export { default as TrustBar } from "./TrustBar";
+export { default as LangSwitcher } from "./LangSwitcher";

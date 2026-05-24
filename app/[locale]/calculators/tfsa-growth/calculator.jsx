@@ -2,15 +2,23 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer,
-} from "recharts";
+import dynamic from "next/dynamic";
 import { ArrowRight, TrendingUp, Calculator } from "lucide-react";
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
-import { SUPPORTED_LOCALES, resolveLocale } from "../../../_i18n/dictionary";
+import LangSwitcher from "../../../_components/LangSwitcher";
+import { resolveLocale } from "../../../_i18n/dictionary";
+
+// Lazy-load the chart (recharts is ~80KB gzip) — saves it from the initial bundle.
+const TfsaChart = dynamic(() => import("./chart"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="h-[420px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+      aria-label="Loading chart"
+    />
+  ),
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TRANSLATIONS
@@ -213,38 +221,7 @@ function formatMoney(n) {
 // LANG SWITCHER
 // ─────────────────────────────────────────────────────────────────────────────
 
-function LangSwitcher({ locale }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const langs = [
-    { code: "uk", label: "УК" },
-    { code: "ru", label: "RU" },
-    { code: "en", label: "EN" },
-  ];
-  const switchTo = (newLocale) => {
-    if (newLocale === locale) return;
-    const segments = pathname.split("/");
-    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
-    else segments.splice(1, 0, newLocale);
-    router.push(segments.join("/") || `/${newLocale}`);
-  };
-  return (
-    <div className="flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1">
-      {langs.map((l) => (
-        <button
-          key={l.code}
-          onClick={() => switchTo(l.code)}
-          aria-pressed={locale === l.code}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            locale === l.code ? "bg-[var(--color-brand)] text-white" : "text-[#a3a3a3] hover:text-white"
-          }`}
-        >
-          {l.label}
-        </button>
-      ))}
-    </div>
-  );
-}
+// LangSwitcher imported from shared _components
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN CALCULATOR
@@ -433,39 +410,7 @@ export default function TFSACalculator({ locale: rawLocale }) {
             {content.comparisonTitle}
           </h2>
           <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-4 md:p-6">
-            <div className="h-[420px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-                  <XAxis
-                    dataKey="year"
-                    stroke="#6b6b6b"
-                    style={{ fontSize: 12 }}
-                    label={{ value: content.chartLabels.year, position: "insideBottom", offset: -5, fill: "#6b6b6b", fontSize: 12 }}
-                  />
-                  <YAxis
-                    stroke="#6b6b6b"
-                    style={{ fontSize: 12 }}
-                    tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#1f1f1f",
-                      border: "1px solid #2D73E3",
-                      borderRadius: 8,
-                      color: "#fff",
-                    }}
-                    formatter={(value) => formatMoney(value)}
-                  />
-                  <Legend wrapperStyle={{ fontSize: 12, paddingTop: 16 }} />
-                  <Line type="monotone" dataKey="bank" name={content.chartLabels.bank} stroke="#6b6b6b" strokeWidth={2} dot={false} />
-                  <Line type="monotone" dataKey="gic" name={content.chartLabels.gic} stroke="#a3a3a3" strokeWidth={2} dot={false} />
-                  <Line type="monotone" dataKey="conservative" name={content.chartLabels.conservative} stroke="#7099d6" strokeWidth={2} dot={false} />
-                  <Line type="monotone" dataKey="balanced" name={content.chartLabels.balanced} stroke="#2D73E3" strokeWidth={3} dot={false} />
-                  <Line type="monotone" dataKey="aggressive" name={content.chartLabels.aggressive} stroke="#4287ec" strokeWidth={2} strokeDasharray="5 5" dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+            <TfsaChart data={chartData} labels={content.chartLabels} />
           </div>
         </div>
       </section>
