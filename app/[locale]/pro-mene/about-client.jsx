@@ -1,46 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 import { Globe, ArrowRight, ShieldCheck, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import Logo from "../../_components/Logo";
+import Breadcrumbs from "../../_components/Breadcrumbs";
+import { SUPPORTED_LOCALES, resolveLocale } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 const NRD_URL =
   "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search|indiv&indivId=4575551";
 
-function Logo() {
-  return (
-    <div className="flex items-center gap-3">
-      <svg viewBox="0 0 97 90" className="h-7 w-auto text-[#2D73E3]" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z" fill="currentColor"/>
-        <path d="M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z" fill="currentColor"/>
-        <path d="M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z" fill="currentColor"/>
-        <path d="M96.92 27.69L69.23 0H96.92V27.69Z" fill="currentColor"/>
-        <path d="M27.69 76.16C27.69 68.51 21.49 62.31 13.84 62.31C6.2 62.31 0 68.51 0 76.16C0 83.8 6.2 90 13.84 90C21.49 90 27.69 83.8 27.69 76.16Z" fill="currentColor"/>
-        <path d="M96.92 48.47C96.92 40.82 90.72 34.62 83.08 34.62C75.43 34.62 69.23 40.82 69.23 48.47C69.23 56.11 75.43 62.31 83.08 62.31C90.72 62.31 96.92 56.11 96.92 48.47Z" fill="currentColor"/>
-      </svg>
-      <span className="text-lg font-bold tracking-wider text-white">SKYFORT</span>
-    </div>
-  );
-}
-
-function LangSwitcher({ lang, setLang }) {
+function LangSwitcher({ locale }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const langs = [
     { code: "uk", label: "УК" },
     { code: "ru", label: "RU" },
     { code: "en", label: "EN" },
   ];
+  const switchTo = (newLocale) => {
+    if (newLocale === locale) return;
+    const segments = pathname.split("/");
+    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
+    else segments.splice(1, 0, newLocale);
+    router.push(segments.join("/") || `/${newLocale}`);
+  };
   return (
     <div className="flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1" role="group" aria-label="Language">
       <Globe className="ml-2 h-3.5 w-3.5 text-[#6b6b6b]" aria-hidden="true" />
       {langs.map((l) => (
         <button
           key={l.code}
-          onClick={() => setLang(l.code)}
-          aria-pressed={lang === l.code}
+          onClick={() => switchTo(l.code)}
+          aria-pressed={locale === l.code}
           className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            lang === l.code ? "bg-[#2D73E3] text-white" : "text-[#a3a3a3] hover:text-white"
+            locale === l.code ? "bg-[var(--color-brand)] text-white" : "text-[#a3a3a3] hover:text-white"
           }`}
         >
           {l.label}
@@ -90,6 +86,8 @@ const t = {
     ctaTitle: "Готовий поговорити?",
     ctaDesc: "30 хвилин, безкоштовно. Розберемо твою ситуацію та знайдемо найкращий варіант.",
     cta: "Записатись на консультацію",
+    crumbHome: "Головна",
+    crumbThis: "Про мене",
   },
   ru: {
     kicker: "Обо мне",
@@ -130,6 +128,8 @@ const t = {
     ctaTitle: "Готов поговорить?",
     ctaDesc: "30 минут, бесплатно. Разберём твою ситуацию и найдём лучший вариант.",
     cta: "Записаться на консультацию",
+    crumbHome: "Главная",
+    crumbThis: "Обо мне",
   },
   en: {
     kicker: "About me",
@@ -170,58 +170,54 @@ const t = {
     ctaTitle: "Ready to talk?",
     ctaDesc: "30 minutes, free. We'll review your situation and find the best option.",
     cta: "Book a consultation",
+    crumbHome: "Home",
+    crumbThis: "About",
   },
 };
 
-export default function AboutClient() {
-  const [lang, setLang] = useState("uk");
-
-  useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("skyfort-lang") : null;
-    if (saved && t[saved]) { setLang(saved); return; }
-    if (typeof navigator !== "undefined") {
-      const b = navigator.language || "uk";
-      if (b.startsWith("uk")) setLang("uk");
-      else if (b.startsWith("ru")) setLang("ru");
-      else setLang("en");
-    }
-  }, []);
-
-  const handleSetLang = (l) => {
-    setLang(l);
-    if (typeof window !== "undefined") localStorage.setItem("skyfort-lang", l);
-  };
-
-  const c = t[lang];
+export default function AboutClient({ locale: rawLocale }) {
+  const locale = resolveLocale(rawLocale);
+  const c = t[locale];
 
   return (
-    <div className="min-h-screen bg-[#191919] text-white">
+    <div id="main" className="min-h-screen bg-[#191919] text-white">
       {/* NAV */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/"><Logo /></Link>
-          <LangSwitcher lang={lang} setLang={handleSetLang} />
+          <Link href={`/${locale}`}><Logo variant="full" /></Link>
+          <LangSwitcher locale={locale} />
         </div>
       </nav>
 
+      {/* BREADCRUMBS */}
+      <div className="mx-auto max-w-6xl px-6 pt-28">
+        <Breadcrumbs
+          items={[
+            { label: c.crumbHome, href: `/${locale}` },
+            { label: c.crumbThis },
+          ]}
+        />
+      </div>
+
       {/* HERO */}
-      <section className="mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-40">
+      <section className="mx-auto max-w-6xl px-6 pt-12 pb-16 md:pt-16">
         <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr]">
           <div className="relative mx-auto w-full max-w-sm">
-            <div className="absolute -inset-4 -z-10 rounded-3xl bg-[#2D73E3] opacity-20 blur-3xl" aria-hidden="true" />
+            <div className="absolute -inset-4 -z-10 rounded-3xl bg-[var(--color-brand)] opacity-20 blur-3xl" aria-hidden="true" />
             <Image
               src="/andrii.jpg"
               alt={c.name}
               width={600}
               height={800}
               priority
-              className="w-full rounded-3xl border border-[#2a2a2a] object-cover"
+              sizes="(min-width: 768px) 50vw, 384px"
+              className="h-auto w-full rounded-3xl border border-[#2a2a2a] object-cover"
             />
           </div>
           <div>
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">{c.kicker}</p>
+            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
             <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.name}</h1>
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#2D73E3]/30 bg-[#2D73E3]/10 px-4 py-2 text-sm font-semibold text-[#7eaef5]">
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/10 px-4 py-2 text-sm font-semibold text-[#7eaef5]">
               <ShieldCheck className="h-4 w-4" /> {c.role}
             </p>
             <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
@@ -254,7 +250,7 @@ export default function AboutClient() {
             </div>
             <div>
               <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credNrdLabel}</p>
-              <p className="mt-1 text-base font-bold text-[#2D73E3]">NRD #4575551</p>
+              <p className="mt-1 text-base font-bold text-[var(--color-brand)]">NRD #4575551</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credCourseLabel}</p>
@@ -265,7 +261,7 @@ export default function AboutClient() {
             href={NRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#2D73E3] hover:text-[#4287ec]"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
           >
             <ExternalLink className="h-4 w-4" /> {c.verify}
           </a>
@@ -313,7 +309,7 @@ export default function AboutClient() {
           href={CALENDLY}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mt-10 inline-flex items-center gap-2 rounded-full bg-[#2D73E3] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[#4287ec]"
+          className="group mt-10 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
         >
           {c.cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />

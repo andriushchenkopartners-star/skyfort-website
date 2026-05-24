@@ -102,7 +102,7 @@ function Style() {
     <style
       dangerouslySetInnerHTML={{
         __html: `
-.sf-links{--bg:#101010;--soft:#1b1b1b;--soft2:#222;--line:rgba(255,255,255,.10);--blue:#2f6bff;--blue2:#4f86ff;--ink:#f4f5f7;--mut:#9a9da4;
+.sf-links{--bg:#101010;--soft:#1b1b1b;--soft2:#222;--line:rgba(255,255,255,.10);--blue:var(--color-brand);--blue2:var(--color-brand-hover);--ink:#f4f5f7;--mut:#9a9da4;
   background:radial-gradient(120% 60% at 50% 0%,#1a1f33 0%,var(--bg) 55%);min-height:100dvh;color:var(--ink);
   font-family:inherit;max-width:520px;margin:0 auto;padding:48px 20px 60px;}
 .sf-links .sf-blue{color:var(--blue2);}

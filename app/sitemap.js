@@ -1,20 +1,57 @@
+const BASE = "https://sky-fort.ca";
+const LOCALES = ["uk", "ru", "en"];
+const HREFLANG = { uk: "uk-UA", ru: "ru-RU", en: "en-CA" };
+
+// Pages available under every locale segment.
+const LOCALIZED_PAGES = [
+  { path: "",                            priority: 1.0, changeFrequency: "weekly" },
+  { path: "/tt",                         priority: 0.9, changeFrequency: "weekly" },
+  { path: "/pro-mene",                   priority: 0.8, changeFrequency: "monthly" },
+  { path: "/calculators/tfsa-growth",    priority: 0.8, changeFrequency: "monthly" },
+  { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/calculators/mortgage",       priority: 0.8, changeFrequency: "monthly" },
+  { path: "/links",                      priority: 0.5, changeFrequency: "monthly" },
+];
+
+// Ukrainian-only landing pages (no locale prefix).
+const UA_LANDINGS = [
+  { path: "/tfsa-kalkulyator",          priority: 0.7, changeFrequency: "monthly" },
+  { path: "/exempt-market-ukrayintsyam", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/ipoteka-kalhari",            priority: 0.7, changeFrequency: "monthly" },
+];
+
 export default function sitemap() {
-  const base = "https://sky-fort.ca";
-  const pages = [
-    "",
-    "/pro-mene",
-    "/calculators/tfsa-growth",
-    "/calculators/financial-freedom",
-    "/calculators/mortgage",
-    "/tfsa-kalkulyator",
-    "/exempt-market-ukrayintsyam",
-    "/ipoteka-kalhari",
-    "/links",
-  ];
-  return pages.map((p) => ({
-    url: base + p,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: p === "" ? 1 : 0.8,
-  }));
+  const now = new Date();
+  const entries = [];
+
+  // For each multilingual page, emit one entry per locale with hreflang alternates.
+  for (const page of LOCALIZED_PAGES) {
+    const alternates = {};
+    for (const l of LOCALES) {
+      alternates[HREFLANG[l]] = `${BASE}/${l}${page.path}`;
+    }
+    alternates["x-default"] = `${BASE}/uk${page.path}`;
+
+    for (const l of LOCALES) {
+      entries.push({
+        url: `${BASE}/${l}${page.path}`,
+        lastModified: now,
+        changeFrequency: page.changeFrequency,
+        priority: l === "uk" ? page.priority : page.priority - 0.05,
+        alternates: { languages: alternates },
+      });
+    }
+  }
+
+  // UA-only landings — single entry each, no alternates.
+  for (const page of UA_LANDINGS) {
+    entries.push({
+      url: `${BASE}${page.path}`,
+      lastModified: now,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    });
+  }
+
+  return entries;
 }

@@ -1,34 +1,52 @@
 // app/Nav.jsx
-// Самодостатнє бургер-меню (три рисочки) для всього сайту.
-// Фіксоване у правому верхньому куті. Клік → висувна панель зі сторінками.
-// Кольори/шрифт = бренд SkyFort (charcoal + electric-blue, Manrope через inherit).
+// Fixed burger menu for the whole site. Click → slide-in panel with site links.
+// Reads the current locale from the URL so all multilingual links keep the user
+// in their language. Pages that stay at the root (UA-only landings) are linked
+// without a locale prefix.
 
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Logo from "./_components/Logo";
+import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
 
-const LINKS = [
-  { label: "Головна", href: "/" },
-  { label: "TFSA калькулятор", href: "/tfsa-kalkulyator" },
-  { label: "Exempt market українцям", href: "/exempt-market-ukrayintsyam" },
-  { label: "Іпотека Калгарі", href: "/ipoteka-kalhari" },
-  { label: "Калькулятори", href: "/calculators/tfsa-growth" },
-  { label: "Про мене", href: "/pro-mene" },
-  { label: "Документи", href: "/resources" },
+// Links that live under [locale]. The href is built per-render with the current locale.
+const LOCALIZED_LINKS = [
+  { label: "Головна",       path: "" },
+  { label: "Калькулятори",  path: "/calculators/tfsa-growth" },
+  { label: "Про мене",      path: "/pro-mene" },
+  { label: "Документи",     path: "/resources" },
+];
+
+// Pages that stay at the root (Ukrainian-only landings).
+const ROOT_LINKS = [
+  { label: "TFSA калькулятор",          href: "/tfsa-kalkulyator" },
+  { label: "Exempt market українцям",   href: "/exempt-market-ukrayintsyam" },
+  { label: "Іпотека Калгарі",           href: "/ipoteka-kalhari" },
 ];
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
+const DEFAULT_LOCALE = "uk";
+
+function currentLocaleFrom(pathname) {
+  const first = pathname.split("/")[1];
+  return SUPPORTED_LOCALES.includes(first) ? first : DEFAULT_LOCALE;
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname() || "/";
+  const locale = currentLocaleFrom(pathname);
 
-  // Блокуємо скрол сторінки, коли меню відкрите
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
-  // Esc закриває
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -37,93 +55,86 @@ export default function Nav() {
 
   return (
     <>
-      <Style />
-
-      {/* Бургер-кнопка */}
       <button
-        className={`sf-burger ${open ? "is-open" : ""}`}
+        type="button"
+        className="fixed right-5 top-5 z-[1002] flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"
         aria-label={open ? "Закрити меню" : "Відкрити меню"}
         aria-expanded={open}
+        aria-controls="sf-nav-panel"
         onClick={() => setOpen((v) => !v)}
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ${
+            open ? "translate-y-[7px] rotate-45" : ""
+          }`}
+        />
+        <span
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-opacity duration-200 ${
+            open ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <span
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ${
+            open ? "-translate-y-[7px] -rotate-45" : ""
+          }`}
+        />
       </button>
 
-      {/* Затемнення фону */}
       <div
-        className={`sf-overlay ${open ? "is-open" : ""}`}
+        aria-hidden="true"
         onClick={() => setOpen(false)}
+        className={`fixed inset-0 z-[1000] bg-black/55 transition-opacity duration-200 ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
       />
 
-      {/* Висувна панель */}
-      <nav className={`sf-panel ${open ? "is-open" : ""}`} aria-hidden={!open}>
-        <div className="sf-panel-logo">SKYFORT<span className="sf-blue"> WEALTH</span></div>
-        <ul>
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
+      <nav
+        id="sf-nav-panel"
+        aria-hidden={!open}
+        className={`fixed right-0 top-0 z-[1001] flex h-[100dvh] w-[min(82vw,340px)] flex-col border-l border-white/10 bg-[#161616] px-7 pb-10 pt-[88px] transition-transform duration-300 ease-out ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="mb-7">
+          <Logo variant="full" size="sm" />
+        </div>
+        <ul className="flex-1 list-none p-0 m-0">
+          {LOCALIZED_LINKS.map((l) => {
+            const href = `/${locale}${l.path}` || `/${locale}`;
+            return (
+              <li key={href} className="mb-1">
+                <Link
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-all hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
+          {ROOT_LINKS.map((l) => (
+            <li key={l.href} className="mb-1">
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-all hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
+              >
+                {l.label}
+              </Link>
             </li>
           ))}
         </ul>
         <a
-          className="sf-panel-cta"
           href={CALENDLY}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           onClick={() => setOpen(false)}
+          className="mt-6 block rounded-xl bg-[var(--color-brand)] py-4 text-center text-sm font-bold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
         >
           Безкоштовний дзвінок →
         </a>
       </nav>
     </>
-  );
-}
-
-function Style() {
-  return (
-    <style
-      dangerouslySetInnerHTML={{
-        __html: `
-:root{--nav-blue:#2f6bff;--nav-blue2:#4f86ff;}
-.sf-blue{color:var(--nav-blue2);}
-
-/* Бургер */
-.sf-burger{position:fixed;top:20px;right:20px;z-index:1002;width:48px;height:48px;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
-  background:rgba(20,20,20,.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);
-  border-radius:12px;cursor:pointer;padding:0;transition:border-color .15s ease;}
-.sf-burger:hover{border-color:var(--nav-blue2);}
-.sf-burger span{display:block;width:20px;height:2px;background:#f4f5f7;border-radius:2px;
-  transition:transform .25s ease,opacity .2s ease;}
-.sf-burger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.sf-burger.is-open span:nth-child(2){opacity:0;}
-.sf-burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-/* Затемнення */
-.sf-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);
-  opacity:0;pointer-events:none;transition:opacity .25s ease;}
-.sf-overlay.is-open{opacity:1;pointer-events:auto;}
-
-/* Панель */
-.sf-panel{position:fixed;top:0;right:0;z-index:1001;height:100dvh;width:min(82vw,340px);
-  background:#161616;border-left:1px solid rgba(255,255,255,.08);
-  padding:88px 30px 40px;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;font-family:inherit;}
-.sf-panel.is-open{transform:translateX(0);}
-.sf-panel-logo{font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:15px;
-  color:#a0a3ab;margin-bottom:30px;}
-.sf-panel ul{list-style:none;margin:0;padding:0;flex:1;}
-.sf-panel li{margin-bottom:4px;}
-.sf-panel li a{display:block;text-decoration:none;color:#f4f5f7;font-size:18px;font-weight:600;
-  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .15s ease,padding-left .15s ease;}
-.sf-panel li a:hover{color:var(--nav-blue2);padding-left:6px;}
-.sf-panel-cta{display:block;text-align:center;text-decoration:none;background:var(--nav-blue);color:#fff;
-  font-weight:700;font-size:15px;padding:15px;border-radius:12px;margin-top:24px;transition:background .15s ease;}
-.sf-panel-cta:hover{background:var(--nav-blue2);}
-`,
-      }}
-    />
   );
 }

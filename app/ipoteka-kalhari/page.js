@@ -194,7 +194,7 @@ function Style() {
     <style
       dangerouslySetInnerHTML={{
         __html: `
-.sf-lp{--bg:#131313;--soft:#1b1b1b;--line:rgba(255,255,255,.08);--blue:#2f6bff;--blue2:#4f86ff;--ink:#f4f5f7;--mut:#a0a3ab;
+.sf-lp{--bg:#131313;--soft:#1b1b1b;--line:rgba(255,255,255,.08);--blue:var(--color-brand);--blue2:var(--color-brand-hover);--ink:#f4f5f7;--mut:#a0a3ab;
   background:var(--bg);color:var(--ink);font-family:inherit;line-height:1.55;}
 .sf-lp .sf-blue{color:var(--blue2);}
 .sf-lp section{max-width:980px;margin:0 auto;padding:0 22px;}

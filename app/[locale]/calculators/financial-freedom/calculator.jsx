@@ -1,32 +1,16 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from "recharts";
-import { ArrowLeft, ArrowRight, Flame, Calculator, TrendingUp, Sparkles, Users } from "lucide-react";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// LOGO
-// ─────────────────────────────────────────────────────────────────────────────
-
-function Logo() {
-  return (
-    <div className="flex items-center gap-3">
-      <svg viewBox="0 0 97 90" className="h-7 w-auto text-[#2D73E3]" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z" fill="currentColor"/>
-        <path d="M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z" fill="currentColor"/>
-        <path d="M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z" fill="currentColor"/>
-        <path d="M96.92 27.69L69.23 0H96.92V27.69Z" fill="currentColor"/>
-        <path d="M27.69 76.16C27.69 68.51 21.49 62.31 13.84 62.31C6.2 62.31 0 68.51 0 76.16C0 83.8 6.2 90 13.84 90C21.49 90 27.69 83.8 27.69 76.16Z" fill="currentColor"/>
-        <path d="M96.92 48.47C96.92 40.82 90.72 34.62 83.08 34.62C75.43 34.62 69.23 40.82 69.23 48.47C69.23 56.11 75.43 62.31 83.08 62.31C90.72 62.31 96.92 56.11 96.92 48.47Z" fill="currentColor"/>
-      </svg>
-      <span className="text-lg font-bold tracking-wider text-white">SKYFORT</span>
-    </div>
-  );
-}
+import { ArrowRight, Flame, Calculator, TrendingUp, Sparkles, Users } from "lucide-react";
+import Logo from "../../../_components/Logo";
+import Breadcrumbs from "../../../_components/Breadcrumbs";
+import { SUPPORTED_LOCALES, resolveLocale } from "../../../_i18n/dictionary";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TRANSLATIONS
@@ -326,20 +310,30 @@ function formatFIDate(yearsFromNow, lang) {
 // LANG SWITCHER
 // ─────────────────────────────────────────────────────────────────────────────
 
-function LangSwitcher({ lang, setLang }) {
+function LangSwitcher({ locale }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const langs = [
     { code: "uk", label: "УК" },
     { code: "ru", label: "RU" },
     { code: "en", label: "EN" },
   ];
+  const switchTo = (newLocale) => {
+    if (newLocale === locale) return;
+    const segments = pathname.split("/");
+    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
+    else segments.splice(1, 0, newLocale);
+    router.push(segments.join("/") || `/${newLocale}`);
+  };
   return (
     <div className="flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1">
       {langs.map((l) => (
         <button
           key={l.code}
-          onClick={() => setLang(l.code)}
+          onClick={() => switchTo(l.code)}
+          aria-pressed={locale === l.code}
           className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
-            lang === l.code ? "bg-[#2D73E3] text-white" : "text-[#a3a3a3] hover:text-white"
+            locale === l.code ? "bg-[var(--color-brand)] text-white" : "text-[#a3a3a3] hover:text-white"
           }`}
         >
           {l.label}
@@ -353,24 +347,15 @@ function LangSwitcher({ lang, setLang }) {
 // MAIN
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function FIRECalculator() {
-  const [lang, setLang] = useState("uk");
+export default function FIRECalculator({ locale: rawLocale }) {
+  const locale = resolveLocale(rawLocale);
+  const lang = locale;
   const [age, setAge] = useState(32);
   const [income, setIncome] = useState(7000);
   const [expenses, setExpenses] = useState(4500);
   const [savings, setSavings] = useState(15000);
 
-  useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("skyfort-lang") : null;
-    if (saved && t[saved]) setLang(saved);
-  }, []);
-
-  const handleSetLang = (newLang) => {
-    setLang(newLang);
-    if (typeof window !== "undefined") localStorage.setItem("skyfort-lang", newLang);
-  };
-
-  const content = t[lang];
+  const content = t[locale];
 
   // Derived
   const monthlySavings = Math.max(0, income - expenses);
@@ -419,29 +404,28 @@ export default function FIRECalculator() {
       {/* NAV */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" aria-label="SkyFort home">
-            <Logo />
+          <Link href={`/${locale}`} aria-label="SkyFort home">
+            <Logo variant="full" />
           </Link>
-          <LangSwitcher lang={lang} setLang={handleSetLang} />
+          <LangSwitcher locale={locale} />
         </div>
       </nav>
 
-      {/* BACK */}
+      {/* BREADCRUMBS */}
       <div className="mx-auto max-w-6xl px-6 pt-28">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors hover:text-[#2D73E3]"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {content.backToHome}
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: content.backToHome, href: `/${locale}` },
+            { label: "Фінансова свобода" },
+          ]}
+        />
       </div>
 
       {/* HEADER */}
       <section className="relative overflow-hidden pt-12 pb-16">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-[#FFB627] opacity-[0.06] blur-3xl" />
-          <div className="absolute -left-20 top-40 h-[400px] w-[400px] rounded-full bg-[#2D73E3] opacity-[0.06] blur-3xl" />
+          <div className="absolute -left-20 top-40 h-[400px] w-[400px] rounded-full bg-[var(--color-brand)] opacity-[0.06] blur-3xl" />
         </div>
         <div className="mx-auto max-w-6xl px-6">
           <p className="mb-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFB627]">
@@ -477,7 +461,7 @@ export default function FIRECalculator() {
                     <button
                       key={key}
                       onClick={() => applyPreset(key)}
-                      className="flex items-center gap-3 rounded-lg border border-[#3a3a3a] px-4 py-2.5 text-left text-sm transition-all hover:border-[#2D73E3] hover:bg-[#2D73E3]/5"
+                      className="flex items-center gap-3 rounded-lg border border-[#3a3a3a] px-4 py-2.5 text-left text-sm transition-all hover:border-[var(--color-brand)] hover:bg-[var(--color-brand)]/5"
                     >
                       <span className="text-lg">{icon}</span>
                       <span className="font-bold text-[#a3a3a3]">{content.presets[key]}</span>
@@ -507,7 +491,7 @@ export default function FIRECalculator() {
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{content.savingsRate}</p>
-                      <p className="mt-1 font-display text-lg text-[#2D73E3]">{savingsRate}%</p>
+                      <p className="mt-1 font-display text-lg text-[var(--color-brand)]">{savingsRate}%</p>
                     </div>
                   </div>
                 )}
@@ -527,10 +511,10 @@ export default function FIRECalculator() {
                   <p className="mt-3 text-xs leading-relaxed text-[#6b6b6b]">{content.fiSafeDesc}</p>
                 </div>
                 {/* Standard */}
-                <div className="relative overflow-hidden rounded-2xl border border-[#2D73E3]/40 bg-gradient-to-br from-[#1f1f1f] to-[#222] p-6">
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#2D73E3] opacity-10 blur-3xl" />
-                  <p className="text-xs uppercase tracking-wider text-[#2D73E3]">{content.fiStandard}</p>
-                  <p className="mt-3 font-display-tight text-3xl text-[#2D73E3] md:text-4xl">{formatMoney(fiStandard)}</p>
+                <div className="relative overflow-hidden rounded-2xl border border-[var(--color-brand)]/40 bg-gradient-to-br from-[#1f1f1f] to-[#222] p-6">
+                  <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[var(--color-brand)] opacity-10 blur-3xl" />
+                  <p className="text-xs uppercase tracking-wider text-[var(--color-brand)]">{content.fiStandard}</p>
+                  <p className="mt-3 font-display-tight text-3xl text-[var(--color-brand)] md:text-4xl">{formatMoney(fiStandard)}</p>
                   <p className="mt-3 text-xs leading-relaxed text-[#6b6b6b]">{content.fiStandardDesc}</p>
                 </div>
               </div>
@@ -599,7 +583,7 @@ export default function FIRECalculator() {
                       <tr
                         key={s.key}
                         className={`border-t border-[#2a2a2a] ${
-                          isExempt ? "bg-[#FFB627]/5" : isBalanced ? "bg-[#2D73E3]/5" : ""
+                          isExempt ? "bg-[#FFB627]/5" : isBalanced ? "bg-[var(--color-brand)]/5" : ""
                         }`}
                       >
                         <td className="px-5 py-4">
@@ -761,7 +745,7 @@ function NumberInput({ label, value, onChange, prefix, suffix, step = 1, min = 0
       <div className="flex items-center gap-2">
         <button
           onClick={decrement}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[#2D73E3] hover:text-white"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[var(--color-brand)] hover:text-white"
           aria-label="Decrease"
         >
           −
@@ -777,7 +761,7 @@ function NumberInput({ label, value, onChange, prefix, suffix, step = 1, min = 0
             inputMode="numeric"
             value={value}
             onChange={handleChange}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors focus:border-[#2D73E3] ${
+            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors focus:border-[var(--color-brand)] ${
               prefix ? "pl-8" : ""
             } ${suffix ? "pr-8" : ""}`}
           />
@@ -789,7 +773,7 @@ function NumberInput({ label, value, onChange, prefix, suffix, step = 1, min = 0
         </div>
         <button
           onClick={increment}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[#2D73E3] hover:text-white"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[var(--color-brand)] hover:text-white"
           aria-label="Increase"
         >
           +

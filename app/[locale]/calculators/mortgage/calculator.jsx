@@ -1,34 +1,19 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, BarChart, Bar,
 } from "recharts";
 import {
-  ArrowLeft, ArrowRight, Home, Building2, CreditCard,
+  ArrowRight, Home, Building2, CreditCard,
   Zap, RefreshCw, Star, TrendingUp, DollarSign, AlertTriangle, CheckCircle2,
 } from "lucide-react";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// LOGO
-// ─────────────────────────────────────────────────────────────────────────────
-function Logo() {
-  return (
-    <div className="flex items-center gap-3">
-      <svg viewBox="0 0 97 90" className="h-7 w-auto text-[#2D73E3]" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z" fill="currentColor"/>
-        <path d="M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z" fill="currentColor"/>
-        <path d="M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z" fill="currentColor"/>
-        <path d="M96.92 27.69L69.23 0H96.92V27.69Z" fill="currentColor"/>
-        <path d="M27.69 76.16C27.69 68.51 21.49 62.31 13.84 62.31C6.2 62.31 0 68.51 0 76.16C0 83.8 6.2 90 13.84 90C21.49 90 27.69 83.8 27.69 76.16Z" fill="currentColor"/>
-        <path d="M96.92 48.47C96.92 40.82 90.72 34.62 83.08 34.62C75.43 34.62 69.23 40.82 69.23 48.47C69.23 56.11 75.43 62.31 83.08 62.31C90.72 62.31 96.92 56.11 96.92 48.47Z" fill="currentColor"/>
-      </svg>
-      <span className="text-lg font-bold tracking-wider text-white">SKYFORT</span>
-    </div>
-  );
-}
+import Logo from "../../../_components/Logo";
+import Breadcrumbs from "../../../_components/Breadcrumbs";
+import { SUPPORTED_LOCALES, resolveLocale } from "../../../_i18n/dictionary";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MATH HELPERS
@@ -126,12 +111,21 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 // ─────────────────────────────────────────────────────────────────────────────
 // SHARED UI
 // ─────────────────────────────────────────────────────────────────────────────
-function LangSwitcher({ lang, setLang }) {
+function LangSwitcher({ locale }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const switchTo = (newLocale) => {
+    if (newLocale === locale) return;
+    const segments = pathname.split("/");
+    if (SUPPORTED_LOCALES.includes(segments[1])) segments[1] = newLocale;
+    else segments.splice(1, 0, newLocale);
+    router.push(segments.join("/") || `/${newLocale}`);
+  };
   return (
     <div className="flex items-center rounded-full border border-[#2a2a2a] bg-[#222] p-1">
       {["uk","ru","en"].map(c => (
-        <button key={c} onClick={() => setLang(c)}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${lang===c?"bg-[#2D73E3] text-white":"text-[#a3a3a3] hover:text-white"}`}>
+        <button key={c} onClick={() => switchTo(c)} aria-pressed={locale===c}
+          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${locale===c?"bg-[var(--color-brand)] text-white":"text-[#a3a3a3] hover:text-white"}`}>
           {c==="uk"?"УК":c.toUpperCase()}
         </button>
       ))}
@@ -148,16 +142,16 @@ function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=999
       </label>
       <div className="flex items-center gap-2">
         <button onClick={() => onChange(Math.max(min, parseFloat((value-step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[#2D73E3] hover:text-white transition-all">−</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white transition-all">−</button>
         <div className="relative flex-1">
           {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{prefix}</span>}
           <input type="text" inputMode="decimal" value={value}
             onChange={e => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[#2D73E3] transition-colors ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
+            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
           {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{suffix}</span>}
         </div>
         <button onClick={() => onChange(Math.min(max, parseFloat((value+step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[#2D73E3] hover:text-white transition-all">+</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white transition-all">+</button>
       </div>
     </div>
   );
@@ -166,13 +160,13 @@ function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=999
 function Card({ label, value, sub, color = "neutral" }) {
   const cls = {
     neutral: "border-[#2a2a2a] bg-[#1f1f1f]",
-    blue: "border-[#2D73E3]/40 bg-[#2D73E3]/5",
+    blue: "border-[var(--color-brand)]/40 bg-[var(--color-brand)]/5",
     gold: "border-[#FFB627]/40 bg-[#FFB627]/5",
     red: "border-red-500/40 bg-red-500/5",
     green: "border-green-500/40 bg-green-500/5",
   }[color];
-  const valCls = { neutral:"text-white", blue:"text-[#2D73E3]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
-  const lblCls = { neutral:"text-[#6b6b6b]", blue:"text-[#2D73E3]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
+  const valCls = { neutral:"text-white", blue:"text-[var(--color-brand)]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
+  const lblCls = { neutral:"text-[#6b6b6b]", blue:"text-[var(--color-brand)]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <p className={`text-xs uppercase tracking-wider ${lblCls}`}>{label}</p>
@@ -187,7 +181,7 @@ function SelectGroup({ options, value, onChange }) {
     <div className="flex flex-wrap gap-2">
       {options.map(o => (
         <button key={o.value} onClick={() => onChange(o.value)}
-          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${value===o.value?"border-[#2D73E3] bg-[#2D73E3] text-white":"border-[#3a3a3a] text-[#a3a3a3] hover:border-[#2D73E3] hover:text-white"}`}>
+          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${value===o.value?"border-[var(--color-brand)] bg-[var(--color-brand)] text-white":"border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"}`}>
           {o.label}
         </button>
       ))}
@@ -292,8 +286,8 @@ function ModeResidence({ lang }) {
             sub={`${lang==="en"?"Total cost":lang==="ru"?"Полная стоимость":"Повна вартість"}: ${C(insuredPrincipal + totalInterest)}`} />
 
           {/* Stress test box */}
-          <div className="rounded-xl border border-[#2D73E3]/30 bg-[#2D73E3]/5 p-5">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#2D73E3]">{ins.title}</p>
+          <div className="rounded-xl border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5 p-5">
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">{ins.title}</p>
             <div className="mt-3 grid grid-cols-2 gap-3">
               <div>
                 <p className="text-xs text-[#6b6b6b]">{ins.stressRate}</p>
@@ -301,7 +295,7 @@ function ModeResidence({ lang }) {
               </div>
               <div>
                 <p className="text-xs text-[#6b6b6b]">{ins.income}</p>
-                <p className="text-xl font-bold text-[#2D73E3]">{C(reqIncome)}</p>
+                <p className="text-xl font-bold text-[var(--color-brand)]">{C(reqIncome)}</p>
               </div>
             </div>
             <p className="mt-3 text-xs text-[#6b6b6b]">
@@ -628,7 +622,7 @@ function ModeEarlyPayoff({ lang }) {
           <NInput label={lbl.rate} value={rate} onChange={setRate} suffix="%" step={0.05} min={0.5} max={20} />
           <NInput label={lbl.years} value={remainingYears} onChange={setRemainingYears} step={1} min={1} max={30} />
           <div className="border-t border-[#2a2a2a] pt-4">
-            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#2D73E3]">
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
               {lang==="en"?"Scenarios":lang==="ru"?"Сценарии":"Сценарії"}
             </p>
             <NInput label={lbl.extra} value={extra} onChange={setExtra} prefix="$" step={100} min={0} />
@@ -640,7 +634,7 @@ function ModeEarlyPayoff({ lang }) {
 
         <div className="space-y-3">
           {scenarios.map((s, i) => (
-            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[#2a2a2a] bg-[#1f1f1f]":"border-[#2a2a2a] bg-[#1f1f1f] hover:border-[#2D73E3]/30 transition-colors"}`}>
+            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[#2a2a2a] bg-[#1f1f1f]":"border-[#2a2a2a] bg-[#1f1f1f] hover:border-[var(--color-brand)]/30 transition-colors"}`}>
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-3 w-3 rounded-full flex-shrink-0" style={{backgroundColor:s.color}} />
                 <span className="font-bold text-white text-sm">{s.label}</span>
@@ -737,7 +731,7 @@ function ModeLenderSwitch({ lang }) {
           <NInput label={lbl.curRate} value={currentRate} onChange={setCurrentRate} suffix="%" step={0.05} min={0.5} max={20} />
           <NInput label={lbl.months} value={remainingMonths} onChange={setRemainingMonths} step={1} min={1} max={60} />
           <div className="border-t border-[#2a2a2a] pt-4">
-            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#2D73E3]">
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
               {lang==="en"?"New offer":lang==="ru"?"Новое предложение":"Нова пропозиція"}
             </p>
             <NInput label={lbl.newRate} value={newRate} onChange={setNewRate} suffix="%" step={0.05} min={0.5} max={20} />
@@ -914,10 +908,10 @@ function ModeAffordability({ lang }) {
             {rateTable.map(row => {
               const isCurrent = Math.abs(row.rate - rate) < 0.01;
               return (
-                <tr key={row.rate} className={`border-t border-[#1f1f1f] ${isCurrent?"bg-[#2D73E3]/5":""}`}>
+                <tr key={row.rate} className={`border-t border-[#1f1f1f] ${isCurrent?"bg-[var(--color-brand)]/5":""}`}>
                   <td className="px-5 py-3">
-                    <span className={`font-bold ${isCurrent?"text-[#2D73E3]":"text-white"}`}>{P(row.rate)}</span>
-                    {isCurrent && <span className="ml-2 text-[9px] font-bold uppercase text-[#2D73E3]">
+                    <span className={`font-bold ${isCurrent?"text-[var(--color-brand)]":"text-white"}`}>{P(row.rate)}</span>
+                    {isCurrent && <span className="ml-2 text-[9px] font-bold uppercase text-[var(--color-brand)]">
                       {lang==="en"?"current":lang==="ru"?"текущая":"поточна"}
                     </span>}
                   </td>
@@ -946,21 +940,12 @@ const MODES = [
   { icon: Star, component: ModeAffordability },
 ];
 
-export default function MortgageCalculator() {
-  const [lang, setLang] = useState("uk");
+export default function MortgageCalculator({ locale: rawLocale }) {
+  const locale = resolveLocale(rawLocale);
+  const lang = locale;
   const [activeMode, setActiveMode] = useState(0);
 
-  useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("skyfort-lang") : null;
-    if (saved && T[saved]) setLang(saved);
-  }, []);
-
-  const handleSetLang = (l) => {
-    setLang(l);
-    if (typeof window !== "undefined") localStorage.setItem("skyfort-lang", l);
-  };
-
-  const t = T[lang];
+  const t = T[locale];
   const ActiveComponent = MODES[activeMode].component;
 
   return (
@@ -968,27 +953,29 @@ export default function MortgageCalculator() {
       {/* NAV */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" aria-label="SkyFort home"><Logo /></Link>
-          <LangSwitcher lang={lang} setLang={handleSetLang} />
+          <Link href={`/${locale}`} aria-label="SkyFort home"><Logo variant="full" /></Link>
+          <LangSwitcher locale={locale} />
         </div>
       </nav>
 
-      {/* BACK */}
+      {/* BREADCRUMBS */}
       <div className="mx-auto max-w-6xl px-6 pt-28">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#a3a3a3] hover:text-[#2D73E3] transition-colors">
-          <ArrowLeft className="h-4 w-4" />
-          {t.back}
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: t.back, href: `/${locale}` },
+            { label: "Іпотека Канада" },
+          ]}
+        />
       </div>
 
       {/* HEADER */}
       <section className="relative overflow-hidden pt-12 pb-10">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-[#2D73E3] opacity-[0.07] blur-3xl" />
+          <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-[var(--color-brand)] opacity-[0.07] blur-3xl" />
           <div className="absolute -left-20 top-20 h-[300px] w-[300px] rounded-full bg-[#FFB627] opacity-[0.05] blur-3xl" />
         </div>
         <div className="mx-auto max-w-6xl px-6">
-          <p className="mb-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D73E3]">
+          <p className="mb-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
             <Home className="h-3.5 w-3.5" />
             {t.kicker}
           </p>
@@ -1007,7 +994,7 @@ export default function MortgageCalculator() {
                 onClick={() => setActiveMode(i)}
                 className={`flex-shrink-0 px-4 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
                   activeMode === i
-                    ? "border-[#2D73E3] text-white"
+                    ? "border-[var(--color-brand)] text-white"
                     : "border-transparent text-[#6b6b6b] hover:text-[#a3a3a3]"
                 }`}
               >
@@ -1028,7 +1015,7 @@ export default function MortgageCalculator() {
       {/* CTA */}
       <section className="relative overflow-hidden border-t border-[#2a2a2a] py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2D73E3] opacity-[0.07] blur-3xl" />
+          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-brand)] opacity-[0.07] blur-3xl" />
         </div>
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-display-tight text-4xl text-white md:text-5xl">
@@ -1038,7 +1025,7 @@ export default function MortgageCalculator() {
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-[#a3a3a3]">{t.ctaSub}</p>
           <a href={CALENDLY} target="_blank" rel="noopener"
-            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#2D73E3] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-[#4287ec] transition-all">
+            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-[var(--color-brand-hover)] transition-all">
             {t.cta}
             <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
           </a>

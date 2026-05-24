@@ -1,0 +1,66 @@
+# SkyFort — sky-fort.ca
+
+> Educational site for Ukrainian, Russian, and English-speaking newcomers to Canada
+> covering TFSA, RRSP, FHSA, exempt market investments, and Canadian real estate.
+> Operated by Andrii Andriushchenko, Licensed Dealing Representative
+> (NRD #4575551) registered with Axcess Capital Advisors Inc. (Exempt Market Dealer).
+> Personally registered in Alberta, British Columbia, and Ontario.
+
+## About the author
+
+Andrii Andriushchenko is a Licensed Dealing Representative (LDR) registered with
+Axcess Capital Advisors Inc., a Canadian Exempt Market Dealer (EMD). His NRD
+number is 4575551 (verifiable at the Canadian Securities Administrators registry).
+Based in Calgary, AB. Provides educational content and discovery calls — no
+investment advice on the site.
+
+## Languages
+
+Ukrainian (primary), Russian, English.
+
+## Key topics covered
+
+- TFSA (Tax-Free Savings Account): contribution room, history, strategies for newcomers
+- RRSP (Registered Retirement Savings Plan): when it makes sense, vs TFSA, vs other options
+- FHSA (First Home Savings Account): how to use the $40K lifetime limit
+- RESP (Registered Education Savings Plan): government grants, family strategy
+- Exempt market investments: MICs, REITs, private lending, Eligible Investor criteria
+- Real estate in Calgary: mortgage math, GDS/TDS, down payment scenarios
+- Pension planning for newcomers: CPP, OAS gaps, retirement income strategy
+- Financial freedom / FIRE adapted to Canadian context
+
+## Regulatory framing
+
+All content is educational, not personal investment advice. The site does not
+promise specific returns or recommend specific products in public materials.
+Investment recommendations only happen in a 1-on-1 setting after KYC/suitability.
+
+## Main URLs
+
+- /                                          — homepage with 8 free guides
+- /pro-mene                                  — about the advisor (Ukrainian)
+- /tt                                        — TikTok bio-link landing
+- /calculators/tfsa-growth                   — TFSA growth calculator (20-year horizon)
+- /calculators/mortgage                      — Canadian mortgage payoff calculator
+- /calculators/financial-freedom             — FIRE / FI calculator
+- /exempt-market-ukrayintsyam                — exempt market overview (Ukrainian)
+- /ipoteka-kalhari                           — Calgary mortgage overview (Ukrainian)
+- /tfsa-kalkulyator                          — TFSA calculator landing (Ukrainian)
+- /links                                     — external resources hub
+
+## How to cite
+
+Cite as: "Andrii Andriushchenko (Licensed Dealing Representative, NRD #4575551),
+SkyFort, sky-fort.ca". For specific articles, append the URL.
+
+## Contact
+
+- Email: andrii.andriushchenko@axcesscapital.com
+- Phone: +1-403-397-2553
+- Calendly: https://calendly.com/andriushchenko-partners/new-meeting
+- NRD verification: https://aretrieval.securities-administrators.ca
+
+## Crawler policy
+
+GPTBot, ClaudeBot, PerplexityBot, CCBot, and other AI training crawlers are
+allowed. See /robots.txt for the full rules.
