@@ -1,3 +1,5 @@
+import { getAllPosts } from "./_lib/blog";
+
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
 const HREFLANG = { uk: "uk-UA", ru: "ru-RU", en: "en-CA" };
@@ -6,6 +8,7 @@ const HREFLANG = { uk: "uk-UA", ru: "ru-RU", en: "en-CA" };
 const LOCALIZED_PAGES = [
   { path: "",                            priority: 1.0, changeFrequency: "weekly" },
   { path: "/tt",                         priority: 0.9, changeFrequency: "weekly" },
+  { path: "/blog",                       priority: 0.9, changeFrequency: "weekly" },
   { path: "/pro-mene",                   priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/tfsa-growth",    priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
@@ -51,6 +54,27 @@ export default function sitemap() {
       changeFrequency: page.changeFrequency,
       priority: page.priority,
     });
+  }
+
+  // Blog posts — one entry per locale that has the slug.
+  for (const locale of LOCALES) {
+    const posts = getAllPosts(locale);
+    for (const post of posts) {
+      const slug = post.slug;
+      // hreflang alternates: only locales that actually have this slug
+      const alternates = {};
+      for (const l of LOCALES) {
+        const has = getAllPosts(l).some((p) => p.slug === slug);
+        if (has) alternates[HREFLANG[l]] = `${BASE}/${l}/blog/${slug}`;
+      }
+      entries.push({
+        url: `${BASE}/${locale}/blog/${slug}`,
+        lastModified: post.date ? new Date(post.date) : now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+        ...(Object.keys(alternates).length > 1 ? { alternates: { languages: alternates } } : {}),
+      });
+    }
   }
 
   return entries;

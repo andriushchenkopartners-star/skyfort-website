@@ -15,6 +15,7 @@ import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
 // Links that live under [locale]. The href is built per-render with the current locale.
 const LOCALIZED_LINKS = [
   { label: "Головна",       path: "" },
+  { label: "Блог",          path: "/blog" },
   { label: "Калькулятори",  path: "/calculators/tfsa-growth" },
   { label: "Про мене",      path: "/pro-mene" },
   { label: "Документи",     path: "/resources" },
