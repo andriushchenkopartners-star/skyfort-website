@@ -309,7 +309,7 @@ function Hero({ content }) {
       <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
         <img src="/calgary-hero.webp" alt="" className="h-full w-full object-cover opacity-100" />
         <div className="absolute inset-0 bg-[#191919]/68" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-[#191919]/40 to-[#191919]/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#191919]/80 via-transparent to-transparent" />
       </div>
       {/* Background brand shapes */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
