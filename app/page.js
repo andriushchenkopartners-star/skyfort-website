@@ -306,19 +306,19 @@ function Hero({ content }) {
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
       {/* Calgary photo background (darkened for white text) */}
-      <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <img src="/calgary-hero.webp" alt="" className="h-full w-full object-cover opacity-100" />
         <div className="absolute inset-0 bg-[#191919]/68" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#191919]/80 via-transparent to-transparent" />
       </div>
       {/* Background brand shapes */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
         <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[#2563EB] opacity-[0.06] blur-3xl" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/60 to-transparent" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
         {/* LEFT: text */}
         <div>
           <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[#2563EB]">
@@ -451,7 +451,7 @@ function Guides({ content }) {
 function CalcPromo({ content }) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
@@ -524,7 +524,7 @@ function MortgagePromo({ lang }) {
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -left-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
@@ -597,7 +597,7 @@ function FireCalcPromo({ lang }) {
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -right-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#FFB627] opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
@@ -693,12 +693,12 @@ function FinalCTA({ content }) {
   return (
     <section className="relative overflow-hidden py-28 md:py-36">
       {/* Freedom photo background (darkened) */}
-      <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <img src="/freedom-cta.webp" alt="" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[#191919]/85" />
       </div>
       {/* Background blue shape */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
       </div>
       <div className="mx-auto max-w-3xl px-6 text-center">
