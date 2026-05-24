@@ -305,6 +305,12 @@ function Nav({ lang, setLang, content }) {
 function Hero({ content }) {
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
+      {/* Calgary photo background (darkened for white text) */}
+      <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
+        <img src="/calgary-hero.webp" alt="" className="h-full w-full object-cover opacity-100" />
+        <div className="absolute inset-0 bg-[#191919]/82" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-[#191919]/40 to-[#191919]/70" />
+      </div>
       {/* Background brand shapes */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
@@ -686,6 +692,11 @@ function FAQ({ content }) {
 function FinalCTA({ content }) {
   return (
     <section className="relative overflow-hidden py-28 md:py-36">
+      {/* Freedom photo background (darkened) */}
+      <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
+        <img src="/freedom-cta.webp" alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-[#191919]/85" />
+      </div>
       {/* Background blue shape */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
