@@ -308,14 +308,14 @@ function Hero({ content }) {
       {/* Calgary photo background (darkened for white text) */}
       <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden="true">
         <img src="/calgary-hero.webp" alt="" className="h-full w-full object-cover opacity-100" />
-        <div className="absolute inset-0 bg-[#191919]/82" />
+        <div className="absolute inset-0 bg-[#191919]/68" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-[#191919]/40 to-[#191919]/70" />
       </div>
       {/* Background brand shapes */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[#2563EB] opacity-[0.08] blur-3xl" />
         <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[#2563EB] opacity-[0.06] blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#191919_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/60 to-transparent" />
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
