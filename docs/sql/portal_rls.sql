@@ -24,11 +24,15 @@ drop policy if exists "clients_own_select" on portal_clients;
 create policy "clients_own_select" on portal_clients
   for select using (auth.uid() = user_id);
 
+drop policy if exists "clients_own_insert" on portal_clients;
+create policy "clients_own_insert" on portal_clients
+  for insert with check (auth.uid() = user_id);
+
 drop policy if exists "clients_own_update" on portal_clients;
 create policy "clients_own_update" on portal_clients
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
--- (no insert/delete by users — those go through admin/service_role)
+-- (no delete by users — deletion of profile goes through admin/service_role)
 
 -- ─── portal_accounts ────────────────────────────────────────────────────────
 drop policy if exists "accounts_own_all" on portal_accounts;

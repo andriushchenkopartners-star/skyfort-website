@@ -236,3 +236,56 @@ html, body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ─── Client Portal scoped tokens ──────────────────────────────────────────
+   Applied via [data-portal-theme="light"] on <body> in app/[locale]/portal/layout.js.
+   Overrides the global dark theme for portal routes only.
+   See docs/portal-plan.md for the full design system mapping. */
+[data-portal-theme="light"] {
+  --portal-blue: var(--color-brand);
+  --portal-blue-ink: #1956c4;
+  --portal-blue-soft: #e8f0fd;
+
+  --portal-ink: #0b0d10;
+  --portal-ink-2: #1a1d22;
+  --portal-ink-3: #2a2e35;
+
+  --portal-paper: #f6f4ef;
+  --portal-paper-2: #ecebe5;
+
+  --portal-line: #e3e1da;
+  --portal-line-strong: #cbc9c1;
+  --portal-mute: #6b6b66;
+
+  --portal-positive: #1f8a5b;
+  --portal-negative: #c34a3a;
+  --portal-warn: #b7791f;
+
+  /* Overrides for portal scope so default Tailwind utilities + body bg flip to light */
+  background: var(--portal-paper);
+  color: var(--portal-ink);
+  font-family: var(--font-portal-display, 'Inter Tight', ui-sans-serif, system-ui, -apple-system, sans-serif);
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-portal-theme="light"] .portal-tabular {
+  font-variant-numeric: tabular-nums;
+}
+[data-portal-theme="light"] .portal-mono {
+  font-family: var(--font-portal-mono, 'JetBrains Mono', ui-monospace, Menlo, monospace);
+}
+[data-portal-theme="light"] ::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+/* Dotted divider */
+.portal-dotted-h {
+  background-image: linear-gradient(to right, currentColor 50%, transparent 50%);
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 50%;
+  height: 1px;
+  opacity: 0.35;
+}
