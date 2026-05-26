@@ -39,7 +39,7 @@ const COPY = {
     ctas: [
       { id: "book",       title: "Безкоштовний 30-хв дзвінок",       subtitle: "Discovery call · Zoom або Google Meet" },
       { id: "guide",      title: "Завантажити гайди (8 PDF)",         subtitle: "TFSA, FHSA, RRSP, exempt market — без email-форми" },
-      { id: "calculator", title: "TFSA-калькулятор на 20 років",      subtitle: "Введи свої цифри. Побач різницю bank vs ETF." },
+      { id: "calculator", title: "TFSA-калькулятор на 20 років",      subtitle: "Введи свої цифри. Побач різницю bank vs diversified портфоліо." },
       { id: "whatsapp",   title: "Написати у WhatsApp",                subtitle: "Швидке питання — без запису" },
     ],
     disclaimer: "Освітні матеріали. Не є інвестиційною рекомендацією. Exempt market інвестиції доступні лише Eligible Investors під CSA NI 45-106.",
@@ -54,7 +54,7 @@ const COPY = {
     ctas: [
       { id: "book",       title: "Бесплатный 30-мин звонок",          subtitle: "Discovery call · Zoom или Google Meet" },
       { id: "guide",      title: "Скачать гайды (8 PDF)",              subtitle: "TFSA, FHSA, RRSP, exempt market — без email-формы" },
-      { id: "calculator", title: "TFSA-калькулятор на 20 лет",         subtitle: "Введи свои цифры. Увидь разницу bank vs ETF." },
+      { id: "calculator", title: "TFSA-калькулятор на 20 лет",         subtitle: "Введи свои цифры. Увидь разницу bank vs diversified портфолио." },
       { id: "whatsapp",   title: "Написать в WhatsApp",                subtitle: "Быстрый вопрос — без записи" },
     ],
     disclaimer: "Образовательные материалы. Не является инвестиционной рекомендацией. Exempt market доступен только Eligible Investors под CSA NI 45-106.",
@@ -69,7 +69,7 @@ const COPY = {
     ctas: [
       { id: "book",       title: "Free 30-min discovery call",         subtitle: "Zoom or Google Meet" },
       { id: "guide",      title: "Download guides (8 PDFs)",           subtitle: "TFSA, FHSA, RRSP, exempt market — no email gate" },
-      { id: "calculator", title: "20-year TFSA calculator",            subtitle: "Plug in your numbers. See the bank vs ETF gap." },
+      { id: "calculator", title: "20-year TFSA calculator",            subtitle: "Plug in your numbers. See the bank vs diversified portfolio gap." },
       { id: "whatsapp",   title: "WhatsApp me",                        subtitle: "Quick question — no booking" },
     ],
     disclaimer: "Educational only. Not investment advice. Exempt market investments are restricted to Eligible Investors per CSA NI 45-106.",

@@ -33,8 +33,8 @@ export const dictionary = {
     },
     stats: [
       { value: "$34K", label: "TFSA contribution room у 2026" },
-      { value: "7–12%", label: "Історичний return broad-market ETF" },
-      { value: "$158K", label: "Різниця за 20 років (savings vs ETF)" },
+      { value: "7–12%", label: "Історично · приватні MICs та REITs" },
+      { value: "$25K+", label: "Поріг входу в exempt market (Eligible)" },
       { value: "30 хв", label: "Discovery call · безкоштовно" },
     ],
     aboutTitle: "Хто я і чому це не черговий блог про гроші",
@@ -58,7 +58,7 @@ export const dictionary = {
     calcPromo: {
       kicker: "Інтерактивний інструмент",
       title: "Скільки буде у твоєму TFSA через 20 років?",
-      desc: "Не теорія. Введи свої цифри, побач різницю між банком, GIC і ETF своїми очима.",
+      desc: "Не теорія. Введи свої цифри, побач різницю між банком, GIC і diversified портфоліо своїми очима.",
       cta: "Відкрити калькулятор",
     },
     stepsTitle: "Як це працює",
@@ -100,8 +100,8 @@ export const dictionary = {
     },
     stats: [
       { value: "$34K", label: "TFSA contribution room в 2026" },
-      { value: "7–12%", label: "Исторический return broad-market ETF" },
-      { value: "$158K", label: "Разница за 20 лет (savings vs ETF)" },
+      { value: "7–12%", label: "Исторически · частные MICs и REITs" },
+      { value: "$25K+", label: "Порог входа в exempt market (Eligible)" },
       { value: "30 мин", label: "Discovery call · бесплатно" },
     ],
     aboutTitle: "Кто я и почему это не очередной блог про деньги",
@@ -125,7 +125,7 @@ export const dictionary = {
     calcPromo: {
       kicker: "Интерактивный инструмент",
       title: "Сколько будет в твоём TFSA через 20 лет?",
-      desc: "Не теория. Введи свои цифры, увидь разницу между банком, GIC и ETF своими глазами.",
+      desc: "Не теория. Введи свои цифры, увидь разницу между банком, GIC и diversified портфолио своими глазами.",
       cta: "Открыть калькулятор",
     },
     stepsTitle: "Как это работает",
@@ -167,8 +167,8 @@ export const dictionary = {
     },
     stats: [
       { value: "$34K", label: "TFSA contribution room in 2026" },
-      { value: "7–12%", label: "Historical return on broad-market ETFs" },
-      { value: "$158K", label: "20-year gap (savings vs ETF)" },
+      { value: "7–12%", label: "Historical · private MICs and REITs" },
+      { value: "$25K+", label: "Exempt market entry (Eligible Investor)" },
       { value: "30 min", label: "Discovery call · free" },
     ],
     aboutTitle: "Who I am and why this isn't another money blog",
@@ -192,7 +192,7 @@ export const dictionary = {
     calcPromo: {
       kicker: "Interactive tool",
       title: "How much will your TFSA have in 20 years?",
-      desc: "Not theory. Enter your numbers, see the gap between bank, GIC, and ETF with your own eyes.",
+      desc: "Not theory. Enter your numbers, see the gap between bank, GIC, and diversified portfolio with your own eyes.",
       cta: "Open the calculator",
     },
     stepsTitle: "How it works",
