@@ -6,9 +6,9 @@
 import { ShieldCheck, Building2, ExternalLink, Globe } from "lucide-react";
 
 const NRD_URL =
-  "https://aretrieval.securities-administrators.ca/aretrieval/individuals/4575551";
+  "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search%7Cindiv&indivId=4575551";
 const FIRM_URL =
-  "https://aretrieval.securities-administrators.ca/aretrieval/firms/30948";
+  "https://info.securities-administrators.ca/nrsmobile/NRSFirmRegistrationRecord.aspx?from=search%7Cfirm&firmId=30948";
 
 const COPY = {
   uk: {
