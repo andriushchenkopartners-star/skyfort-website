@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>SkyFort · Скрипт консультації</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#131313; --bg2:#1a1a1a; --card:#1e1e1f; --line:#2c2c2e;
+    --txt:#f4f5f7; --mut:#9a9ba0; --blue:#2f6bff; --blue2:#4f86ff;
+    --green:#27c08a; --amber:#f5a623; --red:#ff5b5b;
+    --r:14px; --fast:.18s ease;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--txt);
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  ::selection{background:var(--blue);color:#fff}
+  /* ===== shell ===== */
+  .wrap{display:grid;grid-template-columns:268px 1fr;min-height:100vh}
+  @media(max-width:880px){.wrap{grid-template-columns:1fr}.rail{display:none}}
+  /* ===== rail ===== */
+  .rail{background:var(--bg2);border-right:1px solid var(--line);padding:24px 18px;position:sticky;top:0;height:100vh;overflow:auto}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .logo{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;font-weight:800;color:#fff;font-size:16px}
+  .brand b{font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+  .brand span{font-size:11px;color:var(--mut);letter-spacing:.18em;text-transform:uppercase;display:block}
+  .railhint{font-size:11px;color:var(--mut);margin:14px 0 16px;line-height:1.45}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:2px}
+  .step{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:10px;cursor:pointer;color:var(--mut);font-size:13.5px;font-weight:600;transition:var(--fast)}
+  .step:hover{background:#242425;color:var(--txt)}
+  .step.active{background:var(--blue);color:#fff}
+  .step.done .dot{background:var(--green);border-color:var(--green)}
+  .step .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;flex:0 0 auto;color:var(--txt)}
+  .step.active .dot{border-color:#fff;background:#fff;color:var(--blue)}
+  .railfoot{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .mini{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px}
+  .nwbox{font-size:13px;color:var(--txt);font-weight:700}
+  .nwbox small{display:block;color:var(--mut);font-weight:500;font-size:11px}
+  .classchip{margin-top:10px;display:inline-block;padding:5px 10px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.04em}
+  /* ===== main ===== */
+  .main{display:flex;flex-direction:column;min-height:100vh}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 28px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(19,19,19,.92);backdrop-filter:blur(8px);z-index:5}
+  .topbar .who{font-size:13px;color:var(--mut)}
+  .topbar .who b{color:var(--txt)}
+  .prog{flex:1;max-width:360px;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+  .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));width:0;transition:width .35s ease}
+  .content{padding:34px 28px 120px;max-width:760px;width:100%;margin:0 auto;flex:1}
+  .kicker{font-size:12px;color:var(--blue2);letter-spacing:.2em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  h1.title{font-size:30px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1.08;margin-bottom:8px}
+  .sub{color:var(--mut);font-size:14.5px;margin-bottom:26px;max-width:62ch}
+  /* script bubble — what to SAY */
+  .say{background:linear-gradient(180deg,#172240,#141d33);border:1px solid #243a6b;border-left:3px solid var(--blue);border-radius:12px;padding:14px 16px;margin-bottom:24px}
+  .say .lab{font-size:10.5px;color:var(--blue2);letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .say p{font-size:14px;color:#dfe6f5;font-style:italic}
+  .say p+p{margin-top:8px}
+  /* fields */
+  .field{margin-bottom:20px}
+  .field>label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+  .field .help{font-size:11.5px;color:var(--mut);font-weight:500;margin-left:6px}
+  input[type=text],input[type=number],input[type=date],textarea,select{
+    width:100%;background:var(--card);border:1px solid var(--line);color:var(--txt);
+    border-radius:10px;padding:11px 13px;font:inherit;font-size:14px;transition:var(--fast)
+  }
+  textarea{min-height:78px;resize:vertical;line-height:1.55}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,107,255,.18)}
+  input::placeholder,textarea::placeholder{color:#6b6c72}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+  .prefix{position:relative}
+  .prefix span{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:14px}
+  .prefix input{padding-left:26px}
+  /* chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-size:13px;font-weight:600;cursor:pointer;transition:var(--fast);user-select:none}
+  .chip:hover{border-color:var(--blue2)}
+  .chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+  /* compute cards */
+  .compute{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 4px}
+  @media(max-width:560px){.compute{grid-template-columns:1fr}}
+  .cc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .cc .l{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.12em}
+  .cc .v{font-size:22px;font-weight:800;margin-top:4px}
+  .verdict{margin-top:14px;border-radius:12px;padding:16px;border:1px solid var(--line);background:var(--bg2)}
+  .verdict .badge{display:inline-block;padding:6px 12px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:.03em;margin-bottom:8px}
+  .b-acc{background:rgba(39,192,138,.15);color:var(--green);border:1px solid rgba(39,192,138,.4)}
+  .b-elig{background:rgba(47,107,255,.16);color:var(--blue2);border:1px solid rgba(47,107,255,.45)}
+  .b-non{background:rgba(245,166,35,.14);color:var(--amber);border:1px solid rgba(245,166,35,.4)}
+  .verdict p{font-size:13px;color:var(--mut)}
+  /* checklist */
+  .check{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:var(--fast)}
+  .check:hover{border-color:var(--blue2)}
+  .check.on{border-color:var(--green);background:rgba(39,192,138,.07)}
+  .check .bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);flex:0 0 auto;display:grid;place-items:center;font-size:12px;margin-top:1px}
+  .check.on .bx{background:var(--green);border-color:var(--green);color:#0c0c0c}
+  .check .t{font-size:13.5px;font-weight:600}
+  .check .d{font-size:12px;color:var(--mut);margin-top:2px}
+  /* warn / boundaries */
+  .warn{background:rgba(255,91,91,.07);border:1px solid rgba(255,91,91,.32);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+  .warn .lab{color:var(--red);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  .warn ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .warn li{font-size:13px;color:#e9c5c5;padding-left:18px;position:relative}
+  .warn li:before{content:"✕";position:absolute;left:0;color:var(--red);font-size:11px}
+  .note{background:var(--bg2);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mut);margin-bottom:18px}
+  .note b{color:var(--txt)}
+  /* footer nav */
+  .footnav{position:fixed;bottom:0;left:268px;right:0;background:rgba(19,19,19,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:14px 28px;z-index:6}
+  @media(max-width:880px){.footnav{left:0}}
+  .btn{border:none;border-radius:10px;padding:11px 20px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:var(--fast)}
+  .btn-ghost{background:transparent;color:var(--mut);border:1px solid var(--line)}
+  .btn-ghost:hover{color:var(--txt);border-color:var(--blue2)}
+  .btn-pri{background:var(--blue);color:#fff}
+  .btn-pri:hover{background:var(--blue2)}
+  .savestate{font-size:11.5px;color:var(--mut)}
+  .savestate b{color:var(--green)}
+  /* summary */
+  .sumcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px;white-space:pre-wrap;font-size:13px;line-height:1.7;font-family:'Manrope',monospace}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  .magnets{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .crmstat{font-size:12.5px;color:var(--mut);margin:-8px 0 16px;padding:8px 12px;border-radius:8px;background:var(--bg2);border:1px solid var(--line)}
+  .crmstat.ok{color:var(--green);border-color:rgba(39,192,138,.4)}
+  .crmstat.err{color:var(--red);border-color:rgba(255,91,91,.4)}
+  details.cfg{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+  details.cfg summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--txt)}
+  .mag{font-size:12px;padding:6px 11px;border-radius:8px;background:var(--bg2);border:1px solid var(--line);color:var(--mut)}
+  .mag b{color:var(--blue2)}
+  .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#0c0c0c;font-weight:700;font-size:13px;padding:10px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:var(--fast);z-index:20}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- ===== RAIL ===== -->
+  <aside class="rail">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div><b>SkyFort</b><span>Wealth</span></div>
+    </div>
+    <p class="railhint">Скрипт discovery-дзвінка · KYC + Suitability (NI 31-103). Безкоштовно · без продажу на дзвінку.</p>
+    <ul class="steps" id="steps"></ul>
+    <div class="railfoot">
+      <div class="mini">Net worth (live)</div>
+      <div class="nwbox" id="railNW">—<small>фінансові активи: —</small></div>
+      <span class="classchip b-elig" id="railClass" style="display:none"></span>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+    <div class="topbar">
+      <div class="who">Клієнт: <b id="topName">—</b> · <span id="topMeta">нова консультація</span></div>
+      <div class="prog"><i id="progBar"></i></div>
+    </div>
+    <div class="content" id="content"></div>
+    <div class="footnav">
+      <button class="btn btn-ghost" id="prevBtn">← Назад</button>
+      <span class="savestate" id="saveState"></span>
+      <button class="btn btn-pri" id="nextBtn">Далі →</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   SkyFort Consultation Script — single-file engine.
+   Поля = майбутня схема CRM. data{} = один client record.
+   ===================================================================== */
+const data = {};            // усі відповіді
+let stepIdx = 0;
+
+/* ---- helper: компактний грошовий парсер ---- */
+const num = v => { const n = parseFloat(String(v||'').replace(/[^\d.-]/g,'')); return isNaN(n)?0:n; };
+const money = n => n ? '$'+Math.round(n).toLocaleString('en-CA') : '$0';
+
+/* =====================================================================
+   СТРУКТУРА — кроки воронки
+   ===================================================================== */
+const STEPS = [
+ {
+  id:'start', nav:'Старт', kicker:'Крок 1 / 9',
+  title:'Старт і фрейм',
+  sub:'Поки клієнт влаштовується — встанови рамку: безкоштовно, 30 хв, без продажу. Зафіксуй звідки прийшов.',
+  say:['«Привіт, [імʼя]! Дякую що знайшов час. Це безкоштовні 30 хвилин — без продажу і без тиску. Моя задача сьогодні: зрозуміти твою ситуацію, порахувати цифри і дати конкретні наступні кроки.»',
+       '«Я licensed Dealing Representative через Axcess Capital Advisors. Все що скажеш — конфіденційно (PIPEDA + CSA).»'],
+  fields:[
+   {k:'name',t:'text',label:"Імʼя клієнта",ph:'Олександр'},
+   {k:'email',t:'text',label:'Email',help:'(для звʼязку з /resources лідом)',ph:'client@email.com'},
+   {k:'phone',t:'text',label:'Телефон',ph:'+1 403 555 0123'},
+   {k:'date',t:'date',label:'Дата дзвінка'},
+   {k:'lang',t:'chips',label:'Мова дзвінка',opts:['Українська','Російська','English']},
+   {k:'source',t:'chips',label:'Звідки прийшов',opts:['TikTok','Instagram','Telegram','Referral','Сайт','Calendly','Інше']},
+   {k:'magnet',t:'chips',label:'Через який lead magnet / тему',opts:['TFSA','ПЕНСІЯ','FHSA','RESP','GIC','СВОБОДА','НОВАЧОК','Просто відео','—']},
+   {k:'couple',t:'chips',label:'Подружжя на дзвінку?',opts:['Так, обоє','Ні, один']},
+  ]
+ },
+ {
+  id:'context', nav:'Контекст', kicker:'Крок 2 / 9',
+  title:'Контекст і rapport',
+  sub:'Хто перед тобою. Newcomer чи вже осілий — визначає тон і чи це взагалі про exempt market.',
+  say:['«Розкажи коротко про себе: коли в Канаді, чим займаєшся, родина?»'],
+  fields:[
+   {k:'newcomer',t:'chips',label:'Статус',opts:['Newcomer (<2 р.)','2–5 років','5+ років / громадянин']},
+   {k:'arrived',t:'text',label:'Коли приїхав / рік',ph:'2023, з Києва'},
+   {k:'province',t:'chips',label:'Провінція',opts:['Alberta','BC','Ontario','Інша']},
+   {k:'family',t:'chips',label:'Родинний статус',opts:['Сам/сама','Подружжя','Подружжя + діти']},
+   {k:'occupation',t:'text',label:'Робота / індустрія',ph:'IT, $- зарплата, permanent'},
+   {k:'kids',t:'text',label:'Діти (вік) — якщо є',ph:'2 (5 р. і 9 р.) → потенційно RESP'},
+  ]
+ },
+ {
+  id:'snapshot', nav:'Snapshot', kicker:'Крок 3 / 9',
+  title:'Фінансовий snapshot',
+  sub:'Цифри для розрахунку net worth і класифікації. Вводь приблизно — це не аудит, а оцінка ситуації.',
+  say:['«Пройдемось по цифрах — приблизно, нічого страшного. Це потрібно щоб порахувати твій реальний net worth і зрозуміти які можливості тобі взагалі доступні за законом.»'],
+  fields:[
+   {k:'incomeSelf',t:'money',label:'Дохід — клієнт (рік, до податків)',ph:'95000'},
+   {k:'incomeSpouse',t:'money',label:'Дохід — подружжя (рік)',ph:'60000'},
+   {k:'cash',t:'money',label:'Кеш / chequing / savings',ph:'20000'},
+   {k:'gic',t:'money',label:'GICs / term deposits',ph:'30000'},
+   {k:'tfsa',t:'money',label:'TFSA (поточна вартість)',ph:'40000'},
+   {k:'rrsp',t:'money',label:'RRSP',ph:'25000'},
+   {k:'invest',t:'money',label:'Інші інвестиції (брокер, акції)',ph:'10000'},
+   {k:'homeVal',t:'money',label:'Вартість дому (якщо власник)',ph:'600000'},
+   {k:'mortgage',t:'money',label:'Залишок mortgage',ph:'420000'},
+   {k:'debts',t:'money',label:'Інші борги (авто, кредитки, лінії)',ph:'15000'},
+  ],
+  compute:true
+ },
+ {
+  id:'goals', nav:'Цілі', kicker:'Крок 4 / 9',
+  title:'Цілі та біль',
+  sub:'Що насправді привело. Без цього suitability і весь дзвінок — стрільба наосліп.',
+  say:['«Що для тебе головна ціль на наступні 5–10 років? І що саме зараз тебе турбує — чому записався на дзвінок?»'],
+  fields:[
+   {k:'goal',t:'chips',multi:true,label:'Головні цілі',opts:['Пенсія / passive income','Перший дім','Освіта дітей','Перемогти інфляцію','Diversify портфель','Вийти з GIC','Просто розібратись']},
+   {k:'timeline',t:'chips',label:'Горизонт',opts:['1–2 роки','3–5 років','6–10 років','10+ років']},
+   {k:'pain',t:'textarea',label:'Біль / тригер дзвінка',ph:'Гроші лежать у GIC під 4%, інфляція зʼїдає. Боїться що пенсії не буде.'},
+   {k:'monthly',t:'money',label:'Скільки може відкладати/міс',ph:'1500'},
+  ]
+ },
+ {
+  id:'classify', nav:'Класифікація', kicker:'Крок 5 / 9',
+  title:'Класифікація інвестора (CSA)',
+  sub:'Автопідрахунок за порогами CSA. Можна перевизначити вручну, якщо є нюанси (verify документально пізніше).',
+  say:['«За канадським законом exempt market доступний не всім — є три категорії. Давай подивимось куди ти потрапляєш.»'],
+  fields:[
+   {k:'classOverride',t:'chips',label:'Фінальна класифікація (підтвердь або зміни)',opts:['Авто','Accredited','Eligible','Non-Eligible']},
+  ],
+  classify:true
+ },
+ {
+  id:'suit', nav:'Suitability', kicker:'Крок 6 / 9',
+  title:'Suitability factors · NI 31-103',
+  sub:'Це bona fide регуляторний крок як DR. Фіксуємо — формальний Suitability Assessment піде після дзвінка.',
+  say:['«Кілька питань про твій досвід і відношення до ризику — це обовʼязкова частина за регуляціями. Без цього я за законом не маю права нічого рекомендувати.»'],
+  fields:[
+   {k:'experience',t:'chips',label:'Інвестиційний досвід',opts:['Нульовий','GIC / savings only','ETF / акції сам','Має досвід приватних інвестицій']},
+   {k:'risk',t:'chips',label:'Ризик-толерантність',opts:['Низька','Помірна','Висока']},
+   {k:'horizon',t:'chips',label:'Time horizon до грошей',opts:['<3 роки','3–5 років','5+ років']},
+   {k:'liquidity',t:'chips',label:'Потреба в ліквідності',opts:['Гроші можуть лежати 3–5 р.','Можливо знадобляться скоро','Не впевнений']},
+   {k:'concentration',t:'text',label:'Concentration (макс 10% ліквідного на 1 продукт)',ph:'Ліквідний ~$100K → макс $10K/продукт, ціль 3–5 issuers'},
+   {k:'suitNotes',t:'textarea',label:'Нотатки по suitability',ph:'Розуміє illiquidity, ок з 5-річним lock. Хоче monthly distributions.'},
+  ]
+ },
+ {
+  id:'deliver', nav:'На дзвінку', kicker:'Крок 7 / 9',
+  title:'Що я роблю на дзвінку',
+  sub:'Відмічай по ходу. Внизу — межі ліцензії: на live-дзвінку не зриваємось у те, що поза exempt market.',
+  say:['«Зараз порахую твій пенсійний дефіцит, скажу до якої категорії ти належиш, і дам конкретні наступні кроки. Якщо підходиш — покажу 2–3 продукти що пасують профілю.»'],
+  fields:[
+   {k:'didDeficit',t:'check',label:'Порахували пенсійний дефіцит',d:'Конкретна цифра скільки бракує на пенсію'},
+   {k:'didClassify',t:'check',label:'Класифікували як інвестора',d:'Eligible / Accredited / Non-Eligible — визначає доступ'},
+   {k:'didSteps',t:'check',label:'Дали конкретні наступні кроки',d:'Цього тижня / місяця / кварталу'},
+   {k:'didProducts',t:'check',label:'Показали 2–3 exempt market продукти',d:'Тільки якщо Eligible+. MIC / Private REIT / private credit. Subscription — окремо з повним документообігом'},
+   {k:'didReferral',t:'check',label:'Направив до іншого advisor (якщо треба)',d:'CIRO/MFDA для ETF, CPA для tax, юрист для legal'},
+  ],
+  boundaries:true
+ },
+ {
+  id:'score', nav:'Скоринг', kicker:'Крок 8 / 9',
+  title:'Lead scoring і наступний крок',
+  sub:'Температура + конкретна наступна дія + дата follow-up. Це поля, що поїдуть у CRM.',
+  say:['«Дякую за відвертість. Ось що пропоную як наступний крок…» (озвуч конкретику з полів нижче)'],
+  fields:[
+   {k:'temp',t:'chips',label:'Температура ліда',opts:['🔥 Hot','🟠 Warm','🔵 Cold','⚪ Not a fit зараз']},
+   {k:'nextStep',t:'chips',label:'Наступний крок',opts:['Надіслати Suitability Assessment','Надіслати lead magnet/план','Follow-up через місяць','Referral (CIRO/CPA/legal)','Чекаю рішення']},
+   {k:'followup',t:'date',label:'Дата follow-up'},
+   {k:'objections',t:'textarea',label:'Заперечення / вагання',ph:'«Треба порадитись з дружиною», «боюсь illiquidity»'},
+   {k:'notes',t:'textarea',label:'AI summary / нотатки дзвінка',ph:'Eligible, $145K income, $80K liquid. Хоче monthly income. Готовий до $30K у MIC після обговорення з дружиною.'},
+  ]
+ },
+ {
+  id:'wrap', nav:'Підсумок', kicker:'Крок 9 / 9',
+  title:'Підсумок + експорт',
+  sub:'Готовий summary дзвінка. Скопіюй у email клієнту або експортуй JSON для CRM.',
+  wrap:true
+ },
+];
+
+/* =====================================================================
+   RENDER
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const content = $('#content');
+
+function renderRail(){
+  const ul = $('#steps'); ul.innerHTML='';
+  STEPS.forEach((s,i)=>{
+    const li=document.createElement('li');
+    li.className='step'+(i===stepIdx?' active':'')+(isDone(i)?' done':'');
+    li.innerHTML=`<span class="dot">${isDone(i)&&i!==stepIdx?'✓':i+1}</span>${s.nav}`;
+    li.onclick=()=>{stepIdx=i;render();};
+    ul.appendChild(li);
+  });
+}
+function isDone(i){ // крок вважається "торкнутим" якщо є хоч одна відповідь
+  const s=STEPS[i]; if(!s.fields) return false;
+  return s.fields.some(f=>data[f.k]!==undefined && data[f.k]!=='' && !(Array.isArray(data[f.k])&&!data[f.k].length));
+}
+
+function render(){
+  const s=STEPS[stepIdx];
+  let h=`<div class="kicker">${s.kicker||''}</div><h1 class="title">${s.title}</h1><p class="sub">${s.sub||''}</p>`;
+  if(s.say){h+=`<div class="say"><div class="lab">Що сказати</div>${s.say.map(p=>`<p>${p}</p>`).join('')}</div>`;}
+
+  if(s.fields){ s.fields.forEach(f=>{ h+=renderField(f); }); }
+  if(s.compute){ h+=`<div class="compute"><div class="cc"><div class="l">Net worth</div><div class="v" id="cNW">$0</div></div><div class="cc"><div class="l">Чисті фінансові активи</div><div class="v" id="cFA">$0</div></div></div><p class="note">Net worth = всі активи (вкл. дім) − всі борги. Фінансові активи = ліквідні без primary residence (для тесту Accredited).</p>`; }
+  if(s.classify){ h+=`<div id="classBox"></div>`; }
+  if(s.boundaries){ h+=`<div class="warn"><div class="lab">НЕ роблю на дзвінку (межі ліцензії)</div><ul>
+     <li>Не даю рекомендації по ETF / mutual funds / акціях (це CIRO/MFDA, не моя ліцензія)</li>
+     <li>Не продаю продукт на дзвінку — потрібен письмовий Suitability + OM review + cooling-off</li>
+     <li>Не гарантую дохідність (target 8–12% — ок; guarantee — порушення закону)</li>
+     <li>Не роблю tax plan (я не CPA) і не даю legal advice</li></ul></div>`; }
+  if(s.wrap){ h+=renderWrap(); }
+
+  content.innerHTML=h;
+  bindFields();
+  if(s.compute) recompute();
+  if(s.classify) renderClass();
+  renderRail();
+  // topbar + prog
+  $('#topName').textContent = data.name || '—';
+  $('#topMeta').textContent = (data.source?data.source+' · ':'') + (data.date||'нова консультація');
+  $('#progBar').style.width = ((stepIdx)/(STEPS.length-1)*100)+'%';
+  $('#prevBtn').style.visibility = stepIdx===0?'hidden':'visible';
+  $('#nextBtn').textContent = stepIdx===STEPS.length-1?'Готово ✓':'Далі →';
+  updateRailNW();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderField(f){
+  const v=data[f.k];
+  const help=f.help?`<span class="help">${f.help}</span>`:'';
+  if(f.t==='chips'){
+    const sel = f.multi ? (Array.isArray(v)?v:[]) : v;
+    const chips=f.opts.map(o=>{
+      const on = f.multi ? sel.includes(o) : sel===o;
+      return `<div class="chip${on?' on':''}" data-k="${f.k}" data-v="${o}" data-multi="${!!f.multi}">${o}</div>`;
+    }).join('');
+    return `<div class="field"><label>${f.label}${help}</label><div class="chips">${chips}</div></div>`;
+  }
+  if(f.t==='check'){
+    const on=!!v;
+    return `<div class="check${on?' on':''}" data-k="${f.k}"><div class="bx">${on?'✓':''}</div><div><div class="t">${f.label}</div>${f.d?`<div class="d">${f.d}</div>`:''}</div></div>`;
+  }
+  if(f.t==='textarea'){
+    return `<div class="field"><label>${f.label}${help}</label><textarea data-k="${f.k}" placeholder="${f.ph||''}">${v||''}</textarea></div>`;
+  }
+  if(f.t==='money'){
+    return `<div class="field"><label>${f.label}${help}</label><div class="prefix"><span>$</span><input type="number" inputmode="decimal" data-k="${f.k}" data-money="1" placeholder="${f.ph||''}" value="${v??''}"></div></div>`;
+  }
+  // text / date
+  return `<div class="field"><label>${f.label}${help}</label><input type="${f.t}" data-k="${f.k}" placeholder="${f.ph||''}" value="${v??''}"></div>`;
+}
+
+function bindFields(){
+  content.querySelectorAll('.chip').forEach(c=>{
+    c.onclick=()=>{
+      const k=c.dataset.k, val=c.dataset.v, multi=c.dataset.multi==='true';
+      if(multi){
+        const arr=Array.isArray(data[k])?[...data[k]]:[];
+        const i=arr.indexOf(val); i>-1?arr.splice(i,1):arr.push(val);
+        data[k]=arr;
+      }else{ data[k]= data[k]===val? '' : val; }
+      save(); render();
+    };
+  });
+  content.querySelectorAll('.check').forEach(c=>{
+    c.onclick=()=>{ data[c.dataset.k]=!data[c.dataset.k]; save(); render(); };
+  });
+  content.querySelectorAll('input,textarea').forEach(el=>{
+    el.oninput=()=>{
+      data[el.dataset.k]=el.value;
+      if(el.dataset.money) recompute();
+      save(false);
+      $('#topName').textContent = data.name||'—';
+      updateRailNW();
+    };
+  });
+}
+
+/* ---- розрахунки ---- */
+function calcNW(){
+  const assets = num(data.cash)+num(data.gic)+num(data.tfsa)+num(data.rrsp)+num(data.invest)+num(data.homeVal);
+  const liab = num(data.mortgage)+num(data.debts);
+  const nw = assets - liab;
+  const finAssets = num(data.cash)+num(data.gic)+num(data.tfsa)+num(data.rrsp)+num(data.invest); // без дому
+  return {nw, finAssets};
+}
+function recompute(){
+  const {nw,finAssets}=calcNW();
+  const a=$('#cNW'), b=$('#cFA');
+  if(a) a.textContent=money(nw);
+  if(b) b.textContent=money(finAssets);
+}
+function updateRailNW(){
+  const {nw,finAssets}=calcNW();
+  $('#railNW').innerHTML=`${money(nw)}<small>фін. активи: ${money(finAssets)}</small>`;
+  const cls=autoClass();
+  const chip=$('#railClass');
+  if(cls){chip.style.display='inline-block';chip.textContent=cls.label;chip.className='classchip '+cls.cls;}
+  else chip.style.display='none';
+}
+
+/* ---- класифікація CSA ----
+   Accredited: фін.активи ≥ $1M (без дому) АБО дохід ≥ $200K ($300K з подружжям)
+   Eligible:   net assets ≥ $400K (з домом) АБО дохід ≥ $75K ($125K з подружжям)
+   інакше Non-Eligible */
+function autoClass(){
+  const inc=num(data.incomeSelf), incTot=inc+num(data.incomeSpouse);
+  const {nw,finAssets}=calcNW();
+  const hasSpouse = num(data.incomeSpouse)>0 || (data.family||'').includes('Подружжя');
+  if(finAssets>=1000000 || inc>=200000 || (hasSpouse && incTot>=300000))
+    return {key:'Accredited',label:'Accredited',cls:'b-acc'};
+  if(nw>=400000 || inc>=75000 || (hasSpouse && incTot>=125000))
+    return {key:'Eligible',label:'Eligible',cls:'b-elig'};
+  if(inc||nw) return {key:'Non-Eligible',label:'Non-Eligible',cls:'b-non'};
+  return null;
+}
+function finalClass(){
+  if(data.classOverride && data.classOverride!=='Авто') {
+    const m={'Accredited':'b-acc','Eligible':'b-elig','Non-Eligible':'b-non'};
+    return {key:data.classOverride,label:data.classOverride,cls:m[data.classOverride]};
+  }
+  return autoClass();
+}
+function renderClass(){
+  const box=$('#classBox'); if(!box) return;
+  const c=finalClass();
+  if(!c){ box.innerHTML=`<div class="note">Заповни дохід і snapshot (Крок 3) — класифікація порахується автоматично.</div>`; return; }
+  const inc=num(data.incomeSelf), incTot=inc+num(data.incomeSpouse);
+  const {nw,finAssets}=calcNW();
+  const desc={
+   'Accredited':'Доступ до <b>всіх offerings без лімітів</b>. Concentration все одно — макс 10% ліквідного на продукт.',
+   'Eligible':'Доступ до більшості offerings, <b>ліміт ~$30K на offering</b>. Вхід зазвичай з $25–30K. 70% твоїх клієнтів.',
+   'Non-Eligible':'Тільки OM exemption — <b>до $10K/рік</b>. Спершу: emergency fund, max TFSA через public market, RRSP. Дай план і тримай контакт.'
+  };
+  box.innerHTML=`<div class="verdict">
+     <span class="badge ${c.cls}">${c.label} Investor</span>
+     <p>${desc[c.key]}</p>
+     <p style="margin-top:10px;font-size:12px;color:#6f7177">Підстава: дохід ${money(inc)}${num(data.incomeSpouse)?` (з подружжям ${money(incTot)})`:''} · net worth ${money(nw)} · фін.активи ${money(finAssets)}</p>
+   </div>`;
+}
+
+/* =====================================================================
+   WRAP / EXPORT
+   ===================================================================== */
+function buildSummary(){
+  const c=finalClass();
+  const {nw,finAssets}=calcNW();
+  const L=[];
+  L.push('SKYFORT WEALTH — ПІДСУМОК КОНСУЛЬТАЦІЇ');
+  L.push('Andrii Andriushchenko · Licensed DR · Axcess Capital Advisors Inc.');
+  L.push('—'.repeat(48));
+  L.push(`Клієнт:        ${data.name||'—'}`);
+  L.push(`Контакт:       ${data.email||'—'}  ·  ${data.phone||'—'}`);
+  L.push(`Дата:          ${data.date||'—'}   Мова: ${data.lang||'—'}`);
+  L.push(`Джерело:       ${data.source||'—'}${data.magnet&&data.magnet!=='—'?' · magnet: '+data.magnet:''}`);
+  L.push(`Контекст:      ${[data.newcomer,data.province,data.family,data.occupation].filter(Boolean).join(' · ')||'—'}`);
+  if(data.kids) L.push(`Діти:          ${data.kids}`);
+  L.push('');
+  L.push('ФІНАНСИ');
+  L.push(`  Дохід:       ${money(num(data.incomeSelf))}${num(data.incomeSpouse)?' + подружжя '+money(num(data.incomeSpouse)):''}`);
+  L.push(`  Net worth:   ${money(nw)}   ·   Фін. активи: ${money(finAssets)}`);
+  L.push(`  Класифікація: ${c?c.label.toUpperCase():'—'} INVESTOR`);
+  L.push('');
+  L.push('ЦІЛІ');
+  L.push(`  Цілі:        ${(Array.isArray(data.goal)?data.goal.join(', '):data.goal)||'—'}`);
+  L.push(`  Горизонт:    ${data.timeline||'—'}   Відкладає/міс: ${money(num(data.monthly))}`);
+  if(data.pain) L.push(`  Біль:        ${data.pain}`);
+  L.push('');
+  L.push('SUITABILITY (NI 31-103)');
+  L.push(`  Досвід: ${data.experience||'—'} · Ризик: ${data.risk||'—'} · Horizon: ${data.horizon||'—'}`);
+  L.push(`  Ліквідність: ${data.liquidity||'—'}`);
+  if(data.suitNotes) L.push(`  Нотатки: ${data.suitNotes}`);
+  L.push('');
+  L.push('НАСТУПНІ КРОКИ');
+  L.push(`  Температура: ${data.temp||'—'}`);
+  L.push(`  Дія:         ${data.nextStep||'—'}`);
+  L.push(`  Follow-up:   ${data.followup||'—'}`);
+  if(data.objections) L.push(`  Заперечення: ${data.objections}`);
+  if(data.notes) L.push(`  Summary:     ${data.notes}`);
+  L.push('');
+  L.push('Дисклеймер: discovery call · KYC + suitability. Не є інвестиційною рекомендацією.');
+  L.push('Будь-яка exempt market інвестиція — після письмового Suitability Assessment + OM review.');
+  return L.join('\n');
+}
+function renderWrap(){
+  const cfg=getCfg();
+  return `<div class="toolbar">
+      <button class="btn btn-pri" onclick="syncCRM()">☁ Зберегти в CRM</button>
+      <button class="btn btn-ghost" onclick="copySum()">📋 Копіювати summary</button>
+      <button class="btn btn-ghost" onclick="dlJSON()">⬇ JSON</button>
+      <button class="btn btn-ghost" onclick="window.print()">🖨 PDF</button>
+      <button class="btn btn-ghost" onclick="resetAll()">↺ Новий клієнт</button>
+    </div>
+    <div class="crmstat" id="crmStat">${data._syncedAt?('Збережено в CRM ✓ · '+new Date(data._syncedAt).toLocaleString('uk-UA')):'Ще не синхронізовано'}</div>
+    <div class="sumcard" id="sumcard">${buildSummary().replace(/</g,'&lt;')}</div>
+    <details class="cfg" ${cfg.url?'':'open'}>
+      <summary>⚙ Налаштування CRM (один раз)</summary>
+      <div class="field" style="margin-top:14px"><label>Endpoint</label>
+        <input type="text" id="cfgUrl" value="${cfg.url||'https://sky-fort.ca/api/consultation'}" placeholder="https://sky-fort.ca/api/consultation"></div>
+      <div class="field"><label>API ключ <span class="help">(= CONSULTATION_API_KEY на Vercel)</span></label>
+        <input type="text" id="cfgKey" value="${cfg.key||''}" placeholder="секрет із env"></div>
+      <button class="btn btn-ghost" onclick="saveCfg()">Зберегти налаштування</button>
+      <p class="note" style="margin-top:12px">Ключ зберігається локально в цьому браузері. Тримай інструмент приватним. Сервісний ключ Supabase сюди НЕ вводиться — він лише на сервері.</p>
+    </details>
+    <p class="note"><b>Як це працює:</b> запис летить у Supabase-таблицю <code>consultations</code> через <code>/api/consultation</code> і автоматично <b>звʼязується з твоїм /resources лідом по email</b> (поле <code>lead_id</code>). Існуючий <code>/api/lead</code> не зачеплений. Якщо інтернету немає — запис стає в офлайн-чергу і відправиться при наступному відкритті.</p>
+    <div class="field"><label>Швидко надіслати lead magnet (нагадування слів)</label>
+      <div class="magnets">
+        <span class="mag"><b>TFSA</b> · TFSA+Exempt</span><span class="mag"><b>ПЕНСІЯ</b> · CPP/OAS</span>
+        <span class="mag"><b>FHSA</b> · перший дім</span><span class="mag"><b>RESP</b> · діти</span>
+        <span class="mag"><b>GIC</b> · альтернативи</span><span class="mag"><b>СВОБОДА</b> · 90 днів</span>
+        <span class="mag"><b>НОВАЧОК</b> · 30 кроків</span>
+      </div></div>`;
+}
+function copySum(){ navigator.clipboard.writeText(buildSummary()).then(()=>toast('Summary скопійовано')); }
+function dlJSON(){
+  const rec={...data, _computed:calcNW(), _class:finalClass()?.key, _exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(rec,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`skyfort_${(data.name||'lead').replace(/\s+/g,'_')}_${data.date||''}.json`;a.click();
+  toast('JSON завантажено');
+}
+function resetAll(){ if(confirm('Очистити і почати нового клієнта?')){Object.keys(data).forEach(k=>delete data[k]);stepIdx=0;save();render();} }
+
+/* =====================================================================
+   CRM SYNC → /api/consultation (Supabase)
+   ===================================================================== */
+function getCfg(){ try{return JSON.parse(localStorage.getItem('skyfort_crm_cfg')||'{}');}catch(e){return {};} }
+function saveCfg(){
+  const url=$('#cfgUrl').value.trim(), key=$('#cfgKey').value.trim();
+  try{ localStorage.setItem('skyfort_crm_cfg',JSON.stringify({url,key})); toast('Налаштування збережено'); }
+  catch(e){ toast('Браузер блокує збереження — відкрий файл локально'); }
+}
+function setCrmStat(msg,cls){ const e=$('#crmStat'); if(e){e.textContent=msg;e.className='crmstat'+(cls?' '+cls:'');} }
+function payload(){
+  const {nw,finAssets}=calcNW();
+  return {...data,_computed:{nw,finAssets},_class:finalClass()?.key,_exportedAt:new Date().toISOString()};
+}
+async function syncCRM(){
+  const cfg=getCfg();
+  if(!cfg.url){ setCrmStat('Спершу вкажи endpoint у налаштуваннях нижче','err'); return; }
+  if(!data.email){ setCrmStat('Додай email клієнта (Крок 1) — інакше не звʼяжеться з лідом','err'); return; }
+  setCrmStat('Відправка…');
+  try{
+    const res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json','x-skyfort-key':cfg.key||''},body:JSON.stringify(payload())});
+    const j=await res.json().catch(()=>({}));
+    if(res.ok){
+      data._crmId=j.id||data._crmId; data._syncedAt=new Date().toISOString(); save(false);
+      setCrmStat('Збережено в CRM ✓'+(j.linked?' · звʼязано з /resources лідом':' · лід по email не знайдено (запис збережено)'),'ok');
+      toast('Збережено в CRM');
+    }else{
+      setCrmStat('Помилка '+res.status+(j.error?': '+j.error:'')+' — поставив у чергу','err'); queuePush();
+    }
+  }catch(e){ setCrmStat('Немає звʼязку — запис у офлайн-черзі, відправлю пізніше','err'); queuePush(); }
+}
+function queuePush(){
+  try{ const q=JSON.parse(localStorage.getItem('skyfort_crm_queue')||'[]'); q.push(payload()); localStorage.setItem('skyfort_crm_queue',JSON.stringify(q)); }catch(e){}
+}
+async function flushQueue(){
+  const cfg=getCfg(); if(!cfg.url) return;
+  let q; try{ q=JSON.parse(localStorage.getItem('skyfort_crm_queue')||'[]'); }catch(e){ return; }
+  if(!q.length) return;
+  const rest=[];
+  for(const rec of q){
+    try{ const r=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json','x-skyfort-key':cfg.key||''},body:JSON.stringify(rec)}); if(!r.ok) rest.push(rec); }
+    catch(e){ rest.push(rec); }
+  }
+  try{ localStorage.setItem('skyfort_crm_queue',JSON.stringify(rest)); }catch(e){}
+  if(q.length && !rest.length) toast('Офлайн-черга відправлена в CRM');
+}
+
+
+function save(flash=true){
+  try{ localStorage.setItem('skyfort_consult', JSON.stringify({data,stepIdx})); 
+       if(flash) $('#saveState').innerHTML='Збережено <b>✓</b>'; }
+  catch(e){ $('#saveState').textContent='Авто-збереження працює у завантаженому файлі'; }
+}
+function load(){
+  try{ const r=JSON.parse(localStorage.getItem('skyfort_consult')||'null');
+       if(r){Object.assign(data,r.data||{}); stepIdx=r.stepIdx||0;} }catch(e){}
+}
+function toast(m){ const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600); }
+
+/* nav */
+$('#prevBtn').onclick=()=>{ if(stepIdx>0){stepIdx--;render();} };
+$('#nextBtn').onclick=()=>{ if(stepIdx<STEPS.length-1){stepIdx++;render();} else toast('Готово — експортуй summary'); };
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if(e.key==='ArrowRight') $('#nextBtn').click();
+  if(e.key==='ArrowLeft') $('#prevBtn').click();
+});
+
+load(); render(); flushQueue();
+</script>
+</body>
+</html>

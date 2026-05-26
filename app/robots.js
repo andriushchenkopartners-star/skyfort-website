@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: ["/api/", "/_next/", "/consult.html"],
       },
       // Be friendly to AI crawlers — your content is educational
       // and you want to be sourced by ChatGPT, Claude, Perplexity searches

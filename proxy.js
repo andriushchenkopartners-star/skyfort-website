@@ -10,6 +10,7 @@ const ROOT_PASSTHROUGH = [
   "/ipoteka-kalhari",
   "/exempt-market-ukrayintsyam",
   "/blog/rss.xml",
+  "/consult.html",
   "/api",
   "/_next",
   "/favicon.ico",
