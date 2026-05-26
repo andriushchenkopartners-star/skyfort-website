@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 import { getAllPosts } from "../../_lib/blog";
 import Breadcrumbs from "../../_components/Breadcrumbs";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 
 const META = {
   uk: {
@@ -129,6 +130,11 @@ export default async function BlogHubPage({ params }) {
             ))}
           </ul>
         )}
+
+        {/* Topic suggestion form */}
+        <div className="mt-16 mb-24">
+          <TopicSuggestForm locale={locale} source="blog_hub" />
+        </div>
       </div>
     </main>
   );

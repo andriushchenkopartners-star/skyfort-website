@@ -5,6 +5,7 @@ import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
 import { getPostBySlug, getPostSlugs, getAllPosts } from "../../../_lib/blog";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
+import TopicSuggestForm from "../../../_components/TopicSuggestForm";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
@@ -264,6 +265,14 @@ export default async function BlogPostPage({ params }) {
             </ul>
           </section>
         )}
+
+        {/* Topic suggestion form */}
+        <div className="mt-16">
+          <TopicSuggestForm
+            locale={locale}
+            source={`blog_post:${slug}`}
+          />
+        </div>
 
         <div className="mt-12 text-center">
           <Link

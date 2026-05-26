@@ -14,3 +14,4 @@ export { default as WhatsAppButton } from "./WhatsAppButton";
 export { default as TrustBar } from "./TrustBar";
 export { default as LangSwitcher } from "./LangSwitcher";
 export { default as TikTokIcon } from "./TikTokIcon";
+export { default as TopicSuggestForm } from "./TopicSuggestForm";
