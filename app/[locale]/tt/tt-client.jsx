@@ -14,6 +14,7 @@ import Card from "../../_components/Card";
 import Container from "../../_components/Container";
 import Logo from "../../_components/Logo";
 import TikTokIcon from "../../_components/TikTokIcon";
+import EmailCaptureForm from "../../_components/EmailCaptureForm";
 import { resolveLocale } from "../../_i18n/dictionary";
 import { CONFIG } from "../../_i18n/config";
 import {
@@ -177,6 +178,16 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
             </Button>
           </Card>
         ))}
+      </div>
+
+      {/* Email capture — нижче CTAs, для тих хто хоче спершу подивитись на гайд */}
+      <div className="mt-8">
+        <EmailCaptureForm
+          locale={locale}
+          variant="card"
+          source="tt_landing"
+          leadMagnet="TFSA_GUIDE"
+        />
       </div>
 
       <div className="mt-8 flex justify-center">

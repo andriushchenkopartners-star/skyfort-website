@@ -16,6 +16,7 @@ import {
   Footer,
 } from "../_sections";
 import TrustBar from "../_components/TrustBar";
+import EmailCaptureForm from "../_components/EmailCaptureForm";
 import { dictionary as t, resolveLocale } from "../_i18n/dictionary";
 
 export default function SkyFortLanding({ params }) {
@@ -35,6 +36,19 @@ export default function SkyFortLanding({ params }) {
       <FireCalcPromo locale={locale} />
       <MortgagePromo locale={locale} />
       <Steps content={content} />
+
+      {/* Email capture — між Steps і FAQ, ~30% scroll */}
+      <section className="border-y border-[#2a2a2a] bg-[#1f1f1f] py-20 md:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <EmailCaptureForm
+            locale={locale}
+            variant="card"
+            source="homepage_inline"
+            leadMagnet="TFSA_GUIDE"
+          />
+        </div>
+      </section>
+
       <Faq content={content} />
       <FinalCta content={content} />
       <Footer content={content} />

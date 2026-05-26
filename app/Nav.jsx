@@ -16,6 +16,7 @@ import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
 const LOCALIZED_LINKS = [
   { label: "Головна",       path: "" },
   { label: "Блог",          path: "/blog" },
+  { label: "Послуги",       path: "/services" },
   { label: "Калькулятори",  path: "/calculators/tfsa-growth" },
   { label: "Про мене",      path: "/pro-mene" },
   { label: "Документи",     path: "/resources" },

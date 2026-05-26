@@ -1,4 +1,9 @@
 import { getAllPosts } from "./_lib/blog";
+import {
+  getServiceKeys,
+  getCityKeys,
+  getAllServiceCityPairs,
+} from "./_lib/services-cities";
 
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
@@ -9,6 +14,7 @@ const LOCALIZED_PAGES = [
   { path: "",                            priority: 1.0, changeFrequency: "weekly" },
   { path: "/tt",                         priority: 0.9, changeFrequency: "weekly" },
   { path: "/blog",                       priority: 0.9, changeFrequency: "weekly" },
+  { path: "/services",                   priority: 0.9, changeFrequency: "monthly" },
   { path: "/pro-mene",                   priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/tfsa-growth",    priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
@@ -73,6 +79,23 @@ export default function sitemap() {
         changeFrequency: "monthly",
         priority: 0.7,
         ...(Object.keys(alternates).length > 1 ? { alternates: { languages: alternates } } : {}),
+      });
+    }
+  }
+
+  // Service × City landing pages — 4 services × 6 cities × 3 locales = 72 URLs.
+  // Hreflang альтернативи на ту ж комбінацію service+city у інших локалях.
+  for (const locale of LOCALES) {
+    for (const { service, city } of getAllServiceCityPairs()) {
+      const alternates = Object.fromEntries(
+        LOCALES.map((l) => [HREFLANG[l], `${BASE}/${l}/services/${service}/${city}`])
+      );
+      entries.push({
+        url: `${BASE}/${locale}/services/${service}/${city}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: { languages: alternates },
       });
     }
   }
