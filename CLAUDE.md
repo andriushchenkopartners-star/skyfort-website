@@ -14,7 +14,7 @@ This site is operated by a registered Dealing Representative under an EMD. Every
 - **Never** make personal recommendations on the site ("you should buy X"). Always frame as frameworks/concepts.
 - **Always** include the disclaimer in footer (already present in `t.<lang>.footer.disclaimer`).
 - **Always** keep the NRD number (#4575551) and firm name (Axcess Capital Advisors Inc.) accessible — currently in `app/layout.js` JSON-LD and `/pro-mene`.
-- Lookup link for verification: `https://info.securities-administrators.ca/nrsmobile/Pages/default.aspx` (NRD search).
+- Lookup link for verification: `https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx` (NRD search).
 - Historical broad-market figures (e.g., "7–12% historical ETF return") are OK with source attribution.
 
 When in doubt, prefer educational framing: "How TFSA works" not "Use this TFSA strategy".

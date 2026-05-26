@@ -222,7 +222,7 @@ const businessJsonLd = {
     },
   ],
   sameAs: [
-    "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search%7Cindiv&indivId=4575551",
+    "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
   ],
 };
 

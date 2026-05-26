@@ -27,7 +27,7 @@ const CALENDLY = CONFIG.calendlyUrl;
 const WHATSAPP = CONFIG.whatsapp;
 const TIKTOK = CONFIG.tiktok;
 const NRD_LOOKUP =
-  "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search%7Cindiv&indivId=4575551";
+  "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 
 const COPY = {
   uk: {

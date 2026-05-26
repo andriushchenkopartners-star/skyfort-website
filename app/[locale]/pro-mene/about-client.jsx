@@ -11,7 +11,7 @@ import { CONFIG } from "../../_i18n/config";
 
 const CALENDLY = CONFIG.calendlyUrl;
 const NRD_URL =
-  "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search|indiv&indivId=4575551";
+  "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 
 const t = {
   uk: {

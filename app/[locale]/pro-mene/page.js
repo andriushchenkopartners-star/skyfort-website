@@ -101,7 +101,7 @@ const jsonLd = {
     name: "Dealing Representative (Exempt Market Dealer) — Alberta, British Columbia, Ontario",
     recognizedBy: { "@type": "Organization", name: "Canadian Securities Administrators (CSA)" },
     identifier: "NRD 4575551",
-    url: "https://info.securities-administrators.ca/nrsmobile/NRSIndivRegistrationRecord.aspx?from=search|indiv&indivId=4575551",
+    url: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
   },
 };
 
