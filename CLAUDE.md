@@ -115,7 +115,7 @@ URLs become `/uk/...`, `/ru/...`, `/en/...`. Old URLs must 301 to new (`next.con
 
 - `/api/lead` (`app/api/lead/route.js`) — POST captures form submissions. Phase 4: extend to email subscription + Brevo/Resend integration.
 - Calendly: `https://calendly.com/andriushchenko-partners/new-meeting`.
-- Contact: `+1-403-397-2553` · `andrii.andriushchenko@axcesscapital.com`.
+- Contact: `+1-403-397-2553` · `andrii@sky-fort.ca`.
 
 ## Style for this repo
 

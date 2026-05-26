@@ -44,7 +44,7 @@
 
 **Що зробити тобі** (~5 хв):
 - Створити Brevo contact list "SkyFort Subscribers UK"
-- Підтвердити sender email (`andrii.andriushchenko@axcesscapital.com`)
+- Підтвердити sender email (`andrii@sky-fort.ca`)
 - Опціонально: додати domain authentication (DNS records у sky-fort.ca провайдера) — це для кращої доставки
 
 ### B. Service × City pages (~60 хв)

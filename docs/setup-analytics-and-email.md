@@ -210,7 +210,7 @@ NEXT_PUBLIC_CLARITY_ID=abc123def4
 
 1. Відкрий **https://www.brevo.com** (раніше Sendinblue — назву змінили у 2023).
 2. Кнопка **"Sign up free"** зверху справа.
-3. Введи робочий email (рекомендую використовувати `andrii.andriushchenko@axcesscapital.com` бо це твоя бізнес-адреса) і пароль.
+3. Введи робочий email (рекомендую використовувати `andrii@sky-fort.ca` бо це твоя бізнес-адреса) і пароль.
 4. Підтверди email (перевір inbox, клікни на лінк).
 
 ## Крок 2: Setup wizard

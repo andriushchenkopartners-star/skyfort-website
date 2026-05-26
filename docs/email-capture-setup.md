@@ -37,7 +37,7 @@
 2. Обери **"Drag & drop editor"** або **"Code"** (HTML).
 3. Заповни:
    - **From name**: `Andrii SkyFort`
-   - **From email**: `andrii.andriushchenko@axcesscapital.com` (треба підтверджений sender — див. крок 4)
+   - **From email**: `andrii@sky-fort.ca` (треба підтверджений sender — див. крок 4)
    - **Subject**: `Твій гайд TFSA — як обіцяно 👇` (приклад)
    - **Preview text**: `8 типових помилок українців з TFSA + 20-річний план інвестицій`
 4. В тілі листа:
@@ -50,12 +50,12 @@
 
 ### 3. Підтвердження sender email (5 хв) — КРИТИЧНО
 
-Без цього Brevo не дасть надсилати email від `andrii.andriushchenko@axcesscapital.com`.
+Без цього Brevo не дасть надсилати email від `andrii@sky-fort.ca`.
 
 1. Brevo → **"Senders, Domains & Dedicated IPs" → "Senders"**.
 2. **"Add a sender"**.
 3. From name: `Andrii Andriushchenko`
-4. From email: `andrii.andriushchenko@axcesscapital.com`
+4. From email: `andrii@sky-fort.ca`
 5. Brevo надішле verification email на цю адресу → клікни на лінк.
 6. Status має стати **Verified**.
 

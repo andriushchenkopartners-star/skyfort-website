@@ -86,7 +86,7 @@ const businessJsonLd = {
   logo: "https://sky-fort.ca/icon.svg",
   image: "https://sky-fort.ca/og-image.png",
   telephone: "+1-403-397-2553",
-  email: "andrii.andriushchenko@axcesscapital.com",
+  email: "andrii@sky-fort.ca",
   priceRange: "Free consultation",
   address: {
     "@type": "PostalAddress",
@@ -194,7 +194,7 @@ const businessJsonLd = {
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+1-403-397-2553",
-    email: "andrii.andriushchenko@axcesscapital.com",
+    email: "andrii@sky-fort.ca",
     contactType: "customer support",
     areaServed: ["AB", "BC", "ON"],
     availableLanguage: ["uk", "ru", "en"],

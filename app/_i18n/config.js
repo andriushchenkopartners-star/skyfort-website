@@ -2,7 +2,7 @@
 
 export const CONFIG = {
   calendlyUrl: "https://calendly.com/andriushchenko-partners/new-meeting",
-  email: "andrii.andriushchenko@axcesscapital.com",
+  email: "andrii@sky-fort.ca",
   phone: "(403) 397-2553",
   instagram: "https://instagram.com/andrii.wealthcanada",
   telegram: "https://t.me/skyfortwealth",
