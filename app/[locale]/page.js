@@ -12,6 +12,7 @@ import {
   FireCalcPromo,
   Steps,
   Faq,
+  Testimonials,
   FinalCta,
   Footer,
 } from "../_sections";
@@ -50,6 +51,7 @@ export default function SkyFortLanding({ params }) {
       </section>
 
       <Faq content={content} />
+      <Testimonials locale={locale} />
       <FinalCta content={content} />
       <Footer content={content} />
     </main>
