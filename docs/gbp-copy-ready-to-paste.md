@@ -44,7 +44,7 @@ Price: Free initial consultation
 ```
 Приватні MICs (Mortgage Investment Corporations), REITs, development LPs через Axcess Capital Advisors. Для Eligible Investors ($75K+ income solo або $125K+ household) і Accredited Investors.
 ```
-Price: Eligible Investor minimum $25K-30K per offering
+Price: від $5K (залежить від продукту)
 
 ### 5. Calgary real estate стратегія
 ```

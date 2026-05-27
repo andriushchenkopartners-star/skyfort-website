@@ -34,7 +34,7 @@ export const dictionary = {
     stats: [
       { value: "$34K", label: "TFSA contribution room у 2026" },
       { value: "7–12%", label: "Історично · приватні MICs та REITs" },
-      { value: "$25K+", label: "Поріг входу в exempt market (Eligible)" },
+      { value: "від $5K", label: "Поріг входу в exempt market (залежить від продукту)" },
       { value: "30 хв", label: "Discovery call · безкоштовно" },
     ],
     aboutTitle: "Хто я і чому це не черговий блог про гроші",
@@ -101,7 +101,7 @@ export const dictionary = {
     stats: [
       { value: "$34K", label: "TFSA contribution room в 2026" },
       { value: "7–12%", label: "Исторически · частные MICs и REITs" },
-      { value: "$25K+", label: "Порог входа в exempt market (Eligible)" },
+      { value: "от $5K", label: "Порог входа в exempt market (зависит от продукта)" },
       { value: "30 мин", label: "Discovery call · бесплатно" },
     ],
     aboutTitle: "Кто я и почему это не очередной блог про деньги",
@@ -168,7 +168,7 @@ export const dictionary = {
     stats: [
       { value: "$34K", label: "TFSA contribution room in 2026" },
       { value: "7–12%", label: "Historical · private MICs and REITs" },
-      { value: "$25K+", label: "Exempt market entry (Eligible Investor)" },
+      { value: "from $5K", label: "Exempt market entry (product-dependent)" },
       { value: "30 min", label: "Discovery call · free" },
     ],
     aboutTitle: "Who I am and why this isn't another money blog",
