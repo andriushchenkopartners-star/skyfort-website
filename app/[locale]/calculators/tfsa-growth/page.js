@@ -1,5 +1,99 @@
 import TFSACalculator from "./calculator";
+import StaticFaq from "../../../_components/StaticFaq";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
+
+// ─── FAQ content (educational, NOT advice) ──────────────────────────────────
+// Visible accordion + matching FAQPage JSON-LD for Google rich snippets.
+// All answers are framed as concept/framework explanation — no specific
+// product recommendation, no return promises, EMD-compliant. Limits and
+// account mechanics are verifiable against CRA.
+
+const FAQ = {
+  uk: [
+    {
+      q: "Який ліміт TFSA у 2026 році?",
+      a: "Річний ліміт CRA — $7,000 на 2026 рік. Якщо ти повнолітній резидент Канади і ніколи не вносив, у тебе може накопичитися room з кожного року, починаючи з твого 18-річчя (або з 2009 — року запуску TFSA, якщо тобі вже було 18). Точний room перевір у своєму CRA My Account.",
+    },
+    {
+      q: "Чи зменшує внесок у TFSA мій податок?",
+      a: "Ні. На відміну від RRSP, внесок у TFSA робиться з після-податкового доходу — податкового відрахування немає. Зате весь майбутній ріст і виплати — без податку взагалі. Це робить TFSA особливо цінним для довгострокового compound росту.",
+    },
+    {
+      q: "Чи можу тримати ETF у TFSA?",
+      a: "Так. TFSA — це не продукт, а тип рахунку (tax wrapper). У ньому можна тримати готівку, GIC, ETF, акції, mutual funds, bonds. Багато новоприбулих помилково тримають у TFSA лише savings account з 1–2% — це втрачені compound роки.",
+    },
+    {
+      q: "Що буде якщо я виведу гроші з TFSA?",
+      a: "Сума виведення додається назад у твій contribution room наступного календарного року (1 січня). Це робить TFSA дуже гнучким — на відміну від RRSP, де виведення оподатковується і room назавжди втрачається.",
+    },
+    {
+      q: "Який реальний дохід можна очікувати від ETF?",
+      a: "Широкі ринкові ETF (приклади: XEQT, XGRO, VFV, VEQT) історично давали 7–11% річних за 30+ років з реінвестицією дивідендів. Минула дохідність не гарантує майбутньої — короткострокова волатильність може бути −20% або більше у поганий рік.",
+    },
+    {
+      q: "Чи показує калькулятор реальні цифри?",
+      a: "Калькулятор використовує формулу compound interest з усередненим річним приростом. Реальні ринки волатильні — фактичний результат буде варіюватися рік до року. Цифри тут — освітня оцінка для довгострокового планування, а не гарантія і не персональна порада.",
+    },
+  ],
+  ru: [
+    {
+      q: "Какой лимит TFSA в 2026 году?",
+      a: "Годовой лимит CRA — $7,000 на 2026 год. Если ты совершеннолетний резидент Канады и никогда не вносил, у тебя может накопиться room с каждого года, начиная с 18-летия (или с 2009 — года запуска TFSA, если тебе уже было 18). Точный room проверь в своём CRA My Account.",
+    },
+    {
+      q: "Уменьшает ли взнос в TFSA мой налог?",
+      a: "Нет. В отличие от RRSP, взнос в TFSA делается из после-налогового дохода — налогового вычета нет. Зато весь будущий рост и выплаты — без налога вообще. Это делает TFSA особенно ценным для долгосрочного compound роста.",
+    },
+    {
+      q: "Могу ли я держать ETF в TFSA?",
+      a: "Да. TFSA — это не продукт, а тип счёта (tax wrapper). В нём можно держать наличные, GIC, ETF, акции, mutual funds, bonds. Многие новоприбывшие ошибочно держат в TFSA только savings account с 1–2% — это потерянные compound годы.",
+    },
+    {
+      q: "Что будет если я выведу деньги из TFSA?",
+      a: "Сумма вывода добавляется обратно в твой contribution room в следующем календарном году (1 января). Это делает TFSA очень гибким — в отличие от RRSP, где вывод облагается налогом и room навсегда теряется.",
+    },
+    {
+      q: "Какой реальный доход можно ожидать от ETF?",
+      a: "Широкие рыночные ETF (примеры: XEQT, XGRO, VFV, VEQT) исторически давали 7–11% годовых за 30+ лет с реинвестицией дивидендов. Прошлая доходность не гарантирует будущей — краткосрочная волатильность может быть −20% или больше в плохой год.",
+    },
+    {
+      q: "Показывает ли калькулятор реальные цифры?",
+      a: "Калькулятор использует формулу compound interest со средним годовым приростом. Реальные рынки волатильны — фактический результат будет варьироваться год к году. Цифры здесь — образовательная оценка для долгосрочного планирования, а не гарантия и не персональная рекомендация.",
+    },
+  ],
+  en: [
+    {
+      q: "What's the TFSA limit for 2026?",
+      a: "The CRA annual limit for 2026 is $7,000. If you're a Canadian resident over 18 and have never contributed, you may have accumulated room from every year since you turned 18 (or since 2009 — when TFSA launched — if you were already 18 then). Check your exact room in your CRA My Account.",
+    },
+    {
+      q: "Does a TFSA contribution reduce my taxes?",
+      a: "No. Unlike RRSP, TFSA contributions come from after-tax income — there's no tax deduction. But all future growth and withdrawals are completely tax-free. This makes TFSA especially valuable for long-term compounding.",
+    },
+    {
+      q: "Can I hold ETFs in a TFSA?",
+      a: "Yes. TFSA isn't a product — it's an account type (tax wrapper). You can hold cash, GICs, ETFs, stocks, mutual funds, and bonds inside it. Many newcomers mistakenly keep only a savings account in TFSA at 1–2% — those are lost compound years.",
+    },
+    {
+      q: "What happens if I withdraw from my TFSA?",
+      a: "The withdrawal amount gets added back to your contribution room in the following calendar year (January 1). This makes TFSA very flexible — unlike RRSP, where withdrawals are taxed and room is permanently lost.",
+    },
+    {
+      q: "What return can I realistically expect from ETFs?",
+      a: "Broad-market ETFs (examples: XEQT, XGRO, VFV, VEQT) have historically returned 7–11% annually over 30+ years with dividend reinvestment. Past returns don't guarantee future ones — short-term volatility can be −20% or more in a bad year.",
+    },
+    {
+      q: "Does the calculator show real numbers?",
+      a: "The calculator uses a compound-interest formula with an averaged annual return. Real markets are volatile — your actual result will vary year to year. Numbers here are an educational estimate for long-term planning, not a guarantee or personalized advice.",
+    },
+  ],
+};
+
+const FAQ_HEADING = {
+  uk: "Часті питання про TFSA",
+  ru: "Частые вопросы про TFSA",
+  en: "TFSA frequently asked questions",
+};
 
 const META = {
   uk: {
@@ -103,6 +197,9 @@ const jsonLd = {
 
 export default async function Page({ params }) {
   const { locale } = await params;
+  const faq = FAQ[locale] || FAQ.uk;
+  const heading = FAQ_HEADING[locale] || FAQ_HEADING.uk;
+
   return (
     <>
       <script
@@ -110,6 +207,11 @@ export default async function Page({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <TFSACalculator locale={locale} />
+      <StaticFaq
+        faq={faq}
+        heading={heading}
+        jsonLdId={`https://sky-fort.ca/${locale}/calculators/tfsa-growth#faq`}
+      />
     </>
   );
 }
