@@ -12,21 +12,60 @@ import { usePathname } from "next/navigation";
 import Logo from "./_components/Logo";
 import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
 
-// Links that live under [locale]. The href is built per-render with the current locale.
-const LOCALIZED_LINKS = [
-  { label: "Головна",       path: "" },
-  { label: "Блог",          path: "/blog" },
-  { label: "Послуги",       path: "/services" },
-  { label: "Калькулятори",  path: "/calculators/tfsa-growth" },
-  { label: "Про мене",      path: "/pro-mene" },
-  { label: "Документи",     path: "/resources" },
-];
+// Per-locale UI copy for the burger menu. UK is the source; RU/EN are translations.
+const COPY = {
+  uk: {
+    open: "Відкрити меню",
+    close: "Закрити меню",
+    home: "Головна",
+    blog: "Блог",
+    services: "Послуги",
+    calculators: "Калькулятори",
+    about: "Про мене",
+    resources: "Документи",
+    cta: "Безкоштовний дзвінок →",
+    rootLinks: [
+      { label: "TFSA калькулятор", href: "/tfsa-kalkulyator" },
+      { label: "Exempt market українцям", href: "/exempt-market-ukrayintsyam" },
+      { label: "Іпотека Калгарі", href: "/ipoteka-kalhari" },
+    ],
+  },
+  ru: {
+    open: "Открыть меню",
+    close: "Закрыть меню",
+    home: "Главная",
+    blog: "Блог",
+    services: "Услуги",
+    calculators: "Калькуляторы",
+    about: "Обо мне",
+    resources: "Документы",
+    cta: "Бесплатный звонок →",
+    // UA-only landing pages don't have RU equivalents → hidden on /ru/
+    rootLinks: [],
+  },
+  en: {
+    open: "Open menu",
+    close: "Close menu",
+    home: "Home",
+    blog: "Blog",
+    services: "Services",
+    calculators: "Calculators",
+    about: "About",
+    resources: "Resources",
+    cta: "Free discovery call →",
+    // UA-only landing pages don't have EN equivalents → hidden on /en/
+    rootLinks: [],
+  },
+};
 
-// Pages that stay at the root (Ukrainian-only landings).
-const ROOT_LINKS = [
-  { label: "TFSA калькулятор",          href: "/tfsa-kalkulyator" },
-  { label: "Exempt market українцям",   href: "/exempt-market-ukrayintsyam" },
-  { label: "Іпотека Калгарі",           href: "/ipoteka-kalhari" },
+// Order of localized links in the burger; href is built per-render with the current locale.
+const LINK_ORDER = [
+  { key: "home", path: "" },
+  { key: "blog", path: "/blog" },
+  { key: "services", path: "/services" },
+  { key: "calculators", path: "/calculators/tfsa-growth" },
+  { key: "about", path: "/pro-mene" },
+  { key: "resources", path: "/resources" },
 ];
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -45,6 +84,7 @@ export default function Nav() {
   if (pathname.includes("/portal")) return null;
 
   const locale = currentLocaleFrom(pathname);
+  const t = COPY[locale] || COPY[DEFAULT_LOCALE];
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -64,7 +104,7 @@ export default function Nav() {
       <button
         type="button"
         className="fixed right-5 top-5 z-[1002] flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"
-        aria-label={open ? "Закрити меню" : "Відкрити меню"}
+        aria-label={open ? t.close : t.open}
         aria-expanded={open}
         aria-controls="sf-nav-panel"
         onClick={() => setOpen((v) => !v)}
@@ -105,7 +145,7 @@ export default function Nav() {
           <Logo variant="full" size="sm" />
         </div>
         <ul className="flex-1 list-none p-0 m-0">
-          {LOCALIZED_LINKS.map((l) => {
+          {LINK_ORDER.map((l) => {
             const href = `/${locale}${l.path}` || `/${locale}`;
             return (
               <li key={href} className="mb-1">
@@ -114,12 +154,12 @@ export default function Nav() {
                   onClick={() => setOpen(false)}
                   className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-all hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
                 >
-                  {l.label}
+                  {t[l.key]}
                 </Link>
               </li>
             );
           })}
-          {ROOT_LINKS.map((l) => (
+          {t.rootLinks.map((l) => (
             <li key={l.href} className="mb-1">
               <Link
                 href={l.href}
@@ -138,7 +178,7 @@ export default function Nav() {
           onClick={() => setOpen(false)}
           className="mt-6 block rounded-xl bg-[var(--color-brand)] py-4 text-center text-sm font-bold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
         >
-          Безкоштовний дзвінок →
+          {t.cta}
         </a>
       </nav>
     </>
