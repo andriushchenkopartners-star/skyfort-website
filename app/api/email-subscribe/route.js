@@ -2,9 +2,12 @@
 // SkyFort — приймає email, додає у Brevo + backup у Supabase.
 //
 // ENV (Vercel → Settings → Environment Variables):
-//   BREVO_API_KEY        — обов'язково (Brevo SMTP & API → API keys)
-//   BREVO_LIST_ID        — числовий ID списку у Brevo (Contacts → Lists → клік → з URL)
-//   BREVO_WELCOME_TPLID  — опційно: ID Brevo transactional template для welcome email
+//   BREVO_API_KEY            — обов'язково (Brevo SMTP & API → API keys)
+//   BREVO_LIST_ID            — числовий ID списку у Brevo (Contacts → Lists → клік → з URL)
+//   BREVO_WELCOME_TPLID      — опційно: fallback template ID (одна на всі мови)
+//   BREVO_WELCOME_TPLID_UK   — опційно: UK-only welcome template
+//   BREVO_WELCOME_TPLID_RU   — опційно: RU-only welcome template
+//   BREVO_WELCOME_TPLID_EN   — опційно: EN-only welcome template
 //   SUPABASE_URL (або NEXT_PUBLIC_SUPABASE_URL) + SUPABASE_SERVICE_ROLE_KEY — для backup
 
 import { createClient } from '@supabase/supabase-js';
@@ -27,9 +30,24 @@ const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const BREVO_LIST_ID = process.env.BREVO_LIST_ID
   ? parseInt(process.env.BREVO_LIST_ID, 10)
   : null;
-const BREVO_WELCOME_TPLID = process.env.BREVO_WELCOME_TPLID
-  ? parseInt(process.env.BREVO_WELCOME_TPLID, 10)
-  : null;
+
+function intEnv(name) {
+  const v = process.env[name];
+  return v ? parseInt(v, 10) : null;
+}
+
+// Welcome template IDs — per locale, with single fallback.
+const WELCOME_TPL = {
+  uk: intEnv('BREVO_WELCOME_TPLID_UK'),
+  ru: intEnv('BREVO_WELCOME_TPLID_RU'),
+  en: intEnv('BREVO_WELCOME_TPLID_EN'),
+};
+const BREVO_WELCOME_TPLID_FALLBACK = intEnv('BREVO_WELCOME_TPLID');
+
+function pickWelcomeTemplateId(locale) {
+  const code = (locale || 'uk').toString().slice(0, 2).toLowerCase();
+  return WELCOME_TPL[code] || BREVO_WELCOME_TPLID_FALLBACK;
+}
 
 // Rate limit: 3 запити / 60 сек / IP-hash
 const RATE_LIMIT_MS = 60_000;
@@ -88,8 +106,9 @@ async function syncToBrevo({ email, name, source, listIds }) {
   }
 }
 
-async function sendWelcomeEmail(email, name) {
-  if (!BREVO_API_KEY || !BREVO_WELCOME_TPLID) return;
+async function sendWelcomeEmail(email, name, locale) {
+  const templateId = pickWelcomeTemplateId(locale);
+  if (!BREVO_API_KEY || !templateId) return;
   // fire-and-forget
   try {
     await fetch('https://api.brevo.com/v3/smtp/email', {
@@ -101,8 +120,11 @@ async function sendWelcomeEmail(email, name) {
       },
       body: JSON.stringify({
         to: [{ email, name: name || undefined }],
-        templateId: BREVO_WELCOME_TPLID,
-        params: { FIRSTNAME: name || '' },
+        templateId,
+        params: {
+          FIRSTNAME: name || '',
+          LOCALE: (locale || 'uk').toString().slice(0, 2).toLowerCase(),
+        },
       }),
     });
   } catch {}
@@ -199,7 +221,7 @@ export async function POST(req) {
 
   // 3. Welcome email (fire-and-forget) — лише якщо Brevo sync OK
   if (brevoRes.ok) {
-    sendWelcomeEmail(email, name);
+    sendWelcomeEmail(email, name, body.locale);
   }
 
   // Response

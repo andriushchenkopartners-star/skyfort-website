@@ -29,24 +29,22 @@
    ```
    Або у вкладці "Settings" самого списку.
 
-### 2. (Опціонально) Створи welcome email template (5 хв)
+### 2. Створи 3 welcome email templates — UK / RU / EN (~15 хв)
 
-Це email який отримає підписник одразу після submit.
+**📋 Готові HTML-шаблони з copy-paste коду — у [docs/brevo-welcome-templates.md](brevo-welcome-templates.md)**
 
-1. Brevo → ліве меню **"Campaigns" → "Templates"** → **"New template"**.
-2. Обери **"Drag & drop editor"** або **"Code"** (HTML).
-3. Заповни:
-   - **From name**: `Andrii SkyFort`
-   - **From email**: `andrii@sky-fort.ca` (треба підтверджений sender — див. крок 4)
-   - **Subject**: `Твій гайд TFSA — як обіцяно 👇` (приклад)
-   - **Preview text**: `8 типових помилок українців з TFSA + 20-річний план інвестицій`
-4. В тілі листа:
-   - Привітання (`Привіт, {{ params.FIRSTNAME }}!` — динамічна змінна)
-   - Лінк на PDF: `https://frhitqmsmqybggcmowag.supabase.co/storage/v1/object/public/lead-magnets-uk/01_SkyFort_TFSA_Exempt_Market.pdf`
-   - CTA: "Записатись на 30-хв discovery call" → https://calendly.com/andriushchenko-partners/new-meeting
-   - Footer з NRD #4575551 + посилання на unsubscribe (Brevo додає автоматично)
-5. **Save & activate**.
-6. Запам'ятай **Template ID** (число, у Templates список).
+Кожна мова отримує свій template (бо у нас підписники з UK/RU/EN — кожному надсилаємо лист на його мові). Це автоматично через `body.locale` що пробрасується з форми.
+
+Коротко:
+1. Brevo → **Campaigns → Email Templates** → **New template**
+2. Створюй 3 окремо: `SkyFort Welcome — UK`, `— RU`, `— EN`
+3. У кожному обери **Use code editor** (зверху, поруч з "Drag & drop")
+4. Скопіюй відповідний HTML з [docs/brevo-welcome-templates.md](brevo-welcome-templates.md) → встав
+5. Subject + Preview text з того ж файлу
+6. **Save & Activate**
+7. Запиши 3 Template IDs (числа, видно у списку)
+
+⚠️ **Sender** має бути `andrii@sky-fort.ca` — треба підтверджений (див. крок 3).
 
 ### 3. Підтвердження sender email (5 хв) — КРИТИЧНО
 
@@ -72,7 +70,7 @@
 
 Якщо не знаєш де DNS-провайдер — поглянь в email-листі з покупкою домену або скинь screenshot реєстратора, я підкажу.
 
-## Що додати у Vercel (3 env vars, ~3 хв)
+## Що додати у Vercel (5 env vars, ~5 хв)
 
 Vercel → Settings → Environment Variables → Add new (по черзі):
 
@@ -80,9 +78,13 @@ Vercel → Settings → Environment Variables → Add new (по черзі):
 |---|---|---|
 | `BREVO_API_KEY` | (з .env.local) | Той же ключ що локально |
 | `BREVO_LIST_ID` | (число з кроку 1) | Числовий ID списку. **БЕЗ лапок.** |
-| `BREVO_WELCOME_TPLID` | (число з кроку 2) | Опціонально — якщо створив template |
+| `BREVO_WELCOME_TPLID_UK` | (число з кроку 2 — UK template) | UK welcome email |
+| `BREVO_WELCOME_TPLID_RU` | (число з кроку 2 — RU template) | RU welcome email |
+| `BREVO_WELCOME_TPLID_EN` | (число з кроку 2 — EN template) | EN welcome email |
 
 Усі — на 3 environments (Production, Preview, Development). Sensitive ✓ на BREVO_API_KEY.
+
+💡 **Опціонально**: якщо хочеш одну template на всіх замість трьох — додай тільки `BREVO_WELCOME_TPLID=<число>`. Код використає його як fallback для будь-якої мови. У такому випадку у template можеш використати `{{ params.LOCALE }}` для conditional рендерингу.
 
 ## Redeploy + тест
 
