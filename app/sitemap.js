@@ -16,10 +16,13 @@ const LOCALIZED_PAGES = [
   { path: "/blog",                       priority: 0.9, changeFrequency: "weekly" },
   { path: "/services",                   priority: 0.9, changeFrequency: "monthly" },
   { path: "/pro-mene",                   priority: 0.8, changeFrequency: "monthly" },
+  { path: "/contact",                    priority: 0.9, changeFrequency: "monthly" },
   { path: "/calculators/tfsa-growth",    priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/mortgage",       priority: 0.8, changeFrequency: "monthly" },
   { path: "/links",                      priority: 0.5, changeFrequency: "monthly" },
+  { path: "/privacy",                    priority: 0.3, changeFrequency: "yearly" },
+  { path: "/cookies",                    priority: 0.3, changeFrequency: "yearly" },
 ];
 
 // Ukrainian-only landing pages (no locale prefix).

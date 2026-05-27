@@ -1,9 +1,26 @@
-import { Mail, Phone, AtSign, Send } from "lucide-react";
+import Link from "next/link";
+import { Mail, Phone, AtSign, Send, MapPin } from "lucide-react";
 import Logo from "../_components/Logo";
 import TikTokIcon from "../_components/TikTokIcon";
 import { CONFIG } from "../_i18n/config";
 
+const LEGAL_LINKS = {
+  uk: { contact: 'Контакти', privacy: 'Приватність', cookies: 'Cookies' },
+  ru: { contact: 'Контакты', privacy: 'Приватность', cookies: 'Cookies' },
+  en: { contact: 'Contact', privacy: 'Privacy', cookies: 'Cookies' },
+};
+
+function localeFromContent(content) {
+  // Best-effort locale detection from content shape
+  if (content?.footer?.contactTitle?.includes('Контакт')) {
+    return content.footer.contactTitle.includes('акт') && content.footer.contactTitle.includes('и') ? 'ru' : 'uk';
+  }
+  return 'en';
+}
+
 export default function Footer({ content }) {
+  const locale = localeFromContent(content);
+  const l = LEGAL_LINKS[locale] || LEGAL_LINKS.uk;
   return (
     <footer className="border-t border-[#2a2a2a] bg-[#191919] pt-24 pb-12">
       <div className="mx-auto max-w-6xl px-6">
@@ -79,8 +96,16 @@ export default function Footer({ content }) {
             </p>
           </div>
         </div>
-        <div className="mt-16 border-t border-[#2a2a2a] pt-8 text-xs text-[#6b6b6b]">
-          {content.footer.rights}
+        <div className="mt-16 border-t border-[#2a2a2a] pt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="text-xs text-[#6b6b6b]">{content.footer.rights}</div>
+          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#a3a3a3]">
+            <Link href={`/${locale}/contact`} className="inline-flex items-center gap-1 hover:text-[var(--color-brand)]">
+              <MapPin className="h-3 w-3" aria-hidden="true" />
+              {l.contact}
+            </Link>
+            <Link href={`/${locale}/privacy`} className="hover:text-[var(--color-brand)]">{l.privacy}</Link>
+            <Link href={`/${locale}/cookies`} className="hover:text-[var(--color-brand)]">{l.cookies}</Link>
+          </nav>
         </div>
       </div>
     </footer>

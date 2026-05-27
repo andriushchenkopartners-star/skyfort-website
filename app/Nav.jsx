@@ -22,6 +22,7 @@ const COPY = {
     services: "Послуги",
     calculators: "Калькулятори",
     about: "Про мене",
+    contact: "Контакти",
     resources: "Документи",
     cta: "Безкоштовний дзвінок →",
     rootLinks: [
@@ -38,6 +39,7 @@ const COPY = {
     services: "Услуги",
     calculators: "Калькуляторы",
     about: "Обо мне",
+    contact: "Контакты",
     resources: "Документы",
     cta: "Бесплатный звонок →",
     // UA-only landing pages don't have RU equivalents → hidden on /ru/
@@ -51,6 +53,7 @@ const COPY = {
     services: "Services",
     calculators: "Calculators",
     about: "About",
+    contact: "Contact",
     resources: "Resources",
     cta: "Free discovery call →",
     // UA-only landing pages don't have EN equivalents → hidden on /en/
@@ -65,6 +68,7 @@ const LINK_ORDER = [
   { key: "services", path: "/services" },
   { key: "calculators", path: "/calculators/tfsa-growth" },
   { key: "about", path: "/pro-mene" },
+  { key: "contact", path: "/contact" },
   { key: "resources", path: "/resources" },
 ];
 

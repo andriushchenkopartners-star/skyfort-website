@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import Nav from "./Nav";
 import WhatsAppButton from "./_components/WhatsAppButton";
+import CookieConsent from "./_components/CookieConsent";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
@@ -264,6 +265,7 @@ export default function RootLayout({ children }) {
         <Nav />
         {children}
         <WhatsAppButton />
+        <CookieConsent />
 
         {GA_ID && (
           <>
