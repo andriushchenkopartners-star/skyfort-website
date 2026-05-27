@@ -5,6 +5,7 @@
 // Tracks click via analytics; does not block any content.
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { track } from "../_lib/analytics";
 
 const WHATSAPP_URL = "https://wa.me/14033972553";
@@ -27,10 +28,14 @@ function WhatsAppGlyph({ size = 28 }) {
 
 export default function WhatsAppButton() {
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname() || "";
 
   // Avoid SSR hydration flicker — render only after mount.
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
+
+  // Portal has its own contact UX — don't show floating WhatsApp on /portal pages.
+  if (pathname.includes("/portal")) return null;
 
   return (
     <a

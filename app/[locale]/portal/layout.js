@@ -27,6 +27,31 @@ export const metadata = {
   robots: { index: false, follow: false, nocache: true },
 };
 
+// Inline CSS variables for the portal theme — set directly on the wrapper
+// so the values are guaranteed regardless of CSS cascade or Turbopack hot-reload state.
+const PORTAL_THEME = {
+  '--portal-blue': '#2D73E3',
+  '--portal-blue-ink': '#1956c4',
+  '--portal-blue-soft': '#e8f0fd',
+  '--portal-ink': '#0b0d10',
+  '--portal-ink-2': '#1a1d22',
+  '--portal-ink-3': '#2a2e35',
+  '--portal-paper': '#f6f4ef',
+  '--portal-paper-2': '#ecebe5',
+  '--portal-line': '#e3e1da',
+  '--portal-line-strong': '#cbc9c1',
+  '--portal-mute': '#6b6b66',
+  '--portal-positive': '#1f8a5b',
+  '--portal-negative': '#c34a3a',
+  '--portal-warn': '#b7791f',
+  background: '#f6f4ef',
+  color: '#0b0d10',
+  minHeight: '100vh',
+  fontFamily: 'var(--font-portal-display), "Inter Tight", system-ui, -apple-system, sans-serif',
+  position: 'relative',
+  zIndex: 1,
+};
+
 export default async function PortalLayout({ children, params }) {
   const { locale } = await params;
   if (!SUPPORTED_LOCALES.includes(locale)) notFound();
@@ -35,7 +60,7 @@ export default async function PortalLayout({ children, params }) {
     <div
       data-portal-theme="light"
       className={`${interTight.variable} ${jetbrainsMono.variable}`}
-      style={{ minHeight: '100vh' }}
+      style={PORTAL_THEME}
     >
       {children}
     </div>

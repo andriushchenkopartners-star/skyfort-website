@@ -40,6 +40,10 @@ function currentLocaleFrom(pathname) {
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() || "/";
+
+  // Portal has its own UI shell — don't show the public-site burger here.
+  if (pathname.includes("/portal")) return null;
+
   const locale = currentLocaleFrom(pathname);
 
   useEffect(() => {
