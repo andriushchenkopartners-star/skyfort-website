@@ -1,6 +1,14 @@
+'use client';
+
 // app/_components/portal/Sparkline.jsx
 // Tiny SVG line chart for compact stats (e.g., account row preview).
 // Inputs: pts (array of numbers). No axis, no labels — just the shape.
+//
+// Note: uses React.useId() for the gradient id so SSR and client agree —
+// Math.random() during render caused hydration mismatch and React 19
+// "Cannot call impure function during render" violations.
+
+import { useId } from 'react';
 
 export default function Sparkline({
   pts,
@@ -10,6 +18,7 @@ export default function Sparkline({
   area = true,
   className,
 }) {
+  const rawId = useId();
   if (!Array.isArray(pts) || pts.length < 2) return null;
 
   const min = Math.min(...pts);
@@ -21,7 +30,8 @@ export default function Sparkline({
     .map((v, i) => `${i ? 'L' : 'M'}${sx(i).toFixed(1)} ${sy(v).toFixed(1)}`)
     .join(' ');
   const a = `${d} L${width} ${height} L0 ${height} Z`;
-  const id = 'sparkfill-' + Math.random().toString(36).slice(2, 8);
+  // useId returns ":r0:" style strings — strip colons for SVG id safety.
+  const id = `sparkfill-${rawId.replace(/[:]/g, '')}`;
 
   return (
     <svg

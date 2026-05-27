@@ -34,10 +34,16 @@ export const metadata = {
   creator: "Andrii Andriushchenko",
   publisher: "SkyFort Wealth",
   category: "finance",
+  // Default alternates point to the Ukrainian locale homepage.
+  // Per-locale pages override these in app/[locale]/layout.js with the correct
+  // hreflang map (uk-UA→/uk, ru-RU→/ru, en-CA→/en). Legacy Ukrainian-only SEO
+  // landings (e.g. /tfsa-kalkulyator) override `canonical` themselves and don't
+  // claim ru/en alternates — which is correct since they exist only in UK.
   alternates: {
-    canonical: "/",
+    canonical: "/uk",
     languages: {
-      "uk-UA": "/", "ru-RU": "/", "en-CA": "/", "x-default": "/",
+      "uk-UA": "/uk",
+      "x-default": "/uk",
     },
   },
   openGraph: {

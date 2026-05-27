@@ -31,29 +31,54 @@ When in doubt, prefer educational framing: "How TFSA works" not "Use this TFSA s
 
 ```
 app/
-  layout.js                  # root html, metadata, JSON-LD (FinancialService)
-  page.js                    # homepage (currently monolithic ~1200 lines — refactor in Phase 1)
+  layout.js                  # root html, metadata, JSON-LD (FinancialService + LocalBusiness)
   globals.css                # design tokens (@theme inline) + utility classes
-  Nav.jsx                    # fixed burger nav (still has inline <style> — refactor in Phase 1)
-  sitemap.js                 # static sitemap (Phase 2: multilingual rebuild)
+  Nav.jsx                    # fixed burger nav (locale-aware)
+  sitemap.js                 # multilingual sitemap with hreflang
   robots.js                  # robots.txt (AI crawlers allowed: GPTBot, ClaudeBot, PerplexityBot)
   manifest.webmanifest       # PWA manifest
 
-  api/lead/route.js          # lead capture endpoint
+  api/
+    lead/route.js            # legacy lead capture
+    email-subscribe/route.js # Brevo subscription (lead magnets)
+    consultation/route.js    # Calendly booking events
+    topic-request/route.js   # "suggest a topic" form
+    portal/                  # portal auth + admin push endpoints
+    admin/                   # admin-only ops
 
-  calculators/{tfsa-growth,mortgage,financial-freedom}/page.js
-  pro-mene/page.js + about-client.jsx
-  resources/                 # gated document library (noindex required)
-  links/                     # external links page
-  exempt-market-ukrayintsyam/
-  ipoteka-kalhari/
-  tfsa-kalkulyator/
+  [locale]/                  # uk | ru | en — Phase 2 DONE (param-based, no next-intl pkg)
+    layout.js                # validates locale, sets canonical + hreflang via generateMetadata
+    page.js                  # homepage (client component, uses dictionary)
+    pro-mene/                # about page (+about-client.jsx)
+    contact/  privacy/  cookies/   # added in cookie-consent batch
+    services/                # service+city programmatic pages (Phase 2 SEO)
+    calculators/{tfsa-growth,mortgage,financial-freedom}/
+    blog/  blog/[slug]/      # MDX blog hub (Phase 3 — scaffolded)
+    resources/               # gated PDF library (noindex)
+    links/                   # external links
+    tt/                      # TikTok bio-link landing (Phase 3.10)
+    portal/                  # client portal (Phase 5 — invitation-only dashboard)
+    admin/portal/            # admin tools for Andrii (Phase 4 portal)
 
-  _components/               # (created in Phase 1) Button, Card, Section, Container, Heading, ...
-  _sections/                 # (Phase 1) HeroSection, GuidesSection, ...
-  _i18n/dictionary.js        # (Phase 1) extracted t = { uk, ru, en } from page.js
+  # Legacy SEO landings (Ukrainian-only, keyword-targeted, NOT under [locale]).
+  # Keep their own canonical; do not duplicate under /uk.
+  exempt-market-ukrayintsyam/page.js
+  ipoteka-kalhari/page.js
+  tfsa-kalkulyator/page.js
 
-  tt/                        # (Phase 3.10) TikTok bio-link landing
+  _components/               # shared atoms — Button, Card, Section, Container, Heading,
+                             # Eyebrow, Breadcrumbs, Logo, LangSwitcher, CookieConsent,
+                             # EmailCaptureForm, StickyBlogCTA, TrustBar, WhatsAppButton,
+                             # TopicSuggestForm, FaqJsonLd, TikTokIcon, portal/*
+  _sections/                 # homepage sections — Hero, Stats, About, Guides, CalcPromo,
+                             # MortgagePromo, FireCalcPromo, Steps, Faq, Testimonials,
+                             # FinalCta, Footer, HomeNav
+  _i18n/
+    dictionary.js            # main t = { uk, ru, en } + SUPPORTED_LOCALES + resolveLocale
+    portal-dictionary.js     # portal-specific strings
+    config.js                # locale constants
+  _data/                     # static data (testimonials, etc.)
+  _lib/                      # helpers (portal/, etc.)
 
 public/
   andrii.jpg                 # portrait
@@ -71,28 +96,25 @@ All design tokens live in `app/globals.css` under `:root` and exposed to Tailwin
 
 **Single brand blue**: `#2D73E3` (token `--color-brand` / Tailwind class `bg-brand`, `text-brand`).
 
-Known drift to fix on touch (older code):
-- `#2563EB` (in `app/page.js` Logo component) → replace with `text-brand`
-- `#2f6bff`, `#4f86ff` (in `app/Nav.jsx` inline styles) → replace with `--color-brand` / `--color-brand-hover`
-- `#FFB627` (accent gold, in some calculators) → use `--color-accent` token if kept
+Known drift to fix on touch (cleanup, not urgent):
+- `#FFB627` accent gold — hardcoded across calculators (mortgage, financial-freedom) and `_sections/FireCalcPromo.jsx`. Add `--color-accent: #FFB627` token in `globals.css` and migrate `bg-[#FFB627]` → `bg-accent`, `text-[#FFB627]` → `text-accent`.
+- Chart strokes use literal `#2D73E3` in `calculators/*/chart.jsx` — fine inside recharts (which can't read CSS vars), but document so future maintainers don't try to "fix" it.
+- Old `#2563EB`, `#2f6bff`, `#4f86ff` references in `page.js`/`Nav.jsx` — already removed in Phase 1 refactor.
 
 ### Spacing, type scale, radii, shadows
 See `app/globals.css` for the canonical list. Use Tailwind utilities that resolve to these tokens (e.g., `text-display-lg`, `rounded-lg`, `shadow-card`).
 
 ## i18n model
 
-**Current** (legacy, until Phase 2 completes): client-side `t = { uk, ru, en }` object per page, language switch via `localStorage` and `navigator.language`. Single URL `/` serves all languages.
+**Implemented** (Phase 2 — DONE, without `next-intl` package): `[locale]` segment routing with `uk | ru | en`. Each page reads `params.locale`, resolves via `resolveLocale()` from `app/_i18n/dictionary.js`, picks strings from `dictionary[locale]`. Unsupported locales 404 via `notFound()` in `[locale]/layout.js`.
 
-**Target** (Phase 2 — `next-intl` + `[locale]` segments):
-```
-app/
-  [locale]/
-    layout.js
-    page.js
-    pro-mene/page.js          # OR localized: about / obo-mne
-    calculators/...
-```
-URLs become `/uk/...`, `/ru/...`, `/en/...`. Old URLs must 301 to new (`next.config.mjs` `redirects()`).
+- URLs: `/uk/...`, `/ru/...`, `/en/...`. Root `/` 308-redirects to `/uk` (middleware or layout-level — check `middleware.js` if present, otherwise next.config redirects).
+- `[locale]/layout.js` sets correct per-page `canonical: /${locale}` and full `languages` hreflang map via `generateMetadata`.
+- Root `app/layout.js` defaults to `/uk` (used only by legacy SEO landings + API routes, not by `[locale]` tree).
+- Language switcher: `_components/LangSwitcher.jsx` rewrites the current path to the chosen locale; persists nothing in localStorage anymore (URL is source of truth).
+- Dictionary structure: `dictionary[locale]` is the top-level shape — every key under it is the same across locales. UK is the source; RU/EN are translations.
+
+When adding strings: add UK first, then RU + EN. Never let a locale silently fall back — the schema check in `resolveLocale` would mask a bug.
 
 ## Content philosophy (organic + TikTok funnel)
 
@@ -113,9 +135,26 @@ URLs become `/uk/...`, `/ru/...`, `/en/...`. Old URLs must 301 to new (`next.con
 
 ## Lead routes (current)
 
-- `/api/lead` (`app/api/lead/route.js`) — POST captures form submissions. Phase 4: extend to email subscription + Brevo/Resend integration.
+- `/api/lead` — POST, legacy form capture.
+- `/api/email-subscribe` — POST, Brevo subscription with lead-magnet tagging (used by `EmailCaptureForm`).
+- `/api/consultation` — POST, Calendly booking event echo for analytics.
+- `/api/topic-request` — POST, "suggest a topic" form.
+- `/api/portal/*` — auth + client-facing portal API.
+- `/api/admin/*` — admin-only ops (push doc / message / todo to a client).
 - Calendly: `https://calendly.com/andriushchenko-partners/new-meeting`.
 - Contact: `+1-403-397-2553` · `andrii@sky-fort.ca`.
+
+## Phase status (snapshot)
+
+- **Phase 0** — analytics: GA4 + Clarity env-driven in `app/layout.js`, Search Console verified. DONE.
+- **Phase 1** — design system + component extraction. DONE (sections in `_sections/`, atoms in `_components/`, dictionary extracted, monolithic `app/page.js` deleted).
+- **Phase 2** — `[locale]` routing + hreflang + sitemap. DONE. Programmatic service+city pages live under `[locale]/services/`.
+- **Phase 3** — blog hub: scaffolded (`[locale]/blog/`, `[locale]/blog/[slug]/`, `app/blog/rss.xml/`). Pillar content in progress.
+- **Phase 3.10** — TikTok bio-link `/tt`. DONE.
+- **Phase 4** — email capture + lead nurture: `EmailCaptureForm` + Brevo wired. Testimonials section + Review schema live. Cookie consent banner + `/contact`, `/privacy`, `/cookies` (3 locales). Sticky blog CTA. DONE.
+- **Phase 5** — TypeScript migration + programmatic SEO for calculator parameter variants. NOT STARTED.
+- **Phase 5.5 / Client Portal** — invitation-only `/uk/portal` dashboard with admin push tools. DONE for Phase 5; Phase 6 (email notifications via Brevo/Resend) planned.
+- **GBP / Local SEO** — copy ready (3 langs), enhanced LocalBusiness JSON-LD in root layout. Awaiting Andrii to paste into Google Business Profile.
 
 ## Style for this repo
 
