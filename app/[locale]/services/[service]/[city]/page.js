@@ -10,6 +10,7 @@ import {
   getServiceKeys,
   getCityKeys,
 } from "../../../../_lib/services-cities";
+import { getPairContent } from "../../../../_lib/services-cities-unique";
 import Breadcrumbs from "../../../../_components/Breadcrumbs";
 import EmailCaptureForm from "../../../../_components/EmailCaptureForm";
 
@@ -215,6 +216,13 @@ export default async function ServiceCityPage({ params }) {
     locale === "ru" ? svc.descRu : locale === "en" ? svc.descEn : svc.descUk;
   const cityNotes =
     locale === "ru" ? ct.notesRu : locale === "en" ? ct.notesEn : ct.notesUk;
+  const uniqueInsight = getPairContent(service, city, locale);
+  const insightLabel =
+    locale === "ru"
+      ? `Что особенного для ${ct.locativeRu}`
+      : locale === "en"
+      ? `What's specific ${ct.locativeEn}`
+      : `Що особливого ${ct.locativeUk}`;
   const faq = buildFaq(locale, svc, ct);
 
   // JSON-LD: Service + FAQPage + LocalBusiness (with areaServed = city)
@@ -330,6 +338,32 @@ export default async function ServiceCityPage({ params }) {
             {svcDesc}
           </p>
         </section>
+
+        {/* CITY-SPECIFIC INSIGHT (per-pair unique content, when available) */}
+        {uniqueInsight && (
+          <section className="mt-8 max-w-3xl">
+            <div className="rounded-2xl border border-[var(--color-brand)]/25 bg-gradient-to-br from-[var(--color-brand-soft)] to-transparent p-6 md:p-8">
+              <div className="mb-3 flex items-center gap-2">
+                <MapPin
+                  className="h-4 w-4 text-[var(--color-brand)]"
+                  aria-hidden="true"
+                />
+                <span className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-brand)]">
+                  {insightLabel}
+                </span>
+              </div>
+              <div
+                className="text-base leading-relaxed text-[var(--color-fg)] md:text-lg"
+                dangerouslySetInnerHTML={{
+                  __html: uniqueInsight.replace(
+                    /\*\*(.+?)\*\*/g,
+                    '<strong class="font-semibold text-white">$1</strong>'
+                  ),
+                }}
+              />
+            </div>
+          </section>
+        )}
 
         {/* FAQ */}
         <section className="mt-12">
