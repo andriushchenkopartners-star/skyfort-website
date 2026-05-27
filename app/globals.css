@@ -289,3 +289,12 @@ html, body {
   height: 1px;
   opacity: 0.35;
 }
+
+/* Portal header — hamburger visible only on mobile */
+@media (max-width: 1023px) {
+  .portal-menu-btn { display: grid !important; }
+  /* Two-column inner layouts collapse to single column on mobile */
+  [data-portal-theme="light"] .portal-cols {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -26,6 +26,7 @@ export default function PortalHeader({
   t,
   unreadBell = false,
   onBookClick,
+  onMenuClick,
 }) {
   const router = useRouter();
   const pathname = usePathname() || '';
@@ -60,24 +61,49 @@ export default function PortalHeader({
         zIndex: 5,
       }}
     >
-      {/* Breadcrumb */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          fontSize: 11,
-          color: 'var(--portal-mute)',
-          fontFamily:
-            'var(--font-portal-mono), "JetBrains Mono", ui-monospace, Menlo, monospace',
-          letterSpacing: '.06em',
-        }}
-      >
-        <span>SKYFORT.CA</span>
-        <span>/</span>
-        <span style={{ color: 'var(--portal-ink)', fontWeight: 600 }}>
-          {sectionLabel}
-        </span>
+      {/* Left side: optional hamburger (mobile) + breadcrumb */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        {onMenuClick && (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="portal-menu-btn"
+            aria-label="Open menu"
+            style={{
+              display: 'none', // shown only via @media, see globals
+              width: 36,
+              height: 36,
+              borderRadius: 10,
+              border: '1px solid var(--portal-line)',
+              background: '#fff',
+              color: 'var(--portal-ink)',
+              cursor: 'pointer',
+              placeItems: 'center',
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
+        )}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 11,
+            color: 'var(--portal-mute)',
+            fontFamily:
+              'var(--font-portal-mono), "JetBrains Mono", ui-monospace, Menlo, monospace',
+            letterSpacing: '.06em',
+          }}
+        >
+          <span>SKYFORT.CA</span>
+          <span>/</span>
+          <span style={{ color: 'var(--portal-ink)', fontWeight: 600 }}>
+            {sectionLabel}
+          </span>
+        </div>
       </div>
 
       {/* Right side: lang switcher + bell + book CTA */}
