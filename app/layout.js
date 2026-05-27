@@ -224,7 +224,28 @@ const businessJsonLd = {
   ],
   sameAs: [
     "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
+    "https://www.tiktok.com/@andrii.wealthcanada",
+    "https://instagram.com/andrii.wealthcanada",
   ],
+  paymentAccepted: ["Cash", "Credit Card", "Debit Card", "e-Transfer", "Wire Transfer"],
+  currenciesAccepted: "CAD",
+  slogan: "Canadian finance for newcomers — without the bank fairy tales.",
+  award: "Licensed Dealing Representative · NRD #4575551 · CSA-registered in AB / BC / ON",
+  hasCredential: {
+    "@type": "EducationalOccupationalCredential",
+    "@id": "https://sky-fort.ca/#credential",
+    credentialCategory: "license",
+    identifier: "NRD 4575551",
+    recognizedBy: {
+      "@type": "Organization",
+      name: "Canadian Securities Administrators",
+      url: "https://www.securities-administrators.ca/",
+    },
+    educationalLevel: "Professional",
+    url: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
+  },
+  isicV4: "6499", // Other financial service activities
+  naics: "523930", // Investment advice
 };
 
 const websiteJsonLd = {

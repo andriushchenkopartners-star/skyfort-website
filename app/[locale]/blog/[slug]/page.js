@@ -6,6 +6,7 @@ import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
 import { getPostBySlug, getPostSlugs, getAllPosts } from "../../../_lib/blog";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
 import TopicSuggestForm from "../../../_components/TopicSuggestForm";
+import StickyBlogCTA from "../../../_components/StickyBlogCTA";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
@@ -284,6 +285,12 @@ export default async function BlogPostPage({ params }) {
           </Link>
         </div>
       </article>
+
+      <StickyBlogCTA
+        locale={locale}
+        calendlyUrl={CALENDLY}
+        slug={slug}
+      />
     </main>
   );
 }
