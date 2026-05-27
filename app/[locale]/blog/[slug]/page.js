@@ -79,14 +79,18 @@ export async function generateMetadata({ params }) {
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: [{ url: post.ogImage }],
+      // images: omitted on purpose — opengraph-image.js in this folder is
+      // auto-discovered by Next and generates a per-post branded card via
+      // Satori (next/og). Setting `images` here would override it with the
+      // generic /og-image.png fallback.
       tags: post.tags,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [post.ogImage],
+      // Same as above — Twitter falls back to the OG image when no
+      // twitter-image.js is present, so the dynamic card is reused.
     },
   };
 }
