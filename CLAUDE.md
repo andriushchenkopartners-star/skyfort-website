@@ -78,14 +78,27 @@ app/
     portal-dictionary.js     # portal-specific strings
     config.js                # locale constants
   _data/                     # static data (testimonials, etc.)
-  _lib/                      # helpers (portal/, etc.)
+  _lib/
+    hooks.js                 # useIsMounted / useLocalStorage / useSessionStorage
+                             # — useSyncExternalStore-based, replaces mount-flag
+                             # + setState-in-effect anti-pattern.
+    analytics.js             # GA4 + Clarity `track()` + named event helpers
+    blog.js                  # MDX frontmatter loader
+    services-cities.js       # service × city programmatic SEO config
+    portal/                  # Supabase, formatters, portal constants
 
 public/
-  andrii.jpg                 # portrait
+  andrii.jpg                 # portrait — optimized 1500×2000 @ 304KB (was 2MB)
+  andrii.webp                # WebP variant @ 207KB
+  andrii-thumb.jpg / .webp   # 400×533 thumbnail for avatars
   calgary-hero.webp          # hero background
   freedom-cta.webp           # CTA background
-  og-image.png               # default OG image
-  icon.svg, favicon.ico
+  og-image.png               # default OG fallback (blog uses dynamic — see below)
+  icon.svg                   # site icon (rendered at runtime via next/image)
+  icon-email.png             # 194×180 PNG version for email signatures (Outlook
+                             # silently fails on SVG)
+  favicon.ico
+  llms.txt                   # AI crawler manifest
 ```
 
 ## Design system — single source of truth
@@ -96,10 +109,24 @@ All design tokens live in `app/globals.css` under `:root` and exposed to Tailwin
 
 **Single brand blue**: `#2D73E3` (token `--color-brand` / Tailwind class `bg-brand`, `text-brand`).
 
-Known drift to fix on touch (cleanup, not urgent):
-- `#FFB627` accent gold — hardcoded across calculators (mortgage, financial-freedom) and `_sections/FireCalcPromo.jsx`. Add `--color-accent: #FFB627` token in `globals.css` and migrate `bg-[#FFB627]` → `bg-accent`, `text-[#FFB627]` → `text-accent`.
-- Chart strokes use literal `#2D73E3` in `calculators/*/chart.jsx` — fine inside recharts (which can't read CSS vars), but document so future maintainers don't try to "fix" it.
-- Old `#2563EB`, `#2f6bff`, `#4f86ff` references in `page.js`/`Nav.jsx` — already removed in Phase 1 refactor.
+### Accent gold (calculator highlight)
+
+`--color-accent: #ffb627` + `--color-accent-hover: #ffd066` exposed as
+Tailwind `bg-accent`, `text-accent`, `border-accent`, `bg-accent-hover`.
+The two remaining `color: "#FFB627"` literals are intentional — they're
+inside recharts data arrays, and recharts can't read CSS variables.
+
+### React 19 patterns
+
+Two new rules in `eslint-plugin-react-hooks` are now strictly enforced:
+- `react-hooks/set-state-in-effect` — calling setState synchronously in a
+  useEffect triggers cascading renders. Use `useSyncExternalStore` for
+  external state (localStorage / sessionStorage / `is-this-mounted`). Shared
+  hooks for these patterns live in `app/_lib/hooks.js`.
+- `react-hooks/purity` — variables declared in the component body cannot be
+  reassigned during the render phase, and impure functions (Math.random,
+  Date.now) cannot run during render. Move accumulators to `reduce(...)` and
+  extract impure helpers to module scope.
 
 ### Spacing, type scale, radii, shadows
 See `app/globals.css` for the canonical list. Use Tailwind utilities that resolve to these tokens (e.g., `text-display-lg`, `rounded-lg`, `shadow-card`).
@@ -147,9 +174,13 @@ When adding strings: add UK first, then RU + EN. Never let a locale silently fal
 ## Phase status (snapshot)
 
 - **Phase 0** — analytics: GA4 + Clarity env-driven in `app/layout.js`, Search Console verified. DONE.
-- **Phase 1** — design system + component extraction. DONE (sections in `_sections/`, atoms in `_components/`, dictionary extracted, monolithic `app/page.js` deleted).
-- **Phase 2** — `[locale]` routing + hreflang + sitemap. DONE. Programmatic service+city pages live under `[locale]/services/`.
-- **Phase 3** — blog hub: scaffolded (`[locale]/blog/`, `[locale]/blog/[slug]/`, `app/blog/rss.xml/`). Pillar content in progress.
+- **Phase 1** — design system + component extraction. DONE. Accent gold token migrated; lint baseline at 0 errors / 0 warnings.
+- **Phase 2** — `[locale]` routing + hreflang + sitemap. DONE.
+  - Programmatic service+city pages under `[locale]/services/` (72 URLs across 3 locales).
+  - **FAQ schema** (FAQPage JSON-LD + visible `<details>` accordion via `_components/StaticFaq.jsx`) on all 3 calculator pages in 3 locales. Also on `/contact`, `/services/*`, and the homepage.
+  - **Dynamic OG images** for blog posts via `[locale]/blog/[slug]/opengraph-image.js` — Satori renders a branded per-post card; Twitter falls back to OG so the same card serves both.
+  - Performance: andrii.jpg 2MB → 304KB, recharts lazy-loaded via next/dynamic, GA/Clarity/Calendly preconnected.
+- **Phase 3** — blog hub: scaffolded (`[locale]/blog/`, `[locale]/blog/[slug]/`, `app/blog/rss.xml/`). 8 pillar posts in UA + RU, EN partial. Sitemap + dynamic OG + JSON-LD all wired.
 - **Phase 3.10** — TikTok bio-link `/tt`. DONE.
 - **Phase 4** — email capture + lead nurture: `EmailCaptureForm` + Brevo wired. Testimonials section + Review schema live. Cookie consent banner + `/contact`, `/privacy`, `/cookies` (3 locales). Sticky blog CTA. DONE.
 - **Phase 5** — TypeScript migration + programmatic SEO for calculator parameter variants. NOT STARTED.
