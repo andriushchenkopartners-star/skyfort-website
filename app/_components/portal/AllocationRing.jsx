@@ -19,7 +19,22 @@ export default function AllocationRing({
 
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
-  let acc = 0;
+
+  // Pre-compute slice geometry up-front using a pure (no mutation) reduce.
+  // React 19's `react-hooks/purity` rule forbids reassigning variables declared
+  // in render scope — so the old `let acc = 0; acc += len` accumulator pattern
+  // is now an error. Building a fresh accumulator object per iteration sidesteps
+  // it cleanly; for a typical allocation chart (<10 slices) the cost is trivial.
+  const slices = data.reduce(
+    (acc, d) => {
+      const len = (d.pct / 100) * c;
+      return {
+        list: [...acc.list, { ...d, len, offset: -acc.cumulative }],
+        cumulative: acc.cumulative + len,
+      };
+    },
+    { list: [], cumulative: 0 },
+  ).list;
 
   return (
     <div
@@ -38,26 +53,20 @@ export default function AllocationRing({
         />
 
         {/* Slices */}
-        {data.map((d, i) => {
-          const len = (d.pct / 100) * c;
-          const dash = `${len} ${c - len}`;
-          const offset = -acc;
-          acc += len;
-          return (
-            <circle
-              key={i}
-              cx={size / 2}
-              cy={size / 2}
-              r={r}
-              fill="none"
-              stroke={d.color}
-              strokeWidth={stroke}
-              strokeDasharray={dash}
-              strokeDashoffset={offset}
-              strokeLinecap="butt"
-            />
-          );
-        })}
+        {slices.map((d, i) => (
+          <circle
+            key={i}
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke={d.color}
+            strokeWidth={stroke}
+            strokeDasharray={`${d.len} ${c - d.len}`}
+            strokeDashoffset={d.offset}
+            strokeLinecap="butt"
+          />
+        ))}
       </svg>
 
       {center && (

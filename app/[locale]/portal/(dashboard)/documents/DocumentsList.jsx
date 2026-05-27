@@ -47,6 +47,15 @@ function categoryLabel(cat, locale) {
   return dict[locale]?.[cat] || cat?.toUpperCase() || '—';
 }
 
+// Build the storage path for an upload. Extracted to module scope so the
+// `Date.now()` call doesn't trip React 19's purity rule when the React
+// Compiler analyses the component body — impure functions are fine in
+// module-level helpers, only flagged inside render-scope code.
+function buildUploadPath(userId, fileName) {
+  const safeName = fileName.replace(/[^\w.\-]/g, '_');
+  return `${userId}/${Date.now()}-${safeName}`;
+}
+
 export default function DocumentsList({ initialDocuments, userId, locale, t }) {
   const router = useRouter();
   const [documents, setDocuments] = useState(initialDocuments);
@@ -96,9 +105,8 @@ export default function DocumentsList({ initialDocuments, userId, locale, t }) {
     setBusy(true);
     setUploadProgress(0);
     try {
-      // Path: <user_id>/<timestamp>-<sanitized-name>
-      const safeName = file.name.replace(/[^\w.\-]/g, '_');
-      const path = `${userId}/${Date.now()}-${safeName}`;
+      // Path: <user_id>/<timestamp>-<sanitized-name> (built by module helper)
+      const path = buildUploadPath(userId, file.name);
 
       const { error: upErr } = await supabase.storage
         .from(BUCKET)

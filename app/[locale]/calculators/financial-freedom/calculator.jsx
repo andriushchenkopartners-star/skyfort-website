@@ -401,11 +401,11 @@ export default function FIRECalculator({ locale: rawLocale }) {
       {/* HEADER */}
       <section className="relative overflow-hidden pt-12 pb-16">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-[#FFB627] opacity-[0.06] blur-3xl" />
+          <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-accent opacity-[0.06] blur-3xl" />
           <div className="absolute -left-20 top-40 h-[400px] w-[400px] rounded-full bg-[var(--color-brand)] opacity-[0.06] blur-3xl" />
         </div>
         <div className="mx-auto max-w-6xl px-6">
-          <p className="mb-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFB627]">
+          <p className="mb-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
             <Flame className="h-3.5 w-3.5" />
             {content.kicker}
           </p>
@@ -515,14 +515,14 @@ export default function FIRECalculator({ locale: rawLocale }) {
 
               {/* Insight box */}
               {!negativeSavings && yearsSavedByExempt > 0 && (
-                <div className="rounded-2xl border border-[#FFB627]/30 bg-[#FFB627]/5 p-6">
+                <div className="rounded-2xl border border-accent/30 bg-accent/5 p-6">
                   <div className="flex items-start gap-3">
-                    <Sparkles className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#FFB627]" />
+                    <Sparkles className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" />
                     <div>
                       <h3 className="font-display text-lg text-white">{content.insightTitle}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-[#a3a3a3]">
                         {content.insightDescBefore} <span className="font-bold text-white">{formatYears(balancedYears, lang)} {lang === "en" ? "years" : "років"}</span>.{" "}
-                        {content.insightDescAfter} <span className="font-bold text-[#FFB627]">{formatYears(yearsSavedByExempt, lang)} {lang === "en" ? "years" : "років"}</span>.
+                        {content.insightDescAfter} <span className="font-bold text-accent">{formatYears(yearsSavedByExempt, lang)} {lang === "en" ? "years" : "років"}</span>.
                       </p>
                       <p className="mt-3 text-xs italic text-[#6b6b6b]">{content.insightCTA}</p>
                     </div>
@@ -560,7 +560,7 @@ export default function FIRECalculator({ locale: rawLocale }) {
                       <tr
                         key={s.key}
                         className={`border-t border-[#2a2a2a] ${
-                          isExempt ? "bg-[#FFB627]/5" : isBalanced ? "bg-[var(--color-brand)]/5" : ""
+                          isExempt ? "bg-accent/5" : isBalanced ? "bg-[var(--color-brand)]/5" : ""
                         }`}
                       >
                         <td className="px-5 py-4">
@@ -569,11 +569,11 @@ export default function FIRECalculator({ locale: rawLocale }) {
                               className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
                               style={{ backgroundColor: s.color }}
                             />
-                            <span className={`font-bold ${isExempt ? "text-[#FFB627]" : "text-white"}`}>
+                            <span className={`font-bold ${isExempt ? "text-accent" : "text-white"}`}>
                               {content.strategyLabels[s.key]}
                             </span>
                             {isExempt && (
-                              <span className="rounded-full bg-[#FFB627]/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#FFB627]">
+                              <span className="rounded-full bg-accent/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
                                 {content.exemptBadge}
                               </span>
                             )}
@@ -589,7 +589,7 @@ export default function FIRECalculator({ locale: rawLocale }) {
                           ) : Math.abs(diff) < 0.05 ? (
                             <span className="text-[#6b6b6b]">—</span>
                           ) : diff < 0 ? (
-                            <span className="font-bold text-[#FFB627]">{diff.toFixed(1)}</span>
+                            <span className="font-bold text-accent">{diff.toFixed(1)}</span>
                           ) : (
                             <span className="text-[#ff6b6b]">+{diff.toFixed(1)}</span>
                           )}
@@ -624,7 +624,7 @@ export default function FIRECalculator({ locale: rawLocale }) {
       {/* CTA */}
       <section className="relative overflow-hidden border-t border-[#2a2a2a] py-24 md:py-32">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFB627] opacity-[0.08] blur-3xl" />
+          <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-[0.08] blur-3xl" />
         </div>
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-display-tight text-4xl text-white md:text-6xl">{content.ctaTitle}</h2>
@@ -633,7 +633,7 @@ export default function FIRECalculator({ locale: rawLocale }) {
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener"
-            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-[#FFB627] px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#191919] transition-all hover:bg-[#ffd066]"
+            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#191919] transition-all hover:bg-accent-hover"
           >
             {content.ctaBtn}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

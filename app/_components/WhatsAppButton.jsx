@@ -4,9 +4,9 @@
 // Mobile-first: large tap target, low-noise styling.
 // Tracks click via analytics; does not block any content.
 
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { track } from "../_lib/analytics";
+import { useIsMounted } from "../_lib/hooks";
 
 const WHATSAPP_URL = "https://wa.me/14033972553";
 
@@ -27,11 +27,11 @@ function WhatsAppGlyph({ size = 28 }) {
 }
 
 export default function WhatsAppButton() {
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname() || "";
+  // useIsMounted() returns false during SSR + initial paint, true after
+  // hydration. Avoids the previous mount-flag + useEffect(setState) anti-pattern.
+  const mounted = useIsMounted();
 
-  // Avoid SSR hydration flicker — render only after mount.
-  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   // Portal has its own contact UX — don't show floating WhatsApp on /portal pages.

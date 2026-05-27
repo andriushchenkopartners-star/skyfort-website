@@ -31,7 +31,8 @@
   --color-brand-glow: rgba(45, 115, 227, 0.35);
 
   /* ─── accents ───────────────────────────────────────────────────── */
-  --color-accent: #ffb627;       /* gold — calculator highlight */
+  --color-accent: #ffb627;        /* gold — calculator highlight */
+  --color-accent-hover: #ffd066;  /* lighter gold for hover states */
   --color-accent-soft: rgba(255, 182, 39, 0.12);
 
   /* ─── semantic ──────────────────────────────────────────────────── */
@@ -95,6 +96,7 @@
 
   /* accents */
   --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
 
   /* semantic */
   --color-success: var(--color-success);

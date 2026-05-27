@@ -18,23 +18,29 @@ export default function DashboardChrome({
   unreadBell = false,
   children,
 }) {
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
+  // Store the path the drawer was opened on. The drawer is "open" only when
+  // the current path matches. When the user navigates (pathname changes),
+  // drawerOpen becomes false automatically — no useEffect+setState needed.
+  // This avoids the react-hooks/set-state-in-effect violation we'd hit by
+  // calling setDrawerOpen(false) inside a useEffect([pathname]).
+  const [openedAtPath, setOpenedAtPath] = useState(null);
+  const drawerOpen = openedAtPath !== null && openedAtPath === pathname;
 
-  // Close drawer on route change (so navigating from sidebar dismisses it)
-  useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
+  const openDrawer = () => setOpenedAtPath(pathname);
+  const closeDrawer = () => setOpenedAtPath(null);
 
-  // Close on Escape
+  // Close on Escape — pure DOM side effect, no setState-in-effect issue.
   useEffect(() => {
     if (!drawerOpen) return;
-    const onKey = (e) => e.key === 'Escape' && setDrawerOpen(false);
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpenedAtPath(null);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [drawerOpen]);
 
-  // Lock body scroll while drawer is open
+  // Lock body scroll while drawer is open — pure DOM mutation, no setState.
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : '';
     return () => {
@@ -66,7 +72,7 @@ export default function DashboardChrome({
       {/* Backdrop (mobile only, visible when drawer open) */}
       <div
         className={`portal-backdrop ${drawerOpen ? 'is-open' : ''}`}
-        onClick={() => setDrawerOpen(false)}
+        onClick={closeDrawer}
         aria-hidden="true"
       />
 
@@ -76,7 +82,7 @@ export default function DashboardChrome({
           locale={locale}
           t={t}
           unreadBell={unreadBell}
-          onMenuClick={() => setDrawerOpen((v) => !v)}
+          onMenuClick={() => (drawerOpen ? closeDrawer() : openDrawer())}
         />
         <div className="portal-content">{children}</div>
       </main>

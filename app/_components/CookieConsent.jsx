@@ -6,8 +6,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useLocalStorage, useIsMounted } from '../_lib/hooks';
 
 const STORAGE_KEY = 'skyfort:cookies:ack';
 const SUPPORTED = ['uk', 'ru', 'en'];
@@ -37,27 +37,26 @@ function localeFromPath(p) {
 
 export default function CookieConsent() {
   const pathname = usePathname() || '/';
-  const [show, setShow] = useState(false);
+  // isMounted gates rendering until after hydration so SSR markup matches.
+  // useLocalStorage subscribes to the `storage` event so the banner reacts
+  // immediately when ack() dispatches one manually.
+  const isMounted = useIsMounted();
+  const acked = useLocalStorage(STORAGE_KEY);
 
   // Hide on /portal/* (own privacy context) and /admin/*
   const hideOnRoute = pathname.includes('/portal') || pathname.includes('/admin');
-
-  useEffect(() => {
-    if (hideOnRoute) return;
-    try {
-      const acked = localStorage.getItem(STORAGE_KEY);
-      if (!acked) setShow(true);
-    } catch {
-      // localStorage blocked (e.g., private mode) — just show
-      setShow(true);
-    }
-  }, [hideOnRoute]);
+  // Show banner only after hydration AND when no ack present.
+  // (`acked` is `null` on SSR + when key missing; both reduce to "not acked".)
+  const show = isMounted && !acked;
 
   function ack() {
     try {
       localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+      // The native `storage` event only fires in OTHER tabs. Dispatch manually
+      // so this tab's useSyncExternalStore subscribers re-snapshot and hide the
+      // banner immediately.
+      window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }));
     } catch {}
-    setShow(false);
   }
 
   if (!show || hideOnRoute) return null;

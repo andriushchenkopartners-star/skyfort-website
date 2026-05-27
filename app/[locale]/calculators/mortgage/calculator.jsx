@@ -154,12 +154,12 @@ function Card({ label, value, sub, color = "neutral" }) {
   const cls = {
     neutral: "border-[#2a2a2a] bg-[#1f1f1f]",
     blue: "border-[var(--color-brand)]/40 bg-[var(--color-brand)]/5",
-    gold: "border-[#FFB627]/40 bg-[#FFB627]/5",
+    gold: "border-accent/40 bg-accent/5",
     red: "border-red-500/40 bg-red-500/5",
     green: "border-green-500/40 bg-green-500/5",
   }[color];
-  const valCls = { neutral:"text-white", blue:"text-[var(--color-brand)]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
-  const lblCls = { neutral:"text-[#6b6b6b]", blue:"text-[var(--color-brand)]", gold:"text-[#FFB627]", red:"text-red-400", green:"text-green-400" }[color];
+  const valCls = { neutral:"text-white", blue:"text-[var(--color-brand)]", gold:"text-accent", red:"text-red-400", green:"text-green-400" }[color];
+  const lblCls = { neutral:"text-[#6b6b6b]", blue:"text-[var(--color-brand)]", gold:"text-accent", red:"text-red-400", green:"text-green-400" }[color];
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <p className={`text-xs uppercase tracking-wider ${lblCls}`}>{label}</p>
@@ -488,7 +488,7 @@ function ModeHELOC({ lang }) {
           <NInput label={lbl.mortgage} value={mortgageBalance} onChange={setMortgageBalance} prefix="$" step={5000} />
           <NInput label={lbl.helocRate} value={helocRate} onChange={setHelocRate} suffix="%" step={0.05} min={1} max={20} />
           <div className="border-t border-[#2a2a2a] pt-4">
-            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#FFB627]">
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-accent">
               {lang==="en"?"Investment Arbitrage Scenario":lang==="ru"?"Сценарий арбитража":"Сценарій арбітражу"}
             </p>
             <NInput label={lbl.invest} value={investRate} onChange={setInvestRate} suffix="%" step={0.5} min={1} max={20} />
@@ -509,8 +509,8 @@ function ModeHELOC({ lang }) {
           <Card label={lbl.interest} value={C(monthlyInterest)} sub={lang==="en"?"Interest-only on HELOC":lang==="ru"?"Только проценты":"Тільки відсотки"} color="gold" />
 
           {/* Arbitrage result */}
-          <div className={`rounded-xl border p-5 ${safeToInvest && annualSpread > 0 ? "border-green-500/30 bg-green-500/5" : "border-[#FFB627]/30 bg-[#FFB627]/5"}`}>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#FFB627]">{lbl.arbitrage}</p>
+          <div className={`rounded-xl border p-5 ${safeToInvest && annualSpread > 0 ? "border-green-500/30 bg-green-500/5" : "border-accent/30 bg-accent/5"}`}>
+            <p className="text-xs font-bold uppercase tracking-wider text-accent">{lbl.arbitrage}</p>
             <div className="mt-3 grid grid-cols-3 gap-3">
               <div>
                 <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Borrow cost":lang==="ru"?"Стоимость":"Вартість"}</p>
@@ -578,12 +578,15 @@ function ModeEarlyPayoff({ lang }) {
     en: { balance:"Mortgage balance", rate:"Rate", years:"Years remaining", extra:"Extra/month", lump:"Lump sum payment", base:"Base plan", extraPlan:"Extra monthly", accel:"Accelerated bi-weekly", lumpPlan:"Lump sum", saved:"Interest saved", timeSaved:"Time saved" },
   }[lang];
 
-  const scenarios = [
+  // Memoised so the chartData useMemo below has a stable dependency reference.
+  // Without this wrapper, a fresh array literal each render makes chartData
+  // recompute every render anyway, defeating the optimisation.
+  const scenarios = useMemo(() => [
     { label: lbl.base, data: base, color: "#6b6b6b", months: base.months, interest: base.totalInterest },
     { label: lbl.extraPlan, data: withExtra, color: "#2D73E3", months: withExtra.months, interest: withExtra.totalInterest, savings: base.totalInterest - withExtra.totalInterest, timeSaved: base.months - withExtra.months },
     { label: lbl.accel, data: withAccel, color: "#7099d6", months: withAccel.months, interest: withAccel.totalInterest, savings: base.totalInterest - withAccel.totalInterest, timeSaved: base.months - withAccel.months },
     { label: lbl.lumpPlan, data: withLump, color: "#FFB627", months: withLump.months, interest: withLump.totalInterest, savings: base.totalInterest - withLump.totalInterest, timeSaved: base.months - withLump.months },
-  ];
+  ], [lbl, base, withExtra, withAccel, withLump]);
 
   // Build combined chart data
   const maxYears = Math.ceil(base.months / 12) + 1;
@@ -598,7 +601,7 @@ function ModeEarlyPayoff({ lang }) {
       d.push(row);
     }
     return d;
-  }, [base, withExtra, withAccel, withLump]);
+  }, [maxYears, scenarios]);
 
   return (
     <div className="space-y-8">
@@ -836,8 +839,8 @@ function ModeAffordability({ lang }) {
           </div>
 
           {needsCMHC && (
-            <div className="rounded-xl border border-[#FFB627]/30 bg-[#FFB627]/5 p-4">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#FFB627]">CMHC</p>
+            <div className="rounded-xl border border-accent/30 bg-accent/5 p-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-accent">CMHC</p>
               <p className="mt-1 text-sm text-[#a3a3a3]">
                 {lang==="en"
                   ? `Down payment < 20% → CMHC insurance ${C(cmhcData.premium)} (${P(cmhcData.pct * 100)} of mortgage) added to mortgage.`
@@ -944,7 +947,7 @@ export default function MortgageCalculator({ locale: rawLocale }) {
       <section className="relative overflow-hidden pt-12 pb-10">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -right-40 -top-32 h-[500px] w-[500px] rounded-full bg-[var(--color-brand)] opacity-[0.07] blur-3xl" />
-          <div className="absolute -left-20 top-20 h-[300px] w-[300px] rounded-full bg-[#FFB627] opacity-[0.05] blur-3xl" />
+          <div className="absolute -left-20 top-20 h-[300px] w-[300px] rounded-full bg-accent opacity-[0.05] blur-3xl" />
         </div>
         <div className="mx-auto max-w-6xl px-6">
           <p className="mb-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">

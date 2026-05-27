@@ -83,25 +83,32 @@ function currentLocaleFrom(pathname) {
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() || "/";
+  const isPortal = pathname.includes("/portal");
 
-  // Portal has its own UI shell — don't show the public-site burger here.
-  if (pathname.includes("/portal")) return null;
-
-  const locale = currentLocaleFrom(pathname);
-  const t = COPY[locale] || COPY[DEFAULT_LOCALE];
-
+  // Side effects MUST run unconditionally — the early return below would
+  // otherwise create a different hook order between portal and non-portal
+  // renders and crash React's hook ordering invariant. We no-op inside each
+  // effect when on a portal route instead.
   useEffect(() => {
+    if (isPortal) return;
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [open, isPortal]);
 
   useEffect(() => {
+    if (isPortal) return;
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [isPortal]);
+
+  // Portal has its own UI shell — don't show the public-site burger here.
+  if (isPortal) return null;
+
+  const locale = currentLocaleFrom(pathname);
+  const t = COPY[locale] || COPY[DEFAULT_LOCALE];
 
   return (
     <>

@@ -200,7 +200,7 @@ export default function Page() {
           інвестиційного рішення. Інвестиції в exempt market несуть ризик втрати капіталу,
           включно з ризиком втрати всього вкладеного; вони можуть бути неліквідними. Минула
           дохідність не гарантує майбутньої. Рішення — лише після Suitability Assessment (NI 31-103)
-          і ознайомлення з Offering Memorandum issuer'а. Перевірка реєстрації: nrd-info.ca (NRD #4575551).
+          і ознайомлення з Offering Memorandum issuer&apos;а. Перевірка реєстрації: nrd-info.ca (NRD #4575551).
         </p>
       </footer>
     </main>

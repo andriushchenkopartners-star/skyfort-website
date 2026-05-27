@@ -36,13 +36,13 @@ export default function FireCalcPromo({ locale }) {
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <div className="absolute -right-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#FFB627] opacity-[0.07] blur-3xl" />
+        <div className="absolute -right-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-accent opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-[#FFB627]/30 bg-gradient-to-br from-[#1f1f1f] to-[#2d2418] p-10 md:p-14">
+        <div className="overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#1f1f1f] to-[#2d2418] p-10 md:p-14">
           <div className="grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
             <div>
-              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFB627]">
+              <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
                 <Flame className="h-3.5 w-3.5" />
                 {c.kicker}
               </p>
@@ -54,7 +54,7 @@ export default function FireCalcPromo({ locale }) {
               </p>
               <Link
                 href={`/${locale}/calculators/financial-freedom`}
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#FFB627] px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#191919] transition-all hover:bg-[#ffd066]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#191919] transition-all hover:bg-accent-hover"
               >
                 {c.cta}
                 <ArrowRight
@@ -68,10 +68,10 @@ export default function FireCalcPromo({ locale }) {
                 <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">
                   {c.stat1}
                 </p>
-                <p className="mt-3 font-display-tight text-5xl text-[#FFB627]">
+                <p className="mt-3 font-display-tight text-5xl text-accent">
                   {c.stat2}
                 </p>
-                <p className="mt-2 text-xs text-[#FFB627]/80">{c.stat3}</p>
+                <p className="mt-2 text-xs text-accent/80">{c.stat3}</p>
               </div>
             </div>
           </div>

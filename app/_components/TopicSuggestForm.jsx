@@ -4,9 +4,12 @@
 // Mount на /uk/blog (hub) і на кожному пості (внизу).
 // Локалізована UA/RU/EN. Honeypot для anti-spam.
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Lightbulb, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { track, getStoredUtms } from "../_lib/analytics";
+import { useLocalStorage } from "../_lib/hooks";
+
+const DRAFT_KEY = "skyfort_topic_draft";
 
 const COPY = {
   uk: {
@@ -55,23 +58,29 @@ const COPY = {
 
 export default function TopicSuggestForm({ locale = "uk", source = "blog_hub" }) {
   const c = COPY[locale] || COPY.uk;
-  const [topic, setTopic] = useState("");
+
+  // Draft persistence: `savedDraft` reads localStorage reactively (null on SSR
+  // and when key missing). `override` is the user's current edit; when null,
+  // the textarea shows the saved draft. On every change we write to localStorage
+  // in the handler — no setState-in-effect needed.
+  const savedDraft = useLocalStorage(DRAFT_KEY);
+  const [override, setOverride] = useState(null);
+  const topic = override ?? savedDraft ?? "";
+
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
   const [state, setState] = useState("idle"); // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Persist topic draft locally — if user navigates away
-  useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("skyfort_topic_draft") : null;
-    if (saved) setTopic(saved);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && topic) {
-      localStorage.setItem("skyfort_topic_draft", topic);
-    }
-  }, [topic]);
+  function setTopic(value) {
+    setOverride(value);
+    try {
+      localStorage.setItem(DRAFT_KEY, value);
+      // Manually dispatch storage event so useSyncExternalStore subscribers
+      // (this hook, on other re-renders) see the new value.
+      window.dispatchEvent(new StorageEvent("storage", { key: DRAFT_KEY }));
+    } catch {}
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -104,10 +113,12 @@ export default function TopicSuggestForm({ locale = "uk", source = "blog_hub" })
       if (res.ok && j.ok) {
         setState("success");
         track("topic_request_submit", { source, has_email: !!email });
-        // Clear draft
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("skyfort_topic_draft");
-        }
+        // Clear draft (both override and persisted storage)
+        setOverride("");
+        try {
+          localStorage.removeItem(DRAFT_KEY);
+          window.dispatchEvent(new StorageEvent("storage", { key: DRAFT_KEY }));
+        } catch {}
       } else if (res.status === 429) {
         setState("error");
         setErrorMsg(c.errorRate);

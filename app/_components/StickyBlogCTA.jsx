@@ -9,6 +9,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, X, ArrowRight } from 'lucide-react';
 import { track } from '../_lib/analytics';
+import { useSessionStorage } from '../_lib/hooks';
 
 const STORAGE_KEY = 'skyfort:blog-cta:dismissed';
 const REVEAL_THRESHOLD = 0.4; // 40% scrolled
@@ -39,17 +40,21 @@ const COPY = {
 
 export default function StickyBlogCTA({ locale = 'uk', calendlyUrl, slug }) {
   const [visible, setVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
+  // Dismissal state: source of truth is sessionStorage (persists across page
+  // reloads in the same tab). `localDismissed` flips immediately on click so
+  // the CTA hides without waiting for storage roundtrip. Derived `dismissed`
+  // ORs them together — no setState-in-effect needed for the storage read.
+  const dismissedStored = useSessionStorage(STORAGE_KEY);
+  const [localDismissed, setLocalDismissed] = useState(false);
+  const dismissed = dismissedStored === '1' || localDismissed;
 
   const c = COPY[locale] || COPY.uk;
 
+  // Scroll listener: setVisible runs inside an async event handler, NOT
+  // synchronously during render or mount, so the set-state-in-effect rule
+  // does not apply. Bail early if already dismissed so we don't waste cycles.
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(STORAGE_KEY) === '1') {
-        setDismissed(true);
-        return;
-      }
-    } catch {}
+    if (dismissed) return;
 
     const onScroll = () => {
       const doc = document.documentElement;
@@ -65,13 +70,13 @@ export default function StickyBlogCTA({ locale = 'uk', calendlyUrl, slug }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // run once in case already scrolled
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [dismissed]);
 
   function dismiss() {
     try {
       sessionStorage.setItem(STORAGE_KEY, '1');
     } catch {}
-    setDismissed(true);
+    setLocalDismissed(true);
     track('blog_cta_dismiss', { source: `blog_post:${slug || 'unknown'}` });
   }
 

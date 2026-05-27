@@ -18,23 +18,29 @@ export default async function CallbackPage({ params, searchParams }) {
   const code = sp?.code;
   const errorParam = sp?.error_description || sp?.error;
 
+  // Single error-path variable. Returning JSX from inside try/catch defeats
+  // React error boundaries (the JSX is constructed but rendering errors happen
+  // later, outside the try), so we collect any failure into `errorMessage`
+  // and render exactly once at the bottom.
+  let errorMessage = null;
+
   if (errorParam) {
-    return <CallbackError locale={safeLocale} message={String(errorParam)} />;
-  }
-
-  if (!code) {
+    errorMessage = String(errorParam);
+  } else if (!code) {
     redirect(`/${safeLocale}/portal/login`);
+  } else {
+    try {
+      const supabase = serverClient(cookies);
+      const { error } = await supabase.auth.exchangeCodeForSession(String(code));
+      if (error) errorMessage = error.message;
+    } catch (err) {
+      console.error('[portal/callback] exchange error:', err);
+      errorMessage = err.message || 'Unknown error';
+    }
   }
 
-  try {
-    const supabase = serverClient(cookies);
-    const { error } = await supabase.auth.exchangeCodeForSession(String(code));
-    if (error) {
-      return <CallbackError locale={safeLocale} message={error.message} />;
-    }
-  } catch (err) {
-    console.error('[portal/callback] exchange error:', err);
-    return <CallbackError locale={safeLocale} message={err.message || 'Unknown error'} />;
+  if (errorMessage) {
+    return <CallbackError locale={safeLocale} message={errorMessage} />;
   }
 
   redirect(`/${safeLocale}/portal`);
