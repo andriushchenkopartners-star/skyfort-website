@@ -9,8 +9,12 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { serverClient } from './supabase';
+import { ADVISOR } from './advisor';
 
-const ADVISOR_EMAIL = 'andrii@sky-fort.ca';
+const ADVISOR_EMAIL = ADVISOR.email;
+
+// Re-export so existing server imports of `ADVISOR` from auth.js keep working.
+export { ADVISOR };
 
 /**
  * Get the currently authenticated Supabase user, or null if not logged in.
@@ -95,19 +99,3 @@ export async function requireAdvisor(locale = 'uk') {
   if (!ok) redirect(`/${locale}`);
 }
 
-export const ADVISOR = {
-  email: ADVISOR_EMAIL,
-  name: 'Andrii Andriushchenko',
-  initials: 'AA',
-  nrd: '4575551',
-  firm: 'Axcess Capital Advisors Inc.',
-  title: {
-    en: 'Licensed Dealing Representative',
-    ru: 'Лицензированный консультант',
-    uk: 'Ліцензований консультант',
-  },
-  jurisdictions: ['Alberta', 'British Columbia', 'Ontario'],
-  languages: ['EN', 'UK', 'RU'],
-  phone: '+1-403-397-2553',
-  calendly: 'https://calendly.com/andriushchenko-partners/new-meeting',
-};
