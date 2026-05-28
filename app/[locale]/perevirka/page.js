@@ -241,6 +241,11 @@ export async function generateMetadata({ params }) {
       url: `https://sky-fort.ca${path}`,
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: c.titleMeta,
+      description: c.descriptionMeta,
+    },
   };
 }
 

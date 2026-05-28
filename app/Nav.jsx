@@ -25,8 +25,14 @@ const COPY = {
     verify: "Перевірка",
     eligibility: "Self-check",
     compare: "EMD vs CIRO",
+    finfluencer: "Finfluencer vs DR",
     contact: "Контакти",
     resources: "Документи",
+    audienceHeader: "Для кого",
+    audienceIt: "IT-фахівцям",
+    audienceMedics: "Медикам",
+    audienceFounders: "Підприємцям",
+    caseStudies: "Кейси клієнтів",
     cta: "Безкоштовний дзвінок →",
     rootLinks: [
       { label: "TFSA калькулятор", href: "/tfsa-kalkulyator" },
@@ -45,8 +51,14 @@ const COPY = {
     verify: "Проверка",
     eligibility: "Self-check",
     compare: "EMD vs CIRO",
+    finfluencer: "Finfluencer vs DR",
     contact: "Контакты",
     resources: "Документы",
+    audienceHeader: "Для кого",
+    audienceIt: "IT-специалистам",
+    audienceMedics: "Медикам",
+    audienceFounders: "Предпринимателям",
+    caseStudies: "Кейсы клиентов",
     cta: "Бесплатный звонок →",
     // UA-only landing pages don't have RU equivalents → hidden on /ru/
     rootLinks: [],
@@ -62,8 +74,14 @@ const COPY = {
     verify: "Verify me",
     eligibility: "Self-check",
     compare: "EMD vs CIRO",
+    finfluencer: "Finfluencer vs DR",
     contact: "Contact",
     resources: "Resources",
+    audienceHeader: "For whom",
+    audienceIt: "Tech professionals",
+    audienceMedics: "Physicians",
+    audienceFounders: "Business owners",
+    caseStudies: "Client cases",
     cta: "Free discovery call →",
     // UA-only landing pages don't have EN equivalents → hidden on /en/
     rootLinks: [],
@@ -71,7 +89,9 @@ const COPY = {
 };
 
 // Order of localized links in the burger; href is built per-render with the current locale.
-// `verify` + `compare` sit between "about me" and "contact me" as YMYL trust signals.
+// `verify` + `compare` + `finfluencer` sit between "about me" and "contact me" as
+// YMYL trust signals. ICP pillars (IT / medics / founders) are grouped under an
+// "audienceHeader" separator that renders as a non-link heading.
 const LINK_ORDER = [
   { key: "home", path: "" },
   { key: "blog", path: "/blog" },
@@ -81,8 +101,15 @@ const LINK_ORDER = [
   { key: "verify", path: "/perevirka" },
   { key: "eligibility", path: "/eligibility" },
   { key: "compare", path: "/porivnyannia" },
+  { key: "finfluencer", path: "/finfluencer-compliance" },
   { key: "contact", path: "/contact" },
   { key: "resources", path: "/resources" },
+  // Section header — rendered as a non-link separator below.
+  { key: "audienceHeader", separator: true },
+  { key: "audienceIt", path: "/dlya-it-fakhivtsiv" },
+  { key: "audienceMedics", path: "/dlya-mediks" },
+  { key: "audienceFounders", path: "/dlya-pidpryyemtsiv" },
+  { key: "caseStudies", path: "/case-studies" },
 ];
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -168,8 +195,18 @@ export default function Nav() {
         <div className="mb-7">
           <Logo variant="full" size="sm" />
         </div>
-        <ul className="flex-1 list-none p-0 m-0">
+        <ul className="flex-1 list-none overflow-y-auto p-0 m-0">
           {LINK_ORDER.map((l) => {
+            if (l.separator) {
+              return (
+                <li
+                  key={`sep-${l.key}`}
+                  className="mt-4 mb-1 px-0 pt-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white/40"
+                >
+                  {t[l.key]}
+                </li>
+              );
+            }
             const href = `/${locale}${l.path}` || `/${locale}`;
             return (
               <li key={href} className="mb-1">

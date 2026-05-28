@@ -63,6 +63,12 @@ const SOURCE_FILE = {
   "/links": "app/[locale]/links/page.js",
   "/privacy": "app/[locale]/privacy/page.js",
   "/cookies": "app/[locale]/cookies/page.js",
+  "/finfluencer-compliance": "app/[locale]/finfluencer-compliance/page.js",
+  "/dlya-it-fakhivtsiv": "app/[locale]/dlya-it-fakhivtsiv/page.js",
+  "/dlya-mediks": "app/[locale]/dlya-mediks/page.js",
+  "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
+  "/case-studies": "app/[locale]/case-studies/page.js",
+  "/tt-library": "app/[locale]/tt-library/page.js",
 };
 
 // Pages available under every locale segment.
@@ -83,6 +89,20 @@ const LOCALIZED_PAGES = [
   { path: "/links",                      priority: 0.5, changeFrequency: "monthly" },
   { path: "/privacy",                    priority: 0.3, changeFrequency: "yearly" },
   { path: "/cookies",                    priority: 0.3, changeFrequency: "yearly" },
+  // YMYL trust / topical authority pillars (CSA-aligned content).
+  // High priority — these are flagship E-E-A-T pages that justify the
+  // licensed-DR positioning and drive AI Overview citations.
+  { path: "/finfluencer-compliance",     priority: 0.85, changeFrequency: "monthly" },
+  // ICP-targeted pillar pages (3 audiences × 3 locales = 9 URLs).
+  // Designed to rank for high-intent searches like
+  // "RSU vesting Канада українцям" / "MPC vs sole proprietor doctor".
+  { path: "/dlya-it-fakhivtsiv",         priority: 0.85, changeFrequency: "monthly" },
+  { path: "/dlya-mediks",                priority: 0.85, changeFrequency: "monthly" },
+  { path: "/dlya-pidpryyemtsiv",         priority: 0.85, changeFrequency: "monthly" },
+  { path: "/case-studies",               priority: 0.7,  changeFrequency: "monthly" },
+  // VideoObject-rich TikTok transcript library — AI-search indexability
+  // play (Lantern 2026: YouTube is the most-cited domain in AI answers).
+  { path: "/tt-library",                 priority: 0.75, changeFrequency: "weekly" },
 ];
 
 // Ukrainian-only landing pages (no locale prefix).

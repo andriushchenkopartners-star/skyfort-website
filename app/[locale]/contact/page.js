@@ -204,6 +204,11 @@ export async function generateMetadata({ params }) {
       type: 'website',
       locale: { uk: 'uk_UA', ru: 'ru_RU', en: 'en_CA' }[locale],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: c.title,
+      description: c.description,
+    },
   };
 }
 
