@@ -1,0 +1,170 @@
+---
+title: "RSU vesting in Canada: full math + RRSP strategy for tech workers"
+description: "$80K RSU vesting = $40K tax in Ontario. How to use RRSP $33,810 and FHSA $8K to knock marginal rate from 53% down to 30%. Exact math with examples."
+date: "2026-05-28"
+author: "Andrii Andriushchenko"
+tags: ["RSU", "tech", "RRSP", "tax", "ESPP", "newcomers", "Canada"]
+pillar: "Tech"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **TL;DR:** If you have an **RSU vesting event of $50-150K** — your marginal tax bracket temporarily jumps to **47-53%** (depending on province). Strategy: in the vesting year, **max out RRSP** ($33,810 in 2026) — this knocks marginal down to ~30% and gives an immediate $15K tax refund. Reinvest the refund into TFSA + FHSA. **Don't hold vested shares as >20% of net worth** — concentration risk. If your employer is in the US, cross-border withholding gets complicated. This guide is exact math with specific examples for Ukrainian senior engineers, devs, and PMs in Canada.
+
+## What RSUs are and why they're tricky in Canada
+
+RSU = **Restricted Stock Unit**. A form of equity compensation popular in tech — the company promises you shares after a **vesting period** (typically 4 years with a 1-year cliff). On vesting day, the fair market value (FMV) of the shares is added to your **T4 income** and taxed as **employment income** (not capital gain).
+
+This means: if in 2026 you vest $80,000 worth of shares, that $80K is added to your salary on T4 and taxed at your marginal rate. In Alberta, $80K extra on top of a $150K base salary → marginal 47% → $37,600 immediate tax bill. In Ontario, same scenario → 53% → $42,400.
+
+> ⚠️ **EMD compliance disclaimer:** Educational material, not tax or investment advice. For individual decisions — discovery call with a Licensed DR (NRD #4575551) + a Canadian CPA with US-source income specialization.
+
+## RSU vesting math: full breakdown
+
+Let's work a **concrete example**. Given:
+- Senior engineer in Calgary (Alberta)
+- Base salary: **$140,000 CAD**
+- RSU grant: 800 shares vested in 2026
+- FMV at vesting day: **$100 USD/share** (~$135 CAD/share)
+- RSU FMV in T4: 800 × $135 = **$108,000 CAD**
+
+**Total T4 income 2026** = $140K base + $108K RSU = **$248K**.
+
+### Marginal tax breakdown (Alberta, 2026)
+
+At $248K total income, part of the last $108K of RSU lands in **36-44-48%** brackets. Average marginal on the RSU income ≈ **42-44%**, so:
+
+**Tax on RSU = $108K × ~43% = $46,440**
+
+That's **almost half** of what you "earned" on vesting day.
+
+In Ontario it's worse — at $248K total, marginal ≈ **50-53%** → $108K × 51% = **$55,080**.
+
+## Strategy: use RRSP to knock down the tax
+
+RRSP = Registered Retirement Savings Plan. Every dollar contributed deducts from taxable income. If you max RRSP in the vesting year, taxable income drops by $33,810, **knocking down your marginal rate**.
+
+### 2026 RRSP limit: $33,810 (or 18% of prior-year earned income)
+
+**Important**: your RRSP room is **based on the prior year**. If you earned $200K in 2025 — in 2026 you have $33,810 RRSP room (capped). If you earned $90K — $16,200.
+
+### Math with RRSP
+
+Same example (Alberta, $248K total, $108K RSU):
+
+**Without RRSP**: tax bill ≈ $46,440 on RSU income.
+
+**With max RRSP $33,810**:
+- Taxable income: $248K - $33,810 = **$214,190**
+- Drops you from the 44% marginal bracket to ~38%
+- Total tax saving: $33,810 × **~43% marginal** = **$14,538 immediate refund**
+
+So:
+- You put $33,810 in RRSP (your money, still working for you)
+- Government returns ~$14,500 cash as tax refund (April 2027)
+- Net cost of RRSP contribution: **$19,310** for a **$33,810** investment
+
+That's a **~75% boost** on RRSP contribution in the vesting year.
+
+### Where to put the RRSP refund
+
+The $14,500 refund in April 2027 is **new clean cash**. Where?
+
+**First priority — TFSA**:
+- 2027 limit will be ~$7,000
+- **Tax-free growth forever**
+- Reinvest in broad-market ETF (XEQT, VEQT, VFV)
+
+**Second priority — FHSA** (if you haven't bought a home):
+- $8,000/year limit, $40K lifetime
+- Income deduction (like RRSP) + tax-free withdrawal for home (like TFSA)
+
+**Residual**:
+- Non-registered broker
+- Or additional RRSP contribution for next year
+
+## ESPP: 15% discount = auto-arbitrage
+
+ESPP = **Employee Stock Purchase Plan**. The closest thing to a "guaranteed 15% return" that legally exists.
+
+Typical plan:
+- You contribute up to 15% post-tax salary via payroll deductions
+- Every 6 months the broker purchases shares at **lower of (start price, end price) — 15%**
+- The discount is automatic — doesn't depend on the market
+
+### ESPP math
+
+Given:
+- Salary $140K, 15% contribution = $21K/year
+- Two 6-month periods, $10,500 each
+- Start price $100, end price $110 → purchase price = min($100, $110) × 0.85 = **$85**
+- Shares acquired: $10,500 / $85 = **123 shares**
+- Market value: 123 × $110 = $13,530
+
+**Profit immediately: $3,030 on $10,500 contribution = 29% in one half-year.** Annualized — ~58%.
+
+### Strategy: sell at purchase or plan deliberately
+
+**The most common mistake of tech workers**: holding ESPP shares 3-5 years "for diversification". That's a math error.
+
+The discount is already locked in after purchase. Holding shares = **concentration risk in employer stock**.
+
+Right strategy:
+1. Max contribute ESPP (15% salary)
+2. On purchase day, sell 100% of shares
+3. Reinvest in broad-market ETF
+4. The discount remains yours as cash bonus
+
+## Cross-border issue: US employer
+
+If your employer is in the US, things get more complex.
+
+### 1. Form W-8BEN
+
+You **must** file **Form W-8BEN** with your employer. It declares you're a **Canadian tax resident, not a US person**. Without it, your employer will start **30% US withholding** on your RSUs + ESPP.
+
+### 2. RSU FMV conversion
+
+RSU FMV in your T4 is in **CAD**, not USD. CRA accepts conversion at the **Bank of Canada exchange rate on vesting day**.
+
+### 3. RRSP rule for US shares
+
+Keep **US stocks in RRSP, not in TFSA**.
+
+The Canada-US Tax Treaty exempts RRSP from **US withholding tax on dividends** (15%). TFSA is **not** exempt.
+
+## Pitfalls that cost tens of thousands
+
+### 1. Holding vested RSUs > 20% of net worth
+
+If your RSUs + ESPP are already > 20% of total assets — **diversify**.
+
+### 2. Contributing RRSP in a non-vesting year
+
+If you have regular salary without vesting — RRSP refund only ~30%. In vesting year refund = 43-50%. **Save the room for vesting year**.
+
+### 3. Forget Bank of Canada rate
+
+Convert RSU FMV at BoC rate on vesting day. Not yearly average.
+
+### 4. ESPP holding period
+
+Don't hold ESPP > 1 year for "long-term capital gain". Sell at purchase.
+
+### 5. US-listed stocks in TFSA
+
+US dividends in TFSA = 15% withholding. In RRSP = 0%.
+
+## Eligible Investor: when to engage exempt market
+
+At $140K salary + $80K RSU = **$220K** household income — you're in NI 45-106 **Accredited Investor** territory.
+
+60-second self-check — [Eligible Investor self-check](/en/eligibility).
+
+## Conclusion
+
+RSU vesting is a **gift to your wealth that gets taxed like a salary**. If you simply receive $108K on T4 and do nothing — the government takes $40-55K. If you **use RRSP strategically** + sell vested shares immediately + arbitrage ESPP — you can **net-keep ~70%** instead of 50%.
+
+Tech worker pillar with full 12-month roadmap — [Financial planning for tech workers in Canada](/en/dlya-it-fakhivtsiv).
+
+Discovery call to discuss your specifics — [Book](/en/contact).

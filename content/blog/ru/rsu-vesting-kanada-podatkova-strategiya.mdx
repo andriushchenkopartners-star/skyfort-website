@@ -1,0 +1,168 @@
+---
+title: "RSU vesting в Канаде: полная математика + RRSP стратегия для IT-специалистов"
+description: "$80K RSU vesting = $40K налога в Ontario. Как использовать RRSP $33,810 и FHSA $8K чтобы сбить marginal rate с 53% до 30%. Точная математика."
+date: "2026-05-28"
+author: "Andrii Andriushchenko"
+tags: ["RSU", "IT", "RRSP", "налоги", "ESPP", "newcomers", "Канада"]
+pillar: "Tech"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **Кратко:** Если у тебя **RSU vesting event на $50-150K** — твой marginal tax bracket прыгает временно до **47-53%** (зависит от провинции). Стратегия: в год vesting **max-out RRSP** ($33,810 в 2026) — это сбивает marginal до ~30%, даёт immediate $15K tax refund. Refund реинвестируй в TFSA + FHSA. **Не держи vested shares >20% net worth** — концентрационный риск. Если твой employer US — особенно сложно с cross-border withholding. Этот гайд — точная математика с конкретными примерами для русскоговорящих senior engineers, devs, PMs.
+
+## Что такое RSU и почему это сложно для русскоговорящих в Канаде
+
+RSU = **Restricted Stock Unit**. Это форма equity compensation популярная в tech — компания обещает тебе акции после **vesting period** (обычно 4 года с 1-годичным cliff). В день vesting fair market value (FMV) акций добавляется в твой **T4 income** и облагается как **employment income** (а не как capital gain).
+
+Это значит: если в 2026 году у тебя vest $80,000 worth of shares — эти $80K добавляются к твоей зарплате в T4 и облагаются по твоему marginal rate. В Альберте $80K extra при базовой зарплате $150K → marginal 47% → $37,600 immediate tax bill. В Онтарио тот же scenario → 53% → $42,400.
+
+> ⚠️ **EMD compliance disclaimer:** Это образовательный материал, не налоговая или инвестиционная рекомендация. Для индивидуальных решений — Discovery call с Licensed DR (NRD #4575551) + Canadian CPA с US-source income специализацией.
+
+## Математика RSU vesting: полный разбор
+
+Разберём **конкретный пример**. Дано:
+- Senior engineer в Калгари (Альберта)
+- Base salary: **$140,000 CAD**
+- RSU grant: 800 shares vested в 2026
+- FMV at vesting day: **$100 USD/share** (~$135 CAD/share)
+- RSU FMV in T4: 800 × $135 = **$108,000 CAD**
+
+**Total T4 income 2026** = $140K base + $108K RSU = **$248K**.
+
+### Marginal tax breakdown (Alberta, 2026)
+
+При $248K total income — часть последних $108K RSU попадает в **36-44-48%** brackets. Average marginal на этот RSU income ≈ **42-44%**, то есть:
+
+**Tax на RSU = $108K × ~43% = $46,440**
+
+В Онтарио всё ещё хуже — на $248K total marginal ≈ **50-53%** → $108K × 51% = **$55,080**.
+
+## Стратегия: как использовать RRSP чтобы сбить tax
+
+RRSP — Registered Retirement Savings Plan. Каждый dollar внесённый в RRSP **вычитается из твоего taxable income**. Если ты max-out RRSP в год vesting, твой taxable income снижается на $33,810, что **сбивает твой marginal rate**.
+
+### 2026 RRSP лимит: $33,810 (или 18% предыдущего earned income)
+
+**Важно**: твой RRSP room **базируется на предыдущем году**. Если ты в 2025 заработал $200K — в 2026 у тебя $33,810 RRSP room (capped). Если ты заработал $90K — у тебя $16,200 ($90K × 18%).
+
+### Математика с RRSP
+
+Тот же пример (Альберта, $248K total, $108K RSU):
+
+**Без RRSP**: tax bill ≈ $46,440 на RSU income.
+
+**С max RRSP $33,810**:
+- Taxable income: $248K - $33,810 = **$214,190**
+- Это снижает тебя с 44% bracket в ~38% bracket
+- Total tax saving: $33,810 × **~43% marginal** = **$14,538 immediate refund**
+
+Т.е.:
+- Ты кладёшь $33,810 в RRSP (это твои деньги)
+- Правительство возвращает тебе ~$14,500 cash как tax refund (April 2027)
+- Net cost RRSP contribution: **$19,310** для **$33,810** investment
+
+Это **почти 75% boost** на RRSP contribution в год vesting.
+
+### Куда класть RRSP refund
+
+Refund $14,500 в апреле 2027 — это **новый чистый кеш**. Куда его?
+
+**Первый приоритет — TFSA**:
+- 2027 лимит будет ~$7,000
+- Это **tax-free growth навсегда**
+- Reinvest в broad-market ETF (XEQT, VEQT, VFV)
+
+**Второй приоритет — FHSA** (если не купил дом):
+- $8,000/год лимит, $40K lifetime
+- Deduction снова из income (как RRSP) + tax-free withdrawal на дом (как TFSA)
+
+**Остаток** ($14.5K - $7K TFSA - $8K FHSA = негативный, но если ты уже использовал TFSA+FHSA для других целей):
+- Non-registered broker
+- Или дополнительная RRSP contribution на следующий год
+
+## ESPP: 15% discount = auto-arbitrage
+
+ESPP = **Employee Stock Purchase Plan**. Это ближайшее к "гарантированному 15% return" что существует легально.
+
+Типичный план:
+- Ты контрибутируешь до 15% post-tax зарплаты через payroll deduction
+- Каждые 6 месяцев broker покупает акции за **lower of (start price, end price) — 15%**
+- Discount автоматический
+
+### Математика ESPP
+
+Дано:
+- Зарплата $140K, 15% contribution = $21K/год
+- Two 6-месячных periods, $10,500 каждый
+- Start price $100, end price $110 → purchase price = min($100, $110) × 0.85 = **$85**
+- Количество акций: $10,500 / $85 = **123 shares**
+- Market value: 123 × $110 = $13,530
+
+**Profit сразу: $3,030 на $10,500 contribution = 29% в одно полугодие.** Annualized — ~58%.
+
+### Стратегия: продай сразу или планируй
+
+**Самая частая ошибка IT-специалистов**: держать ESPP shares года 3-5 "для diversification". Это math error.
+
+Discount уже locked in после purchase. Держание shares = **concentration risk в employer stock**.
+
+Правильная стратегия:
+1. Max contribute ESPP (15% salary)
+2. В purchase day продай 100% shares
+3. Реинвестируй в broad-market ETF
+4. Discount остаётся у тебя как cash bonus
+
+## Cross-border issue: US employer
+
+Если твой employer в США — всё усложняется.
+
+### 1. Form W-8BEN
+
+Тебе **обязательно** подать **Form W-8BEN** твоему employer-у. Это заявляет что ты **canadian tax resident, not a US person**. Без неё твой employer будет stop **30% US withholding** на твои RSU + ESPP.
+
+### 2. RSU FMV conversion
+
+RSU FMV в твоём T4 — в **CAD**, не USD. CRA accepts конверсию за **Bank of Canada exchange rate в vesting day**.
+
+### 3. RRSP rule for US shares
+
+Держи **US stocks в RRSP, не в TFSA**.
+
+Canada-US Tax Treaty exempts RRSP от **US withholding tax on dividends** (15%). TFSA — **не** exempt.
+
+## Pitfalls которые стоят десятки тысяч
+
+### 1. Держать vested RSU > 20% net worth
+
+Если твои RSU + ESPP уже > 20% общих активов — **diversify**.
+
+### 2. Контрибутировать RRSP в non-vesting год
+
+Если у тебя regular salary без vesting — RRSP refund только ~30%. В vesting год refund = 43-50%. **Сохраняй room для vesting года**.
+
+### 3. Forget Bank of Canada rate
+
+Конверсия RSU FMV на vesting day за BoC. Не среднее за год.
+
+### 4. ESPP holding период
+
+Не держи ESPP > 1 года "для long-term capital gain". Sell at purchase.
+
+### 5. US-listed stocks в TFSA
+
+US dividends в TFSA = 15% withholding. В RRSP = 0%.
+
+## Eligible Investor: когда подключать exempt market
+
+При зарплате $140K + $80K RSU = **$220K** household income — ты в NI 45-106 **Accredited Investor** territory.
+
+Self-check за 60 секунд — [Eligible Investor self-check](/ru/eligibility).
+
+## Вывод
+
+RSU vesting — это **подарок твоему wealth, который облагается как зарплата**. Если ты просто получишь $108K в T4 и ничего не сделаешь — правительство заберёт $40-55K. Если **использовать RRSP стратегически** + продать vested shares сразу + ESPP arbitrage — ты сможешь **net-keep ~70%** вместо 50%.
+
+Гайд для IT-специалистов с полным 12-месячным roadmap — [Финансы для IT-специалистов в Канаде](/ru/dlya-it-fakhivtsiv).
+
+Discovery call для обсуждения твоей специфики — [Записаться](/ru/contact).
