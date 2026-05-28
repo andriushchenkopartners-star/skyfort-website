@@ -1,6 +1,38 @@
 import FIRECalculator from "./calculator";
 import StaticFaq from "../../../_components/StaticFaq";
+import RelatedLinks from "../../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
+
+// ─── Internal linking — adjacent calculators + FIRE/exempt pillar posts ─────
+const RELATED = {
+  uk: {
+    heading: "Що далі",
+    items: [
+      { href: "/uk/blog/tfsa-dlya-ukrayintsiv-povny-gayd-2026", label: "TFSA для українців — повний гайд 2026", description: "TFSA як фундамент будь-якого FI-плану в Канаді." },
+      { href: "/uk/blog/exempt-market-calgary-commercial-real-estate-rozvytok", label: "Exempt market у Калгарі: commercial real estate", description: "Як приватні інвестиції можуть прискорити дату FI." },
+      { href: "/uk/calculators/tfsa-growth", label: "TFSA калькулятор", description: "Compound interest на 20 років — основа для FI-капіталу." },
+      { href: "/uk/calculators/mortgage", label: "Іпотечний калькулятор", description: "Stress test, дострокове погашення, доступність житла." },
+    ],
+  },
+  ru: {
+    heading: "Что дальше",
+    items: [
+      { href: "/ru/blog/tfsa-dlya-ukrayintsiv-povny-gayd-2026", label: "TFSA для украиноязычных — полный гайд 2026", description: "TFSA как фундамент любого FI-плана в Канаде." },
+      { href: "/ru/blog/exempt-market-calgary-commercial-real-estate-rozvytok", label: "Exempt market в Калгари: commercial real estate", description: "Как частные инвестиции могут ускорить дату FI." },
+      { href: "/ru/calculators/tfsa-growth", label: "TFSA калькулятор", description: "Compound interest на 20 лет — основа для FI-капитала." },
+      { href: "/ru/calculators/mortgage", label: "Ипотечный калькулятор", description: "Stress test, досрочное погашение, доступность жилья." },
+    ],
+  },
+  en: {
+    heading: "What's next",
+    items: [
+      { href: "/en/calculators/tfsa-growth", label: "TFSA growth calculator", description: "Compound interest over 20 years — the foundation of any FI plan." },
+      { href: "/en/calculators/mortgage", label: "Canadian mortgage calculator", description: "Stress test, early payoff, affordability — housing math for FI." },
+      { href: "/en/blog", label: "Browse the blog", description: "Pillar guides on TFSA, FHSA, RRSP, FIRE, and Canadian real estate." },
+      { href: "/en/pro-mene", label: "About Andrii", description: "Licensed Dealing Representative, Calgary. Book a discovery call." },
+    ],
+  },
+};
 
 // ─── FAQ (educational; no return guarantees; EMD-compliant) ─────────────────
 const FAQ = {
@@ -199,6 +231,10 @@ export default async function Page({ params }) {
         faq={FAQ[locale] || FAQ.uk}
         heading={FAQ_HEADING[locale] || FAQ_HEADING.uk}
         jsonLdId={`https://sky-fort.ca/${locale}/calculators/financial-freedom#faq`}
+      />
+      <RelatedLinks
+        heading={(RELATED[locale] || RELATED.uk).heading}
+        items={(RELATED[locale] || RELATED.uk).items}
       />
     </>
   );

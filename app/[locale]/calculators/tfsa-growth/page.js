@@ -1,6 +1,38 @@
 import TFSACalculator from "./calculator";
 import StaticFaq from "../../../_components/StaticFaq";
+import RelatedLinks from "../../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
+
+// ─── Internal linking — adjacent calculators + relevant pillar posts ────────
+const RELATED = {
+  uk: {
+    heading: "Що далі",
+    items: [
+      { href: "/uk/blog/tfsa-dlya-ukrayintsiv-povny-gayd-2026", label: "TFSA для українців у Канаді — повний гайд 2026", description: "3000+ слів про ліміти, ETF, типові помилки новоприбулих." },
+      { href: "/uk/blog/rrsp-vs-tfsa-pershi-5-rokiv-v-kanadi", label: "RRSP vs TFSA: що обрати в перші 5 років", description: "Коли TFSA б'є RRSP — і коли навпаки." },
+      { href: "/uk/calculators/financial-freedom", label: "Калькулятор фінансової свободи", description: "Дізнайся точну дату FI на основі своїх цифр." },
+      { href: "/uk/calculators/mortgage", label: "Іпотечний калькулятор Канада", description: "Stress test, CMHC, дострокове погашення — все в одному." },
+    ],
+  },
+  ru: {
+    heading: "Что дальше",
+    items: [
+      { href: "/ru/blog/tfsa-dlya-ukrayintsiv-povny-gayd-2026", label: "TFSA для украиноязычных в Канаде — полный гайд 2026", description: "3000+ слов о лимитах, ETF, типичных ошибках новоприбывших." },
+      { href: "/ru/blog/rrsp-vs-tfsa-pershi-5-rokiv-v-kanadi", label: "RRSP vs TFSA: что выбрать в первые 5 лет", description: "Когда TFSA бьёт RRSP — и когда наоборот." },
+      { href: "/ru/calculators/financial-freedom", label: "Калькулятор финансовой свободы", description: "Узнай точную дату FI на основе своих цифр." },
+      { href: "/ru/calculators/mortgage", label: "Ипотечный калькулятор Канада", description: "Stress test, CMHC, досрочное погашение — всё в одном." },
+    ],
+  },
+  en: {
+    heading: "What's next",
+    items: [
+      { href: "/en/calculators/financial-freedom", label: "Financial Freedom (FIRE) calculator", description: "Get your exact FI date based on your real numbers." },
+      { href: "/en/calculators/mortgage", label: "Canadian mortgage calculator", description: "Stress test, CMHC, early payoff, break-penalty — all in one." },
+      { href: "/en/blog", label: "Browse the blog", description: "Pillar guides on TFSA, RRSP, FHSA, FIRE, and Canadian real estate." },
+      { href: "/en/pro-mene", label: "About Andrii", description: "Licensed Dealing Representative, Calgary. Educational only — no commissions." },
+    ],
+  },
+};
 
 // ─── FAQ content (educational, NOT advice) ──────────────────────────────────
 // Visible accordion + matching FAQPage JSON-LD for Google rich snippets.
@@ -211,6 +243,10 @@ export default async function Page({ params }) {
         faq={faq}
         heading={heading}
         jsonLdId={`https://sky-fort.ca/${locale}/calculators/tfsa-growth#faq`}
+      />
+      <RelatedLinks
+        heading={(RELATED[locale] || RELATED.uk).heading}
+        items={(RELATED[locale] || RELATED.uk).items}
       />
     </>
   );

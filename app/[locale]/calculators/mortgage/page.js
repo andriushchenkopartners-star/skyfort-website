@@ -1,6 +1,38 @@
 import MortgageCalculator from "./calculator";
 import StaticFaq from "../../../_components/StaticFaq";
+import RelatedLinks from "../../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
+
+// ─── Internal linking — adjacent calculators + mortgage/FHSA pillar posts ───
+const RELATED = {
+  uk: {
+    heading: "Що далі",
+    items: [
+      { href: "/uk/blog/persha-ipoteka-v-kalhari-povny-gayd", label: "Перша іпотека в Калгарі — повний гайд", description: "Downpayment, GDS/TDS, CMHC, локальна специфіка Альберти." },
+      { href: "/uk/blog/fhsa-40k-na-pershu-kvartiru-v-kanadi", label: "FHSA: $40K на першу квартиру", description: "Як використати state-of-the-art програму для першого дому." },
+      { href: "/uk/calculators/tfsa-growth", label: "TFSA калькулятор", description: "Compound interest на 20 років — банк vs GIC vs ETF." },
+      { href: "/uk/calculators/financial-freedom", label: "Калькулятор фінансової свободи", description: "Коли ти зможеш не працювати — точна дата на основі твоїх цифр." },
+    ],
+  },
+  ru: {
+    heading: "Что дальше",
+    items: [
+      { href: "/ru/blog/persha-ipoteka-v-kalhari-povny-gayd", label: "Первая ипотека в Калгари — полный гайд", description: "Downpayment, GDS/TDS, CMHC, локальная специфика Альберты." },
+      { href: "/ru/blog/fhsa-40k-na-pershu-kvartiru-v-kanadi", label: "FHSA: $40K на первую квартиру", description: "Как использовать программу для первого дома." },
+      { href: "/ru/calculators/tfsa-growth", label: "TFSA калькулятор", description: "Compound interest на 20 лет — банк vs GIC vs ETF." },
+      { href: "/ru/calculators/financial-freedom", label: "Калькулятор финансовой свободы", description: "Когда сможешь не работать — точная дата на основе твоих цифр." },
+    ],
+  },
+  en: {
+    heading: "What's next",
+    items: [
+      { href: "/en/calculators/tfsa-growth", label: "TFSA growth calculator", description: "20-year compound math — bank vs GIC vs ETF outcomes." },
+      { href: "/en/calculators/financial-freedom", label: "Financial Freedom calculator", description: "When you can stop working — exact date from your numbers." },
+      { href: "/en/blog", label: "Browse the blog", description: "Pillar guides on TFSA, FHSA, RRSP, FIRE, and Canadian real estate." },
+      { href: "/en/pro-mene", label: "About Andrii", description: "Licensed Dealing Representative, Calgary. Educational only." },
+    ],
+  },
+};
 
 // ─── FAQ (educational only; no advice; CMHC/OSFI rules verifiable) ──────────
 const FAQ = {
@@ -200,6 +232,10 @@ export default async function Page({ params }) {
         faq={FAQ[locale] || FAQ.uk}
         heading={FAQ_HEADING[locale] || FAQ_HEADING.uk}
         jsonLdId={`https://sky-fort.ca/${locale}/calculators/mortgage#faq`}
+      />
+      <RelatedLinks
+        heading={(RELATED[locale] || RELATED.uk).heading}
+        items={(RELATED[locale] || RELATED.uk).items}
       />
     </>
   );
