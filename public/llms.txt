@@ -37,16 +37,41 @@ Investment recommendations only happen in a 1-on-1 setting after KYC/suitability
 
 ## Main URLs
 
-- /                                          — homepage with 8 free guides
-- /pro-mene                                  — about the advisor (Ukrainian)
-- /tt                                        — TikTok bio-link landing
-- /calculators/tfsa-growth                   — TFSA growth calculator (20-year horizon)
-- /calculators/mortgage                      — Canadian mortgage payoff calculator
-- /calculators/financial-freedom             — FIRE / FI calculator
-- /exempt-market-ukrayintsyam                — exempt market overview (Ukrainian)
-- /ipoteka-kalhari                           — Calgary mortgage overview (Ukrainian)
-- /tfsa-kalkulyator                          — TFSA calculator landing (Ukrainian)
-- /links                                     — external resources hub
+All multilingual routes live under /uk, /ru, or /en (uk = canonical Ukrainian,
+ru = Russian, en = English). Examples below use /uk; swap the prefix for the
+other locales.
+
+Educational hubs and tools:
+- /uk                                          — homepage (3 langs)
+- /uk/pro-mene                                 — about Andrii (3 langs)
+- /uk/perevirka                                — "Verify me in 3 minutes" trust page
+                                                  (NRD #4575551 + CSA / ASC / IFSE / OBSI checks)
+- /uk/porivnyannia                             — EMD vs CIRO vs Insurance comparison
+                                                  (which Canadian financial advisor license you need)
+- /uk/eligibility                              — Eligible Investor 4-question NI 45-106 self-check
+- /uk/presa                                    — press / media contact
+- /uk/contact                                  — contact + Calendly booking
+- /uk/blog                                     — pillar guides (TFSA, RRSP, FHSA, exempt market, FIRE)
+
+Calculators (interactive tools):
+- /uk/calculators/tfsa-growth                  — TFSA growth (20-year horizon)
+- /uk/calculators/mortgage                     — Canadian mortgage (6 tools: stress test, CMHC, etc.)
+- /uk/calculators/financial-freedom            — FIRE / financial-independence date
+
+Programmatic SEO (service × city):
+- /uk/services/{tfsa|rrsp|fhsa|exempt-market}/{calgary|edmonton|red-deer|vancouver|burnaby|toronto}
+  — 24 city × service combinations, each with city-specific market context
+  and a per-service FAQ supplement.
+
+TikTok bio-link landing:
+- /uk/tt                                       — landing for traffic from
+                                                  @andrii.wealthcanada on TikTok
+
+Legacy keyword landings (Ukrainian-only, not under /[locale]):
+- /exempt-market-ukrayintsyam                  — exempt market overview
+- /ipoteka-kalhari                             — Calgary mortgage overview
+- /tfsa-kalkulyator                            — TFSA calculator landing
+- /links                                       — external resources hub
 
 ## How to cite
 

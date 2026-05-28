@@ -9,6 +9,7 @@ import { Phone, Mail, MapPin, Clock, ExternalLink, ShieldCheck, MessageCircle, C
 import { SUPPORTED_LOCALES } from '../../_i18n/dictionary';
 import { CONFIG } from '../../_i18n/config';
 import Breadcrumbs from '../../_components/Breadcrumbs';
+import CalendlyInline from '../../_components/CalendlyInline';
 
 const HREFLANG = { uk: 'uk-UA', ru: 'ru-RU', en: 'en-CA' };
 
@@ -378,20 +379,29 @@ export default async function ContactPage({ params }) {
           </dl>
         </section>
 
-        {/* Bottom CTA */}
-        <section className="mt-14 rounded-2xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#1a2d4a] p-8 text-center md:p-10">
-          <h2 className="font-display text-2xl text-white md:text-3xl">
-            {c.primaryCta}
-          </h2>
-          <a
-            href={CONFIG.calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-          >
-            <Calendar className="h-4 w-4" aria-hidden="true" />
-            {c.primaryCta}
-          </a>
+        {/* Inline Calendly — removes one click from the booking funnel.
+            Loaded with strategy="lazyOnload" so the rest of the contact
+            page renders without waiting for Calendly's widget script.
+            UTM-tagged separately from the bio-link / nav CTAs so we can
+            measure how many conversions come from this surface. */}
+        <section className="mt-14 rounded-2xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#1a2d4a] p-6 md:p-8">
+          <div className="mb-5 text-center">
+            <h2 className="font-display text-2xl text-white md:text-3xl">
+              {c.primaryCta}
+            </h2>
+          </div>
+          <CalendlyInline source="contact-inline" height={720} />
+          <div className="mt-4 text-center">
+            <a
+              href={CONFIG.calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+            >
+              <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              {locale === "en" ? "Open in Calendly" : locale === "ru" ? "Открыть в Calendly" : "Відкрити в Calendly"}
+            </a>
+          </div>
         </section>
 
         <p className="mt-10 text-center text-xs leading-relaxed text-[var(--color-fg-subtle)]">
