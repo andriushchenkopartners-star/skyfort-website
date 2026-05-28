@@ -243,7 +243,7 @@ export async function generateMetadata({ params }) {
   // hreflang
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/services/${service}/${city}`,
     ])
   );

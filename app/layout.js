@@ -54,7 +54,7 @@ export const metadata = {
   alternates: {
     canonical: "/uk",
     languages: {
-      "uk-UA": "/uk",
+      "uk": "/uk",
       "x-default": "/uk",
     },
   },
@@ -65,6 +65,10 @@ export const metadata = {
     siteName: "SkyFort",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SkyFort" }],
     locale: "uk_UA",
+    // Facebook OG locale format uses underscore + region — different from
+    // hreflang. Listing both alternates lets Facebook/LinkedIn share previews
+    // serve the right language card to non-Ukrainian users. The 4th re-audit
+    // flagged the missing ru_RU here.
     alternateLocale: ["ru_RU", "en_CA"],
     type: "website",
   },
@@ -273,7 +277,7 @@ const websiteJsonLd = {
   url: "https://sky-fort.ca",
   name: "SkyFort",
   publisher: { "@id": "https://sky-fort.ca/#business" },
-  inLanguage: ["uk-UA", "ru-RU", "en-CA"],
+  inLanguage: ["uk", "ru", "en-CA"],
   potentialAction: {
     "@type": "SearchAction",
     target: "https://sky-fort.ca/?q={search_term_string}",

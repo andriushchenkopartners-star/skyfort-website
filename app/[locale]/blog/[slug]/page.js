@@ -8,6 +8,12 @@ import { getPostBySlug, getPostSlugs, getAllPosts } from "../../../_lib/blog";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
 import TopicSuggestForm from "../../../_components/TopicSuggestForm";
 import StickyBlogCTA from "../../../_components/StickyBlogCTA";
+import CraLimits2026 from "../../../_components/CraLimits2026";
+
+// Which pillars get the 2026 CRA limits reference table embedded below
+// the article body. Skip Pillar values that don't relate to tax-sheltered
+// accounts (e.g., a generic "Newcomer" post still benefits; "Trust" doesn't).
+const PILLARS_NEEDING_LIMITS = new Set(["TFSA", "RRSP", "FHSA", "RESP", "Newcomer"]);
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
@@ -81,7 +87,7 @@ export async function generateMetadata({ params }) {
   const alternates = {};
   for (const l of SUPPORTED_LOCALES) {
     if (getPostBySlug(l, slug)) {
-      alternates[{ uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l]] = `/${l}/blog/${slug}`;
+      alternates[{ uk: "uk", ru: "ru", en: "en-CA" }[l]] = `/${l}/blog/${slug}`;
     }
   }
 
@@ -202,7 +208,7 @@ export default async function BlogPostPage({ params }) {
       "@id": `https://sky-fort.ca/${locale}/blog/${slug}`,
     },
     keywords: post.tags.join(", "),
-    inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+    inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
   };
 
   const related = getAllPosts(locale)
@@ -297,6 +303,15 @@ export default async function BlogPostPage({ params }) {
           <MDXRemote source={post.content} components={mdxComponents} />
         </div>
 
+        {/* 2026 CRA limits reference table — single source of truth across all
+            tax-shelter content. Renders for TFSA / RRSP / FHSA / RESP /
+            Newcomer pillars (where readers need annual + cumulative limits
+            in one place). Source-attributed inline for AI Overview citation
+            density per the 4th re-audit (2.13). */}
+        {PILLARS_NEEDING_LIMITS.has(post.pillar) && (
+          <CraLimits2026 locale={locale} />
+        )}
+
         {/* In-post CTA */}
         <aside className="mt-16 rounded-2xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#1a2d4a] p-8 text-center md:p-10">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
@@ -315,6 +330,85 @@ export default async function BlogPostPage({ params }) {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </aside>
+
+        {/* Flagship tools — contextual deep-links so every blog post passes
+            link equity to the 4 YMYL trust pages. 4th re-audit (1.12) flagged
+            blog body having 0 contextual links to these new pages. */}
+        <section className="mt-12 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-brand)]">
+            {locale === "en"
+              ? "Tools mentioned on this page"
+              : locale === "ru"
+              ? "Инструменты по теме"
+              : "Інструменти по темі"}
+          </h3>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            <li>
+              <Link
+                href={`/${locale}/eligibility`}
+                className="flex items-start gap-3 rounded-lg border border-[var(--color-border)] p-4 transition-colors hover:border-[var(--color-brand)]/40"
+              >
+                <span className="mt-0.5 text-lg" aria-hidden="true">→</span>
+                <div>
+                  <div className="font-semibold text-white">
+                    {locale === "en" ? "Eligible Investor self-check" : locale === "ru" ? "Self-check Eligible Investor" : "Self-check Eligible Investor"}
+                  </div>
+                  <div className="mt-0.5 text-xs text-[var(--color-fg-muted)]">
+                    {locale === "en" ? "4 questions · 60 seconds · NI 45-106" : locale === "ru" ? "4 вопроса · 60 секунд · NI 45-106" : "4 питання · 60 секунд · NI 45-106"}
+                  </div>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/perevirka`}
+                className="flex items-start gap-3 rounded-lg border border-[var(--color-border)] p-4 transition-colors hover:border-[var(--color-brand)]/40"
+              >
+                <span className="mt-0.5 text-lg" aria-hidden="true">→</span>
+                <div>
+                  <div className="font-semibold text-white">
+                    {locale === "en" ? "Verify me in 3 minutes" : locale === "ru" ? "Проверь меня за 3 минуты" : "Перевір мене за 3 хвилини"}
+                  </div>
+                  <div className="mt-0.5 text-xs text-[var(--color-fg-muted)]">
+                    {locale === "en" ? "NRD #4575551 · CSA / ASC / IFSE / OBSI" : locale === "ru" ? "NRD #4575551 · CSA / ASC / IFSE / OBSI" : "NRD #4575551 · CSA / ASC / IFSE / OBSI"}
+                  </div>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/porivnyannia`}
+                className="flex items-start gap-3 rounded-lg border border-[var(--color-border)] p-4 transition-colors hover:border-[var(--color-brand)]/40"
+              >
+                <span className="mt-0.5 text-lg" aria-hidden="true">→</span>
+                <div>
+                  <div className="font-semibold text-white">
+                    {locale === "en" ? "EMD vs CIRO vs Insurance" : locale === "ru" ? "EMD vs CIRO vs Insurance" : "EMD vs CIRO vs Insurance"}
+                  </div>
+                  <div className="mt-0.5 text-xs text-[var(--color-fg-muted)]">
+                    {locale === "en" ? "Which advisor license do you need?" : locale === "ru" ? "Какая лицензия тебе нужна?" : "Яка ліцензія тобі потрібна?"}
+                  </div>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/calculators/tfsa-growth`}
+                className="flex items-start gap-3 rounded-lg border border-[var(--color-border)] p-4 transition-colors hover:border-[var(--color-brand)]/40"
+              >
+                <span className="mt-0.5 text-lg" aria-hidden="true">→</span>
+                <div>
+                  <div className="font-semibold text-white">
+                    {locale === "en" ? "TFSA growth calculator" : locale === "ru" ? "TFSA калькулятор" : "TFSA калькулятор"}
+                  </div>
+                  <div className="mt-0.5 text-xs text-[var(--color-fg-muted)]">
+                    {locale === "en" ? "20-year compound · bank vs ETF" : locale === "ru" ? "20 лет compound · банк vs ETF" : "20 років compound · банк vs ETF"}
+                  </div>
+                </div>
+              </Link>
+            </li>
+          </ul>
+        </section>
 
         {/* Related posts */}
         {related.length > 0 && (

@@ -154,7 +154,7 @@ export async function generateMetadata({ params }) {
   const path = `/${locale}/calculators/financial-freedom`;
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/calculators/financial-freedom`,
     ])
   );

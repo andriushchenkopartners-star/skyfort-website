@@ -11,7 +11,7 @@ import { CONFIG } from '../../_i18n/config';
 import Breadcrumbs from '../../_components/Breadcrumbs';
 import CalendlyInline from '../../_components/CalendlyInline';
 
-const HREFLANG = { uk: 'uk-UA', ru: 'ru-RU', en: 'en-CA' };
+const HREFLANG = { uk: 'uk', ru: 'ru', en: 'en-CA' };
 
 const COPY = {
   uk: {
@@ -221,7 +221,7 @@ export default async function ContactPage({ params }) {
         '@id': `https://sky-fort.ca/${locale}/contact#contactpage`,
         url: `https://sky-fort.ca/${locale}/contact`,
         about: { '@id': 'https://sky-fort.ca/#business' },
-        inLanguage: { uk: 'uk-UA', ru: 'ru-RU', en: 'en-CA' }[locale],
+        inLanguage: { uk: 'uk', ru: 'ru', en: 'en-CA' }[locale],
       },
       {
         '@type': 'FAQPage',

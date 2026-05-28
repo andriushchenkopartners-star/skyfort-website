@@ -14,9 +14,21 @@ const LOCALE_OG = {
   en: "en_CA",
 };
 
+// Hreflang codes per Google's official guidance: the second code is the
+// REGION the alternate URL targets, not where the language is spoken.
+// `uk-UA` would mean "Ukrainian language targeted at users in Ukraine" —
+// which actively deprioritises us in Canadian SERPs (clients here are
+// 100% Canadian residents — AB / BC / ON) and surfaces the site to UA/RU
+// users who can't be clients.
+//
+// Language-only codes ("uk", "ru") tell Google "this is for Ukrainian-
+// speaking / Russian-speaking users anywhere" without geo-targeting them
+// out of Canada. English uses "en-CA" because Canada-specific facts (CRA
+// limits, NI regulations, OSFI rules) are the differentiator vs en-US or
+// en-GB content. Caught by the 4th re-audit (1.1).
 const HREFLANG = {
-  uk: "uk-UA",
-  ru: "ru-RU",
+  uk: "uk",
+  ru: "ru",
   en: "en-CA",
 };
 
@@ -61,12 +73,18 @@ export async function generateMetadata({ params }) {
   const meta = HOMEPAGE_META[locale];
 
   return {
-    // Plain string title. The root layout's `title.template: "%s · SkyFort"`
-    // appends the brand. Using `{default, template}` here would result in
-    // double-wrapping ("X · SkyFort · SkyFort") because Next.js applies the
-    // parent template to the child's default too — caught by the 3rd
-    // re-audit on /uk and /uk/perevirka live HTML.
-    title: meta.title,
+    // Title strategy:
+    // - `default: meta.title` — used when no child segment sets a title.
+    //   Renders as bare meta.title (no template applied to defaults).
+    // - `template: "%s · SkyFort"` — applies to child segment titles. So
+    //   /uk/perevirka and other child routes get the brand suffix.
+    //
+    // The earlier "plain string" form broke child suffixes (4th re-audit
+    // caught /uk/perevirka, /uk/contact, /uk/services/* missing " · SkyFort"
+    // entirely). The earlier "default+template with meta.title containing
+    // SkyFort" caused doubling. This shape (template + clean default) is
+    // the right middle: /uk = bare meta.title, /uk/X = "X · SkyFort".
+    title: { default: meta.title, template: "%s · SkyFort" },
     description: meta.description,
     alternates: {
       canonical: `/${locale}`,

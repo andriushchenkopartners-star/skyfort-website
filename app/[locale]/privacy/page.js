@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { SUPPORTED_LOCALES } from '../../_i18n/dictionary';
 import Breadcrumbs from '../../_components/Breadcrumbs';
 
-const HREFLANG = { uk: 'uk-UA', ru: 'ru-RU', en: 'en-CA' };
+const HREFLANG = { uk: 'uk', ru: 'ru', en: 'en-CA' };
 
 const COPY = {
   uk: {

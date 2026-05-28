@@ -451,7 +451,7 @@ export async function generateMetadata({ params }) {
   const path = `/${locale}/porivnyannia`;
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/porivnyannia`,
     ])
   );
@@ -500,7 +500,7 @@ function buildJsonLd(locale, c, path) {
         "@id": `https://sky-fort.ca${path}#article`,
         headline: c.titleMeta,
         description: c.descriptionMeta,
-        inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+        inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
         author: {
           "@type": "Person",
           name: "Andrii Andriushchenko",

@@ -226,7 +226,7 @@ export async function generateMetadata({ params }) {
   const path = `/${locale}/perevirka`;
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/perevirka`,
     ])
   );
@@ -254,7 +254,7 @@ function buildHowToJsonLd(locale, c, path) {
     description: c.intro,
     totalTime: "PT3M",
     estimatedCost: { "@type": "MonetaryAmount", currency: "CAD", value: "0" },
-    inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+    inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
     step: c.steps.map((step, i) => ({
       "@type": "HowToStep",
       position: i + 1,

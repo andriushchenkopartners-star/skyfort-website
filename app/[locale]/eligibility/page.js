@@ -101,7 +101,7 @@ export async function generateMetadata({ params }) {
   const path = `/${locale}/eligibility`;
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/eligibility`,
     ])
   );
@@ -158,7 +158,7 @@ const buildJsonLd = (locale) => ({
       },
       educationalLevel: "Adult education",
       learningResourceType: "Self-assessment",
-      inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+      inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
       provider: {
         "@type": "FinancialService",
         name: "SkyFort Wealth",

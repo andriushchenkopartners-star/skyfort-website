@@ -10,7 +10,7 @@ import {
 
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
-const HREFLANG = { uk: "uk-UA", ru: "ru-RU", en: "en-CA" };
+const HREFLANG = { uk: "uk", ru: "ru", en: "en-CA" };
 
 // ─── lastModified helpers (git mtime → fs mtime → build time) ───────────────
 // Better Google signal than `new Date()` on every URL: pages that haven't

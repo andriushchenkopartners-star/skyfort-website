@@ -101,7 +101,7 @@ export async function generateMetadata({ params }) {
   const path = `/${locale}/presa`;
   const alternates = Object.fromEntries(
     SUPPORTED_LOCALES.map((l) => [
-      { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[l],
+      { uk: "uk", ru: "ru", en: "en-CA" }[l],
       `/${l}/presa`,
     ])
   );
@@ -135,7 +135,7 @@ export default async function PressPage({ params }) {
         url: `https://sky-fort.ca${`/${locale}/presa`}`,
         name: c.titleMeta,
         description: c.descriptionMeta,
-        inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+        inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
       },
       {
         "@type": "Person",
