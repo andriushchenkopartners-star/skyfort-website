@@ -173,13 +173,12 @@ export async function generateMetadata({ params }) {
       description: m.ogDesc,
       url: `https://sky-fort.ca${path}`,
       type: "website",
-      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SkyFort FIRE Calculator" }],
+      // images: omitted — opengraph-image.js generates a branded card.
     },
     twitter: {
       card: "summary_large_image",
       title: m.ogTitle,
       description: m.twDesc,
-      images: ["/og-image.png"],
     },
   };
 }

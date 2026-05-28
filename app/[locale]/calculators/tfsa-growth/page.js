@@ -182,13 +182,14 @@ export async function generateMetadata({ params }) {
       description: m.ogDesc,
       url: `https://sky-fort.ca${path}`,
       type: "website",
-      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SkyFort TFSA Calculator" }],
+      // images: omitted — opengraph-image.js in this folder generates a
+      // branded per-locale card via Satori (next/og) and auto-overrides.
     },
     twitter: {
       card: "summary_large_image",
       title: m.ogTitle,
       description: m.twDesc,
-      images: ["/og-image.png"],
+      // Twitter falls back to the OG image when no twitter-image.js exists.
     },
   };
 }

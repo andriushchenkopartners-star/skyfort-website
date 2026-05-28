@@ -58,13 +58,13 @@ export async function generateMetadata({ params }) {
       description: m.ogDesc,
       url: `https://sky-fort.ca${path}`,
       type: "profile",
-      images: [{ url: "/andrii.jpg", width: 1200, height: 1600, alt: "Andrii Andriushchenko, SkyFort" }],
+      // images: omitted — opengraph-image.js generates a branded card.
+      // The portrait /andrii.jpg is still used in the page body itself.
     },
     twitter: {
       card: "summary_large_image",
       title: m.ogTitle,
       description: m.twDesc,
-      images: ["/andrii.jpg"],
     },
   };
 }
