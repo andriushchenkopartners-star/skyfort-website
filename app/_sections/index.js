@@ -9,6 +9,7 @@ export { default as CalcPromo } from "./CalcPromo";
 export { default as MortgagePromo } from "./MortgagePromo";
 export { default as FireCalcPromo } from "./FireCalcPromo";
 export { default as Steps } from "./Steps";
+export { default as EligibilityPromo } from "./EligibilityPromo";
 export { default as Faq } from "./Faq";
 export { default as Testimonials } from "./Testimonials";
 export { default as FinalCta } from "./FinalCta";

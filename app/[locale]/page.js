@@ -11,6 +11,7 @@ import {
   MortgagePromo,
   FireCalcPromo,
   Steps,
+  EligibilityPromo,
   Faq,
   Testimonials,
   FinalCta,
@@ -37,6 +38,7 @@ export default function SkyFortLanding({ params }) {
       <FireCalcPromo locale={locale} />
       <MortgagePromo locale={locale} />
       <Steps content={content} />
+      <EligibilityPromo locale={locale} />
 
       {/* Email capture — між Steps і FAQ, ~30% scroll */}
       <section className="border-y border-[#2a2a2a] bg-[#1f1f1f] py-20 md:py-28">

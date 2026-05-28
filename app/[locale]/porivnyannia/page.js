@@ -164,6 +164,9 @@ const COPY = {
     bottomCtaText:
       "Discovery call — 30 хвилин, безкоштовно. Розберемо твою ситуацію і визначимо що тобі насправді потрібно: EMD, CIRO, Insurance, або їх комбінація. Якщо EMD не для тебе — направлю до CIRO/Insurance advisor якого знаю особисто.",
     bottomCtaBtn: "Записатись на discovery call",
+    eligibilityPromoTitle: "Або перевір за 60 секунд — чи ти Eligible Investor?",
+    eligibilityPromoBody: "4 питання, без email — і знаєш чи відкритий тобі exempt market (моя зона), чи краще починати з TFSA/RRSP/FHSA (зона CIRO).",
+    eligibilityPromoCta: "Пройти self-check",
     crumbHome: "Головна",
     crumbThis: "Порівняння ліцензій",
     verifyLinkLabel: "Перевір мене за 3 хвилини",
@@ -295,6 +298,9 @@ const COPY = {
     bottomCtaText:
       "Discovery call — 30 минут, бесплатно. Разберём твою ситуацию и определим что тебе действительно нужно: EMD, CIRO, Insurance, или их комбинация. Если EMD не для тебя — направлю к CIRO/Insurance advisor которого знаю лично.",
     bottomCtaBtn: "Записаться на discovery call",
+    eligibilityPromoTitle: "Или проверь за 60 секунд — Eligible ли ты Investor?",
+    eligibilityPromoBody: "4 вопроса, без email — и знаешь открыт ли тебе exempt market (моя зона), или лучше начинать с TFSA/RRSP/FHSA (зона CIRO).",
+    eligibilityPromoCta: "Пройти self-check",
     crumbHome: "Главная",
     crumbThis: "Сравнение лицензий",
     verifyLinkLabel: "Проверь меня за 3 минуты",
@@ -426,6 +432,9 @@ const COPY = {
     bottomCtaText:
       "Discovery call — 30 minutes, free. We work through your situation and figure out what you actually need: EMD, CIRO, Insurance, or some combination. If EMD isn't for you, I'll point you to a CIRO or Insurance advisor I know personally.",
     bottomCtaBtn: "Book a discovery call",
+    eligibilityPromoTitle: "Or check in 60 seconds — are you an Eligible Investor?",
+    eligibilityPromoBody: "4 questions, no email — and you'll know whether exempt market is open to you (my zone) or whether to start with TFSA/RRSP/FHSA first (CIRO zone).",
+    eligibilityPromoCta: "Take the self-check",
     crumbHome: "Home",
     crumbThis: "License comparison",
     verifyLinkLabel: "Verify me in 3 minutes",
@@ -670,6 +679,25 @@ export default async function PorivnyanniaPage({ params }) {
               );
             })}
           </ul>
+        </section>
+
+        {/* Eligibility promo — natural follow-up to the decision flowchart */}
+        <section className="mt-8 pb-16">
+          <div className="overflow-hidden rounded-3xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#0d2860] p-7 md:p-10">
+            <div className="grid items-center gap-6 md:grid-cols-[1.4fr_auto]">
+              <div>
+                <h3 className="font-display text-2xl text-white md:text-3xl">{c.eligibilityPromoTitle}</h3>
+                <p className="mt-3 text-base leading-relaxed text-[#c4c4c4]">{c.eligibilityPromoBody}</p>
+              </div>
+              <Link
+                href={`/${locale}/eligibility`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+              >
+                {c.eligibilityPromoCta}
+                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
 
