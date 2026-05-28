@@ -53,6 +53,8 @@ app/
     perevirka/               # "Verify me in 3 minutes" YMYL trust page (audit 3.5)
     porivnyannia/            # EMD vs CIRO vs Insurance comparison (audit 3.12)
     presa/                   # Press / Media page with Person + Org JSON-LD (audit 3.20)
+    eligibility/             # Eligible/Accredited Investor 4-Q self-check (audit 3.3)
+                             # Quiz client component + server JSON-LD wrapper.
     contact/  privacy/  cookies/   # added in cookie-consent batch
     services/                # service+city programmatic pages (Phase 2 SEO)
     calculators/{tfsa-growth,mortgage,financial-freedom}/

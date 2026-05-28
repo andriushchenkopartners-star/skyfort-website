@@ -146,6 +146,7 @@ const t = {
     ctaTitle: "Готовий поговорити?",
     ctaDesc: "30 хвилин, безкоштовно. Розберемо твою ситуацію та знайдемо найкращий варіант.",
     cta: "Записатись на консультацію",
+    selfCheckLabel: "Не впевнений чи ти Eligible Investor? 60-секундний self-check →",
     crumbHome: "Головна",
     crumbThis: "Про мене",
   },
@@ -188,6 +189,7 @@ const t = {
     ctaTitle: "Готов поговорить?",
     ctaDesc: "30 минут, бесплатно. Разберём твою ситуацию и найдём лучший вариант.",
     cta: "Записаться на консультацию",
+    selfCheckLabel: "Не уверен Eligible ли ты Investor? 60-секундный self-check →",
     crumbHome: "Главная",
     crumbThis: "Обо мне",
   },
@@ -230,6 +232,7 @@ const t = {
     ctaTitle: "Ready to talk?",
     ctaDesc: "30 minutes, free. We'll review your situation and find the best option.",
     cta: "Book a consultation",
+    selfCheckLabel: "Not sure if you're an Eligible Investor? Try the 60-second self-check →",
     crumbHome: "Home",
     crumbThis: "About",
   },
@@ -381,6 +384,16 @@ export default function AboutClient({ locale: rawLocale }) {
           {c.cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </a>
+        {c.selfCheckLabel && (
+          <div className="mt-6">
+            <Link
+              href={`/${locale}/eligibility`}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            >
+              {c.selfCheckLabel}
+            </Link>
+          </div>
+        )}
       </section>
     </div>
   );
