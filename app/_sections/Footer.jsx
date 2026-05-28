@@ -10,16 +10,14 @@ const LEGAL_LINKS = {
   en: { contact: 'Contact', privacy: 'Privacy', cookies: 'Cookies' },
 };
 
-function localeFromContent(content) {
-  // Best-effort locale detection from content shape
-  if (content?.footer?.contactTitle?.includes('Контакт')) {
-    return content.footer.contactTitle.includes('акт') && content.footer.contactTitle.includes('и') ? 'ru' : 'uk';
-  }
-  return 'en';
-}
-
-export default function Footer({ content }) {
-  const locale = localeFromContent(content);
+export default function Footer({ content, locale = 'uk' }) {
+  // Locale comes from the route segment now (passed as prop). The previous
+  // localeFromContent() heuristic looked at content.footer.contactTitle and
+  // tried to distinguish "Контакти" (UA) from "Контакты" (RU) by checking if
+  // the string contained 'акт' AND 'и' — but BOTH strings contain both, so
+  // Ukrainian was misclassified as Russian and footer links pointed to
+  // /ru/contact, /ru/privacy, /ru/cookies on Ukrainian pages. Caught by SEO
+  // audit (May 28, 2026). Pass locale explicitly to remove the guesswork.
   const l = LEGAL_LINKS[locale] || LEGAL_LINKS.uk;
   return (
     <footer className="border-t border-[#2a2a2a] bg-[#191919] pt-24 pb-12">

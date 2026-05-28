@@ -19,7 +19,9 @@ const COPY = {
   uk: {
     crumbHome: "Головна",
     crumbServices: "Послуги",
-    titlePattern: (svc, city) => `${svc} ${city.locativeUk} · SkyFort`,
+    // Root layout metadata.title.template appends " · SkyFort" automatically.
+    // Including it here would double-stamp the brand ("X · SkyFort · SkyFort").
+    titlePattern: (svc, city) => `${svc} ${city.locativeUk}`,
     h1Pattern: (svc, city) => `${svc.titleUk} ${city.locativeUk}`,
     h1Sub: (city) =>
       `Освітні консультації для українців та новоприбулих ${city.locativeUk}. Licensed Dealing Representative, NRD #4575551.`,
@@ -41,7 +43,7 @@ const COPY = {
   ru: {
     crumbHome: "Главная",
     crumbServices: "Услуги",
-    titlePattern: (svc, city) => `${svc} ${city.locativeRu} · SkyFort`,
+    titlePattern: (svc, city) => `${svc} ${city.locativeRu}`,
     h1Pattern: (svc, city) => `${svc.titleRu} ${city.locativeRu}`,
     h1Sub: (city) =>
       `Образовательные консультации для русскоязычных и новоприбывших ${city.locativeRu}. Licensed Dealing Representative, NRD #4575551.`,
@@ -63,7 +65,7 @@ const COPY = {
   en: {
     crumbHome: "Home",
     crumbServices: "Services",
-    titlePattern: (svc, city) => `${svc} ${city.locativeEn} · SkyFort`,
+    titlePattern: (svc, city) => `${svc} ${city.locativeEn}`,
     h1Pattern: (svc, city) => `${svc.titleEn} ${city.locativeEn}`,
     h1Sub: (city) =>
       `Educational consultations for newcomers ${city.locativeEn}. Licensed Dealing Representative, NRD #4575551.`,

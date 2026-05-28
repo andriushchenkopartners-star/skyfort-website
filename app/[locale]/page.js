@@ -53,7 +53,7 @@ export default function SkyFortLanding({ params }) {
       <Faq content={content} />
       <Testimonials locale={locale} />
       <FinalCta content={content} />
-      <Footer content={content} />
+      <Footer content={content} locale={locale} />
     </main>
   );
 }
