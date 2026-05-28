@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Calendar, Clock, ArrowRight, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowRight, ArrowLeft, ShieldCheck } from "lucide-react";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
 import { getPostBySlug, getPostSlugs, getAllPosts } from "../../../_lib/blog";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
@@ -20,6 +21,11 @@ const COPY = {
     related: "Інші статті",
     notFound: "Стаття не знайдена",
     back: "Усі статті",
+    authorRole: "Licensed Dealing Representative",
+    authorFirm: "Axcess Capital Advisors Inc.",
+    authorNrd: "NRD #4575551",
+    authorVerify: "Перевірити реєстрацію",
+    reviewedLine: "Освітній матеріал. Узгоджено з compliance Axcess Capital.",
   },
   ru: {
     crumbHome: "Главная",
@@ -30,6 +36,11 @@ const COPY = {
     related: "Другие статьи",
     notFound: "Статья не найдена",
     back: "Все статьи",
+    authorRole: "Licensed Dealing Representative",
+    authorFirm: "Axcess Capital Advisors Inc.",
+    authorNrd: "NRD #4575551",
+    authorVerify: "Проверить регистрацию",
+    reviewedLine: "Образовательный материал. Согласовано с compliance Axcess Capital.",
   },
   en: {
     crumbHome: "Home",
@@ -40,8 +51,15 @@ const COPY = {
     related: "Other articles",
     notFound: "Post not found",
     back: "All posts",
+    authorRole: "Licensed Dealing Representative",
+    authorFirm: "Axcess Capital Advisors Inc.",
+    authorNrd: "NRD #4575551",
+    authorVerify: "Verify registration",
+    reviewedLine: "Educational content. Reviewed under Axcess Capital's compliance framework.",
   },
 };
+
+const NRD_URL = "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 
 export async function generateStaticParams() {
   const params = [];
@@ -226,6 +244,53 @@ export default async function BlogPostPage({ params }) {
 
           <h1 className="mt-5 font-display text-4xl text-white md:text-6xl">{post.title}</h1>
           <p className="mt-6 text-xl text-[var(--color-fg-muted)]">{post.description}</p>
+
+          {/* Author byline + compliance review line — YMYL E-E-A-T signal.
+              Per the May-28-2026 audit: every blog post should show who
+              wrote it, qualifications, and that a compliance review happened. */}
+          <div className="mt-8 flex items-start gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 md:p-5">
+            <Link
+              href={`/${locale}/pro-mene`}
+              className="block flex-shrink-0"
+              aria-label={post.author}
+            >
+              <Image
+                src="/andrii-thumb.jpg"
+                alt={post.author}
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-full border border-[var(--color-border)] object-cover"
+              />
+            </Link>
+            <div className="min-w-0 flex-1">
+              <Link
+                href={`/${locale}/pro-mene`}
+                className="font-semibold text-white hover:text-[var(--color-brand)]"
+              >
+                {post.author}
+              </Link>
+              <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[var(--color-fg-muted)]">
+                <span className="inline-flex items-center gap-1">
+                  <ShieldCheck className="h-3 w-3 text-[var(--color-brand)]" aria-hidden="true" />
+                  {m.authorRole}
+                </span>
+                <span aria-hidden="true">·</span>
+                <span>{m.authorFirm}</span>
+                <span aria-hidden="true">·</span>
+                <a
+                  href={NRD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                >
+                  {m.authorNrd}
+                </a>
+              </div>
+              <p className="mt-2 text-[11px] leading-relaxed text-[var(--color-fg-subtle)]">
+                {m.reviewedLine}
+              </p>
+            </div>
+          </div>
         </header>
 
         <div className="prose prose-invert mt-8 max-w-none">

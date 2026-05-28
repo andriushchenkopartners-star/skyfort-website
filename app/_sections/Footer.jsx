@@ -92,6 +92,11 @@ export default function Footer({ content, locale = 'uk' }) {
             <p className="text-xs leading-relaxed text-[#6b6b6b]">
               {content.footer.disclaimer}
             </p>
+            {content.footer.finfluencerNote && (
+              <p className="mt-3 border-t border-[#2a2a2a] pt-3 text-[11px] leading-relaxed text-[#6b6b6b]">
+                {content.footer.finfluencerNote}
+              </p>
+            )}
           </div>
         </div>
         <div className="mt-16 border-t border-[#2a2a2a] pt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
