@@ -45,12 +45,11 @@ export async function generateMetadata({ params }) {
       title: m.ogTitle,
       description: m.ogDesc,
       url: `https://sky-fort.ca${path}`,
-      images: ["/og-image.png"],
+      // images: omitted — opengraph-image.js generates a TikTok-branded card.
     },
     twitter: {
       card: "summary_large_image",
       title: m.ogTitle,
-      images: ["/og-image.png"],
     },
   };
 }
