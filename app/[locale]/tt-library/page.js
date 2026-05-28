@@ -72,7 +72,7 @@ const VIDEO_SEEDS = [
 
 const COPY = {
   uk: {
-    titleMeta: "TikTok library — транскрипти всіх відео · SkyFort",
+    titleMeta: "TikTok library — транскрипти всіх відео",
     descriptionMeta:
       "Повна бібліотека TikTok-відео від Andrii Andriushchenko з транскриптами. TFSA, exempt market, RSU, real estate. Licensed DR, NRD #4575551.",
     crumbHome: "Головна",
@@ -93,7 +93,7 @@ const COPY = {
       "Зараз тут 3 seed-відео. Я додаю транскрипти всіх нових публікацій. Підпишись у TikTok щоб не пропустити нові випуски, або повертайся сюди щоб переглянути архів.",
   },
   ru: {
-    titleMeta: "TikTok library — транскрипты всех видео · SkyFort",
+    titleMeta: "TikTok library — транскрипты всех видео",
     descriptionMeta:
       "Полная библиотека TikTok-видео от Andrii Andriushchenko с транскриптами. TFSA, exempt market, RSU, real estate. Licensed DR, NRD #4575551.",
     crumbHome: "Главная",
@@ -114,7 +114,7 @@ const COPY = {
       "Сейчас здесь 3 seed-видео. Я добавляю транскрипты всех новых публикаций. Подпишись в TikTok чтобы не пропустить новые выпуски.",
   },
   en: {
-    titleMeta: "TikTok library — full video transcripts · SkyFort",
+    titleMeta: "TikTok library — full video transcripts",
     descriptionMeta:
       "Complete library of Andrii Andriushchenko's TikTok videos with transcripts. TFSA, exempt market, RSUs, real estate. Licensed DR, NRD #4575551.",
     crumbHome: "Home",

@@ -35,7 +35,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Кейси клієнтів — анонімізовані фінансові сценарії · SkyFort",
+    titleMeta: "Кейси клієнтів — анонімізовані фінансові сценарії",
     descriptionMeta:
       "Освітні анонімізовані кейси: IT-фахівець з RSU, лікар з MPC, підприємець з CCPC, family relocation. Без рекомендацій. Licensed DR, NRD #4575551.",
     crumbHome: "Головна",
@@ -149,7 +149,7 @@ const COPY = {
     finalCtaBtn: "Безкоштовний discovery call →",
   },
   ru: {
-    titleMeta: "Кейсы клиентов — анонимизированные финансовые сценарии · SkyFort",
+    titleMeta: "Кейсы клиентов — анонимизированные финансовые сценарии",
     descriptionMeta:
       "Образовательные анонимизированные кейсы: IT-специалист с RSU, врач с MPC, предприниматель с CCPC, family relocation. Без рекомендаций. Licensed DR, NRD #4575551.",
     crumbHome: "Главная",
@@ -263,7 +263,7 @@ const COPY = {
     finalCtaBtn: "Бесплатный discovery call →",
   },
   en: {
-    titleMeta: "Client case studies — anonymized financial scenarios · SkyFort",
+    titleMeta: "Client case studies — anonymized financial scenarios",
     descriptionMeta:
       "Educational anonymized cases: tech worker with RSUs, physician with MPC, business owner with CCPC, family relocation. No recommendations. Licensed DR, NRD #4575551.",
     crumbHome: "Home",
