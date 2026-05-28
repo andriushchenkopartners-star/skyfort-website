@@ -1,4 +1,3 @@
-import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { getAllPosts } from "./_lib/blog";
@@ -12,33 +11,34 @@ const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
 const HREFLANG = { uk: "uk", ru: "ru", en: "en-CA" };
 
-// ─── lastModified helpers (git mtime → fs mtime → build time) ───────────────
-// Better Google signal than `new Date()` on every URL: pages that haven't
-// changed since 2024 shouldn't pretend to have changed today. Falls back
-// gracefully when git history is unavailable (shallow clones on some hosts).
+// ─── lastModified helpers ───────────────────────────────────────────────────
+// Reads file mtime from disk. Better Google signal than `new Date()` on every
+// URL: pages that haven't changed since 2024 shouldn't pretend to have changed
+// today.
+//
+// Previously this also tried `execSync('git log -1 --format=%cI')` to get the
+// actual commit date, but that triggered Next.js's NFT (Node File Tracing) to
+// bundle the entire project into the sitemap serverless function — pushing
+// past Vercel's function-size limit and breaking deploys. fs.statSync on
+// individual files is bounded and NFT-friendly.
 
 const BUILD_TIME = new Date();
 const mtimeCache = new Map();
 
 function lastModifiedFor(relPath) {
   if (mtimeCache.has(relPath)) return mtimeCache.get(relPath);
-  const absPath = path.join(process.cwd(), relPath);
+  // `/*turbopackIgnore: true*/` on `process.cwd()` keeps Next's NFT tracer
+  // from following this dynamic fs read and bundling the whole project into
+  // the sitemap serverless function (which broke Vercel deploys — function-
+  // size limit). We KNOW relPath is bounded to the app/ tree at runtime.
+  const absPath = path.join(/*turbopackIgnore: true*/ process.cwd(), relPath);
   let date = BUILD_TIME;
-  // 1. Best signal: most recent commit that touched the file.
   try {
-    const iso = execSync(
-      `git log -1 --format=%cI -- "${relPath}"`,
-      { encoding: "utf8", stdio: ["pipe", "pipe", "ignore"] },
-    ).trim();
-    if (iso) date = new Date(iso);
+    const stat = fs.statSync(absPath);
+    date = stat.mtime;
   } catch {
-    // git unavailable or shallow — try fs mtime next.
-    try {
-      const stat = fs.statSync(absPath);
-      date = stat.mtime;
-    } catch {
-      // file moved/missing — keep BUILD_TIME so the URL still gets a date.
-    }
+    // File moved or missing — fall back to BUILD_TIME so the URL still gets
+    // a date (avoids `lastmod` going missing from the sitemap entry entirely).
   }
   mtimeCache.set(relPath, date);
   return date;
