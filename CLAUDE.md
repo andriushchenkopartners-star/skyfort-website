@@ -49,16 +49,22 @@ app/
   [locale]/                  # uk | ru | en — Phase 2 DONE (param-based, no next-intl pkg)
     layout.js                # validates locale, sets canonical + hreflang via generateMetadata
     page.js                  # homepage (client component, uses dictionary)
-    pro-mene/                # about page (+about-client.jsx)
+    pro-mene/                # about page (+about-client.jsx, FAQ schema)
+    perevirka/               # "Verify me in 3 minutes" YMYL trust page (audit 3.5)
+    porivnyannia/            # EMD vs CIRO vs Insurance comparison (audit 3.12)
+    presa/                   # Press / Media page with Person + Org JSON-LD (audit 3.20)
     contact/  privacy/  cookies/   # added in cookie-consent batch
     services/                # service+city programmatic pages (Phase 2 SEO)
     calculators/{tfsa-growth,mortgage,financial-freedom}/
-    blog/  blog/[slug]/      # MDX blog hub (Phase 3 — scaffolded)
+    blog/  blog/[slug]/      # MDX blog hub (8 posts × 3 locales, author byline + Article JSON-LD)
     resources/               # gated PDF library (noindex)
     links/                   # external links
     tt/                      # TikTok bio-link landing (Phase 3.10)
     portal/                  # client portal (Phase 5 — invitation-only dashboard)
     admin/portal/            # admin tools for Andrii (Phase 4 portal)
+    *opengraph-image.js      # dynamic Satori-rendered OG cards on every key
+                             # route (homepage, calc, /pro-mene, /tt, /perevirka,
+                             # /porivnyannia, /presa, service×city, blog post)
 
   # Legacy SEO landings (Ukrainian-only, keyword-targeted, NOT under [locale]).
   # Keep their own canonical; do not duplicate under /uk.
@@ -177,9 +183,13 @@ When adding strings: add UK first, then RU + EN. Never let a locale silently fal
 - **Phase 1** — design system + component extraction. DONE. Accent gold token migrated; lint baseline at 0 errors / 0 warnings.
 - **Phase 2** — `[locale]` routing + hreflang + sitemap. DONE.
   - Programmatic service+city pages under `[locale]/services/` (72 URLs across 3 locales).
-  - **FAQ schema** (FAQPage JSON-LD + visible `<details>` accordion via `_components/StaticFaq.jsx`) on all 3 calculator pages in 3 locales. Also on `/contact`, `/services/*`, and the homepage.
-  - **Dynamic OG images** for blog posts via `[locale]/blog/[slug]/opengraph-image.js` — Satori renders a branded per-post card; Twitter falls back to OG so the same card serves both.
-  - Performance: andrii.jpg 2MB → 304KB, recharts lazy-loaded via next/dynamic, GA/Clarity/Calendly preconnected.
+  - **FAQ schema** (FAQPage JSON-LD + visible `<details>` accordion via `_components/StaticFaq.jsx`) on all 3 calculator pages, `/contact`, `/services/*`, `/pro-mene`, `/porivnyannia`, and the homepage (12 questions in 3 langs).
+  - **Dynamic OG images** for blog posts, homepage, all 3 calculators, /pro-mene, /tt, /perevirka, /porivnyannia, /presa, and service×city — all via shared `_lib/og-card.jsx` brandCard() helper. Twitter falls back to OG so one card serves both.
+  - **RelatedLinks** (`_components/RelatedLinks.jsx`) for cross-page internal linking on calculators.
+  - **YMYL trust pages** — `/perevirka` (4-step verification walkthrough) + `/porivnyannia` (EMD vs CIRO vs Insurance comparison) + `/presa` (press/media page with Person+Org JSON-LD).
+  - Performance: andrii.jpg 2MB → 304KB, freedom-cta.webp 472K → 418K, recharts lazy-loaded via next/dynamic, GA/Clarity/Calendly preconnected.
+  - Sitemap uses `git log -1 --format=%cI` per source file for real lastModified.
+  - Footer carries finfluencer disclosure per Joint CSA/CIRO Staff Notice 31-369.
 - **Phase 3** — blog hub: scaffolded (`[locale]/blog/`, `[locale]/blog/[slug]/`, `app/blog/rss.xml/`). 8 pillar posts in UA + RU, EN partial. Sitemap + dynamic OG + JSON-LD all wired.
 - **Phase 3.10** — TikTok bio-link `/tt`. DONE.
 - **Phase 4** — email capture + lead nurture: `EmailCaptureForm` + Brevo wired. Testimonials section + Review schema live. Cookie consent banner + `/contact`, `/privacy`, `/cookies` (3 locales). Sticky blog CTA. DONE.
