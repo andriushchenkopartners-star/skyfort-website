@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { ArrowRight, Calculator } from "lucide-react";
 
+// Localised mini-stat copy for the right-hand sample card.
+// Previously these strings were hardcoded in Ukrainian, which leaked onto
+// /ru and /en — caught by May-28 re-audit (1.5).
+const SAMPLE = {
+  uk: { meta: "$500/міс · 20 років · diversified 8%", value: "$295K", vs: "vs $120K у банку" },
+  ru: { meta: "$500/мес · 20 лет · diversified 8%", value: "$295K", vs: "vs $120K в банке" },
+  en: { meta: "$500/mo · 20 years · diversified 8%", value: "$295K", vs: "vs $120K in bank savings" },
+};
+
 export default function CalcPromo({ content, locale }) {
+  const s = SAMPLE[locale] || SAMPLE.uk;
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
@@ -35,12 +45,12 @@ export default function CalcPromo({ content, locale }) {
             <div className="hidden md:block">
               <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
                 <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">
-                  $500/міс · 20 років · diversified 8%
+                  {s.meta}
                 </p>
                 <p className="mt-3 font-display-tight text-5xl text-[var(--color-brand)]">
-                  $295K
+                  {s.value}
                 </p>
-                <p className="mt-2 text-xs text-[#6b6b6b]">vs $120K у банку</p>
+                <p className="mt-2 text-xs text-[#6b6b6b]">{s.vs}</p>
               </div>
             </div>
           </div>

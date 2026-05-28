@@ -103,6 +103,19 @@ const jsonLd = {
     identifier: "NRD 4575551",
     url: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
   },
+  // sameAs feeds Google's Knowledge Graph entity matching — every public
+  // surface where Andrii's brand appears should be cross-referenced here.
+  // Caught by May-28 re-audit (3.7): "Two brands with identical content
+  // quality will receive unequal AI citation treatment if one has built
+  // entity authority and the other hasn't."
+  sameAs: [
+    "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
+    "https://www.tiktok.com/@andrii.wealthcanada",
+    "https://instagram.com/andrii.wealthcanada",
+    "https://t.me/skyfortwealth",
+    "https://calendly.com/andriushchenko-partners/new-meeting",
+    "https://axcesscapital.ca/",
+  ],
 };
 
 export default async function Page({ params }) {

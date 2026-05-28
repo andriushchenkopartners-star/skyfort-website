@@ -86,10 +86,70 @@ const COPY = {
   },
 };
 
+// Per-service FAQ supplement — adds one service-specific Q to the 4 generic
+// city Qs. Makes each city×service page meaningfully different from its
+// siblings (addresses May-28 re-audit doorway-page concern 1.17).
+const SERVICE_FAQ = {
+  uk: {
+    tfsa: {
+      q: "Як швидко я можу почати TFSA як newcomer?",
+      a: "Як тільки отримаєш SIN і відкриєш banking — можна одразу. Твоя TFSA contribution room починає накопичуватися від року набуття tax-resident статусу (PR або work permit з certain provincial nominee status). Типово накопичений room: приїхав у 2022 ≈ $34K, 2023 ≈ $27K, 2024 ≈ $20K. Спочатку broad-market ETF через self-directed broker (Wealthsimple/Questrade), exempt market — коли доростеш до Eligible Investor (NI 45-106 категорії: дохід >$75K solo / >$125K household, або net assets >$400K).",
+    },
+    rrsp: {
+      q: "Як накопичується RRSP room як newcomer?",
+      a: "RRSP room = 18% від твого попереднього-року earned income (T4 wages, business income) до максимуму $33,810 на 2026. У перший рік у Канаді room = 0 (немає попереднього canadian income). Починаючи з другого року, накопичується від твого першого Canadian Notice of Assessment. Перевір room у CRA My Account після першого NoA. На відміну від TFSA: RRSP внесок зменшує taxable income, виведення оподатковуються.",
+    },
+    fhsa: {
+      q: "Чи можу комбінувати FHSA + RRSP HBP для першого дому?",
+      a: "Так — це найпотужніша комбінація для newcomers. FHSA дає до $40K tax-free на first home (ліміт $8K/рік × 5 років). RRSP Home Buyers' Plan дозволяє позичити $60K зі своїх RRSP (треба повернути за 15 років, без податку). Пара × 2 = $200K без жодного податку. У Калгарі та Едмонтоні цього вистачає на 20-30% down payment без CMHC premium на середній дім.",
+    },
+    "exempt-market": {
+      q: "Як перевірити чи я Eligible Investor — і який мінімум для входу?",
+      a: "Швидкий 60-секундний self-check на /uk/eligibility за фінансовими тестами NI 45-106. Спрощено: дохід >$75K solo або >$125K household (за останні 2 роки), або net financial assets >$400K (без primary residence). Мінімум входу залежить від конкретного offering — типово $5K-$25K на перший продукт. Формальна Eligible Investor classification підтверджується тільки через KYC + Suitability Assessment.",
+    },
+  },
+  ru: {
+    tfsa: {
+      q: "Как быстро я могу начать TFSA как newcomer?",
+      a: "Как только получишь SIN и откроешь banking — можно сразу. Твой TFSA contribution room начинает накапливаться с года получения tax-resident статуса (PR или work permit с certain provincial nominee status). Типичный накопленный room: приехал в 2022 ≈ $34K, 2023 ≈ $27K, 2024 ≈ $20K. Сначала broad-market ETF через self-directed broker (Wealthsimple/Questrade), exempt market — когда дорастёшь до Eligible Investor.",
+    },
+    rrsp: {
+      q: "Как накапливается RRSP room как newcomer?",
+      a: "RRSP room = 18% от твоего earned income предыдущего года (T4 wages, business income) до максимума $33,810 на 2026. В первый год в Канаде room = 0 (нет предыдущего canadian income). Со второго года накапливается от твоего первого Canadian Notice of Assessment. Проверь room в CRA My Account после первого NoA. В отличие от TFSA: RRSP взнос уменьшает taxable income, выводы облагаются налогом.",
+    },
+    fhsa: {
+      q: "Могу ли комбинировать FHSA + RRSP HBP для первого дома?",
+      a: "Да — это самая мощная комбинация для newcomers. FHSA даёт до $40K tax-free на first home (лимит $8K/год × 5 лет). RRSP Home Buyers' Plan позволяет занять $60K из своих RRSP (вернуть за 15 лет, без налога). Пара × 2 = $200K без какого-либо налога. В Калгари и Эдмонтоне этого хватает на 20-30% down payment без CMHC premium на средний дом.",
+    },
+    "exempt-market": {
+      q: "Как проверить Eligible ли я Investor — и какой минимум для входа?",
+      a: "Быстрый 60-секундный self-check на /ru/eligibility по финансовым тестам NI 45-106. Упрощённо: доход >$75K solo или >$125K household (за последние 2 года), или net financial assets >$400K (без primary residence). Минимум входа зависит от конкретного offering — типично $5K-$25K на первый продукт. Формальная Eligible Investor classification подтверждается только через KYC + Suitability Assessment.",
+    },
+  },
+  en: {
+    tfsa: {
+      q: "How quickly can I start a TFSA as a newcomer?",
+      a: "As soon as you have a SIN and Canadian banking — immediately. Your TFSA contribution room starts accumulating from the year you became a Canadian tax resident (PR or work permit with certain provincial nominee status). Typical accumulated room: arrival in 2022 ≈ $34K, 2023 ≈ $27K, 2024 ≈ $20K. Start with broad-market ETFs via a self-directed broker (Wealthsimple/Questrade); exempt market comes once you've grown into Eligible Investor (NI 45-106 thresholds: income >$75K solo / >$125K household, or net assets >$400K).",
+    },
+    rrsp: {
+      q: "How does RRSP room accumulate as a newcomer?",
+      a: "RRSP room = 18% of your previous-year earned income (T4 wages, business income) up to a 2026 cap of $33,810. In your first year in Canada room = 0 (no prior Canadian income). From year two onward, it accumulates based on your first Canadian Notice of Assessment. Check exact room in CRA My Account after the first NoA. Unlike TFSA: RRSP contributions reduce taxable income; withdrawals are taxed.",
+    },
+    fhsa: {
+      q: "Can I combine FHSA + RRSP HBP for a first home?",
+      a: "Yes — it's the strongest combo for newcomers. FHSA gives you up to $40K tax-free for a first home ($8K/year × 5 years). RRSP Home Buyers' Plan lets you borrow $60K from your own RRSP (must repay over 15 years, no tax). A couple × 2 = $200K with zero tax. In Calgary and Edmonton that's enough for a 20-30% down payment with no CMHC premium on a typical home.",
+    },
+    "exempt-market": {
+      q: "How do I check whether I'm an Eligible Investor — and what's the entry minimum?",
+      a: "Quick 60-second self-check at /en/eligibility against NI 45-106 financial tests. Simplified: income >$75K solo or >$125K household (each of the last 2 years), or net financial assets >$400K (excluding primary residence). Entry minimum depends on the specific offering — typically $5K-$25K for the first product. Formal Eligible Investor classification is only confirmed through KYC + Suitability Assessment.",
+    },
+  },
+};
+
 // Локалізовані generic FAQ для service+city комбінації (4 базових питання)
 function buildFaq(locale, service, city) {
   if (locale === "ru") {
-    return [
+    const baseRu = [
       {
         q: `Ты работаешь физически в ${city.nameRu}?`,
         a: `Личные встречи в Калгари (head office Axcess Capital Advisors Inc.). Для клиентов ${city.locativeRu} — Zoom/Google Meet. Эффект тот же, экономия времени на дорогу.`,
@@ -104,12 +164,14 @@ function buildFaq(locale, service, city) {
       },
       {
         q: "Можно ли на русском/украинском?",
-        a: "Да. Дзвонки веду украинским, русским или английским — как удобнее. Документы (OM, Suitability) — английские по регуляции, но объясняю детально.",
+        a: "Да. Звонки веду на украинском, русском или английском — как удобнее. Документы (OM, Suitability) — английские по регуляции, но объясняю детально.",
       },
     ];
+    const sup = SERVICE_FAQ.ru?.[service.slug];
+    return sup ? [...baseRu, sup] : baseRu;
   }
   if (locale === "en") {
-    return [
+    const baseEn = [
       {
         q: `Are you physically in ${city.nameEn}?`,
         a: `In-person in Calgary (Axcess Capital Advisors Inc. head office). For clients ${city.locativeEn} — Zoom/Google Meet. Same outcome, no commute.`,
@@ -127,9 +189,11 @@ function buildFaq(locale, service, city) {
         a: "Yes. I run calls in Ukrainian, Russian, or English — whichever works. Documents (OM, Suitability) are in English per regulation, but I walk through them in detail.",
       },
     ];
+    const sup = SERVICE_FAQ.en?.[service.slug];
+    return sup ? [...baseEn, sup] : baseEn;
   }
   // uk default
-  return [
+  const base = [
     {
       q: `Ти фізично у ${city.nameUk}?`,
       a: `Особисті зустрічі — у Калгарі (head office Axcess Capital Advisors Inc.). Для клієнтів ${city.locativeUk} — Zoom/Google Meet. Той же результат, економія часу на дорогу.`,
@@ -147,6 +211,8 @@ function buildFaq(locale, service, city) {
       a: "Так. Дзвінки веду українською, російською або англійською — як зручніше. Документи (OM, Suitability) — англійською за регуляцією, але пояснюю детально.",
     },
   ];
+  const svcSupplement = SERVICE_FAQ[locale]?.[service.slug];
+  return svcSupplement ? [...base, svcSupplement] : base;
 }
 
 export async function generateStaticParams() {
@@ -366,6 +432,71 @@ export default async function ServiceCityPage({ params }) {
             </div>
           </section>
         )}
+
+        {/* CROSS-LINKS — other cities for this service + other services in this city.
+            Addresses May-28 re-audit thin-internal-linking concern (1.16). */}
+        {(() => {
+          const otherCities = getCityKeys().filter((k) => k !== city).slice(0, 5);
+          const otherServices = getServiceKeys().filter((k) => k !== service);
+          const otherCitiesLabel = locale === "en"
+            ? `Same service in other cities`
+            : locale === "ru"
+            ? `Та же услуга в других городах`
+            : `Ця послуга в інших містах`;
+          const otherServicesLabel = locale === "en"
+            ? `Other services in ${ct.nameEn}`
+            : locale === "ru"
+            ? `Другие услуги в ${ct.nameRu}`
+            : `Інші послуги ${ct.locativeUk}`;
+          return (
+            <section className="mt-12 grid gap-6 md:grid-cols-2">
+              <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
+                <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-brand)]">
+                  {otherCitiesLabel}
+                </h3>
+                <ul className="space-y-2">
+                  {otherCities.map((otherCity) => {
+                    const oc = getCity(otherCity);
+                    const ocName = locale === "ru" ? oc.nameRu : locale === "en" ? oc.nameEn : oc.nameUk;
+                    return (
+                      <li key={otherCity}>
+                        <Link
+                          href={`/${locale}/services/${service}/${otherCity}`}
+                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+                        >
+                          <ArrowRight className="h-3 w-3 flex-shrink-0" aria-hidden="true" />
+                          <span>{svcName} · {ocName}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
+                <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-brand)]">
+                  {otherServicesLabel}
+                </h3>
+                <ul className="space-y-2">
+                  {otherServices.map((otherService) => {
+                    const os = getService(otherService);
+                    const osName = locale === "ru" ? os.titleRu : locale === "en" ? os.titleEn : os.titleUk;
+                    return (
+                      <li key={otherService}>
+                        <Link
+                          href={`/${locale}/services/${otherService}/${city}`}
+                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+                        >
+                          <ArrowRight className="h-3 w-3 flex-shrink-0" aria-hidden="true" />
+                          <span>{osName} · {cityName}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* FAQ */}
         <section className="mt-12">

@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "./Nav";
 import WhatsAppButton from "./_components/WhatsAppButton";
 import CookieConsent from "./_components/CookieConsent";
+import ComplianceFooter from "./_components/ComplianceFooter";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
@@ -291,6 +292,7 @@ export default function RootLayout({ children }) {
         <a href="#main" className="skip-link">Перейти до контенту</a>
         <Nav />
         {children}
+        <ComplianceFooter />
         <WhatsAppButton />
         <CookieConsent />
 
