@@ -25,6 +25,8 @@ import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
+import TldrBlock from "../../_components/TldrBlock";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CSA_URL = "https://www.securities-administrators.ca/";
@@ -43,6 +45,7 @@ const COPY = {
     eyebrow: "Регуляція 2026",
     title: "Joint CSA/CIRO Staff Notice 31-369",
     subtitle: "Що означає грудневе 2025 правило про finfluencers у Канаді — і як тобі захиститись",
+    tldr: "Joint CSA/CIRO Staff Notice 31-369 (11 грудня 2025): освітній контент від finfluencers дозволений; конкретні рекомендації купити-продати specific securities — нелегальні без CSA-registration. Перевір будь-якого «радника» через NRD search за 30 секунд.",
     intro:
       "11 грудня 2025 Canadian Securities Administrators (CSA) разом з Canadian Investment Regulatory Organization (CIRO) випустили Joint Staff Notice 31-369 — публічне попередження для всіх фінансових professionals і брендів, які працюють із соцмережа-контентом. Це не новий закон, а уточнення того, що вже діє: якщо хтось публічно говорить про securities у TikTok / Instagram / YouTube / Telegram, відповідальність регулятора лежить на зареєстрованих фірмах, навіть якщо контент створив не сам representative. Для тебе як споживача — це означає чітку лінію між легальною освітою і нелегальним продажем.",
     sectionsTitle: "Що ти дізнаєшся",
@@ -128,6 +131,7 @@ const COPY = {
     eyebrow: "Регуляция 2026",
     title: "Joint CSA/CIRO Staff Notice 31-369",
     subtitle: "Что означает декабрьское 2025 правило о finfluencers в Канаде — и как тебе защититься",
+    tldr: "Joint CSA/CIRO Staff Notice 31-369 (11 декабря 2025): образовательный контент от finfluencers разрешён; конкретные рекомендации купить-продать specific securities — нелегальны без CSA-registration. Проверь любого «советника» через NRD search за 30 секунд.",
     intro:
       "11 декабря 2025 Canadian Securities Administrators (CSA) вместе с Canadian Investment Regulatory Organization (CIRO) выпустили Joint Staff Notice 31-369 — публичное предупреждение для всех финансовых professionals и брендов, работающих с соцмедиа-контентом. Это не новый закон, а уточнение того, что уже действует: если кто-то публично говорит о securities в TikTok / Instagram / YouTube / Telegram, ответственность регулятора лежит на зарегистрированных фирмах, даже если контент создал не сам representative. Для тебя как потребителя — это означает чёткую линию между легальным образованием и нелегальной продажей.",
     sectionsTitle: "Что ты узнаешь",
@@ -213,6 +217,7 @@ const COPY = {
     eyebrow: "2026 Regulation",
     title: "Joint CSA/CIRO Staff Notice 31-369",
     subtitle: "What the December 2025 finfluencer rules in Canada mean — and how to protect yourself",
+    tldr: "Joint CSA/CIRO Staff Notice 31-369 (December 11, 2025): educational finfluencer content is permitted; specific buy/sell recommendations about specific securities are illegal without CSA registration. Verify anyone via NRD search in 30 seconds.",
     intro:
       "On December 11, 2025 the Canadian Securities Administrators (CSA) together with the Canadian Investment Regulatory Organization (CIRO) released Joint Staff Notice 31-369 — a public reminder to every financial professional and brand active on social media. It isn't a new law; it's clarification of existing rules: if someone publicly talks about securities on TikTok / Instagram / YouTube / Telegram, registered firms remain responsible even when the content is created by someone other than the registered representative. For you as a consumer, it draws a clear line between legal education and illegal selling.",
     sectionsTitle: "What you'll learn",
@@ -421,6 +426,14 @@ export default async function FinfluencerCompliancePage({ params }) {
           </div>
         </header>
 
+        <div className="pb-4">
+          <TldrBlock
+            text={c.tldr}
+            pageName={c.titleMeta}
+            pageUrl={`https://sky-fort.ca/${locale}/finfluencer-compliance`}
+          />
+        </div>
+
         {/* SECTIONS */}
         <section className="mt-12 pb-12">
           <h2 className="mb-10 font-display text-3xl text-white md:text-4xl">{c.sectionsTitle}</h2>
@@ -475,6 +488,79 @@ export default async function FinfluencerCompliancePage({ params }) {
           </div>
         </section>
       </div>
+
+      {/* RELATED — internal links to YMYL trust pages */}
+      <RelatedLinks
+        heading={
+          locale === "ru"
+            ? "Связанные руководства"
+            : locale === "en"
+            ? "Related guides"
+            : "Пов'язані матеріали"
+        }
+        items={[
+          {
+            href: `/${locale}/perevirka`,
+            label:
+              locale === "ru"
+                ? "Проверь моего регистрацию за 3 минуты"
+                : locale === "en"
+                ? "Verify my registration in 3 minutes"
+                : "Перевір мою реєстрацію за 3 хвилини",
+            description:
+              locale === "ru"
+                ? "NRD #4575551, Axcess Capital, IFSE EMP, OBSI — пошаговый чек."
+                : locale === "en"
+                ? "NRD #4575551, Axcess Capital, IFSE EMP, OBSI — step-by-step check."
+                : "NRD #4575551, Axcess Capital, IFSE EMP, OBSI — покрокова перевірка.",
+          },
+          {
+            href: `/${locale}/porivnyannia`,
+            label:
+              locale === "ru"
+                ? "EMD vs CIRO vs Insurance"
+                : locale === "en"
+                ? "EMD vs CIRO vs Insurance"
+                : "EMD vs CIRO vs Insurance",
+            description:
+              locale === "ru"
+                ? "Какая лицензия у твоего советника на самом деле."
+                : locale === "en"
+                ? "Which licence your adviser actually holds, and what it covers."
+                : "Яку ліцензію має твій радник насправді — і що вона покриває.",
+          },
+          {
+            href: `/${locale}/eligibility`,
+            label:
+              locale === "ru"
+                ? "Eligible Investor self-check за 60 секунд"
+                : locale === "en"
+                ? "Eligible Investor self-check in 60 seconds"
+                : "Eligible Investor self-check за 60 секунд",
+            description:
+              locale === "ru"
+                ? "NI 45-106 §1.1 — попадаешь ли ты в категории exempt market."
+                : locale === "en"
+                ? "NI 45-106 §1.1 — do you fit the exempt market categories?"
+                : "NI 45-106 §1.1 — чи попадаєш ти у категорії exempt market.",
+          },
+          {
+            href: `/${locale}/slovnyk`,
+            label:
+              locale === "ru"
+                ? "Словарь канадских финансов"
+                : locale === "en"
+                ? "Canadian finance glossary"
+                : "Словник канадських фінансів",
+            description:
+              locale === "ru"
+                ? "30+ терминов TFSA, CCPC, MIC, EMD с источниками."
+                : locale === "en"
+                ? "30+ terms — TFSA, CCPC, MIC, EMD — with sources."
+                : "30+ термінів — TFSA, CCPC, MIC, EMD — з джерелами.",
+          },
+        ]}
+      />
 
       {/* FAQ */}
       <StaticFaq

@@ -15,6 +15,8 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import CraLimits2026 from "../../_components/CraLimits2026";
+import TldrBlock from "../../_components/TldrBlock";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -29,6 +31,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Фінанси для IT-фахівців у Канаді",
     subtitle: "Як українському senior engineer / dev / PM з $130-300K зарплатою побудувати капітал за 5 років",
+    tldr: "Український IT-фахівець з $130-300K доходом у Канаді: у рік RSU vesting max-out RRSP ($33,810 у 2026) щоб збити marginal tax з 47-53% до ~30%, не тримай vested RSU >20% net worth (концентраційний ризик), при $130K+ income переключай TFSA-first на RRSP-first пріоритет.",
     intro:
       "Якщо ти приїхав у Канаду в IT (Shopify, Amazon AWS YYC, Microsoft, SAP, Telus Digital, EQ Bank, fintech, або через CUAET від європейських компаній з remote contract) — твоя ситуація фінансово сильно відрізняється від \"типового новоприбулого\". Високий доход (часто $130-300K base + RSU vesting + ESPP), стабільний T4 або 1099 from US employer, нерідко acceleration vesting events на $50-150K, складна крос-кордонна податкова ситуація — все це робить стандартні \"newcomer fundamentals\" недостатніми. Цей гайд — конкретний 12-місячний фреймворк для IT-фахівців: що робити з кожним долларом, які помилки коштують десятки тисяч, які інструменти canadian tax system дає саме для тебе.",
     sections: [
@@ -137,6 +140,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Финансы для IT-специалистов в Канаде",
     subtitle: "Как русскоязычному senior engineer / dev / PM с $130-300K зарплатой построить капитал за 5 лет",
+    tldr: "Русскоговорящий IT-специалист с $130-300K доходом в Канаде: в год RSU vesting max-out RRSP ($33,810 в 2026) чтобы сбить marginal tax с 47-53% до ~30%, не держи vested RSU >20% net worth, при $130K+ переключай TFSA-first на RRSP-first приоритет.",
     intro:
       "Если ты приехал в Канаду в IT (Shopify, Amazon AWS YYC, Microsoft, SAP, Telus Digital, EQ Bank, fintech, или через CUAET от европейских компаний с remote contract) — твоя ситуация финансово сильно отличается от \"типичного новоприбывшего\". Высокий доход (часто $130-300K base + RSU vesting + ESPP), стабильный T4 или 1099 from US employer, нередко acceleration vesting events на $50-150K, сложная кросс-граничная налоговая ситуация — всё это делает стандартные \"newcomer fundamentals\" недостаточными. Этот гайд — конкретный 12-месячный фреймворк для IT-специалистов: что делать с каждым долларом, какие ошибки стоят десятки тысяч, какие инструменты canadian tax system даёт именно для тебя.",
     sections: [
@@ -245,6 +249,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Finance for IT specialists in Canada",
     subtitle: "How a Ukrainian/Russian-speaking senior engineer / dev / PM on $130-300K builds wealth in 5 years",
+    tldr: "Ukrainian tech worker in Canada on $130-300K: in RSU vesting years max out RRSP ($33,810 in 2026) to knock marginal tax from 47-53% down to ~30%, don't hold vested RSUs as >20% of net worth (concentration risk), switch TFSA-first to RRSP-first when income crosses $130K.",
     intro:
       "If you arrived in Canada in tech (Shopify, Amazon AWS YYC, Microsoft, SAP, Telus Digital, EQ Bank, fintech, or via CUAET with a remote contract for a European company) — your financial situation differs substantially from the \"typical newcomer\". High income (often $130-300K base + RSU vesting + ESPP), stable T4 or 1099 from a US employer, frequent acceleration vesting events of $50-150K, and a cross-border tax setup all make generic newcomer fundamentals insufficient. This guide is a concrete 12-month framework for IT specialists: what to do with each dollar, which mistakes cost tens of thousands, and which Canadian tax tools were built for you.",
     sections: [
@@ -436,6 +441,14 @@ export default async function ItPillarPage({ params }) {
           <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
         </header>
 
+        <div className="pb-4">
+          <TldrBlock
+            text={c.tldr}
+            pageName={c.titleMeta}
+            pageUrl={`https://sky-fort.ca/${locale}/dlya-it-fakhivtsiv`}
+          />
+        </div>
+
         <section className="mt-8 pb-12 space-y-5">
           {c.sections.map((s, i) => {
             const Icon = s.icon;
@@ -494,6 +507,33 @@ export default async function ItPillarPage({ params }) {
         </section>
       </div>
 
+      <RelatedLinks
+        heading={
+          locale === "ru" ? "Связанные руководства" : locale === "en" ? "Related guides" : "Пов'язані гайди"
+        }
+        items={[
+          {
+            href: `/${locale}/dlya-mediks`,
+            label: locale === "ru" ? "Для медиков" : locale === "en" ? "For physicians" : "Для медиків",
+            description: locale === "ru" ? "MPC, IPP, holdco — гайд для врачей." : locale === "en" ? "MPC, IPP, holdco — physician pillar." : "MPC, IPP, holdco — гайд для лікарів.",
+          },
+          {
+            href: `/${locale}/dlya-pidpryyemtsiv`,
+            label: locale === "ru" ? "Для предпринимателей" : locale === "en" ? "For founders" : "Для підприємців",
+            description: locale === "ru" ? "CCPC, TOSI, LCGE — гайд для founders." : locale === "en" ? "CCPC, TOSI, LCGE — founder pillar." : "CCPC, TOSI, LCGE — гайд для засновників.",
+          },
+          {
+            href: `/${locale}/eligibility`,
+            label: locale === "ru" ? "Eligible Investor self-check" : locale === "en" ? "Eligible Investor self-check" : "Eligible Investor self-check",
+            description: locale === "ru" ? "60 секунд — попадаешь ли ты в exempt market." : locale === "en" ? "60 seconds — do you fit exempt market thresholds?" : "60 секунд — чи попадаєш у exempt market.",
+          },
+          {
+            href: `/${locale}/calculators/tfsa-growth`,
+            label: locale === "ru" ? "TFSA calculator" : locale === "en" ? "TFSA calculator" : "TFSA калькулятор",
+            description: locale === "ru" ? "Compound math на твои реальные числа." : locale === "en" ? "Compound math on your real numbers." : "Compound math на твої реальні числа.",
+          },
+        ]}
+      />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">

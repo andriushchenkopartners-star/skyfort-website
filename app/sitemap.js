@@ -69,6 +69,7 @@ const SOURCE_FILE = {
   "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
   "/case-studies": "app/[locale]/case-studies/page.js",
   "/tt-library": "app/[locale]/tt-library/page.js",
+  "/slovnyk": "app/[locale]/slovnyk/page.js",
 };
 
 // Pages available under every locale segment.
@@ -103,6 +104,9 @@ const LOCALIZED_PAGES = [
   // VideoObject-rich TikTok transcript library — AI-search indexability
   // play (Lantern 2026: YouTube is the most-cited domain in AI answers).
   { path: "/tt-library",                 priority: 0.75, changeFrequency: "weekly" },
+  // Glossary with DefinedTermSet schema — Google + Perplexity + ChatGPT
+  // use this structure for canonical-definition extraction.
+  { path: "/slovnyk",                    priority: 0.7,  changeFrequency: "monthly" },
 ];
 
 // Ukrainian-only landing pages (no locale prefix).

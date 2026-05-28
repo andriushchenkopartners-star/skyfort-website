@@ -16,6 +16,8 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import CraLimits2026 from "../../_components/CraLimits2026";
+import TldrBlock from "../../_components/TldrBlock";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -30,6 +32,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Фінанси для лікарів у Канаді",
     subtitle: "Як українському family doctor / specialist з MPC побудувати $5M+ net worth до 55 років",
+    tldr: "Українська лікарка у Канаді з $250K+ practice income: incorporate MPC на 2-3 рік practice, salary до CPP-max ($73,200 у 2026) + дивіденди для residual, IPP при 40+ років з $200K+ accumulated, holdco для asset protection після $1M+ corporate assets.",
     intro:
       "Канадська медицина має унікальну фінансову structuру: 70%+ practising physicians працюють через Medical Professional Corporation (MPC) — це принципово інша tax game ніж W-2 employee. Income часто $250K-$600K+ (family doctor 1.0 FTE ~$280-380K у Альберті/Онтаріо, specialists $400K-$800K+), але без правильної corp structure ти платиш ~50% marginal personal tax. З MPC + holdco + IPP — effective lifetime tax drops significantly. Цей гайд: як українському лікарю-newcomer (через MCC + IMG residency match) побудувати financial machine за 10 років. CCO-approved educational content.",
     sections: [
@@ -139,6 +142,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Финансы для врачей в Канаде",
     subtitle: "Как русскоязычному family doctor / specialist с MPC построить $5M+ net worth к 55 годам",
+    tldr: "Русскоговорящая врач в Канаде с $250K+ practice income: incorporate MPC на 2-3 год practice, salary до CPP-max ($73,200 в 2026) + дивиденды для residual, IPP при 40+ лет с $200K+ accumulated, holdco для asset protection после $1M+ corporate assets.",
     intro:
       "Канадская медицина имеет уникальную финансовую structuру: 70%+ practising physicians работают через Medical Professional Corporation (MPC) — это принципиально другая tax game чем W-2 employee. Income часто $250K-$600K+ (family doctor 1.0 FTE ~$280-380K в Альберте/Онтарио, specialists $400K-$800K+), но без правильной corp structure ты платишь ~50% marginal personal tax. С MPC + holdco + IPP — effective lifetime tax drops significantly. Этот гайд: как русскоязычному врачу-newcomer (через MCC + IMG residency match) построить financial machine за 10 лет. CCO-approved educational content.",
     sections: [
@@ -248,6 +252,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Finance for physicians in Canada",
     subtitle: "How a Ukrainian/Russian-speaking family doctor / specialist with an MPC builds $5M+ net worth by 55",
+    tldr: "Ukrainian physician in Canada with $250K+ practice income: incorporate MPC in practice year 2-3, salary to CPP-max ($73,200 in 2026) + dividends for residual, IPP at 40+ with $200K+ accumulated, holdco for asset protection past $1M corporate assets.",
     intro:
       "Canadian medicine has a unique financial structure: 70%+ practising physicians operate through a Medical Professional Corporation (MPC) — a fundamentally different tax game than W-2 employment. Income often $250K-$600K+ (family doctor 1.0 FTE ~$280-380K in Alberta/Ontario, specialists $400K-$800K+), but without the right corp structure you pay ~50% marginal personal tax. With MPC + holdco + IPP, lifetime effective tax drops significantly. This guide: how a Ukrainian/Russian-speaking newcomer-physician (via MCC + IMG residency match) builds a financial machine over 10 years. CCO-approved educational content.",
     sections: [
@@ -440,6 +445,14 @@ export default async function MediksPillarPage({ params }) {
           <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
         </header>
 
+        <div className="pb-4">
+          <TldrBlock
+            text={c.tldr}
+            pageName={c.titleMeta}
+            pageUrl={`https://sky-fort.ca/${locale}/dlya-mediks`}
+          />
+        </div>
+
         <section className="mt-8 pb-12 space-y-5">
           {c.sections.map((s, i) => {
             const Icon = s.icon;
@@ -498,6 +511,33 @@ export default async function MediksPillarPage({ params }) {
         </section>
       </div>
 
+      <RelatedLinks
+        heading={
+          locale === "ru" ? "Связанные руководства" : locale === "en" ? "Related guides" : "Пов'язані гайди"
+        }
+        items={[
+          {
+            href: `/${locale}/dlya-it-fakhivtsiv`,
+            label: locale === "ru" ? "Для IT-специалистов" : locale === "en" ? "For tech workers" : "Для IT-фахівців",
+            description: locale === "ru" ? "RSU, ESPP, RRSP — гайд для tech." : locale === "en" ? "RSUs, ESPP, RRSP — tech worker pillar." : "RSU, ESPP, RRSP — гайд для IT.",
+          },
+          {
+            href: `/${locale}/dlya-pidpryyemtsiv`,
+            label: locale === "ru" ? "Для предпринимателей" : locale === "en" ? "For founders" : "Для підприємців",
+            description: locale === "ru" ? "CCPC, TOSI, LCGE — гайд для founders." : locale === "en" ? "CCPC, TOSI, LCGE — founder pillar." : "CCPC, TOSI, LCGE — гайд для засновників.",
+          },
+          {
+            href: `/${locale}/eligibility`,
+            label: locale === "ru" ? "Eligible Investor self-check" : locale === "en" ? "Eligible Investor self-check" : "Eligible Investor self-check",
+            description: locale === "ru" ? "Подходишь ли под exempt market через MPC." : locale === "en" ? "Does your MPC fit exempt market thresholds?" : "Чи попадає твоя MPC у exempt market.",
+          },
+          {
+            href: `/${locale}/calculators/financial-freedom`,
+            label: locale === "ru" ? "Калькулятор FI" : locale === "en" ? "Financial-freedom calculator" : "Калькулятор FI",
+            description: locale === "ru" ? "Какой net worth нужен для retirement в 55." : locale === "en" ? "What net worth funds retirement at 55." : "Який net worth для retirement у 55.",
+          },
+        ]}
+      />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">

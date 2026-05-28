@@ -12,6 +12,8 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import CraLimits2026 from "../../_components/CraLimits2026";
+import TldrBlock from "../../_components/TldrBlock";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -26,6 +28,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Фінанси для підприємців у Канаді",
     subtitle: "Як українському business owner / self-employed / IT contractor побудувати $3M+ corporate wealth за 10 років",
+    tldr: "Український підприємець з CCPC $500K-1M+ revenue у Канаді: SBD дає 11-12% corporate tax на перші $500K active income, family trust для income splitting (з урахуванням TOSI rules), LCGE ≈ $1.27M tax-free capital gain на QSBS sale (24+ міс holding), holdco для asset protection.",
     intro:
       "Якщо ти переїхав у Канаду і запустив бізнес (consulting, SaaS, restaurant, e-commerce, real estate flipping, IT contracting через corporate entity) — твоя фінансова реальність принципово відрізняється від W-2 employee. Через CCPC (Canadian-Controlled Private Corporation) ти отримуєш доступ до інструментів які залишаються недоступні для employees: small business deduction (11-13% corporate tax на перші $500K active business income), salary/dividend optimization, LCGE на $1M+ при exit, holdco structures для asset protection і tax-deferred passive accumulation, family trust для income splitting. Цей гайд: як українському підприємцю-newcomer optimally structure business+personal finances у Канаді 2026. CCO-approved educational content.",
     sections: [
@@ -135,6 +138,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Финансы для предпринимателей в Канаде",
     subtitle: "Как русскоязычному business owner / self-employed / IT contractor построить $3M+ corporate wealth за 10 лет",
+    tldr: "Русскоговорящий предприниматель с CCPC $500K-1M+ revenue в Канаде: SBD даёт 11-12% corporate tax на первые $500K, family trust для income splitting (с учётом TOSI rules), LCGE ≈ $1.27M tax-free на QSBS sale (24+ мес holding), holdco для asset protection.",
     intro:
       "Если ты переехал в Канаду и запустил бизнес (consulting, SaaS, restaurant, e-commerce, real estate flipping, IT contracting через corporate entity) — твоя финансовая реальность принципиально отличается от W-2 employee. Через CCPC (Canadian-Controlled Private Corporation) ты получаешь доступ к инструментам которые остаются недоступными для employees: small business deduction (11-13% corporate tax на первые $500K active business income), salary/dividend optimization, LCGE на $1M+ при exit, holdco structures, family trust. Этот гайд: как русскоязычному предпринимателю-newcomer optimally structure business+personal finances в Канаде 2026. CCO-approved.",
     sections: [
@@ -244,6 +248,7 @@ const COPY = {
     eyebrow: "Pillar guide · 2026",
     title: "Finance for entrepreneurs in Canada",
     subtitle: "How a Ukrainian/Russian-speaking business owner / self-employed / IT contractor builds $3M+ corporate wealth over 10 years",
+    tldr: "Ukrainian entrepreneur with $500K-1M+ revenue CCPC in Canada: SBD gives 11-12% corporate tax on first $500K active income, family trust for income splitting (TOSI rules apply), LCGE ≈ $1.27M tax-free on QSBS sale (24+ mo holding), holdco for asset protection.",
     intro:
       "If you moved to Canada and launched a business (consulting, SaaS, restaurant, e-commerce, real estate flipping, IT contracting through a corporate entity) — your financial reality fundamentally differs from a W-2 employee. Through a CCPC (Canadian-Controlled Private Corporation) you get tools unavailable to employees: small business deduction (11-13% corporate tax on the first $500K active business income), salary/dividend optimization, LCGE on $1M+ at exit, holdco structures for asset protection and tax-deferred passive accumulation, family trust for income splitting. This guide: how a Ukrainian/Russian-speaking newcomer entrepreneur optimally structures business + personal finances in 2026 Canada. CCO-approved educational content.",
     sections: [
@@ -436,6 +441,14 @@ export default async function EntrepreneursPillarPage({ params }) {
           <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
         </header>
 
+        <div className="pb-4">
+          <TldrBlock
+            text={c.tldr}
+            pageName={c.titleMeta}
+            pageUrl={`https://sky-fort.ca/${locale}/dlya-pidpryyemtsiv`}
+          />
+        </div>
+
         <section className="mt-8 pb-12 space-y-5">
           {c.sections.map((s, i) => {
             const Icon = s.icon;
@@ -494,6 +507,33 @@ export default async function EntrepreneursPillarPage({ params }) {
         </section>
       </div>
 
+      <RelatedLinks
+        heading={
+          locale === "ru" ? "Связанные руководства" : locale === "en" ? "Related guides" : "Пов'язані гайди"
+        }
+        items={[
+          {
+            href: `/${locale}/dlya-it-fakhivtsiv`,
+            label: locale === "ru" ? "Для IT-специалистов" : locale === "en" ? "For tech workers" : "Для IT-фахівців",
+            description: locale === "ru" ? "RSU, ESPP, RRSP — гайд для tech." : locale === "en" ? "RSUs, ESPP, RRSP — tech worker pillar." : "RSU, ESPP, RRSP — гайд для IT.",
+          },
+          {
+            href: `/${locale}/dlya-mediks`,
+            label: locale === "ru" ? "Для медиков" : locale === "en" ? "For physicians" : "Для медиків",
+            description: locale === "ru" ? "MPC, IPP, holdco — гайд для врачей." : locale === "en" ? "MPC, IPP, holdco — physician pillar." : "MPC, IPP, holdco — гайд для лікарів.",
+          },
+          {
+            href: `/${locale}/eligibility`,
+            label: locale === "ru" ? "Eligible Investor self-check" : locale === "en" ? "Eligible Investor self-check" : "Eligible Investor self-check",
+            description: locale === "ru" ? "60 секунд — exempt market через holdco." : locale === "en" ? "60 seconds — exempt market via holdco." : "60 секунд — exempt market через holdco.",
+          },
+          {
+            href: `/${locale}/slovnyk`,
+            label: locale === "ru" ? "Словарь" : locale === "en" ? "Glossary" : "Словник",
+            description: locale === "ru" ? "CCPC, TOSI, LCGE, QSBS — определения." : locale === "en" ? "CCPC, TOSI, LCGE, QSBS — definitions." : "CCPC, TOSI, LCGE, QSBS — визначення.",
+          },
+        ]}
+      />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">

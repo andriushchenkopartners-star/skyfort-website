@@ -75,10 +75,36 @@ const jsonLd = {
   "@id": "https://sky-fort.ca/pro-mene#person",
   name: "Andrii Andriushchenko",
   alternateName: ["Андрій Андрющенко", "Андрей Андрющенко"],
+  honorificPrefix: "Licensed Dealing Representative",
   jobTitle: "Licensed Dealing Representative (Exempt Market Dealer)",
   image: "https://sky-fort.ca/andrii.jpg",
   url: "https://sky-fort.ca/uk/pro-mene",
+  // hasOccupation gives more structured detail than jobTitle alone — Google
+  // Knowledge Graph and AI Overviews extract this as the canonical role.
+  hasOccupation: {
+    "@type": "Occupation",
+    name: "Licensed Dealing Representative",
+    occupationLocation: {
+      "@type": "Country",
+      name: "Canada",
+    },
+    skills:
+      "Exempt market securities, TFSA / RRSP / FHSA / RESP planning, " +
+      "CCPC structures, MPC for physicians, IPP, LCGE on QSBS, " +
+      "newcomer financial planning, CUAET tax onboarding",
+  },
+  // memberOf surfaces the regulatory umbrella above the firm — useful for
+  // AI assistants asked "which regulator licensed this person?"
+  memberOf: [
+    { "@type": "Organization", name: "Axcess Capital Advisors Inc." },
+    { "@type": "Organization", name: "Canadian Securities Administrators (CSA)" },
+  ],
   worksFor: { "@type": "Organization", name: "Axcess Capital Advisors Inc." },
+  brand: { "@type": "Brand", name: "SkyFort Wealth" },
+  nationality: [
+    { "@type": "Country", name: "Ukraine" },
+    { "@type": "Country", name: "Canada" },
+  ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Calgary",
@@ -86,23 +112,64 @@ const jsonLd = {
     addressCountry: "CA",
   },
   knowsLanguage: ["uk", "ru", "en"],
+  // Expanded specialty list — Phase-5 additions add ICP pillars (IT, medics,
+  // founders) and the regulatory/structural concepts we cover deeply
+  // (CCPC, MPC, IPP, LCGE, TOSI, exempt market, Eligible/Accredited Investor).
   knowsAbout: [
-    "TFSA", "RRSP", "FHSA", "Exempt Market Investments",
-    "Canadian Real Estate", "Wealth Building for Newcomers",
+    "TFSA — Tax-Free Savings Account",
+    "RRSP — Registered Retirement Savings Plan",
+    "FHSA — First Home Savings Account",
+    "RESP — Registered Education Savings Plan",
+    "Exempt Market Investments (NI 45-106)",
+    "Eligible Investor self-certification",
+    "Accredited Investor categorization",
+    "Canadian Real Estate Investing",
+    "Calgary real estate market",
+    "Mortgage Investment Corporations (MICs)",
+    "Private REITs",
+    "Newcomer / CUAET financial planning",
+    "CCPC — Canadian-Controlled Private Corporation",
+    "MPC — Medical Professional Corporation",
+    "Salary vs Dividend optimization",
+    "IPP — Individual Pension Plan",
+    "LCGE — Lifetime Capital Gains Exemption",
+    "QSBS — Qualified Small Business Shares",
+    "TOSI — Tax on Split Income",
+    "Holdco / Family Trust structures",
+    "RSU vesting tax optimization",
+    "ESPP — Employee Stock Purchase Plan",
+    "Cross-border (US/Canada) employment tax",
+    "Finfluencer compliance (CSA/CIRO Notice 31-369)",
+    "Wealth Building for Ukrainian/Russian-speaking immigrants",
   ],
   areaServed: [
     { "@type": "AdministrativeArea", name: "Alberta" },
     { "@type": "AdministrativeArea", name: "British Columbia" },
     { "@type": "AdministrativeArea", name: "Ontario" },
   ],
-  hasCredential: {
-    "@type": "EducationalOccupationalCredential",
-    credentialCategory: "Professional Registration",
-    name: "Dealing Representative (Exempt Market Dealer) — Alberta, British Columbia, Ontario",
-    recognizedBy: { "@type": "Organization", name: "Canadian Securities Administrators (CSA)" },
-    identifier: "NRD 4575551",
-    url: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
-  },
+  // Multiple credentials — Schema.org accepts array of hasCredential.
+  // CSA Registration covers the legal/regulatory side; IFSE EMP covers
+  // the academic prerequisite (required for the registration to be granted).
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Professional Registration",
+      name: "Dealing Representative (Exempt Market Dealer) — Alberta, British Columbia, Ontario",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "Canadian Securities Administrators (CSA)",
+      },
+      identifier: "NRD 4575551",
+      url: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Professional Qualification",
+      name: "Exempt Market Proficiency Course (EMP)",
+      recognizedBy: { "@type": "Organization", name: "IFSE Institute (IFIC)" },
+      url: "https://www.ifse.ca/courses/exempt-market-products-emp/",
+    },
+  ],
   // sameAs feeds Google's Knowledge Graph entity matching — every public
   // surface where Andrii's brand appears should be cross-referenced here.
   // Caught by May-28 re-audit (3.7): "Two brands with identical content
@@ -115,6 +182,8 @@ const jsonLd = {
     "https://t.me/skyfortwealth",
     "https://calendly.com/andriushchenko-partners/new-meeting",
     "https://axcesscapital.ca/",
+    "https://sky-fort.ca/uk/perevirka",
+    "https://sky-fort.ca/uk/presa",
   ],
 };
 

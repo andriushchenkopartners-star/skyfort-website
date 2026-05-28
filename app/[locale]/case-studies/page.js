@@ -29,6 +29,8 @@ import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
+import TldrBlock from "../../_components/TldrBlock";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -44,6 +46,7 @@ const COPY = {
     title: "Анонімізовані кейси клієнтів",
     subtitle:
       "Декілька реальних сценаріїв із моєї практики (повністю анонімізовані, узагальнені, без конкретних securities) — щоб ти побачив які рішення приймаються і чому.",
+    tldr: "Анонімізовані кейси клієнтів: повністю де-ідентифіковані сценарії — IT-фахівець з RSU, лікар з MPC, підприємець з CCPC, family relocation, Eligible Investor entry. Frameworks замість returns. Без імен, без точних чисел, без рекомендацій купити-продати specific securities.",
     introBlock:
       "Я Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Усе нижче — освітні рамки прийняття рішень, не рекомендації, не обіцянки результатів. Я не публікую імена клієнтів, не показую брокерські рахунки, не оголошую конкретних securities — це порушує і regulatory правила, і базову етику. Замість цього кожен кейс описує тип клієнта (професія + ситуація), три питання які ми задавали, framework який застосовували, і чим завершився перший рік. Якщо твоя ситуація схожа — це не означає що тобі підійде те саме рішення. Це означає що варто обговорити твою специфіку.",
     methodTitle: "Як я анонімізую кейси",
@@ -158,6 +161,7 @@ const COPY = {
     title: "Анонимизированные кейсы клиентов",
     subtitle:
       "Несколько реальных сценариев из моей практики (полностью анонимизированных, обобщённых, без конкретных securities) — чтобы ты увидел какие решения принимаются и почему.",
+    tldr: "Анонимизированные кейсы клиентов: де-идентифицированные сценарии — IT-специалист с RSU, врач с MPC, предприниматель с CCPC, family relocation, Eligible Investor entry. Frameworks вместо returns. Без имён, без точных чисел.",
     introBlock:
       "Я Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Всё ниже — образовательные рамки принятия решений, не рекомендации, не обещания результатов. Я не публикую имён клиентов, не показываю брокерские счета, не объявляю конкретных securities — это нарушает и regulatory правила, и базовую этику. Вместо этого каждый кейс описывает тип клиента (профессия + ситуация), три вопроса которые мы задавали, framework который применяли, и чем завершился первый год. Если твоя ситуация похожа — это не значит что тебе подойдёт то же решение. Это значит что стоит обсудить твою специфику.",
     methodTitle: "Как я анонимизирую кейсы",
@@ -272,6 +276,7 @@ const COPY = {
     title: "Anonymized client case studies",
     subtitle:
       "Real scenarios from my practice (fully anonymized, generalized, no specific securities) — to show what decisions get made and why.",
+    tldr: "Anonymized client case studies: fully de-identified scenarios — tech worker with RSUs, physician with MPC, business owner with CCPC, family relocation, Eligible Investor entry. Frameworks instead of return claims. No names, no exact numbers.",
     introBlock:
       "I'm a Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Everything below is educational decision frameworks, not recommendations, not promises of results. I don't publish client names, account screenshots, or specific securities — that violates regulatory rules and basic ethics. Instead each case describes the client type (profession + situation), the three questions we asked, the framework we applied, and how year one ended. If your situation is similar — that doesn't mean the same solution fits you. It means it's worth discussing your specifics.",
     methodTitle: "How I anonymize cases",
@@ -479,6 +484,16 @@ export default async function CaseStudiesPage({ params }) {
         </div>
       </section>
 
+      <section className="px-6 pb-8">
+        <div className="mx-auto max-w-3xl">
+          <TldrBlock
+            text={c.tldr}
+            pageName={c.titleMeta}
+            pageUrl={`https://sky-fort.ca/${locale}/case-studies`}
+          />
+        </div>
+      </section>
+
       <section className="px-6 pb-12">
         <div className="mx-auto max-w-3xl">
           <p className="text-base text-white/80 leading-relaxed">{c.introBlock}</p>
@@ -561,6 +576,33 @@ export default async function CaseStudiesPage({ params }) {
         </div>
       </section>
 
+      <RelatedLinks
+        heading={
+          locale === "ru" ? "Гайды по аудиториям" : locale === "en" ? "Audience pillars" : "Гайди по аудиторіях"
+        }
+        items={[
+          {
+            href: `/${locale}/dlya-it-fakhivtsiv`,
+            label: locale === "ru" ? "Для IT-специалистов" : locale === "en" ? "For tech workers" : "Для IT-фахівців",
+            description: locale === "ru" ? "RSU, ESPP, RRSP — гайд для tech." : locale === "en" ? "RSUs, ESPP, RRSP — tech worker pillar." : "RSU, ESPP, RRSP — гайд для IT.",
+          },
+          {
+            href: `/${locale}/dlya-mediks`,
+            label: locale === "ru" ? "Для медиков" : locale === "en" ? "For physicians" : "Для медиків",
+            description: locale === "ru" ? "MPC, IPP, holdco — гайд для врачей." : locale === "en" ? "MPC, IPP, holdco — physician pillar." : "MPC, IPP, holdco — гайд для лікарів.",
+          },
+          {
+            href: `/${locale}/dlya-pidpryyemtsiv`,
+            label: locale === "ru" ? "Для предпринимателей" : locale === "en" ? "For founders" : "Для підприємців",
+            description: locale === "ru" ? "CCPC, TOSI, LCGE — гайд для founders." : locale === "en" ? "CCPC, TOSI, LCGE — founder pillar." : "CCPC, TOSI, LCGE — гайд для засновників.",
+          },
+          {
+            href: `/${locale}/eligibility`,
+            label: locale === "ru" ? "Eligible Investor self-check" : locale === "en" ? "Eligible Investor self-check" : "Eligible Investor self-check",
+            description: locale === "ru" ? "60 секунд — попадаешь ли в exempt market." : locale === "en" ? "60 seconds — do you fit exempt market thresholds?" : "60 секунд — чи попадаєш у exempt market.",
+          },
+        ]}
+      />
       <StaticFaq
         faq={c.faqs}
         heading={c.faqHeader}
