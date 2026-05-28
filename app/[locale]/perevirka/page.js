@@ -244,12 +244,40 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// HowTo JSON-LD — Google's how-to rich snippets pull these directly into
+// the SERP. The 4 verification steps map cleanly to HowToStep nodes.
+function buildHowToJsonLd(locale, c, path) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: c.title,
+    description: c.intro,
+    totalTime: "PT3M",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "CAD", value: "0" },
+    inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+    step: c.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.title,
+      text: step.body,
+      url: `https://sky-fort.ca${path}#step-${i + 1}`,
+      ...(step.ctaUrl ? { tool: { "@type": "HowToTool", name: step.cta, url: step.ctaUrl } } : {}),
+    })),
+  };
+}
+
 export default async function PerevirkaPage({ params }) {
   const { locale } = await params;
   const c = COPY[locale] || COPY.uk;
+  const path = `/${locale}/perevirka`;
+  const howToJsonLd = buildHowToJsonLd(locale, c, path);
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
       {/* NAV */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
@@ -293,7 +321,8 @@ export default async function PerevirkaPage({ params }) {
               return (
                 <li
                   key={i}
-                  className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-8"
+                  id={`step-${i + 1}`}
+                  className="scroll-mt-32 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-8"
                 >
                   <div className="flex items-start gap-5">
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/10">

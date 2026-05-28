@@ -480,12 +480,64 @@ function aspectIcon(key) {
   }[key];
 }
 
+// ItemList JSON-LD — the 3 licenses are an ordered comparison list.
+// Plus an Article wrapper so the whole page is identified as a comparison.
+function buildJsonLd(locale, c, path) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `https://sky-fort.ca${path}#article`,
+        headline: c.titleMeta,
+        description: c.descriptionMeta,
+        inLanguage: { uk: "uk-UA", ru: "ru-RU", en: "en-CA" }[locale],
+        author: {
+          "@type": "Person",
+          name: "Andrii Andriushchenko",
+          jobTitle: "Licensed Dealing Representative",
+          identifier: "NRD 4575551",
+          url: `https://sky-fort.ca/${locale}/pro-mene`,
+        },
+        publisher: {
+          "@type": "FinancialService",
+          name: "SkyFort Wealth",
+          url: "https://sky-fort.ca",
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": `https://sky-fort.ca${path}` },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `https://sky-fort.ca${path}#licenses`,
+        name: "Canadian financial advisor licenses",
+        numberOfItems: c.licenses.length,
+        itemListOrder: "ItemListUnordered",
+        itemListElement: c.licenses.map((lic, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Thing",
+            name: `${lic.name} — ${lic.fullName}`,
+            description: lic.bestFor,
+          },
+        })),
+      },
+    ],
+  };
+}
+
 export default async function PorivnyanniaPage({ params }) {
   const { locale } = await params;
   const c = COPY[locale] || COPY.uk;
+  const path = `/${locale}/porivnyannia`;
+  const jsonLd = buildJsonLd(locale, c, path);
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* NAV */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
