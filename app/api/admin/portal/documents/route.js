@@ -3,6 +3,7 @@
 import { NextResponse } from 'next/server';
 import { isAdvisor } from '../../../../_lib/portal/auth';
 import { serviceClient } from '../../../../_lib/portal/supabase';
+import { notifyClient } from '../../../../_lib/portal/notifications';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -56,5 +57,14 @@ export async function POST(req) {
     .select()
     .single();
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 });
-  return NextResponse.json({ ok: true, document: data });
+
+  // Phase 6: email the client that a new document is waiting in the portal.
+  const notif = await notifyClient({
+    userId,
+    kind: 'document',
+    title: String(title || file.name),
+    ctaPath: '/portal/documents',
+  });
+
+  return NextResponse.json({ ok: true, document: data, notified: !!notif?.ok });
 }

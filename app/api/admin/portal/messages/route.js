@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { isAdvisor } from '../../../../_lib/portal/auth';
 import { serviceClient } from '../../../../_lib/portal/supabase';
+import { notifyClient } from '../../../../_lib/portal/notifications';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -24,5 +25,17 @@ export async function POST(req) {
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, message: data });
+
+  // Phase 6: notify client by email. Awaited (not fire-and-forget) because
+  // Vercel can freeze the function once the HTTP response is returned and
+  // kill in-flight Brevo requests. Adds ~300-500ms; acceptable for the
+  // single-advisor admin endpoint.
+  const notif = await notifyClient({
+    userId,
+    kind: 'message',
+    text,
+    ctaPath: '/portal/messages',
+  });
+
+  return NextResponse.json({ ok: true, message: data, notified: !!notif?.ok });
 }

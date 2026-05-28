@@ -3,6 +3,7 @@
 import { NextResponse } from 'next/server';
 import { isAdvisor } from '../../../../_lib/portal/auth';
 import { serviceClient } from '../../../../_lib/portal/supabase';
+import { notifyClient } from '../../../../_lib/portal/notifications';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -29,5 +30,16 @@ export async function POST(req) {
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true, todo: data });
+
+  // Phase 6: email the client about the new todo. PATCH (status updates) is
+  // intentionally NOT notified — only the initial assignment triggers email.
+  const notif = await notifyClient({
+    userId,
+    kind: 'todo',
+    title,
+    text: bodyText || null,
+    ctaPath: '/portal/todos',
+  });
+
+  return NextResponse.json({ ok: true, todo: data, notified: !!notif?.ok });
 }
