@@ -6,8 +6,101 @@ import { ArrowRight, ShieldCheck, CheckCircle2, XCircle, ExternalLink } from "lu
 import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
+import StaticFaq from "../../_components/StaticFaq";
 import { resolveLocale } from "../../_i18n/dictionary";
 import { CONFIG } from "../../_i18n/config";
+
+// ─── /pro-mene FAQ — addresses common objections before the CTA ────────────
+// Topics chosen to handle the questions newcomers actually ask before booking:
+// process, eligibility, pricing, license boundaries, low-asset path, compliance.
+// All answers educational only — no return promises, no specific product names.
+
+const FAQ_HEADING = {
+  uk: "Часті питання",
+  ru: "Частые вопросы",
+  en: "Frequently asked questions",
+};
+
+const FAQ = {
+  uk: [
+    {
+      q: "Як проходить discovery call?",
+      a: "30 хвилин у Zoom або Google Meet. Спочатку обговорюємо твою ситуацію — імміграційний статус, доходи, цілі, що вже зроблено. Потім я пояснюю які інструменти підходять (TFSA, RRSP, FHSA, exempt market) і чому. В кінці — наступні кроки, без тиску. «Не зараз» — нормальна відповідь.",
+    },
+    {
+      q: "Чи треба бути Eligible Investor щоб поговорити?",
+      a: "Ні. Більшість моїх клієнтів — newcomers, які ще тільки будують фундамент. 80% починають з TFSA/RRSP/FHSA. Exempt market — наступний крок, коли вже є infrastructure. Discovery call корисний у будь-якому випадку.",
+    },
+    {
+      q: "Скільки коштує консультація?",
+      a: "Discovery call безкоштовний. Якщо рекомендую exempt market продукт і ти підписуєшся — я отримую commission від issuer (стандартна канадська практика, прозоро вказана в Offering Memorandum). Якщо ти не підписуєшся — нічого не платиш. Освітні матеріали і дзвінок завжди безкоштовні.",
+    },
+    {
+      q: "Чи можеш порекомендувати конкретний ETF або mutual fund?",
+      a: "Ні. Моя ліцензія — Dealing Representative для exempt market. Public market securities (ETF, mutual funds, individual stocks) поза моєю ліцензією — для них потрібен CIRO-registered advisor. Освітньо обговорити можу; формально рекомендувати — ні.",
+    },
+    {
+      q: "Я newcomer без $400K — є сенс зустрічі?",
+      a: "Так. $400K — поріг Accredited Investor для деяких exempt-market продуктів. Але більшість моїх клієнтів починають набагато менш. На discovery call розберемо твою ситуацію, побудуємо план через TFSA/RRSP/FHSA, а коли (і якщо) виростеш до Eligible Investor — додамо exempt market інструменти.",
+    },
+    {
+      q: "Чи всі матеріали узгоджені з compliance?",
+      a: "Так. Усі публічні матеріали — освітні, без обіцянок дохідності, без персональних рекомендацій. CCO (Chief Compliance Officer) Axcess Capital переглядає контент. Перевір мою реєстрацію за NRD #4575551 на сайті Canadian Securities Administrators — лінк у дисклеймері.",
+    },
+  ],
+  ru: [
+    {
+      q: "Как проходит discovery call?",
+      a: "30 минут в Zoom или Google Meet. Сначала обсуждаем твою ситуацию — иммиграционный статус, доходы, цели, что уже сделано. Потом я объясняю какие инструменты подходят (TFSA, RRSP, FHSA, exempt market) и почему. В конце — следующие шаги, без давления. «Не сейчас» — нормальный ответ.",
+    },
+    {
+      q: "Нужно ли быть Eligible Investor чтобы поговорить?",
+      a: "Нет. Большинство моих клиентов — newcomers, которые ещё только строят фундамент. 80% начинают с TFSA/RRSP/FHSA. Exempt market — следующий шаг, когда уже есть infrastructure. Discovery call полезен в любом случае.",
+    },
+    {
+      q: "Сколько стоит консультация?",
+      a: "Discovery call бесплатный. Если рекомендую exempt market продукт и ты подписываешься — я получаю commission от issuer (стандартная канадская практика, прозрачно указано в Offering Memorandum). Если ты не подписываешься — ничего не платишь. Образовательные материалы и звонок всегда бесплатные.",
+    },
+    {
+      q: "Можешь ли ты порекомендовать конкретный ETF или mutual fund?",
+      a: "Нет. Моя лицензия — Dealing Representative для exempt market. Public market securities (ETF, mutual funds, отдельные акции) вне моей лицензии — для них нужен CIRO-registered advisor. Образовательно обсудить могу; формально рекомендовать — нет.",
+    },
+    {
+      q: "Я newcomer без $400K — есть смысл встречи?",
+      a: "Да. $400K — порог Accredited Investor для некоторых exempt-market продуктов. Но большинство моих клиентов начинают намного меньше. На discovery call разберём твою ситуацию, построим план через TFSA/RRSP/FHSA, а когда (и если) вырастешь до Eligible Investor — добавим exempt market инструменты.",
+    },
+    {
+      q: "Все ли материалы согласованы с compliance?",
+      a: "Да. Все публичные материалы — образовательные, без обещаний доходности, без персональных рекомендаций. CCO (Chief Compliance Officer) Axcess Capital проверяет контент. Проверь мою регистрацию по NRD #4575551 на сайте Canadian Securities Administrators — ссылка в дисклеймере.",
+    },
+  ],
+  en: [
+    {
+      q: "How does the discovery call work?",
+      a: "30 minutes on Zoom or Google Meet. We start by discussing your situation — immigration status, income, goals, what you've already done. Then I explain which tools fit (TFSA, RRSP, FHSA, exempt market) and why. We end with next steps, no pressure. 'Not now' is a fine answer.",
+    },
+    {
+      q: "Do I need to be an Eligible Investor to talk?",
+      a: "No. Most of my clients are newcomers still building the foundation. About 80% start with TFSA/RRSP/FHSA. Exempt market is a later step once the infrastructure is in place. The discovery call is useful either way.",
+    },
+    {
+      q: "How much does the consultation cost?",
+      a: "The discovery call is free. If I recommend an exempt market product and you subscribe, I receive a commission from the issuer (standard Canadian practice, disclosed transparently in the Offering Memorandum). If you don't subscribe, you pay nothing. Educational materials and the call are always free.",
+    },
+    {
+      q: "Can you recommend a specific ETF or mutual fund?",
+      a: "No. My license is Dealing Representative for the exempt market. Public market securities (ETFs, mutual funds, individual stocks) are outside my license — you'd need a CIRO-registered advisor for those. I can discuss them educationally, but I cannot formally recommend them.",
+    },
+    {
+      q: "I'm a newcomer without $400K — is there still a point?",
+      a: "Yes. $400K is the Accredited Investor threshold for some exempt-market products, but most of my clients start with much less. On the discovery call we go through your situation, build a plan via TFSA/RRSP/FHSA, and when (and if) you grow into the Eligible Investor category we layer exempt-market tools on top.",
+    },
+    {
+      q: "Are all materials compliance-approved?",
+      a: "Yes. All public materials are educational — no return promises, no personal recommendations. Axcess Capital's CCO (Chief Compliance Officer) reviews the content. Verify my registration under NRD #4575551 on the Canadian Securities Administrators website — link in the disclaimer.",
+    },
+  ],
+};
 
 const CALENDLY = CONFIG.calendlyUrl;
 const NRD_URL =
@@ -267,6 +360,13 @@ export default function AboutClient({ locale: rawLocale }) {
           </div>
         </div>
       </section>
+
+      {/* FAQ — addresses common objections before the CTA */}
+      <StaticFaq
+        faq={FAQ[locale] || FAQ.uk}
+        heading={FAQ_HEADING[locale] || FAQ_HEADING.uk}
+        jsonLdId={`https://sky-fort.ca/${locale}/pro-mene#faq`}
+      />
 
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
