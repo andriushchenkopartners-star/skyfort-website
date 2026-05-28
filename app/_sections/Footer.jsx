@@ -5,9 +5,9 @@ import TikTokIcon from "../_components/TikTokIcon";
 import { CONFIG } from "../_i18n/config";
 
 const LEGAL_LINKS = {
-  uk: { contact: 'Контакти', privacy: 'Приватність', cookies: 'Cookies' },
-  ru: { contact: 'Контакты', privacy: 'Приватность', cookies: 'Cookies' },
-  en: { contact: 'Contact', privacy: 'Privacy', cookies: 'Cookies' },
+  uk: { contact: 'Контакти', press: 'Преса', privacy: 'Приватність', cookies: 'Cookies' },
+  ru: { contact: 'Контакты', press: 'Пресса', privacy: 'Приватность', cookies: 'Cookies' },
+  en: { contact: 'Contact', press: 'Press', privacy: 'Privacy', cookies: 'Cookies' },
 };
 
 export default function Footer({ content, locale = 'uk' }) {
@@ -106,6 +106,7 @@ export default function Footer({ content, locale = 'uk' }) {
               <MapPin className="h-3 w-3" aria-hidden="true" />
               {l.contact}
             </Link>
+            <Link href={`/${locale}/presa`} className="hover:text-[var(--color-brand)]">{l.press}</Link>
             <Link href={`/${locale}/privacy`} className="hover:text-[var(--color-brand)]">{l.privacy}</Link>
             <Link href={`/${locale}/cookies`} className="hover:text-[var(--color-brand)]">{l.cookies}</Link>
           </nav>

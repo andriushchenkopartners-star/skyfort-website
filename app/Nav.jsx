@@ -22,6 +22,8 @@ const COPY = {
     services: "Послуги",
     calculators: "Калькулятори",
     about: "Про мене",
+    verify: "Перевірка",
+    compare: "EMD vs CIRO",
     contact: "Контакти",
     resources: "Документи",
     cta: "Безкоштовний дзвінок →",
@@ -39,6 +41,8 @@ const COPY = {
     services: "Услуги",
     calculators: "Калькуляторы",
     about: "Обо мне",
+    verify: "Проверка",
+    compare: "EMD vs CIRO",
     contact: "Контакты",
     resources: "Документы",
     cta: "Бесплатный звонок →",
@@ -53,6 +57,8 @@ const COPY = {
     services: "Services",
     calculators: "Calculators",
     about: "About",
+    verify: "Verify me",
+    compare: "EMD vs CIRO",
     contact: "Contact",
     resources: "Resources",
     cta: "Free discovery call →",
@@ -62,12 +68,15 @@ const COPY = {
 };
 
 // Order of localized links in the burger; href is built per-render with the current locale.
+// `verify` + `compare` sit between "about me" and "contact me" as YMYL trust signals.
 const LINK_ORDER = [
   { key: "home", path: "" },
   { key: "blog", path: "/blog" },
   { key: "services", path: "/services" },
   { key: "calculators", path: "/calculators/tfsa-growth" },
   { key: "about", path: "/pro-mene" },
+  { key: "verify", path: "/perevirka" },
+  { key: "compare", path: "/porivnyannia" },
   { key: "contact", path: "/contact" },
   { key: "resources", path: "/resources" },
 ];
