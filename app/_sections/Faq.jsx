@@ -37,11 +37,20 @@ export default function Faq({ content }) {
                   </span>
                 </button>
               </dt>
-              {open === i && (
-                <dd className="border-t border-[#2a2a2a] px-6 py-5 leading-relaxed text-[#a3a3a3]">
-                  {item.a}
-                </dd>
-              )}
+              {/* Always render <dd> in the DOM so Googlebot, AI crawlers,
+                  and screen readers can extract the answer text even when
+                  the accordion is collapsed. Visibility is controlled via
+                  CSS (hidden when not open). Before this fix only the
+                  currently-open answer was in the DOM — 11 of 12 answers
+                  were invisible to crawlers, contradicting the FAQPage
+                  schema we emit. 3rd re-audit (1.13). */}
+              <dd
+                className={`border-t border-[#2a2a2a] px-6 py-5 leading-relaxed text-[#a3a3a3] ${
+                  open === i ? "" : "hidden"
+                }`}
+              >
+                {item.a}
+              </dd>
             </div>
           ))}
         </dl>
