@@ -22,7 +22,7 @@ const NRD_URL =
 const COPY = {
   uk: {
     title: "Преса · Медіа",
-    titleMeta: "Преса / Медіа — SkyFort Wealth · Andrii Andriushchenko",
+    titleMeta: "Преса / Медіа — Andrii Andriushchenko",
     descriptionMeta:
       "Andrii Andriushchenko, Licensed Dealing Representative — доступний для коментарів медіа з тем exempt market, фінанси для українців у Канаді, real estate в Калгарі, CSA/CIRO регуляція.",
     intro:
@@ -45,7 +45,7 @@ const COPY = {
   },
   ru: {
     title: "Пресса · Медиа",
-    titleMeta: "Пресса / Медиа — SkyFort Wealth · Andrii Andriushchenko",
+    titleMeta: "Пресса / Медиа — Andrii Andriushchenko",
     descriptionMeta:
       "Andrii Andriushchenko, Licensed Dealing Representative — доступен для комментариев медиа по темам exempt market, финансы для русскоязычных в Канаде, real estate в Калгари, CSA/CIRO регуляция.",
     intro:
@@ -68,7 +68,7 @@ const COPY = {
   },
   en: {
     title: "Press · Media",
-    titleMeta: "Press / Media — SkyFort Wealth · Andrii Andriushchenko",
+    titleMeta: "Press / Media — Andrii Andriushchenko",
     descriptionMeta:
       "Andrii Andriushchenko, Licensed Dealing Representative — available for media commentary on exempt market, newcomer finance in Canada, Calgary real estate, CSA/CIRO regulation.",
     intro:

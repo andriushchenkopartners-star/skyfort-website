@@ -37,6 +37,60 @@ const META = {
   },
 };
 
+// SSR/AI-crawler fallback — the interactive quiz lives in quiz.jsx (client
+// component) and the actual 4 questions only appear after user clicks "Start".
+// AI crawlers (GPTBot, ClaudeBot, PerplexityBot) typically don't execute JS,
+// so they'd only see the intro + Start button.
+//
+// To make the page extraction-ready, we mirror the question content as a
+// static <details>/<summary> block server-side below the interactive widget.
+// Same NI 45-106 §1.1 thresholds, same option ranges, same disclaimer. No
+// JavaScript required to read this block. Caught by the 3rd re-audit (1.7).
+const QUIZ_PREVIEW = {
+  uk: {
+    heading: "Питання у текстовому вигляді",
+    intro:
+      "Усі 4 quiz-питання нижче доступні без JavaScript — для screen readers, AI-індексаторів, або якщо ти просто хочеш переглянути зміст перш ніж починати.",
+    questions: [
+      { n: 1, q: "Особистий валовий дохід — останні 2 роки + очікуваний у цьому році", opts: "до $75K · $75-125K · $125-200K · $200-300K · понад $300K" },
+      { n: 2, q: "Сімейний дохід (твій + чоловіка/дружини), останні 2 роки", opts: "не застосовно · до $125K · $125-250K · $250-300K · понад $300K" },
+      { n: 3, q: "Чисті фінансові активи (готівка + інвестиції), без primary residence", opts: "до $100K · $100-400K · $400K-1M · понад $1M" },
+      { n: 4, q: "Загальна чиста вартість (усе що володієш мінус усе що винен)", opts: "до $500K · $500K-1M · $1M-5M · понад $5M" },
+    ],
+    legalTitle: "Регуляторні тести (CSA NI 45-106 §1.1)",
+    legal: "Accredited Investor — будь-який з: дохід >$200K solo або >$300K household обидва роки; net financial assets >$1M; net total assets >$5M. Eligible Investor — будь-який з: дохід >$75K solo або >$125K household обидва роки; net assets >$400K (без primary residence). Жоден з цих тестів — пройшов Non-Eligible, що нормально для більшості новоприбулих.",
+    disclaimer: "Це освітній self-check на основі фінансових порогів NI 45-106 §1.1, а не legal opinion. Формальна Eligible / Accredited Investor классифікація підтверджується лише через KYC + Suitability Assessment із зареєстрованим Dealing Representative.",
+  },
+  ru: {
+    heading: "Вопросы в текстовом виде",
+    intro:
+      "Все 4 quiz-вопроса ниже доступны без JavaScript — для screen readers, AI-индексаторов, или если ты просто хочешь посмотреть содержание перед тем как начать.",
+    questions: [
+      { n: 1, q: "Личный валовый доход — последние 2 года + ожидаемый в этом году", opts: "до $75K · $75-125K · $125-200K · $200-300K · свыше $300K" },
+      { n: 2, q: "Семейный доход (твой + мужа/жены), последние 2 года", opts: "не применимо · до $125K · $125-250K · $250-300K · свыше $300K" },
+      { n: 3, q: "Чистые финансовые активы (наличные + инвестиции), без primary residence", opts: "до $100K · $100-400K · $400K-1M · свыше $1M" },
+      { n: 4, q: "Общая чистая стоимость (всё что владеешь минус всё что должен)", opts: "до $500K · $500K-1M · $1M-5M · свыше $5M" },
+    ],
+    legalTitle: "Регуляторные тесты (CSA NI 45-106 §1.1)",
+    legal: "Accredited Investor — любой из: доход >$200K solo или >$300K household оба года; net financial assets >$1M; net total assets >$5M. Eligible Investor — любой из: доход >$75K solo или >$125K household оба года; net assets >$400K (без primary residence). Ни один из этих тестов — Non-Eligible, что нормально для большинства новоприбывших.",
+    disclaimer: "Это образовательный self-check на основе финансовых порогов NI 45-106 §1.1, а не legal opinion. Формальная Eligible / Accredited Investor классификация подтверждается только через KYC + Suitability Assessment с зарегистрированным Dealing Representative.",
+  },
+  en: {
+    heading: "Questions in plain text",
+    intro:
+      "All 4 quiz questions are available below without JavaScript — for screen readers, AI crawlers, or if you just want to review the content before starting.",
+    questions: [
+      { n: 1, q: "Personal gross income — each of the last 2 years + expected this year", opts: "under $75K · $75-125K · $125-200K · $200-300K · over $300K" },
+      { n: 2, q: "Household income (you + spouse), each of the last 2 years", opts: "not applicable · under $125K · $125-250K · $250-300K · over $300K" },
+      { n: 3, q: "Net financial assets (cash + investments), excluding primary residence", opts: "under $100K · $100-400K · $400K-1M · over $1M" },
+      { n: 4, q: "Total net worth (everything you own minus everything you owe)", opts: "under $500K · $500K-1M · $1M-5M · over $5M" },
+    ],
+    legalTitle: "Regulatory tests (CSA NI 45-106 §1.1)",
+    legal: "Accredited Investor — any of: income >$200K solo or >$300K household in both years; net financial assets >$1M; net total assets >$5M. Eligible Investor — any of: income >$75K solo or >$125K household in both years; net assets >$400K (excluding primary residence). Neither test met — Non-Eligible, which is normal for most newcomers.",
+    disclaimer: "This is an educational self-check based on NI 45-106 §1.1 financial thresholds, not a legal opinion. Formal Eligible / Accredited Investor classification is confirmed only via KYC + Suitability Assessment with a registered Dealing Representative.",
+  },
+};
+
 export async function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
@@ -144,6 +198,55 @@ export default async function EligibilityPage({ params }) {
       </div>
 
       <EligibilityQuiz locale={locale} />
+
+      {/* SSR fallback — full question text indexed by Google + AI crawlers
+          even without running the client quiz. */}
+      <section className="mx-auto max-w-3xl px-6 pb-20 pt-4">
+        <details className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] open:border-[var(--color-brand)]/30">
+          <summary className="cursor-pointer list-none p-6 md:p-7">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="font-display text-xl text-white md:text-2xl">
+                {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).heading}
+              </h2>
+              <span
+                aria-hidden="true"
+                className="text-2xl leading-none text-[var(--color-brand)] transition-transform group-open:rotate-45"
+              >
+                +
+              </span>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+              {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).intro}
+            </p>
+          </summary>
+          <div className="border-t border-[var(--color-border)] p-6 md:p-8">
+            <ol className="space-y-5">
+              {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).questions.map((q) => (
+                <li key={q.n}>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-brand)]">
+                    Q{q.n}
+                  </h3>
+                  <p className="mt-2 font-semibold text-white">{q.q}</p>
+                  <p className="mt-2 text-sm text-[var(--color-fg-muted)]">
+                    <span className="font-semibold">→</span> {q.opts}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8 rounded-xl border border-[var(--color-border-strong)] bg-[var(--color-bg)] p-5">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
+                {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).legalTitle}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+                {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).legal}
+              </p>
+            </div>
+            <p className="mt-5 text-xs leading-relaxed text-[var(--color-fg-subtle)]">
+              {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).disclaimer}
+            </p>
+          </div>
+        </details>
+      </section>
     </main>
   );
 }

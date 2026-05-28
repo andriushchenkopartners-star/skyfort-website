@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -5,6 +6,16 @@ import Nav from "./Nav";
 import WhatsAppButton from "./_components/WhatsAppButton";
 import CookieConsent from "./_components/CookieConsent";
 import ComplianceFooter from "./_components/ComplianceFooter";
+
+// Map URL path prefix → BCP-47 lang tag for the <html lang> attribute.
+// Read from middleware-set x-pathname header (see middleware.js). Falls back
+// to "uk" for any path that doesn't match a known locale prefix (legacy
+// landings like /tfsa-kalkulyator are Ukrainian-only).
+function langFromPath(p) {
+  if (p?.startsWith("/ru")) return "ru";
+  if (p?.startsWith("/en")) return "en";
+  return "uk";
+}
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
@@ -270,9 +281,15 @@ const websiteJsonLd = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // Read pathname injected by middleware.js so we can localise <html lang>.
+  // Without this, /ru and /en would still ship with lang="uk" — the 3rd
+  // re-audit caught both showing the wrong language to screen readers,
+  // assistive tech, and Google's language-detection heuristics.
+  const h = await headers();
+  const lang = langFromPath(h.get("x-pathname"));
   return (
-    <html lang="uk" className={manrope.variable}>
+    <html lang={lang} className={manrope.variable}>
       <head>
         <link rel="preconnect" href="https://calendly.com" />
         <link rel="dns-prefetch" href="https://calendly.com" />

@@ -43,21 +43,33 @@ function pickLocale(acceptLanguage) {
   return DEFAULT_LOCALE;
 }
 
+// Helper — always pass through with the pathname header attached, so the
+// root layout can render the correct <html lang> per locale. Without this,
+// /ru and /en would still ship with the hardcoded lang="uk" (caught by the
+// 3rd re-audit). Adding the header costs nothing — it's a single .set()
+// on a Headers clone.
+function passWithLangHeader(request) {
+  const headers = new Headers(request.headers);
+  headers.set("x-pathname", request.nextUrl.pathname);
+  return NextResponse.next({ request: { headers } });
+}
+
 export function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // Pass-through for assets, API, and UA-only landings.
   if (ROOT_PASSTHROUGH.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
-    return NextResponse.next();
+    return passWithLangHeader(request);
   }
 
-  // Asset files (anything with a file extension) — leave alone.
+  // Asset files (anything with a file extension) — leave alone (no need for
+  // lang header on static files).
   if (/\.[a-z0-9]+$/i.test(pathname)) return NextResponse.next();
 
-  // Already starts with a supported locale → pass through.
+  // Already starts with a supported locale → pass through with lang header.
   const firstSegment = pathname.split("/")[1];
   if (SUPPORTED_LOCALES.includes(firstSegment)) {
-    return NextResponse.next();
+    return passWithLangHeader(request);
   }
 
   // Legacy URL redirects (old multilingual pages → /uk equivalent).

@@ -11,7 +11,7 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 
 const META = {
   uk: {
-    title: "Послуги SkyFort — TFSA, RRSP, FHSA, exempt market для міст AB · BC · ON",
+    title: "Послуги — TFSA, RRSP, FHSA, exempt market для міст AB · BC · ON",
     description:
       "Освітні консультації для українців: TFSA, RRSP, FHSA, exempt market. Калгарі, Едмонтон, Ванкувер, Торонто і інші міста. Licensed Dealing Representative.",
     h1: "Послуги",
@@ -22,7 +22,7 @@ const META = {
     citiesLabel: "Міста",
   },
   ru: {
-    title: "Услуги SkyFort — TFSA, RRSP, FHSA, exempt market для городов AB · BC · ON",
+    title: "Услуги — TFSA, RRSP, FHSA, exempt market для городов AB · BC · ON",
     description:
       "Образовательные консультации для русскоязычных: TFSA, RRSP, FHSA, exempt market. Калгари, Эдмонтон, Ванкувер, Торонто и другие.",
     h1: "Услуги",
@@ -33,7 +33,7 @@ const META = {
     citiesLabel: "Города",
   },
   en: {
-    title: "SkyFort Services — TFSA, RRSP, FHSA, exempt market for AB · BC · ON cities",
+    title: "Services — TFSA, RRSP, FHSA, exempt market for AB · BC · ON cities",
     description:
       "Educational consultations for newcomers: TFSA, RRSP, FHSA, exempt market. Calgary, Edmonton, Vancouver, Toronto and more.",
     h1: "Services",

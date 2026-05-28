@@ -21,7 +21,7 @@ const CIRO_URL = "https://www.ciro.ca/";
 
 const COPY = {
   uk: {
-    titleMeta: "Перевір мою реєстрацію за 3 хвилини — Andrii Andriushchenko · SkyFort",
+    titleMeta: "Перевір мою реєстрацію за 3 хвилини — Andrii Andriushchenko",
     descriptionMeta:
       "Покрокова перевірка: NRD #4575551, Axcess Capital реєстрація, IFSE EMP сертифікат, OBSI історія скарг. Освітня сторінка від Licensed DR.",
     kicker: "Прозорість",
@@ -85,7 +85,7 @@ const COPY = {
     crumbThis: "Перевірка",
   },
   ru: {
-    titleMeta: "Проверь мою регистрацию за 3 минуты — Andrii Andriushchenko · SkyFort",
+    titleMeta: "Проверь мою регистрацию за 3 минуты — Andrii Andriushchenko",
     descriptionMeta:
       "Пошаговая проверка: NRD #4575551, Axcess Capital регистрация, IFSE EMP сертификат, OBSI история жалоб. Образовательная страница от Licensed DR.",
     kicker: "Прозрачность",
@@ -149,7 +149,7 @@ const COPY = {
     crumbThis: "Проверка",
   },
   en: {
-    titleMeta: "Verify me in 3 minutes — Andrii Andriushchenko · SkyFort",
+    titleMeta: "Verify me in 3 minutes — Andrii Andriushchenko",
     descriptionMeta:
       "Step-by-step verification: NRD #4575551, Axcess Capital firm registration, IFSE EMP qualification, OBSI complaint history. Educational page by Licensed DR.",
     kicker: "Transparency",

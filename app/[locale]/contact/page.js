@@ -17,7 +17,7 @@ const COPY = {
   uk: {
     crumbHome: 'Головна',
     crumbContact: 'Контакти',
-    title: 'Контакти · SkyFort у Калгарі',
+    title: 'Контакти · Калгарі',
     description:
       'Як зі мною звʼязатись: телефон, email, WhatsApp, Calendly. Базуюсь у Калгарі, працюю з клієнтами в Alberta, BC, Ontario. NRD #4575551.',
     h1: 'Контакти',
@@ -68,7 +68,7 @@ const COPY = {
   ru: {
     crumbHome: 'Главная',
     crumbContact: 'Контакты',
-    title: 'Контакты · SkyFort в Калгари',
+    title: 'Контакты · Калгари',
     description:
       'Как со мной связаться: телефон, email, WhatsApp, Calendly. Базируюсь в Калгари, работаю с клиентами в Alberta, BC, Ontario. NRD #4575551.',
     h1: 'Контакты',
@@ -119,7 +119,7 @@ const COPY = {
   en: {
     crumbHome: 'Home',
     crumbContact: 'Contact',
-    title: 'Contact · SkyFort in Calgary',
+    title: 'Contact · Calgary',
     description:
       "How to reach me: phone, email, WhatsApp, Calendly. Based in Calgary, working with clients in Alberta, BC, Ontario. NRD #4575551.",
     h1: 'Contact',

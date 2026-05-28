@@ -22,25 +22,28 @@ const HREFLANG = {
 
 // Per-locale homepage title + description. Root layout's metadata has
 // `title.default` and a `description` in Ukrainian — without these overrides,
-// /ru and /en SERP results would display the Ukrainian text (bad for CTR
-// because users from those locales don't read it as their own language).
-// Caught by May-28 re-audit (1.6 + 1.7).
+// /ru and /en SERP results would display the Ukrainian text (bad for CTR).
+//
+// IMPORTANT: titles below do NOT include "· SkyFort" suffix. The root
+// layout's `title.template: "%s · SkyFort"` appends it automatically when
+// the title is used. Including it here would double-stamp the brand (the
+// 3rd re-audit caught "X · SkyFort · SkyFort" on the live site).
 const HOMEPAGE_META = {
   uk: {
     title:
-      "SkyFort · TFSA, real estate, exempt market для українців у Канаді",
+      "TFSA, real estate, exempt market для українців у Канаді",
     description:
       "Канадські фінанси без банківських казок. Licensed Dealing Representative · Alberta · BC · Ontario. 7 безкоштовних гайдів про TFSA, RRSP, FHSA, real estate та exempt market.",
   },
   ru: {
     title:
-      "SkyFort · TFSA, real estate, exempt market для русскоязычных в Канаде",
+      "TFSA, real estate, exempt market для русскоязычных в Канаде",
     description:
       "Канадские финансы без банковских сказок. Licensed Dealing Representative · Alberta · BC · Ontario. 7 бесплатных гайдов о TFSA, RRSP, FHSA, real estate и exempt market.",
   },
   en: {
     title:
-      "SkyFort · TFSA, real estate, exempt market for newcomers in Canada",
+      "TFSA, real estate, exempt market for newcomers in Canada",
     description:
       "Canadian finance without bank fairy tales. Licensed Dealing Representative · Alberta · BC · Ontario. 7 free guides on TFSA, RRSP, FHSA, real estate, and exempt market.",
   },
@@ -58,10 +61,12 @@ export async function generateMetadata({ params }) {
   const meta = HOMEPAGE_META[locale];
 
   return {
-    // Sets `title.default` for this locale subtree. Child routes that export
-    // their own `title` will still get wrapped by the root template
-    // ("%s · SkyFort") — only the bare /[locale] root uses this default.
-    title: { default: meta.title, template: "%s · SkyFort" },
+    // Plain string title. The root layout's `title.template: "%s · SkyFort"`
+    // appends the brand. Using `{default, template}` here would result in
+    // double-wrapping ("X · SkyFort · SkyFort") because Next.js applies the
+    // parent template to the child's default too — caught by the 3rd
+    // re-audit on /uk and /uk/perevirka live HTML.
+    title: meta.title,
     description: meta.description,
     alternates: {
       canonical: `/${locale}`,

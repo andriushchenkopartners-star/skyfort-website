@@ -33,9 +33,9 @@ export const dictionary = {
     },
     stats: [
       { value: "0%", label: "Податок на TFSA — на ріст і виплати назавжди" },
+      { value: "$109K", label: "Накопичений TFSA room 2026 для резидентів з 2009 · твій ≈ $34K (2022), $27K (2023), $20K (2024)" },
       { value: "7–12%", label: "Історичний діапазон · широкий ринок diversified" },
       { value: "від $5K", label: "Поріг входу в exempt market (залежить від продукту)" },
-      { value: "30 хв", label: "Discovery call · безкоштовно" },
     ],
     aboutTitle: "Хто я і чому це не черговий блог про гроші",
     about: [
@@ -109,9 +109,9 @@ export const dictionary = {
     },
     stats: [
       { value: "0%", label: "Налог на TFSA — на рост и выплаты навсегда" },
+      { value: "$109K", label: "Накопленный TFSA room 2026 для резидентов с 2009 · твой ≈ $34K (2022), $27K (2023), $20K (2024)" },
       { value: "7–12%", label: "Исторический диапазон · широкий рынок diversified" },
       { value: "от $5K", label: "Порог входа в exempt market (зависит от продукта)" },
-      { value: "30 мин", label: "Discovery call · бесплатно" },
     ],
     aboutTitle: "Кто я и почему это не очередной блог про деньги",
     about: [
@@ -185,9 +185,9 @@ export const dictionary = {
     },
     stats: [
       { value: "0%", label: "Tax on TFSA growth and withdrawals — forever" },
+      { value: "$109K", label: "2026 cumulative TFSA room for residents since 2009 · yours ≈ $34K (2022), $27K (2023), $20K (2024)" },
       { value: "7–12%", label: "Historical range · broad-market diversified" },
       { value: "from $5K", label: "Exempt market entry (product-dependent)" },
-      { value: "30 min", label: "Discovery call · free" },
     ],
     aboutTitle: "Who I am and why this isn't another money blog",
     about: [
