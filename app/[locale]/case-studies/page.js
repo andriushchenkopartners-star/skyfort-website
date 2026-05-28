@@ -31,6 +31,7 @@ import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -485,12 +486,13 @@ export default async function CaseStudiesPage({ params }) {
       </section>
 
       <section className="px-6 pb-8">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-3xl space-y-4">
           <TldrBlock
             text={c.tldr}
             pageName={c.titleMeta}
             pageUrl={`https://sky-fort.ca/${locale}/case-studies`}
           />
+          <AuthorByline locale={locale} />
         </div>
       </section>
 

@@ -211,6 +211,27 @@ export default async function BlogPostPage({ params }) {
     inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
   };
 
+  // Speakable JSON-LD — voice-search optimization (Google Assistant,
+  // AI-Overview audio readers). Targets the first blockquote in every
+  // post — by convention our pillar posts open with a "> **Коротко:**"
+  // / "> **TL;DR:**" callout that summarizes the post in 2-3 sentences.
+  // The `article blockquote:first-of-type` selector picks that block
+  // without us needing to add an id to every MDX file.
+  //
+  // Pair with the Article schema above (different @types; both valid
+  // simultaneously per Google's structured-data guidelines).
+  const speakableJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `https://sky-fort.ca/${locale}/blog/${slug}#webpage`,
+    url: `https://sky-fort.ca/${locale}/blog/${slug}`,
+    name: post.title,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["article header h1", "article header p", "article blockquote:first-of-type"],
+    },
+  };
+
   const related = getAllPosts(locale)
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
@@ -220,6 +241,10 @@ export default async function BlogPostPage({ params }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableJsonLd) }}
       />
 
       <article className="mx-auto max-w-3xl px-6 pt-28 pb-24 md:pt-32">

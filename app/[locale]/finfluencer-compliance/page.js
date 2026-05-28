@@ -27,6 +27,7 @@ import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CSA_URL = "https://www.securities-administrators.ca/";
@@ -432,6 +433,9 @@ export default async function FinfluencerCompliancePage({ params }) {
             pageName={c.titleMeta}
             pageUrl={`https://sky-fort.ca/${locale}/finfluencer-compliance`}
           />
+          <div className="mt-4">
+            <AuthorByline locale={locale} />
+          </div>
         </div>
 
         {/* SECTIONS */}

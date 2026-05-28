@@ -17,6 +17,7 @@ import StaticFaq from "../../_components/StaticFaq";
 import CraLimits2026 from "../../_components/CraLimits2026";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -447,6 +448,9 @@ export default async function ItPillarPage({ params }) {
             pageName={c.titleMeta}
             pageUrl={`https://sky-fort.ca/${locale}/dlya-it-fakhivtsiv`}
           />
+          <div className="mt-4">
+            <AuthorByline locale={locale} />
+          </div>
         </div>
 
         <section className="mt-8 pb-12 space-y-5">

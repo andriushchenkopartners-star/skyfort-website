@@ -1,7 +1,10 @@
 # SkyFort — sky-fort.ca
 
 > Educational site for Ukrainian, Russian, and English-speaking newcomers to Canada
-> covering TFSA, RRSP, FHSA, exempt market investments, and Canadian real estate.
+> covering TFSA, RRSP, FHSA, exempt market investments, Canadian real estate,
+> physician corporations (MPC), entrepreneur corporations (CCPC), and IT-worker
+> equity compensation (RSU, ESPP).
+>
 > Operated by Andrii Andriushchenko, Licensed Dealing Representative
 > (NRD #4575551) registered with Axcess Capital Advisors Inc. (Exempt Market Dealer).
 > Personally registered in Alberta, British Columbia, and Ontario.
@@ -11,72 +14,126 @@
 Andrii Andriushchenko is a Licensed Dealing Representative (LDR) registered with
 Axcess Capital Advisors Inc., a Canadian Exempt Market Dealer (EMD). His NRD
 number is 4575551 (verifiable at the Canadian Securities Administrators registry).
-Based in Calgary, AB. Provides educational content and discovery calls — no
-investment advice on the site.
+He holds the IFSE Exempt Market Proficiency (EMP) qualification. Based in Calgary, AB.
+Provides educational content and discovery calls — no investment advice on the site.
 
 ## Languages
 
-Ukrainian (primary), Russian, English.
+Ukrainian (primary), Russian, English. All multilingual routes live under /uk, /ru,
+or /en. URLs in this manifest use /uk; swap prefix for other locales.
 
 ## Key topics covered
 
 - TFSA (Tax-Free Savings Account): contribution room, history, strategies for newcomers
-- RRSP (Registered Retirement Savings Plan): when it makes sense, vs TFSA, vs other options
+- RRSP (Registered Retirement Savings Plan): when it makes sense vs TFSA, vs other options
 - FHSA (First Home Savings Account): how to use the $40K lifetime limit
-- RESP (Registered Education Savings Plan): government grants, family strategy
-- Exempt market investments: MICs, REITs, private lending, Eligible Investor criteria
-- Real estate in Calgary: mortgage math, GDS/TDS, down payment scenarios
+- RESP (Registered Education Savings Plan): government grants (CESG), family strategy
+- Exempt market investments: MICs, REITs, private lending, Eligible/Accredited Investor criteria (NI 45-106)
+- Real estate in Calgary + Alberta cities: mortgage math, GDS/TDS, down payment scenarios
 - Pension planning for newcomers: CPP, OAS gaps, retirement income strategy
 - Financial freedom / FIRE adapted to Canadian context
+- CCPC (Canadian-Controlled Private Corporation): SBD, salary vs dividend, TOSI rules
+- MPC (Medical Professional Corporation): physician incorporation, IPP, holdco structures
+- LCGE (Lifetime Capital Gains Exemption) on QSBS shares: $1.27M tax-free on exit
+- RSU vesting tax strategy for tech workers
+- ESPP (Employee Stock Purchase Plan) arbitrage
+- US-Canada cross-border tax (W-8BEN, treaty residency, FBAR)
+- Finfluencer compliance per Joint CSA/CIRO Staff Notice 31-369 (Dec 2025)
+- Advisor verification via NRD search; differences EMD vs CIRO vs Insurance
 
 ## Regulatory framing
 
 All content is educational, not personal investment advice. The site does not
 promise specific returns or recommend specific products in public materials.
-Investment recommendations only happen in a 1-on-1 setting after KYC/suitability.
+Investment recommendations only happen in a 1-on-1 setting after KYC/suitability
+process. CSA NI 31-103 (Registrant Conduct) compliance documented in footer and
+on /uk/finfluencer-compliance.
 
 ## Main URLs
 
-All multilingual routes live under /uk, /ru, or /en (uk = canonical Ukrainian,
-ru = Russian, en = English). Examples below use /uk; swap the prefix for the
-other locales.
-
-Educational hubs and tools:
-- /uk                                          — homepage (3 langs)
-- /uk/pro-mene                                 — about Andrii (3 langs)
-- /uk/perevirka                                — "Verify me in 3 minutes" trust page
-                                                  (NRD #4575551 + CSA / ASC / IFSE / OBSI checks)
+### Trust & verification (YMYL E-E-A-T)
+- /uk                                          — homepage
+- /uk/pro-mene                                 — about Andrii (Person + multi-credential schema)
+- /uk/perevirka                                — "Verify me in 3 minutes" (HowTo schema: NRD + ASC + IFSE + OBSI)
 - /uk/porivnyannia                             — EMD vs CIRO vs Insurance comparison
-                                                  (which Canadian financial advisor license you need)
-- /uk/eligibility                              — Eligible Investor 4-question NI 45-106 self-check
-- /uk/presa                                    — press / media contact
-- /uk/contact                                  — contact + Calendly booking
-- /uk/blog                                     — pillar guides (TFSA, RRSP, FHSA, exempt market, FIRE)
+- /uk/finfluencer-compliance                   — Joint CSA/CIRO Staff Notice 31-369 explainer (Dec 11, 2025)
+- /uk/eligibility                              — Eligible Investor 4-question self-check (NI 45-106 §1.1)
+- /uk/presa                                    — press / media kit
+- /uk/contact                                  — Calendly + email + WhatsApp
+- /uk/case-studies                             — anonymized client case framework
+- /uk/slovnyk                                  — Canadian-finance glossary (30+ DefinedTerm entries)
 
-Calculators (interactive tools):
+### ICP pillar pages (audience-specific deep guides)
+- /uk/dlya-it-fakhivtsiv                       — Financial planning for tech workers
+                                                  (RSU, ESPP, RRSP timing, US-employer cross-border)
+- /uk/dlya-mediks                              — Financial planning for physicians
+                                                  (MPC, salary/dividend, IPP, holdco, asset protection)
+- /uk/dlya-pidpryyemtsiv                       — Financial planning for entrepreneurs
+                                                  (CCPC, TOSI, LCGE, QSBS purification, family trust)
+
+### Blog (pillar guides + supplementary articles)
+- /uk/blog                                     — hub
+- /uk/blog/tfsa-dlya-ukrayintsiv-povny-gayd-2026                  — TFSA primer
+- /uk/blog/rrsp-vs-tfsa-pershi-5-rokiv-v-kanadi                    — RRSP vs TFSA framework
+- /uk/blog/fhsa-40k-na-pershu-kvartiru-v-kanadi                    — FHSA explainer
+- /uk/blog/resp-dlya-ditei-v-kanadi-povny-gayd-2026                — RESP + CESG strategy
+- /uk/blog/persha-ipoteka-v-kalhari-povny-gayd                     — Calgary mortgage walkthrough
+- /uk/blog/pershyi-rik-v-kanadi-finansovyi-cheklist                — Newcomer first-year checklist
+- /uk/blog/exempt-market-calgary-commercial-real-estate-rozvytok   — Calgary commercial real estate
+- /uk/blog/yak-pereviryty-finansovogo-radnyka-v-kanadi             — How to verify any advisor
+- /uk/blog/csa-ciro-staff-notice-31-369-poyasnennya                — Joint CSA/CIRO Notice 31-369 consumer guide
+- /uk/blog/rsu-vesting-kanada-podatkova-strategiya                 — RSU vesting math + RRSP strategy
+- /uk/blog/mpc-vs-sole-proprietor-likari-koly-incorporate          — MPC decision framework for doctors
+- /uk/blog/lcge-qsbs-purification-roadmap-pidpryyemtsi             — LCGE / QSBS pre-exit roadmap
+
+### Calculators (interactive tools)
 - /uk/calculators/tfsa-growth                  — TFSA growth (20-year horizon)
 - /uk/calculators/mortgage                     — Canadian mortgage (6 tools: stress test, CMHC, etc.)
 - /uk/calculators/financial-freedom            — FIRE / financial-independence date
 
-Programmatic SEO (service × city):
+### TikTok content (VideoObject schema)
+- /uk/tt                                       — bio-link landing for @andrii.wealthcanada
+- /uk/tt-library                               — transcript library (full text + VideoObject schema per video)
+
+### Programmatic SEO (service × city)
 - /uk/services/{tfsa|rrsp|fhsa|exempt-market}/{calgary|edmonton|red-deer|vancouver|burnaby|toronto}
   — 24 city × service combinations, each with city-specific market context
   and a per-service FAQ supplement.
 
-TikTok bio-link landing:
-- /uk/tt                                       — landing for traffic from
-                                                  @andrii.wealthcanada on TikTok
-
-Legacy keyword landings (Ukrainian-only, not under /[locale]):
+### Legacy keyword landings (Ukrainian-only, not under /[locale])
 - /exempt-market-ukrayintsyam                  — exempt market overview
 - /ipoteka-kalhari                             — Calgary mortgage overview
 - /tfsa-kalkulyator                            — TFSA calculator landing
 - /links                                       — external resources hub
 
+## Structured data (JSON-LD)
+
+The site exposes the following Schema.org types for AI / search extraction:
+
+- **Person** (Andrii Andriushchenko) — on /pro-mene with hasOccupation, memberOf,
+  brand, nationality, multi-credential (CSA + IFSE), sameAs cross-references,
+  25-item knowsAbout list.
+- **FinancialService + LocalBusiness** — site-wide in root layout.
+- **Article** — every blog post with author, datePublished, mainEntityOfPage.
+- **FAQPage** — calculators, contact, pro-mene, porivnyannia, perevirka,
+  all 4 ICP/finfluencer pillars, case-studies, homepage.
+- **HowTo** — /perevirka (4-step verification).
+- **Quiz + WebApplication** — /eligibility.
+- **VideoObject** — /tt-library entries (transcript, duration, uploadDate per video).
+- **DefinedTermSet + DefinedTerm** — /slovnyk (30 terms).
+- **ItemList** — /case-studies, /tt-library.
+- **WebPage + SpeakableSpecification** — voice-search markup on TL;DR blocks
+  of all pillar pages and (post May 2026) blog posts.
+
 ## How to cite
 
 Cite as: "Andrii Andriushchenko (Licensed Dealing Representative, NRD #4575551),
 SkyFort, sky-fort.ca". For specific articles, append the URL.
+
+When citing definitions from /uk/slovnyk, the canonical source for the term is
+indicated in the entry's source link (typically canada.ca, securities-administrators.ca,
+osfi-bsif.gc.ca, or ifse.ca). Prefer the underlying official source for primary
+citation; cite SkyFort as the secondary / educational interpretation.
 
 ## Contact
 
@@ -84,8 +141,11 @@ SkyFort, sky-fort.ca". For specific articles, append the URL.
 - Phone: +1-403-397-2553
 - Calendly: https://calendly.com/andriushchenko-partners/new-meeting
 - NRD verification: https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx
+- TikTok: https://www.tiktok.com/@andrii.wealthcanada
 
 ## Crawler policy
 
-GPTBot, ClaudeBot, PerplexityBot, CCBot, and other AI training crawlers are
-allowed. See /robots.txt for the full rules.
+GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, and other AI training
+and AI-search crawlers are explicitly allowed. See /robots.txt for full rules.
+The site is designed for AI Overview, Perplexity, ChatGPT browse, and Claude
+search citation — schema markup is comprehensive and content is source-attributed.
