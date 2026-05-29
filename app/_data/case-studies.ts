@@ -1,4 +1,4 @@
-// app/_data/case-studies.js
+// app/_data/case-studies.ts
 // Composite illustrative case studies. Each is built from PATTERNS across
 // multiple real clients — NOT a single identifiable client. Per NI 31-103
 // + NI 45-106 + PIPEDA + Joint CSA/CIRO Notice 31-369, all identifying
@@ -14,7 +14,54 @@
 // these as if they were real anonymized cases — they're decision-framework
 // illustrations.
 
-export const CASES = {
+export type Locale = "uk" | "ru" | "en";
+
+export interface CaseSection {
+  title: string;
+  body: string;
+}
+
+export interface CaseWhatIf {
+  q: string;
+  a: string;
+}
+
+export interface CaseLocaleContent {
+  titleMeta: string;
+  descriptionMeta: string;
+  crumbThis: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  tldr: string;
+  sections: CaseSection[];
+  keyTakeaways: string[];
+  whatIfHeader: string;
+  whatIfs: CaseWhatIf[];
+}
+
+export interface CaseRelated {
+  icp: string;
+  calculator: string;
+  blogPost: string;
+}
+
+export interface CaseRoot {
+  slug: string;
+  pillar: string;
+  related: CaseRelated;
+  uk: CaseLocaleContent;
+  ru: CaseLocaleContent;
+  en: CaseLocaleContent;
+}
+
+export type ResolvedCase = {
+  slug: string;
+  pillar: string;
+  related: CaseRelated;
+} & CaseLocaleContent;
+
+export const CASES: Record<string, CaseRoot> = {
   "it-fakhivets-rsu-vesting-strategy": {
     slug: "it-fakhivets-rsu-vesting-strategy",
     pillar: "Tech",
@@ -360,11 +407,11 @@ export const CASES = {
   },
 };
 
-export function getCaseSlugs() {
+export function getCaseSlugs(): string[] {
   return Object.keys(CASES);
 }
 
-export function getCase(slug, locale = "uk") {
+export function getCase(slug: string, locale: Locale = "uk"): ResolvedCase | null {
   const c = CASES[slug];
   if (!c) return null;
   return {
@@ -375,6 +422,6 @@ export function getCase(slug, locale = "uk") {
   };
 }
 
-export function getAllCases(locale = "uk") {
+export function getAllCases(locale: Locale = "uk"): (ResolvedCase | null)[] {
   return Object.keys(CASES).map((slug) => getCase(slug, locale));
 }

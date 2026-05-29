@@ -4,9 +4,13 @@
 // rendered above the generic template content. Pairs without an entry fall back to
 // the generic template only.
 //
-// Key format: `<serviceSlug>:<citySlug>` (matches keys in services-cities.js).
+// Key format: `<serviceSlug>:<citySlug>` (matches keys in services-cities.ts).
 
-export const PAIR_CONTENT = {
+import type { Locale } from "./services-cities";
+
+type PairEntry = Partial<Record<Locale, string>>;
+
+export const PAIR_CONTENT: Record<string, PairEntry> = {
   // ─── TFSA × Calgary ─────────────────────────────────────────────────────
   "tfsa:calgary": {
     uk: `Калгарі — найшвидше зростаюче місто Канади, і це впливає на TFSA-стратегію двома способами. По-перше, **Alberta flat 10% provincial tax** на низькі/середні брекети означає що різниця між TFSA і RRSP у твої перші роки тут менш виражена ніж у BC/Ontario — тобто TFSA пріоритет ще сильніший. По-друге, при household income ~$116K (медіана Calgary CMA) і 3-5 роках у Канаді ти швидко стаєш **Eligible Investor**, що відкриває доступ до Calgary-фокусованих exempt market фондів — multi-family rentals, industrial syndications, mixed-use developments у Mission/Beltline. У TFSA такі продукти ростуть **повністю tax-free**, що при historical 7-10% IRR за 15 років робить різницю в $80-150K порівняно з ETF.`,
@@ -180,7 +184,11 @@ export const PAIR_CONTENT = {
  * Look up unique pair content for a specific service+city combination.
  * Returns null if no entry exists (falls through to the generic template).
  */
-export function getPairContent(serviceSlug, citySlug, locale = 'uk') {
+export function getPairContent(
+  serviceSlug: string,
+  citySlug: string,
+  locale: Locale = 'uk',
+): string | null {
   const key = `${serviceSlug}:${citySlug}`;
   const entry = PAIR_CONTENT[key];
   if (!entry) return null;

@@ -15,13 +15,31 @@ import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 
+export type Locale = "uk" | "ru" | "en";
+
+export interface Post {
+  slug: string;
+  locale: Locale;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  tags: string[];
+  pillar: string | null;
+  ogImage: string;
+  draft: boolean;
+  readingMinutes: number;
+  wordCount: number;
+  content: string;
+}
+
 const CONTENT_ROOT = path.join(process.cwd(), "content", "blog");
 
-function localeDir(locale) {
+function localeDir(locale: Locale): string {
   return path.join(CONTENT_ROOT, locale);
 }
 
-export function getPostSlugs(locale) {
+export function getPostSlugs(locale: Locale): string[] {
   const dir = localeDir(locale);
   if (!fs.existsSync(dir)) return [];
   return fs
@@ -30,7 +48,7 @@ export function getPostSlugs(locale) {
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
-export function getPostBySlug(locale, slug) {
+export function getPostBySlug(locale: Locale, slug: string): Post | null {
   const file = path.join(localeDir(locale), `${slug}.mdx`);
   if (!fs.existsSync(file)) return null;
   const raw = fs.readFileSync(file, "utf8");
@@ -53,21 +71,22 @@ export function getPostBySlug(locale, slug) {
   };
 }
 
-export function getAllPosts(locale, { includeDrafts = false } = {}) {
+export function getAllPosts(
+  locale: Locale,
+  { includeDrafts = false }: { includeDrafts?: boolean } = {},
+): Post[] {
   return getPostSlugs(locale)
     .map((slug) => getPostBySlug(locale, slug))
-    .filter(Boolean)
+    .filter((p): p is Post => p !== null)
     .filter((p) => includeDrafts || !p.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 // Cross-locale URL helpers — useful for hreflang on individual post pages.
 // Returns map { locale: slug } for posts that share the same canonical "key".
-// We use the same slug across locales by convention; if a translation uses a
-// different filename, link it via frontmatter `translations: { ru: "...", en: "..." }`.
-export function getTranslations(slug) {
-  const out = {};
-  for (const locale of ["uk", "ru", "en"]) {
+export function getTranslations(slug: string): Partial<Record<Locale, string>> {
+  const out: Partial<Record<Locale, string>> = {};
+  for (const locale of ["uk", "ru", "en"] as const) {
     const post = getPostBySlug(locale, slug);
     if (post) out[locale] = slug;
   }

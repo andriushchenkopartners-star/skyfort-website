@@ -2,7 +2,40 @@
 // 4 послуги × 6 міст = 24 SEO-сторінки під long-tail запити типу
 // "TFSA для українців в Едмонтоні", "exempt market Toronto" тощо.
 
-export const SERVICES = {
+export type Locale = "uk" | "ru" | "en";
+
+export interface Service {
+  slug: string;
+  pillar: string;
+  titleUk: string;
+  titleRu: string;
+  titleEn: string;
+  descUk: string;
+  descRu: string;
+  descEn: string;
+  keywords: string[];
+  relatedCalculator: string;
+  relatedPillarSlug: string;
+}
+
+export interface City {
+  slug: string;
+  nameUk: string;
+  nameRu: string;
+  nameEn: string;
+  locativeUk: string;
+  locativeRu: string;
+  locativeEn: string;
+  province: string;
+  provinceCode: string;
+  population: string;
+  medianHHIncome: number;
+  notesUk: string[];
+  notesRu: string[];
+  notesEn: string[];
+}
+
+export const SERVICES: Record<string, Service> = {
   tfsa: {
     slug: "tfsa",
     pillar: "TFSA",
@@ -69,7 +102,7 @@ export const SERVICES = {
   },
 };
 
-export const CITIES = {
+export const CITIES: Record<string, City> = {
   calgary: {
     slug: "calgary",
     nameUk: "Калгарі",
@@ -247,22 +280,27 @@ export const CITIES = {
 
 // Хелпери
 
-export function getServiceKeys() {
+export function getServiceKeys(): string[] {
   return Object.keys(SERVICES);
 }
-export function getCityKeys() {
+export function getCityKeys(): string[] {
   return Object.keys(CITIES);
 }
-export function getService(slug) {
+export function getService(slug: string): Service | null {
   return SERVICES[slug] || null;
 }
-export function getCity(slug) {
+export function getCity(slug: string): City | null {
   return CITIES[slug] || null;
 }
 
+export interface ServiceCityPair {
+  service: string;
+  city: string;
+}
+
 // Всі комбінації для generateStaticParams
-export function getAllServiceCityPairs() {
-  const pairs = [];
+export function getAllServiceCityPairs(): ServiceCityPair[] {
+  const pairs: ServiceCityPair[] = [];
   for (const service of getServiceKeys()) {
     for (const city of getCityKeys()) {
       pairs.push({ service, city });

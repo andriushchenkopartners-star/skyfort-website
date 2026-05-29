@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./_components/Logo";
+import SiteSearch from "./_components/SiteSearch";
+import { trackSearchOpen } from "./_lib/analytics";
 import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
 
 // Per-locale UI copy for the burger menu. UK is the source; RU/EN are translations.
@@ -34,6 +36,7 @@ const COPY = {
     audienceMedics: "Медикам",
     audienceFounders: "Підприємцям",
     caseStudies: "Кейси клієнтів",
+    search: "Пошук (⌘K)",
     cta: "Безкоштовний дзвінок →",
     rootLinks: [
       { label: "TFSA калькулятор", href: "/tfsa-kalkulyator" },
@@ -61,6 +64,7 @@ const COPY = {
     audienceMedics: "Медикам",
     audienceFounders: "Предпринимателям",
     caseStudies: "Кейсы клиентов",
+    search: "Поиск (⌘K)",
     cta: "Бесплатный звонок →",
     // UA-only landing pages don't have RU equivalents → hidden on /ru/
     rootLinks: [],
@@ -85,6 +89,7 @@ const COPY = {
     audienceMedics: "Physicians",
     audienceFounders: "Business owners",
     caseStudies: "Client cases",
+    search: "Search (⌘K)",
     cta: "Free discovery call →",
     // UA-only landing pages don't have EN equivalents → hidden on /en/
     rootLinks: [],
@@ -156,6 +161,28 @@ export default function Nav() {
 
   return (
     <>
+      <SiteSearch />
+
+      {/* Site search trigger — sits to the left of the burger so users
+          discover it visually even without knowing the ⌘K shortcut. */}
+      <button
+        type="button"
+        className="fixed right-[76px] top-5 z-[1002] flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"
+        aria-label={t.search}
+        title={t.search}
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("skyfort:open-search"));
+            trackSearchOpen("nav-button");
+          }
+        }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+      </button>
+
       <button
         type="button"
         className="fixed right-5 top-5 z-[1002] flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"

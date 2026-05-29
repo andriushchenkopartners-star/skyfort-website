@@ -1,7 +1,17 @@
 // Centralized event tracking. Safe to call before GA loads — events queue in dataLayer.
 // Use these helpers everywhere instead of calling gtag directly.
 
-export function track(eventName, params = {}) {
+// Global gtag/clarity types — narrow declarations for the two surfaces we use.
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+    clarity?: (...args: unknown[]) => void;
+  }
+}
+
+export type EventParams = Record<string, unknown>;
+
+export function track(eventName: string, params: EventParams = {}): void {
   if (typeof window === "undefined") return;
   if (typeof window.gtag === "function") {
     window.gtag("event", eventName, params);
@@ -17,26 +27,26 @@ export function track(eventName, params = {}) {
 export const trackBookCallClick = (source = "unknown") =>
   track("book_call_click", { source });
 
-export const trackGuideDownload = (guideFile, source = "homepage") =>
+export const trackGuideDownload = (guideFile: string, source = "homepage") =>
   track("guide_download", { guide_file: guideFile, source });
 
-export const trackCalculatorRun = (calculator, params = {}) =>
+export const trackCalculatorRun = (calculator: string, params: EventParams = {}) =>
   track("calculator_run", { calculator, ...params });
 
-export const trackLangSwitch = (from, to) =>
+export const trackLangSwitch = (from: string, to: string) =>
   track("lang_switch", { from, to });
 
-export const trackFormSubmit = (formId, result = "success") =>
+export const trackFormSubmit = (formId: string, result = "success") =>
   track("form_submit", { form_id: formId, result });
 
-export const trackEmailCapture = (source, leadMagnet = null) =>
+export const trackEmailCapture = (source: string, leadMagnet: string | null = null) =>
   track("email_capture", { source, lead_magnet: leadMagnet });
 
 // TikTok funnel events
 export const trackTtLandingView = (utmCampaign = "bio") =>
   track("tt_landing_view", { utm_campaign: utmCampaign });
 
-export const trackTtCtaClick = (cta) =>
+export const trackTtCtaClick = (cta: string) =>
   track("tt_cta_click", { cta }); // cta = book | guide | calculator | whatsapp
 
 // ─── CRO: scroll-depth + CTA position events ─────────────────────────────────
@@ -44,23 +54,29 @@ export const trackTtCtaClick = (cta) =>
 // fires these at 25 / 50 / 75 / 100 % of page scrolled. `page` should be a
 // short slug like "dlya-it-fakhivtsiv" or "finfluencer-compliance" so GA4
 // dimensions stay clean.
-export const trackScrollDepth = (page, pct) =>
+export const trackScrollDepth = (page: string, pct: number) =>
   track("scroll_depth", { page, percent: pct });
 
-// CTA position tracking on long pillar pages. Lets us A/B which CTA
-// position (hero / mid / footer / sticky-bar) converts best.
+// CTA position tracking on long pillar pages.
 //   position = "hero" | "mid" | "footer" | "sticky"
 //   cta      = "book_call" | "eligibility_check" | "email_capture"
-export const trackCtaPosition = (page, position, cta) =>
+export const trackCtaPosition = (page: string, position: string, cta: string) =>
   track("cta_position_click", { page, position, cta });
+
+// Site search events.
+export const trackSearchOpen = (source = "kbd") => track("search_open", { source });
+export const trackSearchQuery = (query: string, resultCount: number) =>
+  track("search_query", { query, result_count: resultCount });
+export const trackSearchClick = (query: string, url: string, position: number) =>
+  track("search_click", { query, url, position });
 
 // ─── UTM helpers ─────────────────────────────────────────────────────────────
 
 // Persist UTM params to sessionStorage on first visit, so attribution survives navigation.
-export function captureUtmsOnLoad() {
+export function captureUtmsOnLoad(): void {
   if (typeof window === "undefined") return;
   const params = new URLSearchParams(window.location.search);
-  const utms = {};
+  const utms: Record<string, string> = {};
   for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) {
     const v = params.get(key);
     if (v) utms[key] = v;
@@ -71,7 +87,7 @@ export function captureUtmsOnLoad() {
   } catch {}
 }
 
-export function getStoredUtms() {
+export function getStoredUtms(): Record<string, string> {
   if (typeof window === "undefined") return {};
   try {
     return JSON.parse(sessionStorage.getItem("skyfort_utms") || "{}");
@@ -81,7 +97,7 @@ export function getStoredUtms() {
 }
 
 // Append stored UTMs to a URL (so e.g. Calendly link keeps the source attribution).
-export function withUtms(url) {
+export function withUtms(url: string): string {
   const utms = getStoredUtms();
   if (Object.keys(utms).length === 0) return url;
   try {
