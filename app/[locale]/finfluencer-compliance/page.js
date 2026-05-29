@@ -29,6 +29,8 @@ import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
+import StickyCta from "../../_components/StickyCta";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CSA_URL = "https://www.securities-administrators.ca/";
@@ -102,7 +104,7 @@ const COPY = {
       },
       {
         q: "Чи можу я довіряти контенту якщо finfluencer ліцензований?",
-        a: "Більше — так. Ліцензія означає: пройдена професійна освіта (EMP, CSC, WME, LLQP), reginal background check, compliance training, прив'язка до зареєстрованої фірми, надзор регулятора. Але це не гарантія що конкретна порада тобі підходить — тільки після формального KYC + Suitability Assessment з твоїми цифрами. Завжди вимагай KYC перед прийняттям рішення.",
+        a: "Так, але з важливим застереженням: ліцензія підтверджує професійну кваліфікацію (пройдено EMP/CSC/WME/LLQP, background check, compliance training, прив'язка до зареєстрованої фірми, надзор регулятора), але **не означає що конкретна порада підходить саме тобі**. Конкретна рекомендація доступна лише після формального KYC + Suitability Assessment з твоїми цифрами. Завжди вимагай KYC перед прийняттям рішення.",
       },
       {
         q: "Чи покриває Notice 31-369 крипто-блогерів?",
@@ -382,6 +384,7 @@ export default async function FinfluencerCompliancePage({ params }) {
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <ScrollDepthTracker page="finfluencer-compliance" />
+      <StickyCta locale={locale} page="finfluencer-compliance" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -574,6 +577,10 @@ export default async function FinfluencerCompliancePage({ params }) {
         heading={c.faqTitle}
         jsonLdId={`https://sky-fort.ca${path}#faq`}
       />
+
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <TopicSuggestForm locale={locale} source="finfluencer-compliance" />
+      </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">

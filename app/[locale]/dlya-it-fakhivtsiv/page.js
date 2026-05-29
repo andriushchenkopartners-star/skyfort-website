@@ -19,6 +19,8 @@ import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
+import StickyCta from "../../_components/StickyCta";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -395,6 +397,40 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// WebPage+audience schema (Batch 10 mirror of MedicalWebPage pattern from
+// /dlya-mediks). Schema.org WebPage with explicit audience signals to AI
+// systems and Google KG that this is targeted YMYL content for a specific
+// professional audience (tech workers / engineers / IT contractors).
+function buildAudienceWebPageJsonLd(locale, c, path) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `https://sky-fort.ca${path}#webpage`,
+    name: c.titleMeta,
+    description: c.descriptionMeta,
+    url: `https://sky-fort.ca${path}`,
+    inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
+    audience: {
+      "@type": "Audience",
+      audienceType: "Technology professionals (software engineers, developers, product managers, IT contractors) in Canada",
+      geographicArea: { "@type": "Country", name: "Canada" },
+    },
+    about: [
+      { "@type": "Thing", name: "RSU vesting taxation (Canada)", description: "Restricted Stock Unit vesting events added to T4 employment income at fair market value on vesting day, taxed at marginal rate per provincial bracket." },
+      { "@type": "Thing", name: "ESPP arbitrage", description: "Employee Stock Purchase Plan with 15% discount as a tax-efficient compensation lever for Canadian tech workers." },
+      { "@type": "Thing", name: "US-Canada cross-border tax", description: "Form W-8BEN, treaty residency, FBAR exemption, and RRSP vs TFSA placement of US-listed securities for Canadian residents." },
+    ],
+    reviewedBy: {
+      "@type": "Person",
+      name: "Andrii Andriushchenko",
+      jobTitle: "Licensed Dealing Representative",
+      identifier: "NRD 4575551",
+      url: `https://sky-fort.ca/${locale}/pro-mene`,
+    },
+    lastReviewed: "2026-05-28",
+  };
+}
+
 function buildJsonLd(locale, c, path) {
   return {
     "@context": "https://schema.org",
@@ -422,9 +458,14 @@ export default async function ItPillarPage({ params }) {
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <ScrollDepthTracker page="dlya-it-fakhivtsiv" />
+      <StickyCta locale={locale} page="dlya-it-fakhivtsiv" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, c, path)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildAudienceWebPageJsonLd(locale, c, path)) }}
       />
 
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
@@ -541,6 +582,10 @@ export default async function ItPillarPage({ params }) {
         ]}
       />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
+
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <TopicSuggestForm locale={locale} source="dlya-it-fakhivtsiv" />
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>

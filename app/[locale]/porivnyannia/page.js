@@ -27,6 +27,7 @@ import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const NRD_URL = "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
@@ -569,12 +570,15 @@ export default async function PorivnyanniaPage({ params }) {
         />
 
         {/* HERO */}
-        <header className="mt-10 pb-12">
+        <header className="mt-10 pb-8">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
           <p className="mt-4 text-2xl font-bold text-[#c4c4c4] md:text-3xl">{c.subtitle}</p>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
         </header>
+        <div className="mb-12 max-w-3xl">
+          <AuthorByline locale={locale} />
+        </div>
 
         {/* HISTORY NOTE */}
         <section className="mb-12 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 md:p-6">

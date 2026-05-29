@@ -8,6 +8,7 @@ import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import EligibilityQuiz from "./quiz";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const NRD_URL =
@@ -200,6 +201,9 @@ export default async function EligibilityPage({ params }) {
             { label: m.crumbThis },
           ]}
         />
+        <div className="mt-8">
+          <AuthorByline locale={locale} />
+        </div>
       </div>
 
       <EligibilityQuiz locale={locale} />

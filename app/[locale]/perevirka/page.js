@@ -9,6 +9,7 @@ import { ExternalLink, ShieldCheck, FileText, Search, AlertTriangle, Building2, 
 import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
+import AuthorByline from "../../_components/AuthorByline";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const NRD_URL = "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
@@ -300,11 +301,14 @@ export default async function PerevirkaPage({ params }) {
         />
 
         {/* HERO */}
-        <header className="mt-10 pb-12">
+        <header className="mt-10 pb-8">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
         </header>
+        <div className="mb-12">
+          <AuthorByline locale={locale} />
+        </div>
 
         {/* WHY */}
         <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-10">

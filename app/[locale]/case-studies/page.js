@@ -33,6 +33,8 @@ import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
+import StickyCta from "../../_components/StickyCta";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -567,6 +569,7 @@ export default async function CaseStudiesPage({ params }) {
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <ScrollDepthTracker page="case-studies" />
+      <StickyCta locale={locale} page="case-studies" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -773,6 +776,10 @@ export default async function CaseStudiesPage({ params }) {
         heading={c.faqHeader}
         jsonLdId={`https://sky-fort.ca${path}#faq`}
       />
+
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <TopicSuggestForm locale={locale} source="case-studies" />
+      </section>
 
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-3xl text-center">

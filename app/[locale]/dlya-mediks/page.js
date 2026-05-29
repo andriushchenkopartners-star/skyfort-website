@@ -20,6 +20,8 @@ import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
+import StickyCta from "../../_components/StickyCta";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -477,6 +479,7 @@ export default async function MediksPillarPage({ params }) {
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <ScrollDepthTracker page="dlya-mediks" />
+      <StickyCta locale={locale} page="dlya-mediks" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, c, path)) }}
@@ -600,6 +603,10 @@ export default async function MediksPillarPage({ params }) {
         ]}
       />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
+
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <TopicSuggestForm locale={locale} source="dlya-mediks" />
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>

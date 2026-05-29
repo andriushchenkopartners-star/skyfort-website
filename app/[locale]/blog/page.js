@@ -4,6 +4,7 @@ import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 import { getAllPosts } from "../../_lib/blog";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import TopicSuggestForm from "../../_components/TopicSuggestForm";
+import AuthorByline from "../../_components/AuthorByline";
 
 const META = {
   uk: {
@@ -85,10 +86,13 @@ export default async function BlogHubPage({ params }) {
           ]}
         />
 
-        <header className="mt-8 mb-16 max-w-3xl">
+        <header className="mt-8 mb-8 max-w-3xl">
           <h1 className="font-display text-5xl text-white md:text-6xl">{m.h1}</h1>
           <p className="mt-6 text-lg text-[var(--color-fg-muted)] md:text-xl">{m.sub}</p>
         </header>
+        <div className="mb-16 max-w-3xl">
+          <AuthorByline locale={locale} />
+        </div>
 
         {posts.length === 0 ? (
           <p className="text-[var(--color-fg-muted)]">{m.empty}</p>

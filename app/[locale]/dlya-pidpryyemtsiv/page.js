@@ -16,6 +16,8 @@ import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
+import StickyCta from "../../_components/StickyCta";
+import TopicSuggestForm from "../../_components/TopicSuggestForm";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -395,6 +397,40 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// WebPage+audience schema (Batch 10 mirror of MedicalWebPage pattern from
+// /dlya-mediks). Targets entrepreneurs / founders / self-employed who run
+// CCPCs in Canada.
+function buildAudienceWebPageJsonLd(locale, c, path) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `https://sky-fort.ca${path}#webpage`,
+    name: c.titleMeta,
+    description: c.descriptionMeta,
+    url: `https://sky-fort.ca${path}`,
+    inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
+    audience: {
+      "@type": "Audience",
+      audienceType: "Business owners, founders, self-employed professionals, and IT contractors operating CCPCs in Canada",
+      geographicArea: { "@type": "Country", name: "Canada" },
+    },
+    about: [
+      { "@type": "Thing", name: "CCPC (Canadian-Controlled Private Corporation)", description: "Private corporation with >50% Canadian-resident ownership; eligible for Small Business Deduction (~11% effective tax on first $500K active business income)." },
+      { "@type": "Thing", name: "LCGE / QSBS", description: "Lifetime Capital Gains Exemption (~$1.27M in 2026) on Qualified Small Business Shares: 24+ month holding, 90% active business assets at sale, 50% throughout." },
+      { "@type": "Thing", name: "TOSI (Tax on Split Income)", description: "CRA anti-income-splitting rule (2018) applying highest marginal rate to dividends/income from CCPC to family members not 'actively engaged'." },
+      { "@type": "Thing", name: "Holdco + family trust structure", description: "Holdco connected to CCPC via §112(1) tax-free dividends; family trust enables multi-beneficiary LCGE claims at exit." },
+    ],
+    reviewedBy: {
+      "@type": "Person",
+      name: "Andrii Andriushchenko",
+      jobTitle: "Licensed Dealing Representative",
+      identifier: "NRD 4575551",
+      url: `https://sky-fort.ca/${locale}/pro-mene`,
+    },
+    lastReviewed: "2026-05-28",
+  };
+}
+
 function buildJsonLd(locale, c, path) {
   return {
     "@context": "https://schema.org",
@@ -422,9 +458,14 @@ export default async function EntrepreneursPillarPage({ params }) {
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <ScrollDepthTracker page="dlya-pidpryyemtsiv" />
+      <StickyCta locale={locale} page="dlya-pidpryyemtsiv" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, c, path)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildAudienceWebPageJsonLd(locale, c, path)) }}
       />
 
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
@@ -541,6 +582,10 @@ export default async function EntrepreneursPillarPage({ params }) {
         ]}
       />
       <StaticFaq faq={c.faq} heading={c.faqTitle} jsonLdId={`https://sky-fort.ca${path}#faq`} />
+
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <TopicSuggestForm locale={locale} source="dlya-pidpryyemtsiv" />
+      </section>
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>
