@@ -1,0 +1,208 @@
+---
+title: "T1135 Foreign Property: коли українець у Канаді мусить декларувати"
+description: "Combined foreign assets > $100K CAD = T1135 required. Що рахується (банк UA, нерухомість, RSU у US broker), penalty $25/день, як подати правильно у 2026."
+date: "2026-05-29"
+author: "Andrii Andriushchenko"
+tags: ["T1135", "foreign property", "CRA", "newcomer", "RSU", "UA-Canada", "tax"]
+pillar: "Tax"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **Коротко:** Якщо у тебе на 31 грудня **сумарні foreign assets > $100K CAD** (бaнк рахунки в Україні + Європі, нерухомість в Україні, RSU у US-broker, crypto у foreign exchange, etc.) — мусиш подати **Form T1135** разом з T1 tax return. Це **reporting requirement**, не податок — але penalty за late filing **$25/день, max $2,500/рік + до $12,000 у gross negligence cases**. Більшість українців у перший рік у Канаді не знають про це і пропускають. Цей пост — конкретно що рахується, що ні, і як правильно подати у 2026.
+
+## Що таке T1135 і чому це важливо
+
+**T1135 (Foreign Income Verification Statement)** — CRA form, що задекларує всі foreign assets that you own (or have beneficial interest in) як Canadian tax resident. Це **виключно reporting**, не таксація. Тобто:
+- Ти **НЕ платиш** Canadian tax на саме володіння foreign assets через T1135
+- Ти **зобов'язаний задекларувати** їх existence та value щороку
+- Penalty за **late or missing T1135** — separate від tax penalty
+
+**Threshold**: combined foreign assets cost > **$100,000 CAD** at **any point during the tax year**. Якщо ти **навіть один день** мав $100K+ — must file.
+
+> ⚠️ **EMD compliance disclaimer:** Це освітній матеріал, не tax advice. Для individual T1135 filing — engage Canadian CPA, especially specializing in newcomers + cross-border (US/UA).
+
+## Що рахується як «foreign property» для T1135
+
+CRA публікує full list (CRA Form T1135 instructions), але для українців-newcomers найрелевантніші:
+
+### Category 1: Foreign bank accounts
+
+- Bank accounts у Україні (Приват, Mono, Ощад) — TAK
+- Bank accounts у US (Wells Fargo, Chase) для US-employer RSU — TAK
+- European bank accounts (Revolut, N26, Wise) якщо ти ховаєш balance там — TAK
+- Crypto on foreign exchange (Binance, Coinbase outside Canada) — TAK
+- **Не рахується**: Canadian banks (RBC, Scotia, TD, Wealthsimple Cash)
+
+### Category 2: Foreign real estate
+
+- Apartment / house in Ukraine — TAK (cost = original purchase price у CAD)
+- Inherited property — TAK (cost = fair market value at inheritance)
+- **Не рахується**: personal-use property used > 50% of year (е.g. summer cottage that you actively live in)
+
+### Category 3: Foreign securities held in foreign brokers
+
+- US stocks held у Schwab/Fidelity/IB-US (not IB-Canada) — TAK
+- US-listed RSU vesting through US-based brokerage (E*TRADE, Schwab Equity) — TAK
+- Ukrainian shares — TAK
+- Crypto held у foreign exchange — TAK
+- **Не рахується**: Securities held у Canadian broker, including US-listed stocks in your Wealthsimple/Questrade/RBC Direct account
+
+### Category 4: Foreign mutual funds / ETFs / pension plans
+
+- European pension that you've vested (UK SIPP, German Riester) — TAK
+- Ukrainian NPF accumulations — TAK
+- **Не рахується**: Canadian RRSP/TFSA/FHSA/RESP
+
+### Category 5: Indebted to non-Canadian residents (Loans receivable)
+
+- Loaned money to family in Ukraine, expecting repayment — TAK
+- **Не рахується**: gifts (no expectation of repayment)
+
+## Як обчислюється $100K threshold
+
+**Critical**: $100K threshold based on **cost amount in CAD**, NOT current market value.
+
+Examples:
+- Bought apartment in Kyiv 2018 for $80K equivalent CAD → cost = $80K (не current market value $120K).
+- $30K RSU vested у 2025 у US broker → cost = $30K (fair market value at vesting day).
+- Bank balance 100,000 UAH on Dec 31 = ~$3,500 CAD → cost = $3,500.
+
+Convert at **CRA-approved exchange rate** at time of acquisition (annual average rate, or year-end spot for current balances). Use Bank of Canada rates (bankofcanada.ca).
+
+**If aggregating across categories**: 
+- Kyiv apartment (cost $80K) + bank balance ($5K) + US broker stocks ($25K) = $110K total. **Above $100K threshold → must file T1135.**
+
+If all combined < $100K: no T1135 required (BUT keep records — CRA can audit retroactively, and if your foreign assets later cross threshold you'll need historical cost data).
+
+## Two simplified reporting tiers
+
+T1135 has 2 reporting depths:
+
+### Simplified Method (< $250K combined foreign assets)
+
+If your combined foreign assets are between $100K-$250K (cost basis):
+- Report **type, top country, and aggregate cost ranges** ($100K-$200K, $200K-$300K, etc.) per category
+- НЕ потрібно reporting income from each property separately
+- Faster, less detailed
+
+### Detailed Method (≥ $250K combined)
+
+If your combined foreign assets are $250K+ (cost basis):
+- Report **each property separately** with cost amount, max cost during year, income earned, gain/loss on disposition
+- Much more detailed — typically requires accountant
+
+## Newcomer-specific patterns
+
+### Pattern 1: Just arrived (year 1)
+
+Ти прибув з Україною у 2024:
+- Apartment у Києві ($80K cost) — TAK
+- $5K cash у monobank — TAK
+- $10K у crypto wallet (foreign exchange) — TAK
+- Total: $95K → під threshold, **T1135 NOT required** for tax year 2024 ✓
+
+### Pattern 2: Year 2-3, accumulating Canadian wealth + retaining UA property
+
+Той же scenario, але у 2026:
+- Same apartment у Києві ($80K cost) — TAK
+- monobank balance now $8K — TAK
+- Crypto still $10K (didn't sell) — TAK
+- Bought US-listed Apple stock у Wealthsimple (Canadian broker) — **does NOT count for T1135**
+- Total: $98K → **still under threshold** ✓
+
+But if US-employer RSU vests у E*TRADE (US broker) $20K:
+- Apt $80K + monobank $8K + crypto $10K + E*TRADE $20K = **$118K** → **above threshold → T1135 required**
+
+### Pattern 3: Selling Ukrainian property and moving funds to Canada
+
+Якщо ти sells Kyiv apartment у 2026 за $120K (original cost $80K):
+- **Capital gain $40K**, taxable у Канаді (50% inclusion = $20K added to income)
+- **T1135 dispositions section** required (income from foreign property)
+- Plus T1 main return reports the gain
+- After sale, if cash transferred to Canadian bank → cash now in Canada, **no longer foreign**
+
+## How to file T1135
+
+### Step 1: Inventory all foreign assets at Dec 31
+
+Spreadsheet з columns:
+- Asset description (e.g. "Apartment, Kyiv, 50 sq.m")
+- Country
+- Cost (in CAD, at date of acquisition or year-end rate)
+- Max cost during year
+- Income earned (rental, dividends, interest)
+- Capital gain/loss if disposed
+
+### Step 2: Determine reporting tier
+
+Sum cost column. Якщо $100K-$250K → Simplified. Якщо ≥ $250K → Detailed.
+
+### Step 3: File with T1 return
+
+T1135 paper version: download from canada.ca/T1135, fill, mail з T1 return.
+T1135 electronic: included у more tax software (StudioTax, UFile, TurboTax Premium).
+
+**Filing deadline**: same as T1 — April 30 for most individuals, June 15 for self-employed.
+
+### Step 4: Keep records
+
+CRA can audit up to 6 років after filing. Keep:
+- Original purchase agreements / bank statements showing acquisition cost
+- Year-end balance statements
+- Exchange rate documentation
+
+## Penalty math
+
+If you fail to file T1135 by deadline:
+- **$25 per day late, max $2,500/year**
+
+If you knowingly hide foreign assets (gross negligence):
+- **5% of missing asset value per year**, max **$12,000**
+
+If you file but misstatement is material:
+- **$24,000 penalty** for false statement + tax + interest
+
+In 2024 CRA significantly upgraded enforcement on T1135 — they now cross-reference data with US IRS, UK HMRC, EU tax authorities (CRS — Common Reporting Standard).
+
+## Pitfalls українців-newcomers
+
+### Pitfall 1: «My UA apartment isn't worth $100K» — forgot original cost
+
+T1135 uses **cost amount in CAD at acquisition**, not current market value. If you bought 2018 for $80K equivalent — that's the number. Current value $120K is irrelevant for threshold (relevant only for sale capital gain).
+
+### Pitfall 2: Reporting only year-end snapshot
+
+T1135 threshold is **«at any point during year»**. If during March RSU vesting your foreign assets hit $110K briefly but back to $90K by Dec 31 — must still file.
+
+### Pitfall 3: Forgetting Canadian-based foreign stocks
+
+If you hold US stocks у Canadian broker (Wealthsimple, Questrade) — these **DON'T count** for T1135 (held in Canada, custodian is Canadian). Easy mistake to over-report.
+
+### Pitfall 4: Combined foreign assets just under $100K — don't file but no record-keeping
+
+If you're at $95K total, no T1135 needed THIS year. But next year you may cross threshold — need historical cost data to file accurately. **Keep records regardless of current threshold position.**
+
+### Pitfall 5: Crypto on foreign exchanges treated as «just crypto»
+
+Binance/Coinbase outside Canada = foreign asset for T1135 purposes. Many crypto holders miss this. Wealthsimple Crypto / NDAX (Canadian-based) = does NOT count.
+
+## What if you missed T1135 in past years
+
+**Voluntary Disclosure Program (VDP)**:
+- CRA program for voluntarily disclosing missed past filings
+- Penalty waived or reduced for first-time good-faith disclosures
+- Must be filed BEFORE CRA initiates audit
+- Generally only available once per taxpayer
+
+Strategy: якщо ти приїхав 2024, не подавав T1135 (didn't know), і now realize you should have — submit VDP for missed years immediately. Engage CPA. Penalty significantly lower than waiting for CRA audit.
+
+## Action plan для 2026 tax season
+
+1. **December 2025 / January 2026**: inventory всіх foreign assets на 31 December 2025
+2. **Convert to CAD** at BoC rates (annual average for income, year-end spot for balances)
+3. **Determine threshold**: total cost < $100K? No T1135 needed but keep records. ≥ $100K? File T1135 (Simplified if < $250K, Detailed if ≥).
+4. **Engage CPA** if first-time, complex situation (cross-border income, multiple countries, rental property abroad)
+5. **File by April 30** (or June 15 if self-employed)
+
+Цей пост — частина серії про newcomer-tax. Перший рік чек-лист — [Перший рік у Канаді: фінансовий чек-лист](/uk/blog/pershyi-rik-v-kanadi-finansovyi-cheklist).

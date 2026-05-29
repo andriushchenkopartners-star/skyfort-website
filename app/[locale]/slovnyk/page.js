@@ -242,6 +242,149 @@ const TERMS_UK = [
       "Google категорія high-stakes контенту (фінанси, здоров'я, право), для якого Search Quality Rater Guidelines вимагають вищого рівня E-E-A-T (Experience, Expertise, Authoritativeness, Trust). Фінансовий контент від licensed professionals має суттєву SERP перевагу над unverified авторами.",
     source: { label: "Google Search Quality Guidelines", url: "https://static.googleusercontent.com/media/guidelines.raterhub.com/en//searchqualityevaluatorguidelines.pdf" },
   },
+  // ─── Batch 14 expansion: +20 terms ───────────────────────────────────────
+  {
+    id: "etf",
+    term: "ETF — Exchange-Traded Fund",
+    definition:
+      "Кошик securities (stocks, bonds) що торгується на біржі як одна акція. Канадські ETF мають MER 0.05-0.30% (vs 1.5-2.5% mutual fund). Доступні через будь-який self-directed broker (Wealthsimple, Questrade). Broad-market: XEQT, VEQT, VFV, XAW.",
+    source: { label: "IIROC ETF guidance", url: "https://www.ciro.ca/" },
+    related: { label: "MER impact калькулятор", href: "/calculators/mer-impact" },
+  },
+  {
+    id: "mer",
+    term: "MER — Management Expense Ratio",
+    definition:
+      "Щорічна комісія управителя фонду, автоматично віднімається з вартості unit-ів. Канадські банківські mutual funds типово 1.5-2.5%; self-directed ETF 0.05-0.30%. За 30 років 2% MER з'їдає 40-50% потенційного фінального капіталу (T-REX score).",
+    source: { label: "CSA — Cost of investing", url: "https://www.securities-administrators.ca/" },
+    related: { label: "MER калькулятор", href: "/calculators/mer-impact" },
+  },
+  {
+    id: "trex",
+    term: "T-REX Score (Total Return Efficiency Index)",
+    definition:
+      "Метрика Larry Bates (автор «Beat the Bank»): частка compound return яка залишається у тебе після MER. 100% = ідеально (0 MER). 60% = $40 з кожних $100 потенційного прибутку пішло фонду. Якщо T-REX < 70% — переходь на self-directed ETF.",
+    source: { label: "larrybates.ca", url: "https://larrybates.ca/" },
+  },
+  {
+    id: "cra",
+    term: "CRA — Canada Revenue Agency",
+    definition:
+      "Federal податковий орган Канади. Адмініструє income tax, GST/HST, RRSP/TFSA/FHSA contribution rooms, CCB, CESG. Перевір свої ліміти + NoA у CRA My Account (my.cra-arc.gc.ca).",
+    source: { label: "canada.ca/CRA", url: "https://www.canada.ca/en/revenue-agency.html" },
+  },
+  {
+    id: "ccb",
+    term: "CCB — Canada Child Benefit",
+    definition:
+      "Tax-free monthly payment для сімей з дітьми до 18. Сума залежить від family income (до $7,787/рік на дитину 0-5, $6,570 на дитину 6-17 у 2026). Автоматично нараховується після tax return.",
+    source: { label: "canada.ca/CCB", url: "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview.html" },
+  },
+  {
+    id: "oas",
+    term: "OAS — Old Age Security",
+    definition:
+      "Federal pension benefit для residents 65+. Максимум $727/міс (2026) залежить від років residency у Канаді (full 40 years = full amount). Якщо income > $90K — OAS clawback. Newcomers потребують 10+ років residency для будь-якого OAS.",
+    source: { label: "canada.ca/OAS", url: "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security.html" },
+  },
+  {
+    id: "cpp",
+    term: "CPP — Canada Pension Plan",
+    definition:
+      "Contributory pension. Employee + employer кожен платить 5.95% earned income до YMPE $73,200 (2026). Self-employed платять обидві сторони (11.9%). Максимальна benefit при retirement at 65: ~$1,433/міс (потребує 40+ років max contributions).",
+    source: { label: "canada.ca/CPP", url: "https://www.canada.ca/en/services/benefits/publicpensions/cpp.html" },
+  },
+  {
+    id: "rrif",
+    term: "RRIF — Registered Retirement Income Fund",
+    definition:
+      "Конверсія RRSP до retirement income vehicle. Має бути зроблена до кінця року коли тобі 71. Мінімальні щорічні withdrawals по age-based formula (4% at 65 до 18% at 95). Все withdrawn оподатковується як income.",
+    source: { label: "canada.ca/RRIF", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/transferring/converting-your-rrsp-rrif.html" },
+  },
+  {
+    id: "lif",
+    term: "LIF — Life Income Fund",
+    definition:
+      "Locked-in RRIF — конвертований з locked-in pension funds (LIRA). Має мінімум AND максимум withdrawals щороку (формула регламентує). Provincial rules vary — AB/BC дозволяють unlock 50% LIRA до RRSP one-time.",
+    source: { label: "OSFI — LIF rules", url: "https://www.osfi-bsif.gc.ca/" },
+  },
+  {
+    id: "t1135",
+    term: "T1135 — Foreign Income Verification Statement",
+    definition:
+      "CRA reporting requirement якщо твої combined foreign assets > $100K CAD у будь-якому tax year. Включає: foreign bank accounts, foreign rental property, foreign stocks/ETF held у non-Canadian brokers, foreign trusts. Penalty за late filing: $25/день, max $2,500/рік.",
+    source: { label: "canada.ca/T1135", url: "https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t1135.html" },
+  },
+  {
+    id: "noa-detail",
+    term: "NoA fields — що шукати у Notice of Assessment",
+    definition:
+      "Ключові рядки NoA: RRSP Deduction Limit (наступний рік), Unused TFSA Contribution Room, HBP Repayments Outstanding, Carry-forward Losses (capital), Carry-forward Tuition Credits, Pension Adjustment (якщо є RPP). Перевір on CRA My Account кожен квітень.",
+    source: { label: "CRA My Account", url: "https://www.canada.ca/en/revenue-agency/services/e-services/cra-my-account.html" },
+  },
+  {
+    id: "lcis",
+    term: "Locked-in Pension (LIRA)",
+    definition:
+      "Locked-in Retirement Account. Створюється при transfer з employer DB/DC pension plan. Не можна withdraw до age 55 (provincial vary). При retirement конвертується у LIF / annuity. Деякі provinces дозволяють 50% one-time unlock.",
+    source: { label: "OSFI", url: "https://www.osfi-bsif.gc.ca/" },
+  },
+  {
+    id: "rdsp",
+    term: "RDSP — Registered Disability Savings Plan",
+    definition:
+      "Tax-deferred account для людей з disability tax credit (DTC). Government grants: CDSG до $3,500/рік, CDSB до $1,000/рік для low-income families. Lifetime limit $200K contributions. Withdrawal не affect AISH або інші disability benefits.",
+    source: { label: "canada.ca/RDSP", url: "https://www.canada.ca/en/employment-social-development/programs/disability/savings.html" },
+  },
+  {
+    id: "dtc",
+    term: "DTC — Disability Tax Credit",
+    definition:
+      "Non-refundable federal tax credit для людей з severe + prolonged impairment. Approval через Form T2201 (медичним практитіонером). Дає access до RDSP, CDSG/CDSB. Backdate до 10 років past tax refunds можливо при approval.",
+    source: { label: "canada.ca/DTC", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit.html" },
+  },
+  {
+    id: "tax-loss-harvest",
+    term: "Tax-loss harvesting",
+    definition:
+      "Стратегія: продати investment з паперовим збитком у non-registered account щоб realize capital loss, потім купити equivalent (не identical — superficial loss rules) за 30+ днів. Capital loss offsetа́є current/past/future capital gains. Не applicable у TFSA / RRSP.",
+    source: { label: "CRA — superficial loss rules", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains.html" },
+  },
+  {
+    id: "superficial-loss",
+    term: "Superficial loss rule (CRA)",
+    definition:
+      "CRA anti-abuse rule: якщо ти продаєш security at a loss і re-buy «identical property» у 30 днів (до або після), capital loss disallowed. Identical = same ETF / stock. Workaround: купи дуже схожий but не identical product (e.g. VFV → ZSP — both S&P 500 але різні issuers).",
+    source: { label: "CRA — superficial losses", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/transferring-shares-spouse.html" },
+  },
+  {
+    id: "gst-hst",
+    term: "GST/HST registration",
+    definition:
+      "Federal value-added tax. Self-employed / business owners мають register коли revenue > $30K у будь-якому 4-quarter rolling window. Once registered: charge GST/HST на invoices, claim input tax credits на business expenses, file returns quarterly/annually.",
+    source: { label: "canada.ca/GST", url: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses.html" },
+  },
+  {
+    id: "ymp-yampe",
+    term: "YMPE / YAMPE (CPP enhancements)",
+    definition:
+      "Year's Maximum Pensionable Earnings ($73,200 у 2026) — основний CPP cap. YAMPE ($83,200 у 2026) — second-tier cap for CPP2 (enhanced CPP rolled out 2024). Earnings between YMPE+YAMPE attract additional 4% CPP2 contribution. Increases future CPP benefits.",
+    source: { label: "canada.ca/CPP-enhancement", url: "https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-enhancement.html" },
+  },
+  {
+    id: "spousal-rrsp",
+    term: "Spousal RRSP",
+    definition:
+      "RRSP де ти (higher-income spouse) contributeет, але spouse — annuitant (owner). Goal: equalize retirement income між spouses щоб minimize total household tax у retirement. 3-year attribution rule: якщо spouse withdraws < 3 років після твого contribution, withdrawal taxed back до тебе.",
+    source: { label: "canada.ca/spousal-RRSP", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/contributing-a-spouse-common-law-partner-rrsp-prpp.html" },
+  },
+  {
+    id: "rrsp-overcontribution",
+    term: "RRSP over-contribution",
+    definition:
+      "CRA дозволяє buffer $2,000 (lifetime) понад твоє RRSP room без penalty. Понад $2,000 — 1% per month penalty на excess. Tax credit на over-contribution не доступний у поточному році, але можна claim у наступному (якщо room звільниться).",
+    source: { label: "canada.ca/RRSP-overcontribution", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/excess-contributions.html" },
+  },
 ];
 
 // RU translations of the same set, abbreviated.
@@ -309,6 +452,27 @@ const TERMS_RU = TERMS_UK.map((t) => {
     "cuaet": "Специальная программа (2022-2024) для украинцев. Temporary residence + open work permit до 3 лет.",
     "finfluencer": "Лицо публикующее финансовый контент в соц медиа без профессиональной лицензии. Joint CSA/CIRO Notice 31-369 (Dec 2025) устанавливает правила.",
     "ymyl": "Google категория high-stakes контента (финансы, здоровье, право). Search Quality Rater Guidelines требуют высокого E-E-A-T.",
+    // ─── Batch 14: +20 terms (RU translations) ───────────────────────────
+    "etf": "Корзина securities (stocks, bonds) торгуемая на бирже как одна акция. Канадские ETF имеют MER 0.05-0.30% (vs 1.5-2.5% mutual fund).",
+    "mer": "Ежегодная комиссия управителя фонда. Канадские банковские mutual funds 1.5-2.5%; self-directed ETF 0.05-0.30%. За 30 лет 2% MER съедает 40-50% потенциального капитала.",
+    "trex": "Метрика Larry Bates (автор «Beat the Bank»): доля compound return остающаяся у тебя после MER. T-REX < 70% → переходи на self-directed ETF.",
+    "cra": "Federal налоговый орган Канады. Администрирует income tax, GST/HST, RRSP/TFSA/FHSA contribution rooms. Проверь свои лимиты в CRA My Account.",
+    "ccb": "Tax-free monthly payment для семей с детьми до 18. Сумма зависит от family income (до $7,787/год на ребёнка 0-5 в 2026).",
+    "oas": "Federal pension для residents 65+. Максимум $727/мес (2026). Newcomers требуют 10+ лет residency для любого OAS.",
+    "cpp": "Contributory pension. Employee + employer каждый платит 5.95% earned income до YMPE $73,200 (2026). Self-employed платят обе стороны (11.9%).",
+    "rrif": "Конверсия RRSP в retirement income vehicle. Должна быть сделана до конца года когда тебе 71. Минимальные ежегодные withdrawals по age-based formula.",
+    "lif": "Locked-in RRIF — конвертированный из locked-in pension funds (LIRA). Имеет минимум И максимум withdrawals ежегодно.",
+    "t1135": "CRA reporting requirement если combined foreign assets > $100K CAD. Penalty за late filing: $25/день, max $2,500/год.",
+    "noa-detail": "Ключевые строки NoA: RRSP Deduction Limit, Unused TFSA Contribution Room, HBP Repayments, Carry-forward Losses, Pension Adjustment.",
+    "lcis": "Locked-in Retirement Account. Создаётся при transfer из employer DB/DC pension plan. Нельзя withdraw до age 55 (provincial vary).",
+    "rdsp": "Tax-deferred account для людей с disability tax credit (DTC). Government grants: CDSG до $3,500/год, CDSB до $1,000/год.",
+    "dtc": "Non-refundable federal tax credit для людей с severe + prolonged impairment. Approval через Form T2201. Backdate до 10 лет past tax refunds.",
+    "tax-loss-harvest": "Стратегия: продать investment с paper loss в non-registered, потом купить equivalent (не identical — superficial loss rules) за 30+ дней.",
+    "superficial-loss": "CRA anti-abuse rule: если продаёшь security at a loss и re-buy «identical property» в 30 дней — capital loss disallowed.",
+    "gst-hst": "Federal value-added tax. Self-employed должны register когда revenue > $30K в любом 4-quarter rolling window.",
+    "ymp-yampe": "YMPE ($73,200 в 2026) — основной CPP cap. YAMPE ($83,200) — second-tier для CPP2 (enhanced CPP с 2024).",
+    "spousal-rrsp": "RRSP где ты contributeешь, но spouse — annuitant. Goal: equalize retirement income. 3-year attribution rule.",
+    "rrsp-overcontribution": "CRA позволяет buffer $2,000 (lifetime) сверх RRSP room без penalty. Сверх — 1% per month penalty на excess.",
   };
   return { ...t, term: rmap[t.id] || t.term, definition: dmap[t.id] || t.definition };
 });
@@ -345,14 +509,35 @@ const TERMS_EN = TERMS_UK.map((t) => {
     "cuaet": "Canada-Ukraine Authorization for Emergency Travel — 2022-2024 program for Ukrainians. Temporary residence + open work permit up to 3 years. Tax residency starts at arrival establishing residential ties.",
     "finfluencer": "Person posting financial content on social media without professional registration. Joint CSA/CIRO Staff Notice 31-369 (Dec 2025) sets rules: educational content OK, specific buy/sell recommendations illegal without registration.",
     "ymyl": "Your Money or Your Life — Google's category of high-stakes content (finance, health, legal). Search Quality Rater Guidelines require elevated E-E-A-T. Licensed-author content has SERP advantage.",
+    // ─── Batch 14: +20 terms (EN definitions) ────────────────────────────
+    "etf": "Exchange-Traded Fund — a basket of securities (stocks, bonds) that trades on an exchange like a single share. Canadian ETFs run 0.05-0.30% MER vs 1.5-2.5% for mutual funds. Available through any self-directed broker. Broad-market: XEQT, VEQT, VFV, XAW.",
+    "mer": "Management Expense Ratio — annual fee charged by the fund manager, auto-deducted from unit values. Canadian bank mutual funds typically run 1.5-2.5%; self-directed ETFs run 0.05-0.30%. Over 30 years, 2% MER eats 40-50% of potential final capital (T-REX score).",
+    "trex": "T-REX Score (Total Return Efficiency Index) — Larry Bates' metric from 'Beat the Bank': share of compound return you keep after MER. 100% = perfect (no MER). 60% = $40 of every $100 of potential gain went to the fund. T-REX below 70% = switch to self-directed ETF.",
+    "cra": "Canada Revenue Agency — federal tax authority. Administers income tax, GST/HST, RRSP/TFSA/FHSA contribution rooms, CCB, CESG. Check your limits + NoA via CRA My Account (my.cra-arc.gc.ca).",
+    "ccb": "Canada Child Benefit — tax-free monthly payment for families with children under 18. Amount depends on family income (up to $7,787/yr per child 0-5, $6,570 per child 6-17 in 2026). Auto-calculated from tax return.",
+    "oas": "Old Age Security — federal pension benefit for residents 65+. Max $727/mo (2026) depends on years of Canadian residency (full 40 yrs = full amount). If income > $90K — OAS clawback. Newcomers need 10+ years of residency for any OAS.",
+    "cpp": "Canada Pension Plan — contributory pension. Employee + employer each pay 5.95% of earned income up to YMPE $73,200 (2026). Self-employed pay both sides (11.9%). Max benefit at age-65 retirement: ~$1,433/mo (requires 40+ years of max contributions).",
+    "rrif": "Registered Retirement Income Fund — conversion of RRSP to a retirement income vehicle. Must be done by end of the year you turn 71. Minimum annual withdrawals follow an age-based formula (4% at 65 rising to 18% at 95). All withdrawn taxed as income.",
+    "lif": "Life Income Fund — locked-in RRIF converted from locked-in pension funds (LIRA). Has minimum AND maximum annual withdrawals (formula-prescribed). Provincial rules vary — AB/BC allow one-time unlock of 50% LIRA into RRSP.",
+    "t1135": "Foreign Income Verification Statement — CRA reporting requirement if your combined foreign assets exceed $100K CAD in any tax year. Covers: foreign bank accounts, foreign rental property, foreign stocks/ETFs held in non-Canadian brokers, foreign trusts. Late-filing penalty: $25/day, $2,500/yr max.",
+    "noa-detail": "Key NoA fields to review: RRSP Deduction Limit (next year), Unused TFSA Contribution Room, HBP Repayments Outstanding, Carry-forward Losses (capital), Carry-forward Tuition Credits, Pension Adjustment (if RPP exists). Review on CRA My Account every April.",
+    "lcis": "Locked-in Retirement Account (LIRA) — created when transferring from an employer DB/DC pension plan. Cannot withdraw before age 55 (provincial vary). At retirement converts to LIF / annuity. Some provinces allow 50% one-time unlock.",
+    "rdsp": "Registered Disability Savings Plan — tax-deferred account for people with Disability Tax Credit (DTC). Government grants: CDSG up to $3,500/yr, CDSB up to $1,000/yr for low-income families. Lifetime contribution limit $200K. Withdrawals don't affect AISH or other disability benefits.",
+    "dtc": "Disability Tax Credit — non-refundable federal tax credit for people with severe + prolonged impairment. Approval via Form T2201 (medical practitioner). Unlocks RDSP, CDSG/CDSB. Backdate up to 10 years of past tax refunds possible at approval.",
+    "tax-loss-harvest": "Strategy: sell an investment at a paper loss in a non-registered account to realize the capital loss, then buy an equivalent (not identical — superficial loss rules) at least 30+ days later. Capital loss offsets current/past/future capital gains. Not applicable inside TFSA/RRSP.",
+    "superficial-loss": "CRA anti-abuse rule: if you sell a security at a loss and re-buy 'identical property' within 30 days (before or after), the capital loss is disallowed. Identical = same ETF/stock. Workaround: buy a very similar but not identical product (e.g. VFV → ZSP — both S&P 500 but different issuers).",
+    "gst-hst": "Goods and Services Tax / Harmonized Sales Tax registration — federal value-added tax. Self-employed / business owners must register when revenue exceeds $30K in any 4-quarter rolling window. Once registered: charge GST/HST on invoices, claim input tax credits, file returns quarterly/annually.",
+    "ymp-yampe": "YMPE (Year's Maximum Pensionable Earnings, $73,200 in 2026) — primary CPP cap. YAMPE ($83,200 in 2026) — second-tier cap for CPP2 (enhanced CPP rolled out 2024). Earnings between YMPE and YAMPE attract an additional 4% CPP2 contribution.",
+    "spousal-rrsp": "Spousal RRSP — RRSP where you (higher-income spouse) contribute but your spouse is the annuitant (owner). Goal: equalize retirement income to minimize total household tax in retirement. 3-year attribution rule: if spouse withdraws within 3 years of your contribution, withdrawal is taxed back to you.",
+    "rrsp-overcontribution": "CRA allows a $2,000 lifetime buffer above your RRSP room without penalty. Above $2,000 — 1% per-month penalty on the excess. Tax credit on the over-contribution isn't available in the current year but can be claimed in a future year if room opens up.",
   };
   return { ...t, definition: dmap[t.id] || t.definition };
 });
 
 const COPY = {
   uk: {
-    titleMeta: "Словник канадських фінансів — 30+ термінів",
-    descriptionMeta: "30+ ключових термінів канадських особистих фінансів: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Словник канадських фінансів — 50+ термінів",
+    descriptionMeta: "50+ ключових термінів канадських особистих фінансів: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Головна",
     crumbThis: "Словник",
     eyebrow: "Glossary · Canadian finance",
@@ -364,8 +549,8 @@ const COPY = {
     terms: TERMS_UK,
   },
   ru: {
-    titleMeta: "Словарь канадских финансов — 30+ терминов",
-    descriptionMeta: "30+ ключевых терминов канадских личных финансов: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Словарь канадских финансов — 50+ терминов",
+    descriptionMeta: "50+ ключевых терминов канадских личных финансов: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Главная",
     crumbThis: "Словарь",
     eyebrow: "Glossary · Canadian finance",
@@ -377,8 +562,8 @@ const COPY = {
     terms: TERMS_RU,
   },
   en: {
-    titleMeta: "Canadian finance glossary — 30+ terms",
-    descriptionMeta: "30+ key Canadian personal-finance terms: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Canadian finance glossary — 50+ terms",
+    descriptionMeta: "50+ key Canadian personal-finance terms: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Home",
     crumbThis: "Glossary",
     eyebrow: "Glossary · Canadian finance",

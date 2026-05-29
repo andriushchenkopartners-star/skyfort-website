@@ -16,30 +16,52 @@ const ORIGIN = process.argv[2] || "https://sky-fort.ca";
 // Representative sample of routes that emit JSON-LD. Each batch should
 // add new pages here. Order = priority (first errors halt early).
 const ROUTES = [
+  // Locale homepages
   "/uk",
+  "/ru",
+  "/en",
+  // YMYL trust
   "/uk/pro-mene",
   "/uk/perevirka",
   "/uk/porivnyannia",
   "/uk/eligibility",
   "/uk/finfluencer-compliance",
+  // ICP pillars
   "/uk/dlya-it-fakhivtsiv",
   "/uk/dlya-mediks",
   "/uk/dlya-pidpryyemtsiv",
+  // Cases + reference
   "/uk/case-studies",
+  "/uk/case-studies/it-fakhivets-rsu-vesting-strategy",
+  "/uk/case-studies/mediks-mpc-incorporation-timeline",
+  "/uk/case-studies/pidpryyemets-lcge-exit-planning",
   "/uk/tt-library",
   "/uk/slovnyk",
+  // Calculators
   "/uk/calculators/rsu-tax",
   "/uk/calculators/tfsa-growth",
+  "/uk/calculators/mer-impact",
+  "/uk/calculators/mpc-vs-sole-proprietor",
+  // Blog
   "/uk/blog",
   "/uk/blog/csa-ciro-staff-notice-31-369-poyasnennya",
   "/uk/blog/rsu-vesting-kanada-podatkova-strategiya",
+  "/uk/blog/etf-placement-rrsp-tfsa-fhsa-strategy",
+  "/uk/blog/cesg-maximum-strategy-resp",
+  "/uk/blog/t1135-foreign-property-newcomer",
+  "/uk/blog/newcomer-first-year-tax-mistakes",
+  // Programmatic
   "/uk/services/tfsa/calgary",
 ];
 
-// Required properties per @type (incomplete — just the types we use).
+// Required properties per @type. Aligned with Schema.org spec + Google
+// Rich Results requirements (the latter being stricter — included where
+// known).
 const REQUIRED_BY_TYPE = {
   Article: ["headline"],
   FAQPage: ["mainEntity"],
+  // Google Rich Results for video want: name, description, thumbnailUrl,
+  // uploadDate. Our validator checks the spec minimum.
   VideoObject: ["name", "uploadDate", "thumbnailUrl"],
   WebPage: [], // Speakable parent — speakable property is optional
   Person: ["name"],
@@ -56,6 +78,38 @@ const REQUIRED_BY_TYPE = {
   WebApplication: ["name"],
   Quiz: ["name"],
   Question: ["name", "acceptedAnswer"],
+  // Batch 14 additions for completeness
+  Course: ["name", "description", "provider"],
+  Event: ["name", "startDate", "location"],
+  Product: ["name"],
+  Recipe: ["name", "recipeIngredient", "recipeInstructions"],
+  Review: ["reviewRating", "author"],
+  Rating: ["ratingValue"],
+  AggregateRating: ["ratingValue", "ratingCount"],
+  Answer: ["text"],
+  ListItem: ["position"],
+  ImageObject: ["url"],
+  Occupation: ["name"],
+  EducationalOccupationalCredential: ["credentialCategory"],
+  PostalAddress: ["addressLocality", "addressCountry"],
+  ContactPoint: ["telephone"],
+  Place: ["name"],
+  Country: ["name"],
+  AdministrativeArea: ["name"],
+  CreativeWork: ["name"],
+  SpeakableSpecification: ["cssSelector"],
+  InteractionCounter: ["interactionType"],
+  WatchAction: [],
+  Offer: ["price", "priceCurrency"],
+  OfferCatalog: ["name"],
+  Brand: ["name"],
+  Thing: ["name"],
+  MedicalAudience: [],
+  Audience: ["audienceType"],
+  GeoCoordinates: ["latitude", "longitude"],
+  OpeningHoursSpecification: ["opens", "closes"],
+  SearchAction: ["target"],
+  WebSite: ["url"],
 };
 
 function getContextString(ctx) {
