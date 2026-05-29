@@ -1,0 +1,137 @@
+---
+title: "Self-employed / IT contractor у Канаді: податковий setup з нуля"
+description: "Sole proprietor vs incorporate, GST/HST реєстрація ($30K поріг), tax instalments, business write-offs, home office, CPP self-employed. Гайд для українських freelancer/contractor 2026."
+date: "2026-05-29"
+author: "Andrii Andriushchenko"
+tags: ["self-employed", "contractor", "freelancer", "GST", "tax instalments", "IT", "Канада"]
+pillar: "Tech"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **Коротко:** Багато українців у Канаді працюють як IT-contractor / freelancer (1099-equivalent, T4A, або invoicing). Це робить тебе **self-employed** — інший податковий світ ніж T4 employee. Ключове: ти платиш **both halves of CPP** (11.9%), маєш **GST/HST register** при revenue > $30K, мусиш робити **quarterly tax instalments** (CRA не withhold-ить за тебе), АЛЕ можеш **deduct business expenses** (home office, equipment, software, частина auto). Sole proprietor простіший на старті; incorporate коли стабільно $100K+ retained. Цей гайд — повний setup.
+
+## Self-employed ≠ employee: ключова різниця
+
+Як **T4 employee**: роботодавець withhold-ить income tax + CPP + EI з кожної зарплати, ти отримуєш net, у квітні майже нічого не доплачуєш.
+
+Як **self-employed** (contractor/freelancer): ти отримуєш **gross** (повну суму), і САМ відповідаєш за:
+- Income tax (нічого не withheld)
+- **Both halves of CPP** (11.9% — employee + employer частини)
+- GST/HST collection + remittance (якщо registered)
+- Quarterly instalments (CRA хоче податок протягом року, не лише у квітні)
+
+Найбільший шок: перший tax bill. Якщо заробив $120K self-employed і не відкладав — можеш бути винен $35-45K у квітні. Тому: **відкладай 30% кожного invoice** у окремий savings account.
+
+> ⚠️ **EMD compliance disclaimer:** Освітній матеріал, не tax/accounting порада. Self-employed tax має багато nuances; engage CPA. Я не надаю accounting services.
+
+## Sole proprietor vs incorporate
+
+### Sole proprietor (default, найпростіший)
+- Business income йде у твій personal T1 (form T2125)
+- Жодної окремої legal entity
+- Простий, дешевий, нема corporate filing
+- АЛЕ: весь income оподатковується personal rate (до 47%), нема tax deferral, unlimited personal liability
+
+### Incorporate (CCPC)
+- Окрема legal entity
+- SBD 11% corporate tax + tax deferral на retained earnings
+- Income splitting potential, LCGE на exit, asset protection
+- АЛЕ: $1.5-3K setup + $1.5-3K/рік accounting
+
+**Правило**: залишайся sole proprietor поки income < $100K або витрачаєш весь income. Incorporate коли стабільно заробляєш суттєво більше за living needs (можеш retain $50-100K+/рік). Деталі — [CCPC incorporation крок за кроком](/uk/blog/ccpc-incorporation-stepbystep-newcomer).
+
+## GST/HST — $30K поріг
+
+**Mandatory register** коли revenue перевищує **$30,000 у будь-якому 4-quarter rolling window** (не calendar year — rolling!).
+
+Після реєстрації:
+- **Charge GST/HST** на invoices (5% GST у AB, 13% HST у ON, 12% у BC)
+- **Collect** від клієнтів, **remit** до CRA (quarterly/annually)
+- **Claim Input Tax Credits (ITC)**: GST що ти заплатив на business expenses відраховується від GST що collected
+
+**Нюанс для IT-contractor з US/foreign клієнтами**: експорт послуг (клієнт за межами Канади) часто **zero-rated** (0% GST) — ти не charge-уєш, але все одно claim-уєш ITC на expenses. Це може давати GST refund. Важливий для українців що працюють remote на US/EU компанії — discuss з CPA.
+
+**Стратегічно**: навіть під $30K можна voluntarily register щоб claim ITC (якщо багато business expenses з GST). Worth it якщо expenses значні.
+
+## Quarterly tax instalments
+
+CRA вимагає instalments якщо твій net tax owing > $3,000 у поточному + одному з 2 попередніх років.
+
+- Платежі: 15 березня, 15 червня, 15 вересня, 15 грудня
+- CRA надсилає instalment reminders (суми based on prior year)
+- Якщо не платиш instalments → interest + можливі penalties
+
+**Стратегія**: відкладай 25-30% кожного invoice одразу. З цього роби instalments. Не чекай квітня з порожнім рахунком.
+
+## Business write-offs (легальні deductions)
+
+Self-employed може deduct reasonable business expenses:
+
+### Home office
+Якщо працюєш з дому: deduct **частину** rent/mortgage interest, utilities, internet, property tax — proportional to workspace (e.g. office = 15% площі → 15% цих витрат). Form T2125.
+
+### Equipment + software
+- Laptop, monitor, phone — capital cost allowance (CCA, depreciated) або одразу якщо < $500
+- Software subscriptions (GitHub, AWS, Adobe, etc.) — fully deductible
+- Internet + phone (business portion)
+
+### Professional + other
+- Accounting/legal fees
+- Professional development (courses related to business)
+- Business insurance
+- Auto (business portion — log km, deduct fuel/insurance/maintenance proportionally)
+- Meals з клієнтами (50% deductible)
+
+**Critical**: keep receipts + records. CRA може audit. Personal expenses НЕ deductible — не змішуй.
+
+## CPP self-employed
+
+Як self-employed ти платиш **both halves**: 11.9% on earnings up to YMPE $73,200 (2026) = до ~$8,700/рік. Plus CPP2 на earnings $73,200-$83,200.
+
+Це часто неприємний сюрприз. Закладай у свій 30% reserve. Перевага: builds твою future CPP benefit.
+
+(Incorporation дозволяє частково уникати CPP через dividend-only compensation — одна з причин incorporate at higher income.)
+
+## EI — opt-in для self-employed
+
+Self-employed за замовчуванням **не платять EI** і не eligible для regular EI. Але можна **voluntarily opt-in** для special benefits (maternity/parental/sickness) через окрему реєстрацію. Worth it якщо плануєш дитину — обговори timing з CPA.
+
+## Banking + records setup
+
+1. **Окремий business chequing** (навіть як sole proprietor) — не змішуй з personal
+2. **Окремий "tax reserve" savings** — 30% кожного invoice туди
+3. **Accounting software**: Wave (безкоштовний), QuickBooks Self-Employed, FreshBooks — track income/expenses/GST
+4. **Mileage log** якщо claim-уєш auto
+5. **Receipt storage** (digital — Hubdoc, Dext, або просто фото у папці)
+
+## Інвестиції для self-employed
+
+Без employer pension — ти сам будуєш retirement:
+- **RRSP**: self-employed earned income generates RRSP room (18%). Max it.
+- **TFSA**: $7K/рік, tax-free
+- **Якщо incorporate**: retained earnings investing + потенційно IPP пізніше
+- **Eligible Investor**: self-employed з $75K+ income часто qualify → exempt market через мене ([self-check](/uk/eligibility))
+
+## Common помилки
+
+1. **Не відкладати на податки** → катастрофа у квітні. Reserve 30% кожного invoice.
+2. **Пропустити GST registration** (revenue > $30K) → penalties + back-GST
+3. **Не робити instalments** → interest charges
+4. **Змішувати personal + business** → audit risk + denied deductions
+5. **Не знати про zero-rated exports** (US/foreign клієнти) → переплата GST
+6. **Incorporate занадто рано** (income < $100K) → costs > benefit
+7. **Ігнорувати CPP both-halves** у планування → cash flow surprise
+
+## Action plan
+
+1. **Business bank account** + tax-reserve savings (30% rule)
+2. **Accounting software** (Wave free для старту)
+3. **GST register** при revenue > $30K (або voluntarily якщо багато ITC)
+4. **Quarterly instalments** з reserve
+5. **Track all deductions** (home office, equipment, software)
+6. **RRSP + TFSA** maxing (self-employed RRSP room from earned income)
+7. **CPA** at year 1 (setup + перший T1 з T2125)
+8. **Розглянь incorporation** коли стабільно retain $50-100K+/рік
+
+Для IT-фахівців з RSU/equity на додачу до contracting — [Фінанси для IT-фахівців](/uk/dlya-it-fakhivtsiv). Підприємцям з CCPC — [гайд для підприємців](/uk/dlya-pidpryyemtsiv).
