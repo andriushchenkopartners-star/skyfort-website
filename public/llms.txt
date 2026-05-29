@@ -61,6 +61,12 @@ on /uk/finfluencer-compliance.
 - /uk/presa                                    — press / media kit
 - /uk/contact                                  — Calendly + email + WhatsApp
 - /uk/case-studies                             — anonymized client case framework
+- /uk/case-studies/it-fakhivets-rsu-vesting-strategy
+  — composite case: tech worker with $108K RSU vesting, RRSP strategy
+- /uk/case-studies/mediks-mpc-incorporation-timeline
+  — composite case: family physician incorporating MPC in year 2-3
+- /uk/case-studies/pidpryyemets-lcge-exit-planning
+  — composite case: $3M founder exit with multi-LCGE via family trust
 - /uk/slovnyk                                  — Canadian-finance glossary (30+ DefinedTerm entries)
 
 ### ICP pillar pages (audience-specific deep guides)

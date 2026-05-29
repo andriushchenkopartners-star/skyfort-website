@@ -120,8 +120,8 @@ const COPY = {
         title: "IT-фахівець з US employer + RSU vesting",
         desc:
           "Senior engineer, $150-200K base + $80-120K RSU vesting on cliff. Питання: як оптимізувати tax bracket в рік vesting, як placeти US securities в TFSA vs RRSP, чи купляти home через FHSA. Framework: RRSP-first в vesting рік + auto-sell vested shares 80% + diversify через broad-market ETF.",
-        topicHref: "/dlya-it-fakhivtsiv",
-        topicLabel: "Гайд для IT-фахівців →",
+        topicHref: "/case-studies/it-fakhivets-rsu-vesting-strategy",
+        topicLabel: "Читати повний кейс →",
       },
       {
         icon: Stethoscope,
@@ -129,8 +129,8 @@ const COPY = {
         title: "Лікар-резидент з incoming MPC рішенням",
         desc:
           "Family physician, перші 2 роки practice, $280-340K gross. Питання: коли incorporate (MPC), salary vs dividend, чи відкривати holdco, коли підключати IPP. Framework: incorporate на 2-3 рік practice + salary до CPP-max + дивіденди для residual + IPP пізніше при $200K+ accumulated.",
-        topicHref: "/dlya-mediks",
-        topicLabel: "Гайд для медиків →",
+        topicHref: "/case-studies/mediks-mpc-incorporation-timeline",
+        topicLabel: "Читати повний кейс →",
       },
       {
         icon: Briefcase,
@@ -138,8 +138,8 @@ const COPY = {
         title: "Підприємець з $1M+ revenue CCPC",
         desc:
           "Service business owner, 5+ років operations, готовий до potential exit. Питання: чи отримує QSBS статус (lifetime capital gains exemption $1M+), як structurate holdco для asset protection, чи можна family trust для income splitting. Framework: pre-exit QSBS purification + holdco-вгорі + family trust на 7+ рік до exit.",
-        topicHref: "/dlya-pidpryyemtsiv",
-        topicLabel: "Гайд для підприємців →",
+        topicHref: "/case-studies/pidpryyemets-lcge-exit-planning",
+        topicLabel: "Читати повний кейс →",
       },
       {
         icon: Globe,
@@ -271,8 +271,8 @@ const COPY = {
         title: "IT-специалист с US employer + RSU vesting",
         desc:
           "Senior engineer, $150-200K base + $80-120K RSU vesting. Framework: RRSP-first в vesting год + auto-sell 80% + diversify через broad-market ETF.",
-        topicHref: "/dlya-it-fakhivtsiv",
-        topicLabel: "Гайд для IT-специалистов →",
+        topicHref: "/case-studies/it-fakhivets-rsu-vesting-strategy",
+        topicLabel: "Читать полный кейс →",
       },
       {
         icon: Stethoscope,
@@ -280,8 +280,8 @@ const COPY = {
         title: "Врач-резидент с incoming MPC решением",
         desc:
           "Family physician, первые 2 года practice, $280-340K gross. Framework: incorporate на 2-3 год + salary до CPP-max + дивиденды для residual + IPP позже.",
-        topicHref: "/dlya-mediks",
-        topicLabel: "Гайд для медиков →",
+        topicHref: "/case-studies/mediks-mpc-incorporation-timeline",
+        topicLabel: "Читать полный кейс →",
       },
       {
         icon: Briefcase,
@@ -289,8 +289,8 @@ const COPY = {
         title: "Предприниматель с $1M+ revenue CCPC",
         desc:
           "Service business owner, 5+ лет operations, готовый к potential exit. Framework: pre-exit QSBS purification + holdco-наверху + family trust.",
-        topicHref: "/dlya-pidpryyemtsiv",
-        topicLabel: "Гайд для предпринимателей →",
+        topicHref: "/case-studies/pidpryyemets-lcge-exit-planning",
+        topicLabel: "Читать полный кейс →",
       },
       {
         icon: Globe,
@@ -422,8 +422,8 @@ const COPY = {
         title: "Tech worker with US employer + RSU vesting",
         desc:
           "Senior engineer, $150-200K base + $80-120K RSU vesting. Framework: RRSP-first in vesting year + auto-sell vested 80% + diversify via broad-market ETF.",
-        topicHref: "/dlya-it-fakhivtsiv",
-        topicLabel: "Tech worker pillar →",
+        topicHref: "/case-studies/it-fakhivets-rsu-vesting-strategy",
+        topicLabel: "Read full case →",
       },
       {
         icon: Stethoscope,
@@ -431,8 +431,8 @@ const COPY = {
         title: "Resident physician facing MPC decision",
         desc:
           "Family physician, first 2 years of practice, $280-340K gross. Framework: incorporate in year 2-3 + salary to CPP-max + dividends for residual + IPP later.",
-        topicHref: "/dlya-mediks",
-        topicLabel: "Physician pillar →",
+        topicHref: "/case-studies/mediks-mpc-incorporation-timeline",
+        topicLabel: "Read full case →",
       },
       {
         icon: Briefcase,
@@ -440,8 +440,8 @@ const COPY = {
         title: "Business owner with $1M+ revenue CCPC",
         desc:
           "Service business owner, 5+ years of operations, ready for potential exit. Framework: pre-exit QSBS purification + holdco-on-top + family trust.",
-        topicHref: "/dlya-pidpryyemtsiv",
-        topicLabel: "Business owner pillar →",
+        topicHref: "/case-studies/pidpryyemets-lcge-exit-planning",
+        topicLabel: "Read full case →",
       },
       {
         icon: Globe,

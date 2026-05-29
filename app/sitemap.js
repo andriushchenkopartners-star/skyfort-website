@@ -6,6 +6,7 @@ import {
   getCityKeys,
   getAllServiceCityPairs,
 } from "./_lib/services-cities";
+import { getCaseSlugs } from "./_data/case-studies";
 
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
@@ -178,6 +179,28 @@ export default function sitemap() {
         changeFrequency: "monthly",
         priority: 0.7,
         ...(Object.keys(alternates).length > 1 ? { alternates: { languages: alternates } } : {}),
+      });
+    }
+  }
+
+  // Composite case studies — 3 cases × 3 locales = 9 URLs. Share template
+  // mtime since all use the [slug] dynamic route reading from the same
+  // _data/case-studies.js source.
+  const caseTemplateMtime = lastModifiedFor(
+    "app/[locale]/case-studies/[slug]/page.js",
+  );
+  for (const locale of LOCALES) {
+    for (const slug of getCaseSlugs()) {
+      const alternates = Object.fromEntries(
+        LOCALES.map((l) => [HREFLANG[l], `${BASE}/${l}/case-studies/${slug}`]),
+      );
+      alternates["x-default"] = `${BASE}/uk/case-studies/${slug}`;
+      entries.push({
+        url: `${BASE}/${locale}/case-studies/${slug}`,
+        lastModified: caseTemplateMtime,
+        changeFrequency: "monthly",
+        priority: 0.75,
+        alternates: { languages: alternates },
       });
     }
   }
