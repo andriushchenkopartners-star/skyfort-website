@@ -18,6 +18,7 @@ import CraLimits2026 from "../../_components/CraLimits2026";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import UpdatedBadge from "../../_components/UpdatedBadge";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import StickyCta from "../../_components/StickyCta";
 import TopicSuggestForm from "../../_components/TopicSuggestForm";
@@ -486,6 +487,9 @@ export default async function ItPillarPage({ params }) {
         </header>
 
         <div className="pb-4">
+          <div className="mb-3">
+            <UpdatedBadge date="2026-05-29" locale={locale} />
+          </div>
           <TldrBlock
             text={c.tldr}
             pageName={c.titleMeta}

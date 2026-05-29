@@ -3,7 +3,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Calculator, Info, Stethoscope } from "lucide-react";
+import { Calculator, Info, Stethoscope, Link as LinkIcon } from "lucide-react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 
 const FED_BRACKETS_2026 = [
   { upTo: 57375, rate: 0.15 },
@@ -181,11 +182,18 @@ function fmt(n) {
 
 export default function MpcCalculator({ locale = "uk" }) {
   const t = T[locale] || T.uk;
-  const [gross, setGross] = useState(300000);
-  const [expenses, setExpenses] = useState(50000);
-  const [province, setProvince] = useState("AB");
-  const [salary, setSalary] = useState(CPP_MAX_2026);
-  const [dividend, setDividend] = useState(50000);
+  const [gross, setGross] = useUrlState("gross", 300000, "number");
+  const [expenses, setExpenses] = useUrlState("expenses", 50000, "number");
+  const [province, setProvince] = useUrlState("prov", "AB");
+  const [salary, setSalary] = useUrlState("salary", CPP_MAX_2026, "number");
+  const [dividend, setDividend] = useUrlState("dividend", 50000, "number");
+  const [copyState, setCopyState] = useState("idle");
+
+  async function onCopyLink() {
+    const ok = await copyShareUrl();
+    setCopyState(ok ? "copied" : "failed");
+    setTimeout(() => setCopyState("idle"), 2000);
+  }
 
   const result = useMemo(() => {
     const netPractice = Math.max(0, gross - expenses);
@@ -316,6 +324,25 @@ export default function MpcCalculator({ locale = "uk" }) {
                 : locale === "en"
                 ? `MPC accumulates $${Math.round(result.proj20).toLocaleString("en-CA")} over 20 years (at 6% growth on $${Math.round(result.retainedInMpc).toLocaleString("en-CA")}/yr retained).`
                 : `MPC акумулює $${Math.round(result.proj20).toLocaleString("en-CA")} за 20 років (при 6% growth retained $${Math.round(result.retainedInMpc).toLocaleString("en-CA")}/рік).`}
+            </p>
+          </div>
+
+          {/* Share-link */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={onCopyLink}
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] hover:bg-[var(--color-brand)]/[0.14]"
+            >
+              <LinkIcon size={14} aria-hidden="true" />
+              {copyState === "copied"
+                ? locale === "ru" ? "Скопировано!" : locale === "en" ? "Copied!" : "Скопійовано!"
+                : copyState === "failed"
+                ? locale === "ru" ? "Ошибка" : locale === "en" ? "Failed" : "Помилка"
+                : locale === "ru" ? "Скопировать сценарий" : locale === "en" ? "Copy scenario link" : "Скопіювати посилання"}
+            </button>
+            <p className="text-xs text-white/55">
+              {locale === "ru" ? "URL зберігає всі поля" : locale === "en" ? "URL preserves all inputs" : "URL зберігає всі поля"}
             </p>
           </div>
 

@@ -13,7 +13,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Calculator, Info } from "lucide-react";
+import { Calculator, Info, Link as LinkIcon } from "lucide-react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 
 // 2026 federal brackets (combined rate, no surtax).
 const FED_BRACKETS_2026 = [
@@ -187,10 +188,17 @@ const PRESETS = [
 
 export default function RsuCalculator({ locale = "uk" }) {
   const t = T[locale] || T.uk;
-  const [base, setBase] = useState(140000);
-  const [rsu, setRsu] = useState(80000);
-  const [province, setProvince] = useState("AB");
-  const [rrsp, setRrsp] = useState(33810);
+  const [base, setBase] = useUrlState("base", 140000, "number");
+  const [rsu, setRsu] = useUrlState("rsu", 80000, "number");
+  const [province, setProvince] = useUrlState("prov", "AB");
+  const [rrsp, setRrsp] = useUrlState("rrsp", 33810, "number");
+  const [copyState, setCopyState] = useState("idle");
+
+  async function onCopyLink() {
+    const ok = await copyShareUrl();
+    setCopyState(ok ? "copied" : "failed");
+    setTimeout(() => setCopyState("idle"), 2000);
+  }
 
   const result = useMemo(() => {
     const totalIncome = base + rsu;
@@ -319,6 +327,25 @@ export default function RsuCalculator({ locale = "uk" }) {
                 value={Math.round(result.effective * 100) + "%"}
               />
             </dl>
+          </div>
+
+          {/* Share-link */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={onCopyLink}
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] hover:bg-[var(--color-brand)]/[0.14]"
+            >
+              <LinkIcon size={14} aria-hidden="true" />
+              {copyState === "copied"
+                ? locale === "ru" ? "Скопировано!" : locale === "en" ? "Copied!" : "Скопійовано!"
+                : copyState === "failed"
+                ? locale === "ru" ? "Ошибка" : locale === "en" ? "Failed" : "Помилка"
+                : locale === "ru" ? "Скопировать ссылку" : locale === "en" ? "Copy link" : "Скопіювати посилання"}
+            </button>
+            <p className="text-xs text-white/55">
+              {locale === "ru" ? "URL зберігає твої цифри" : locale === "en" ? "URL preserves your inputs" : "URL зберігає твої цифри"}
+            </p>
           </div>
 
           {/* Disclaimer */}

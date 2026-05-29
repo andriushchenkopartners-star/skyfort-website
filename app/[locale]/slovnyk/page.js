@@ -17,6 +17,7 @@ import { BookOpen, ExternalLink } from "lucide-react";
 import Logo from "../../_components/Logo";
 import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
+import UpdatedBadge from "../../_components/UpdatedBadge";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 // Each term: { id, term, definition, source: {label, url}, related: {label, href}? }
@@ -682,6 +683,7 @@ export default async function GlossaryPage({ params }) {
             ]}
           />
           <div className="mt-6 max-w-3xl">
+            <UpdatedBadge date="2026-05-29" locale={locale} className="mb-3" />
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-brand)]">
               {c.eyebrow}
             </p>

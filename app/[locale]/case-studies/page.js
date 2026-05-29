@@ -32,6 +32,7 @@ import StaticFaq from "../../_components/StaticFaq";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import UpdatedBadge from "../../_components/UpdatedBadge";
 import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import StickyCta from "../../_components/StickyCta";
 import TopicSuggestForm from "../../_components/TopicSuggestForm";
@@ -606,6 +607,7 @@ export default async function CaseStudiesPage({ params }) {
 
       <section className="px-6 pb-8">
         <div className="mx-auto max-w-3xl space-y-4">
+          <UpdatedBadge date="2026-05-29" locale={locale} />
           <TldrBlock
             text={c.tldr}
             pageName={c.titleMeta}

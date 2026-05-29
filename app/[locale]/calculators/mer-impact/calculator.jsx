@@ -9,7 +9,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { TrendingDown, Calculator, Info } from "lucide-react";
+import { TrendingDown, Calculator, Info, Link as LinkIcon } from "lucide-react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 
 function compound({ monthly, years, annualRate, mer }) {
   const netRate = (annualRate - mer) / 100;
@@ -128,11 +129,21 @@ function fmt(n) {
 
 export default function MerCalculator({ locale = "uk" }) {
   const t = T[locale] || T.uk;
-  const [monthly, setMonthly] = useState(500);
-  const [years, setYears] = useState(30);
-  const [grossReturn, setGrossReturn] = useState(8);
-  const [highMer, setHighMer] = useState(2.0);
-  const [lowMer, setLowMer] = useState(0.2);
+  // useUrlState — reads ?monthly=500&years=30&… on mount, writes URL on
+  // every change (debounced via microtask). Shared link reproduces exact
+  // scenario for the recipient. Audit 7 #8 link-magnet pattern.
+  const [monthly, setMonthly] = useUrlState("monthly", 500, "number");
+  const [years, setYears] = useUrlState("years", 30, "number");
+  const [grossReturn, setGrossReturn] = useUrlState("rate", 8, "number");
+  const [highMer, setHighMer] = useUrlState("merA", 2.0, "number");
+  const [lowMer, setLowMer] = useUrlState("merB", 0.2, "number");
+  const [copyState, setCopyState] = useState("idle");
+
+  async function onCopyLink() {
+    const ok = await copyShareUrl();
+    setCopyState(ok ? "copied" : "failed");
+    setTimeout(() => setCopyState("idle"), 2000);
+  }
 
   const result = useMemo(() => {
     const finalHigh = compound({ monthly, years, annualRate: grossReturn, mer: highMer });
@@ -222,6 +233,41 @@ export default function MerCalculator({ locale = "uk" }) {
               <TrendingDown size={14} aria-hidden="true" /> {t.explainTitle}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-white/80">{t.explainBody}</p>
+          </div>
+
+          {/* Share-link button (Audit 7 #8 link-magnet pattern) */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={onCopyLink}
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] hover:bg-[var(--color-brand)]/[0.14]"
+            >
+              <LinkIcon size={14} aria-hidden="true" />
+              {copyState === "copied"
+                ? locale === "ru"
+                  ? "Скопировано!"
+                  : locale === "en"
+                  ? "Copied!"
+                  : "Скопійовано!"
+                : copyState === "failed"
+                ? locale === "ru"
+                  ? "Ошибка копирования"
+                  : locale === "en"
+                  ? "Copy failed"
+                  : "Помилка копіювання"
+                : locale === "ru"
+                ? "Скопировать мою ссылку"
+                : locale === "en"
+                ? "Copy my link"
+                : "Скопіювати моє посилання"}
+            </button>
+            <p className="text-xs text-white/55">
+              {locale === "ru"
+                ? "URL містить твої параметри — поділись з friend"
+                : locale === "en"
+                ? "URL contains your inputs — share with a friend"
+                : "URL містить твої параметри — поділись з другом"}
+            </p>
           </div>
 
           {/* Embed snippet */}

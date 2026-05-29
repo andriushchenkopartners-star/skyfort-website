@@ -12,16 +12,55 @@
 //
 // UTM tagging on the URL lets us segment bookings from this surface separately
 // from the bio-link CTAs (which point straight at calendly.com).
+//
+// Batch 16 (Audit 7 #9): added GA4/Clarity funnel events via postMessage
+// listener. Calendly posts these events to window from the iframe:
+//   - calendly.profile_page_viewed (user landed on selector)
+//   - calendly.event_type_viewed (user picked an event type)
+//   - calendly.date_and_time_selected (user picked a slot)
+//   - calendly.event_scheduled (booking confirmed!)
+// We map them to our taxonomy: booking_started, booking_slot_selected,
+// booking_confirmed.
 
+import { useEffect } from 'react';
 import Script from 'next/script';
+import { track } from '../_lib/analytics';
 
 const BASE_URL =
   'https://calendly.com/andriushchenko-partners/new-meeting';
+
+function isCalendlyEvent(e) {
+  return (
+    e.origin === 'https://calendly.com' &&
+    e.data &&
+    typeof e.data.event === 'string' &&
+    e.data.event.startsWith('calendly.')
+  );
+}
 
 export default function CalendlyInline({
   source = 'contact-inline',
   height = 720,
 }) {
+  // GA4/Clarity funnel event hookup. Mount-once listener; no React state.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    function onMsg(e) {
+      if (!isCalendlyEvent(e)) return;
+      const evt = e.data.event;
+      // Map Calendly events → our taxonomy.
+      if (evt === 'calendly.profile_page_viewed' || evt === 'calendly.event_type_viewed') {
+        track('booking_started', { source, calendly_event: evt });
+      } else if (evt === 'calendly.date_and_time_selected') {
+        track('booking_slot_selected', { source });
+      } else if (evt === 'calendly.event_scheduled') {
+        track('booking_confirmed', { source });
+      }
+    }
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [source]);
+
   // Calendly accepts theme overrides on the embed URL. Dark theme matches the
   // site without forcing a hard-coded background colour on the embed.
   const params = new URLSearchParams({

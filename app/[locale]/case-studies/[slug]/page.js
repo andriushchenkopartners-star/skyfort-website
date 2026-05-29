@@ -15,6 +15,7 @@ import Breadcrumbs from "../../../_components/Breadcrumbs";
 import LangSwitcher from "../../../_components/LangSwitcher";
 import TldrBlock from "../../../_components/TldrBlock";
 import AuthorByline from "../../../_components/AuthorByline";
+import UpdatedBadge from "../../../_components/UpdatedBadge";
 import ScrollDepthTracker from "../../../_components/ScrollDepthTracker";
 import StickyCta from "../../../_components/StickyCta";
 import RelatedLinks from "../../../_components/RelatedLinks";
@@ -206,9 +207,10 @@ export default async function CaseStudyPage({ params }) {
         </div>
       </section>
 
-      {/* TL;DR + AuthorByline */}
+      {/* TL;DR + AuthorByline + UpdatedBadge */}
       <section className="px-6 pb-8">
         <div className="mx-auto max-w-3xl space-y-4">
+          <UpdatedBadge date={CASE_DATES[c.slug]?.modified || "2026-05-28"} locale={locale} />
           <TldrBlock
             text={c.tldr}
             pageName={c.titleMeta}
