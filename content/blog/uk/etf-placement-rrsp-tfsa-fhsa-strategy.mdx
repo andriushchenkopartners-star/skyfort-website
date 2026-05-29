@@ -1,0 +1,122 @@
+---
+title: "Де тримати який ETF: RRSP vs TFSA vs FHSA placement strategy для українців у Канаді"
+description: "US-listed ETF втрачає 15% dividends у TFSA, але 0% у RRSP. CA-listed XEQT — однаково всюди. Placement матриця 2026 для тих хто має 3-4 account types."
+date: "2026-05-28"
+author: "Andrii Andriushchenko"
+tags: ["ETF placement", "TFSA", "RRSP", "FHSA", "withholding tax", "VFV", "XEQT", "Канада"]
+pillar: "Tech"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **Коротко:** Найбільша tax-efficient помилка українців у Канаді з diversified portfolio — **тримати VFV або інші US-listed ETF у TFSA**. Canada-US treaty exempts тільки RRSP від 15% US dividend withholding tax — TFSA, FHSA, RESP, non-registered усі сплачують його. На $50K у VFV з ~1.5% dividend yield це **$112/рік** з TFSA проти $0 з RRSP — за 30 років compounding це ~$10K втрачено. Placement matrix: **US-listed → RRSP**, **CA-listed broad-market (XEQT, VEQT, XAW) → TFSA**, **growth-heavy/speculative → TFSA** (бо tax-free gain якщо потрапиш у double-bagger).
+
+## Чому placement має значення
+
+У більшості канадських newcomer-ів є **3-4 open accounts** через 5 років у Канаді: TFSA, RRSP (з першого NoA), FHSA, plus non-registered або employer ESPP. Кожен account має різні tax characteristics, і **який security** ти тримаєш в **якому account** — буквально визначає, скільки податку платиш на dividends та capital gains.
+
+Найпотужніше правило: **Canada-US Tax Treaty exempts тільки RRSP** від 15% US withholding tax на dividends від US securities. TFSA, FHSA, RESP, non-registered усі treated as "non-treaty" для цієї мети — IRS забирає 15% на dividends від US listings AT SOURCE (broker автоматично відраховує).
+
+> ⚠️ **EMD compliance disclaimer:** Це освітній матеріал, не investment advice. Я не CIRO-advisor — ETF/stock рекомендації поза моєю scope. Для individual recommendations звертайся до CIRO-registered fee-for-service advisor.
+
+## Конкретна математика: $50K у VFV
+
+Дано:
+- $50,000 invested у **VFV** (Vanguard S&P 500 Index ETF, listed on TSX — але holds US securities)
+- Dividend yield ~1.5% on S&P 500 = $750/рік
+- US withholding tax 15% on those dividends = **$112/рік**
+
+Якщо тримаєш у TFSA → $112/рік withholding, **не recoverable** (TFSA не дає foreign tax credit на cross-border dividends, бо це tax-exempt account для CRA, але не для IRS).
+
+Якщо тримаєш у RRSP → $0 withholding (treaty exemption).
+
+За **30 років** при reinvested dividends це різниця **~$10K** через compound. Не життєво критично, але free money якщо placement правильний.
+
+## Чому VFV у TSX і чому все одно є US withholding
+
+VFV — це **wrap** Vanguard's VOO (S&P 500). TSX-listed, але holdings — US securities. CRA treats VFV holdings як "indirect US exposure", і **withholding applies at the underlying level**, не на VFV unit dividend payment.
+
+Цей нюанс не очевидний — багато українців думають, що "VFV — канадський ETF, без US withholding". **Wrong**. Будь-який ETF що holds US securities = US withholding at underlying level (за винятком RRSP).
+
+**Винятки**: дійсно canadian-only ETF (XIC — iShares S&P/TSX 60, ZCN — BMO S&P/TSX Composite) — це 100% canadian holdings, без US withholding де б ти не тримав. Але вони і less diversified — concentrated у canadian energy + financials.
+
+## Placement matrix 2026
+
+| Security type | Best account | Second best | Avoid |
+|---|---|---|---|
+| US-listed individual stocks (AAPL, MSFT, etc.) | RRSP | — | TFSA (15% withholding loss) |
+| US-listed ETF (VOO, SCHD, QQQ) | RRSP | — | TFSA |
+| TSX-listed US-wrap ETF (VFV, XEQT US portion) | RRSP | TFSA (acceptable) | — |
+| TSX-listed canadian-only ETF (XIC, ZCN) | будь-який | — | — |
+| TSX-listed international ETF (XAW, ZID) | TFSA (long-term growth) | RRSP | — |
+| Bonds / GIC | RRSP (interest fully taxable) | — | TFSA (tax-shelter waste) |
+| Crypto, growth stocks (high-risk, high-upside) | TFSA (tax-free win) | non-registered | RRSP (taxable at withdrawal) |
+| REITs, dividend-heavy stocks | RRSP | TFSA | non-registered (least tax-efficient) |
+
+## Глибший принцип: tax characteristics each account
+
+**TFSA**: tax-exempt domestically (CRA), but treaty не recognizes for US withholding. **Best for**: high-growth/speculative bets (бо tax-free win), Canadian dividend-paying stocks (dividend tax credit lost, але growth still tax-free).
+
+**RRSP**: tax-deferred, US treaty exempt. **Best for**: US-listed securities (no withholding), bonds/GIC (interest fully taxable elsewhere), high-dividend stocks (tax-deferred).
+
+**FHSA**: tax-deferred + tax-free withdrawal (для first home). Similar to TFSA for US withholding (no treaty). **Best for**: Canadian broad-market ETF або conservative GICs (короткий-середній horizon до home purchase).
+
+**RESP**: tax-deferred. Withdrawal до студента у low bracket. CESG 20% match. **Best for**: balanced ETF, не speculative bets (тут downside hurts education funding).
+
+**Non-registered**: повністю taxable. **Best for**: Canadian dividend stocks (dividend tax credit applies), broad-market ETF з low turnover (less capital gains realization).
+
+## 4-крокова стратегія placement
+
+### Крок 1: Заповни RRSP перший US-listed bucket
+
+Якщо у тебе $33K RRSP room у 2026 і ти planning to invest у US securities — **fill RRSP first** з US-listed ETF/stocks. VFV, VOO, SCHD — yourself у RRSP.
+
+### Крок 2: TFSA → growth/speculative + Canadian + international
+
+TFSA — для tax-free **gain on win** (Apple, Tesla, Bitcoin ETF, AI-related plays). Plus Canadian dividend ETFs (XIC, ZCN, VDY) і international non-US (XAW excludes US, ZID emerging markets).
+
+### Крок 3: FHSA → short-medium horizon до дому
+
+Якщо плануєш покупку дому у 3-7 років — FHSA з conservative balance (XGRO 60/40 stock-bond mix або navigated up to XEQT). При horizon < 3 роки — HISA-equivalent (Wealthsimple Cash, EQ Bank).
+
+### Крок 4: Non-registered → overflow + Canadian dividends
+
+Якщо всі registered accounts заповнено — non-registered. Тут tax efficiency має значення: prefer Canadian dividend stocks (dividend tax credit) over US-listed (full marginal rate on dividends without treaty benefit).
+
+## Common errors українців-newcomers
+
+### Error 1: Тримати весь portfolio в TFSA "бо tax-free"
+
+TFSA — найперший choice **тільки якщо** у тебе портфоліо до $7-50K. Понад це — RRSP стає еквівалентний або кращий для US securities placement.
+
+### Error 2: Купувати VOO замість VFV у Canadian broker без розуміння FX
+
+VOO listed на NYSE = potentially currency conversion fees + USD-CAD exchange rate ризик. VFV (TSX-listed, CAD-denominated) має ту ж exposure без FX hassle. Для long-term passive — VFV у RRSP.
+
+### Error 3: Тримати bonds у TFSA
+
+Bonds — найменш tax-efficient asset class (interest fully taxable). Placing у TFSA = wasting tax-shelter на something that doesn't need it. Move bonds → RRSP, put growth-stocks у TFSA.
+
+### Error 4: Forget about FHSA на роки
+
+FHSA room начинається з opening (не automatic як TFSA). Open immediately, навіть якщо контрибути $0 у перший рік — clock starts. $8K/рік ліміт + 15-year rollover до RRSP без штрафу.
+
+### Error 5: Speculative bets у RRSP
+
+Якщо ти buy $5K у speculative AI stock і це стає $50K — у RRSP при withdrawal ti pay marginal tax на full $50K. У TFSA — $0 tax forever. Speculative = TFSA territory.
+
+## Що про exempt market у TFSA/RRSP?
+
+Exempt market securities (MICs, private REITs) typically can be held у self-directed RRSP/TFSA — але потребують **trustee account** type, не regular brokerage. Wealthsimple/Questrade не підтримують exempt market у TFSA/RRSP. Спеціалізовані trustees (Olympia Trust, B2B Trust) роблять це за щорічну fee ~$100-200.
+
+Стратегія: якщо ти Eligible Investor (NI 45-106 §1.1) — частина exempt market portfolio у self-directed RRSP/TFSA через trustee. Це outside CIRO scope; я як EMD-радник можу допомогти налаштувати.
+
+## Action plan
+
+1. **Audit existing positions** — що в якому account? Якщо US-listed у TFSA = move до RRSP (in-kind transfer, без taxable event у tax-deferred accounts).
+2. **Set placement rule** — нові contributions йдуть за matrix above.
+3. **Annual review** — кожен лютий перевір allocations vs matrix; adjust якщо drift.
+
+Гайд для IT-фахівців (бо тут placement найскладніше через RSU/ESPP) — [Фінанси для IT-фахівців у Канаді](/uk/dlya-it-fakhivtsiv).
+
+Хочеш персональну placement strategy? — [discovery call](/uk/contact).

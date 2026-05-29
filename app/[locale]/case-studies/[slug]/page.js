@@ -77,13 +77,28 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Audit 6 #8: AI engines (Perplexity / Google AI Overview) weight recency
+// heavily — content updated ≤30 days back gets ~3.2× more AI citations
+// (Seer Interactive 2026). We hard-code datePublished + dateModified so
+// schema validators always see fresh dates. Refresh dateModified each time
+// the underlying case data changes — the case-studies.js data file is the
+// source of truth.
+const CASE_DATES = {
+  "it-fakhivets-rsu-vesting-strategy": { published: "2026-05-28", modified: "2026-05-28" },
+  "mediks-mpc-incorporation-timeline": { published: "2026-05-28", modified: "2026-05-28" },
+  "pidpryyemets-lcge-exit-planning": { published: "2026-05-28", modified: "2026-05-28" },
+};
+
 function buildArticleJsonLd(locale, c, path) {
+  const dates = CASE_DATES[c.slug] || { published: "2026-05-28", modified: "2026-05-28" };
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: c.titleMeta,
     description: c.descriptionMeta,
     inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
+    datePublished: dates.published,
+    dateModified: dates.modified,
     author: {
       "@type": "Person",
       name: "Andrii Andriushchenko",

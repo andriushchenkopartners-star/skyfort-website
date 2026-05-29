@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "validate:jsonld": "node scripts/validate-jsonld.mjs"
+    "validate:jsonld": "node scripts/validate-jsonld.mjs",
+    "indexnow": "node scripts/indexnow-ping.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "convert:images": "node scripts/convert-images.mjs",
+    "check": "npm run lint && npm run build && npm run validate:jsonld",
+    "setup:hooks": "bash scripts/setup-hooks.sh"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

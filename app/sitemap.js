@@ -62,6 +62,8 @@ const SOURCE_FILE = {
   "/calculators/financial-freedom": "app/[locale]/calculators/financial-freedom/page.js",
   "/calculators/mortgage": "app/[locale]/calculators/mortgage/page.js",
   "/calculators/rsu-tax": "app/[locale]/calculators/rsu-tax/page.js",
+  "/calculators/mer-impact": "app/[locale]/calculators/mer-impact/page.js",
+  "/calculators/mpc-vs-sole-proprietor": "app/[locale]/calculators/mpc-vs-sole-proprietor/page.js",
   "/links": "app/[locale]/links/page.js",
   "/privacy": "app/[locale]/privacy/page.js",
   "/cookies": "app/[locale]/cookies/page.js",
@@ -90,6 +92,8 @@ const LOCALIZED_PAGES = [
   { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/mortgage",       priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/rsu-tax",        priority: 0.8, changeFrequency: "monthly" },
+  { path: "/calculators/mer-impact",     priority: 0.85, changeFrequency: "monthly" }, // T-REX-style link magnet
+  { path: "/calculators/mpc-vs-sole-proprietor", priority: 0.8, changeFrequency: "monthly" },
   { path: "/links",                      priority: 0.5, changeFrequency: "monthly" },
   { path: "/privacy",                    priority: 0.3, changeFrequency: "yearly" },
   { path: "/cookies",                    priority: 0.3, changeFrequency: "yearly" },

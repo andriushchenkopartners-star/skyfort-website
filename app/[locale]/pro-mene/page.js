@@ -184,6 +184,14 @@ const jsonLd = {
     "https://axcesscapital.ca/",
     "https://sky-fort.ca/uk/perevirka",
     "https://sky-fort.ca/uk/presa",
+    // Audit 6 #4 (sameAs expansion): link to composite case studies so
+    // AI engines (ChatGPT browse / Perplexity / Gemini) and Google KG
+    // can confirm the Person entity authored these illustrations. Each
+    // case-study page has Person JSON-LD with matching NRD identifier
+    // — bidirectional entity-linking strengthens E-E-A-T.
+    "https://sky-fort.ca/uk/case-studies/it-fakhivets-rsu-vesting-strategy",
+    "https://sky-fort.ca/uk/case-studies/mediks-mpc-incorporation-timeline",
+    "https://sky-fort.ca/uk/case-studies/pidpryyemets-lcge-exit-planning",
   ],
 };
 
