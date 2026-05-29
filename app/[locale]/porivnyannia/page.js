@@ -28,6 +28,7 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import StaticFaq from "../../_components/StaticFaq";
 import AuthorByline from "../../_components/AuthorByline";
+import RelatedLinks from "../../_components/RelatedLinks";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const NRD_URL = "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
@@ -709,6 +710,17 @@ export default async function PorivnyanniaPage({ params }) {
           </div>
         </section>
       </div>
+
+      {/* More comparisons — internal cluster to new /porivnyannia/[slug] pages */}
+      <RelatedLinks
+        heading={locale === "ru" ? "Другие сравнения" : locale === "en" ? "More comparisons" : "Інші порівняння"}
+        items={[
+          { href: `/${locale}/porivnyannia/emd-vs-wealthsimple`, label: "EMD vs Wealthsimple", description: locale === "ru" ? "Exempt market или robo-advisor" : locale === "en" ? "Exempt market or robo-advisor" : "Exempt market чи robo-advisor" },
+          { href: `/${locale}/porivnyannia/mic-vs-gic`, label: "MIC vs GIC", description: locale === "ru" ? "Mortgage corp или гарантированный депозит" : locale === "en" ? "Mortgage corp or guaranteed deposit" : "Mortgage corp чи гарантований депозит" },
+          { href: `/${locale}/porivnyannia/exempt-market-vs-etf`, label: "Exempt market vs ETF", description: locale === "ru" ? "Частные securities или биржевые фонды" : locale === "en" ? "Private securities or exchange funds" : "Приватні securities чи біржові фонди" },
+          { href: `/${locale}/eligibility`, label: "Eligible Investor self-check", description: locale === "ru" ? "60 секунд — открывается ли exempt market" : locale === "en" ? "60 seconds — does exempt market open up" : "60 секунд — чи відкривається exempt market" },
+        ]}
+      />
 
       {/* FAQ */}
       <StaticFaq

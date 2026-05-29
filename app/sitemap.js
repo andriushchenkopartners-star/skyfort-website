@@ -7,6 +7,7 @@ import {
   getAllServiceCityPairs,
 } from "./_lib/services-cities";
 import { getCaseSlugs } from "./_data/case-studies";
+import { getComparisonSlugs } from "./_data/comparisons";
 
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
@@ -210,6 +211,26 @@ export default function sitemap() {
         lastModified: caseTemplateMtime,
         changeFrequency: "monthly",
         priority: 0.75,
+        alternates: { languages: alternates },
+      });
+    }
+  }
+
+  // Comparison sub-pages — 3 comparisons × 3 locales = 9 URLs.
+  const comparisonTemplateMtime = lastModifiedFor(
+    "app/[locale]/porivnyannia/[slug]/page.js",
+  );
+  for (const locale of LOCALES) {
+    for (const slug of getComparisonSlugs()) {
+      const alternates = Object.fromEntries(
+        LOCALES.map((l) => [HREFLANG[l], `${BASE}/${l}/porivnyannia/${slug}`]),
+      );
+      alternates["x-default"] = `${BASE}/uk/porivnyannia/${slug}`;
+      entries.push({
+        url: `${BASE}/${locale}/porivnyannia/${slug}`,
+        lastModified: comparisonTemplateMtime,
+        changeFrequency: "monthly",
+        priority: 0.8,
         alternates: { languages: alternates },
       });
     }
