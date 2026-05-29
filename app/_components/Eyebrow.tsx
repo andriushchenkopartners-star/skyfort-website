@@ -1,12 +1,23 @@
 // Eyebrow — small uppercase label that sits above a heading.
 
+import type { ElementType, ReactNode, HTMLAttributes } from "react";
+
+type Tone = "brand" | "muted";
+
+interface EyebrowProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
+  tone?: Tone;
+  className?: string;
+  children?: ReactNode;
+}
+
 export default function Eyebrow({
   as: Tag = "div",
   tone = "brand",
   className = "",
   children,
   ...rest
-}) {
+}: EyebrowProps) {
   const color =
     tone === "muted" ? "text-[var(--color-fg-subtle)]" : "text-[var(--color-brand)]";
   const classes = [

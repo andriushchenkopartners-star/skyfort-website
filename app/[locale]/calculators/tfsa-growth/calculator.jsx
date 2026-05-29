@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, TrendingUp, Calculator } from "lucide-react";
@@ -230,10 +231,17 @@ function formatMoney(n) {
 export default function TFSACalculator({ locale: rawLocale }) {
   const locale = resolveLocale(rawLocale);
   const lang = locale; // alias kept for legacy references inside this file
-  const [initial, setInitial] = useState(10000);
-  const [monthly, setMonthly] = useState(500);
-  const [years, setYears] = useState(20);
-  const [rate, setRate] = useState(8);
+  // Share-URL state (Audit 7 #8 link-magnet)
+  const [initial, setInitial] = useUrlState("init", 10000, "number");
+  const [monthly, setMonthly] = useUrlState("monthly", 500, "number");
+  const [years, setYears] = useUrlState("years", 20, "number");
+  const [rate, setRate] = useUrlState("rate", 8, "number");
+  const [copyState, setCopyState] = useState("idle");
+  async function onCopyLink() {
+    const ok = await copyShareUrl();
+    setCopyState(ok ? "copied" : "failed");
+    setTimeout(() => setCopyState("idle"), 2000);
+  }
 
   const content = t[locale];
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, Flame, Calculator, TrendingUp, Sparkles, Users } from "lucide-react";
@@ -327,10 +328,17 @@ function formatFIDate(yearsFromNow, lang) {
 export default function FIRECalculator({ locale: rawLocale }) {
   const locale = resolveLocale(rawLocale);
   const lang = locale;
-  const [age, setAge] = useState(32);
-  const [income, setIncome] = useState(7000);
-  const [expenses, setExpenses] = useState(4500);
-  const [savings, setSavings] = useState(15000);
+  // Share-URL state (Audit 7 #8 link-magnet)
+  const [age, setAge] = useUrlState("age", 32, "number");
+  const [income, setIncome] = useUrlState("income", 7000, "number");
+  const [expenses, setExpenses] = useUrlState("spend", 4500, "number");
+  const [savings, setSavings] = useUrlState("savings", 15000, "number");
+  const [copyState, setCopyState] = useState("idle");
+  async function onCopyLink() {
+    const ok = await copyShareUrl();
+    setCopyState(ok ? "copied" : "failed");
+    setTimeout(() => setCopyState("idle"), 2000);
+  }
 
   const content = t[locale];
 

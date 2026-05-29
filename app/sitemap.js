@@ -69,6 +69,7 @@ const SOURCE_FILE = {
   "/cookies": "app/[locale]/cookies/page.js",
   "/finfluencer-compliance": "app/[locale]/finfluencer-compliance/page.js",
   "/author/andrii": "app/[locale]/author/andrii/page.js",
+  "/cra-limits-2026": "app/[locale]/cra-limits-2026/page.js",
   "/dlya-it-fakhivtsiv": "app/[locale]/dlya-it-fakhivtsiv/page.js",
   "/dlya-mediks": "app/[locale]/dlya-mediks/page.js",
   "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
@@ -104,6 +105,8 @@ const LOCALIZED_PAGES = [
   { path: "/finfluencer-compliance",     priority: 0.85, changeFrequency: "monthly" },
   // Author entity URL — anchor for Article schema author.url resolution.
   { path: "/author/andrii",              priority: 0.75, changeFrequency: "monthly" },
+  // Annual CRA-limits reference hub — high-volume January query magnet.
+  { path: "/cra-limits-2026",            priority: 0.9,  changeFrequency: "yearly" },
   // ICP-targeted pillar pages (3 audiences × 3 locales = 9 URLs).
   // Designed to rank for high-intent searches like
   // "RSU vesting Канада українцям" / "MPC vs sole proprietor doctor".
