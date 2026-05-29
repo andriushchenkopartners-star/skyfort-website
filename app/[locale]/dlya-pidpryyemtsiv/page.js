@@ -21,7 +21,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Фінанси для підприємців у Канаді: CCPC, salary vs dividend, LCGE, holdco — повний гайд",
+    titleMeta: "Фінанси для підприємців у Канаді — повний гайд",
     descriptionMeta:
       "Як українському підприємцю/self-employed у Канаді структурувати CCPC, обрати salary vs dividend, використати LCGE $1M+, setup holdco і exempt market. Licensed DR.",
     crumbHome: "Головна",
@@ -131,7 +131,7 @@ const COPY = {
     secondaryCtaLink: "60-секундний self-check →",
   },
   ru: {
-    titleMeta: "Финансы для предпринимателей в Канаде: CCPC, salary vs dividend, LCGE, holdco — полный гайд",
+    titleMeta: "Финансы для предпринимателей в Канаде — полный гайд",
     descriptionMeta:
       "Как русскоязычному предпринимателю/self-employed в Канаде структурировать CCPC, выбрать salary vs dividend, использовать LCGE $1M+, setup holdco и exempt market.",
     crumbHome: "Главная",
@@ -241,7 +241,7 @@ const COPY = {
     secondaryCtaLink: "60-секундный self-check →",
   },
   en: {
-    titleMeta: "Finance for entrepreneurs in Canada: CCPC, salary vs dividend, LCGE, holdco — full guide",
+    titleMeta: "Finance for entrepreneurs in Canada — full guide",
     descriptionMeta:
       "How a Ukrainian/Russian-speaking entrepreneur / self-employed in Canada structures their CCPC, picks salary vs dividend, uses LCGE $1M+, sets up holdco and exempt market. Licensed DR.",
     crumbHome: "Home",

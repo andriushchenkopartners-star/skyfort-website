@@ -24,7 +24,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Фінанси для IT-фахівців у Канаді: повний гайд (TFSA, RRSP, RSU, exempt market)",
+    titleMeta: "Фінанси для IT-фахівців у Канаді — повний гайд",
     descriptionMeta:
       "Як українському IT-фахівцю в Канаді оптимізувати TFSA, RRSP, FHSA, RSU vesting, ESPP, exempt market — детальний 12-місячний фреймворк. Licensed DR, NRD #4575551.",
     crumbHome: "Головна",
@@ -133,7 +133,7 @@ const COPY = {
     secondaryCtaLink: "Self-check NI 45-106 →",
   },
   ru: {
-    titleMeta: "Финансы для IT-специалистов в Канаде: полный гайд (TFSA, RRSP, RSU, exempt market)",
+    titleMeta: "Финансы для IT-специалистов в Канаде — полный гайд",
     descriptionMeta:
       "Как русскоязычному IT-специалисту в Канаде оптимизировать TFSA, RRSP, FHSA, RSU vesting, ESPP, exempt market — детальный 12-месячный фреймворк. Licensed DR, NRD #4575551.",
     crumbHome: "Главная",
@@ -242,7 +242,7 @@ const COPY = {
     secondaryCtaLink: "Self-check NI 45-106 →",
   },
   en: {
-    titleMeta: "Finance for IT specialists in Canada: full guide (TFSA, RRSP, RSU, exempt market)",
+    titleMeta: "Finance for tech workers in Canada — full guide",
     descriptionMeta:
       "How a Ukrainian/Russian-speaking IT specialist in Canada optimises TFSA, RRSP, FHSA, RSU vesting, ESPP, and exempt market — a concrete 12-month framework. Licensed DR, NRD #4575551.",
     crumbHome: "Home",

@@ -351,7 +351,7 @@ const TERMS_EN = TERMS_UK.map((t) => {
 
 const COPY = {
   uk: {
-    titleMeta: "Словник канадських фінансів — TFSA, RRSP, FHSA, CCPC, exempt market",
+    titleMeta: "Словник канадських фінансів — 30+ термінів",
     descriptionMeta: "30+ ключових термінів канадських особистих фінансів: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Головна",
     crumbThis: "Словник",
@@ -364,7 +364,7 @@ const COPY = {
     terms: TERMS_UK,
   },
   ru: {
-    titleMeta: "Словарь канадских финансов — TFSA, RRSP, FHSA, CCPC, exempt market",
+    titleMeta: "Словарь канадских финансов — 30+ терминов",
     descriptionMeta: "30+ ключевых терминов канадских личных финансов: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Главная",
     crumbThis: "Словарь",
@@ -377,7 +377,7 @@ const COPY = {
     terms: TERMS_RU,
   },
   en: {
-    titleMeta: "Canadian finance glossary — TFSA, RRSP, FHSA, CCPC, exempt market",
+    titleMeta: "Canadian finance glossary — 30+ terms",
     descriptionMeta: "30+ key Canadian personal-finance terms: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Home",
     crumbThis: "Glossary",

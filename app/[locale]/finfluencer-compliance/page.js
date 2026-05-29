@@ -38,7 +38,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Joint CSA/CIRO Staff Notice 31-369 — фінансові finfluencers у Канаді (пояснення)",
+    titleMeta: "Finfluencer compliance: Notice 31-369 пояснення",
     descriptionMeta:
       "Що означає Joint CSA/CIRO Staff Notice 31-369 від 11 грудня 2025 для тебе як споживача фінансового контенту в TikTok/Instagram/Telegram у Канаді. Як перевірити чи finfluencer ліцензований.",
     crumbHome: "Головна",
@@ -124,7 +124,7 @@ const COPY = {
     noticeLinkLabel: "Прочитати Notice 31-369 (OSC)",
   },
   ru: {
-    titleMeta: "Joint CSA/CIRO Staff Notice 31-369 — финансовые finfluencers в Канаде (объяснение)",
+    titleMeta: "Finfluencer compliance: Notice 31-369 объяснение",
     descriptionMeta:
       "Что означает Joint CSA/CIRO Staff Notice 31-369 от 11 декабря 2025 для тебя как потребителя финансового контента в TikTok/Instagram/Telegram в Канаде. Как проверить лицензирован ли finfluencer.",
     crumbHome: "Главная",

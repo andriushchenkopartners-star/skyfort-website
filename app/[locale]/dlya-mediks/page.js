@@ -25,7 +25,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Фінанси для лікарів у Канаді: MPC, IPP, holdco, exempt market — повний гайд",
+    titleMeta: "Фінанси для лікарів у Канаді — повний гайд",
     descriptionMeta:
       "Як українському лікарю в Канаді структурувати MPC (Medical Professional Corporation), IPP, holdco і exempt market — детальний фреймворк для residents, family doctors, specialists. Licensed DR.",
     crumbHome: "Головна",
@@ -135,7 +135,7 @@ const COPY = {
     secondaryCtaLink: "60-секундний self-check →",
   },
   ru: {
-    titleMeta: "Финансы для врачей в Канаде: MPC, IPP, holdco, exempt market — полный гайд",
+    titleMeta: "Финансы для врачей в Канаде — полный гайд",
     descriptionMeta:
       "Как русскоязычному врачу в Канаде структурировать MPC (Medical Professional Corporation), IPP, holdco и exempt market — детальный фреймворк для residents, family doctors, specialists.",
     crumbHome: "Главная",
@@ -245,7 +245,7 @@ const COPY = {
     secondaryCtaLink: "60-секундный self-check →",
   },
   en: {
-    titleMeta: "Finance for physicians in Canada: MPC, IPP, holdco, exempt market — full guide",
+    titleMeta: "Finance for physicians in Canada — full guide",
     descriptionMeta:
       "How a Ukrainian/Russian-speaking physician in Canada structures their Medical Professional Corporation (MPC), Individual Pension Plan (IPP), holdco, and exempt market — concrete framework for residents, family doctors, specialists. Licensed DR.",
     crumbHome: "Home",

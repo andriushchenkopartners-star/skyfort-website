@@ -38,7 +38,7 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
 const COPY = {
   uk: {
-    titleMeta: "Кейси клієнтів — анонімізовані фінансові сценарії",
+    titleMeta: "Кейси клієнтів — анонімізовані сценарії",
     descriptionMeta:
       "Освітні анонімізовані кейси: IT-фахівець з RSU, лікар з MPC, підприємець з CCPC, family relocation. Без рекомендацій. Licensed DR, NRD #4575551.",
     crumbHome: "Головна",
@@ -153,7 +153,7 @@ const COPY = {
     finalCtaBtn: "Безкоштовний discovery call →",
   },
   ru: {
-    titleMeta: "Кейсы клиентов — анонимизированные финансовые сценарии",
+    titleMeta: "Кейсы клиентов — анонимизированные сценарии",
     descriptionMeta:
       "Образовательные анонимизированные кейсы: IT-специалист с RSU, врач с MPC, предприниматель с CCPC, family relocation. Без рекомендаций. Licensed DR, NRD #4575551.",
     crumbHome: "Главная",
@@ -413,6 +413,15 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: c.titleMeta,
       description: c.descriptionMeta,
+    },
+    // Audit 5 (#5): /case-studies is a framework page without real case studies
+    // published yet. With 4 methodology cards + 5 type-cards but no actual
+    // case content, indexing risks thin/scaled-content classification in the
+    // May-2026 core update. We noindex until the first 3 real cases ship
+    // (then we revert this block + restore sitemap entry).
+    robots: {
+      index: false,
+      follow: true,
     },
   };
 }

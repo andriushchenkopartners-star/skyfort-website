@@ -67,7 +67,11 @@ const SOURCE_FILE = {
   "/dlya-it-fakhivtsiv": "app/[locale]/dlya-it-fakhivtsiv/page.js",
   "/dlya-mediks": "app/[locale]/dlya-mediks/page.js",
   "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
-  "/case-studies": "app/[locale]/case-studies/page.js",
+  // "/case-studies" removed from SOURCE_FILE + LOCALIZED_PAGES per Audit 5
+  // (#5): page is currently a framework without real case studies → noindex
+  // applied at page level until real cases ship. Restore both entries here +
+  // remove the `robots: { index: false }` block from the page when shipping
+  // the first real /case-studies/[slug] pages.
   "/tt-library": "app/[locale]/tt-library/page.js",
   "/slovnyk": "app/[locale]/slovnyk/page.js",
 };
@@ -100,7 +104,8 @@ const LOCALIZED_PAGES = [
   { path: "/dlya-it-fakhivtsiv",         priority: 0.85, changeFrequency: "monthly" },
   { path: "/dlya-mediks",                priority: 0.85, changeFrequency: "monthly" },
   { path: "/dlya-pidpryyemtsiv",         priority: 0.85, changeFrequency: "monthly" },
-  { path: "/case-studies",               priority: 0.7,  changeFrequency: "monthly" },
+  // /case-studies excluded from sitemap (noindex) per Audit 5 #5 — see
+  // SOURCE_FILE comment above for restore conditions.
   // VideoObject-rich TikTok transcript library — AI-search indexability
   // play (Lantern 2026: YouTube is the most-cited domain in AI answers).
   { path: "/tt-library",                 priority: 0.75, changeFrequency: "weekly" },
