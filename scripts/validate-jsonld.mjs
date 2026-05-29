@@ -66,15 +66,24 @@ function getContextString(ctx) {
   return "";
 }
 
-function validateNode(node, route, errors) {
+function validateNode(node, route, errors, opts = { requireContext: true }) {
   if (!node || typeof node !== "object") return;
+  // @graph wrapper — children inherit parent's @context per JSON-LD spec.
   if (Array.isArray(node["@graph"])) {
-    for (const child of node["@graph"]) validateNode(child, route, errors);
+    const ctxStr = getContextString(node["@context"]);
+    if (!ctxStr || !ctxStr.includes("schema.org")) {
+      errors.push(`[${route}] @graph parent missing schema.org @context: ${ctxStr || "(empty)"}`);
+    }
+    for (const child of node["@graph"]) {
+      validateNode(child, route, errors, { requireContext: false });
+    }
     return;
   }
-  const ctxStr = getContextString(node["@context"]);
-  if (!ctxStr || !ctxStr.includes("schema.org")) {
-    errors.push(`[${route}] missing or non-schema.org @context: ${ctxStr || "(empty)"}`);
+  if (opts.requireContext) {
+    const ctxStr = getContextString(node["@context"]);
+    if (!ctxStr || !ctxStr.includes("schema.org")) {
+      errors.push(`[${route}] missing or non-schema.org @context: ${ctxStr || "(empty)"}`);
+    }
   }
   const t = node["@type"];
   if (!t) {
