@@ -39,6 +39,21 @@ export const trackTtLandingView = (utmCampaign = "bio") =>
 export const trackTtCtaClick = (cta) =>
   track("tt_cta_click", { cta }); // cta = book | guide | calculator | whatsapp
 
+// ─── CRO: scroll-depth + CTA position events ─────────────────────────────────
+// Audit 5 #7 (CRO instrumentation). Use ScrollDepthTracker component which
+// fires these at 25 / 50 / 75 / 100 % of page scrolled. `page` should be a
+// short slug like "dlya-it-fakhivtsiv" or "finfluencer-compliance" so GA4
+// dimensions stay clean.
+export const trackScrollDepth = (page, pct) =>
+  track("scroll_depth", { page, percent: pct });
+
+// CTA position tracking on long pillar pages. Lets us A/B which CTA
+// position (hero / mid / footer / sticky-bar) converts best.
+//   position = "hero" | "mid" | "footer" | "sticky"
+//   cta      = "book_call" | "eligibility_check" | "email_capture"
+export const trackCtaPosition = (page, position, cta) =>
+  track("cta_position_click", { page, position, cta });
+
 // ─── UTM helpers ─────────────────────────────────────────────────────────────
 
 // Persist UTM params to sessionStorage on first visit, so attribution survives navigation.

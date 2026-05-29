@@ -32,6 +32,7 @@ import StaticFaq from "../../_components/StaticFaq";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -50,6 +51,42 @@ const COPY = {
     tldr: "Анонімізовані кейси клієнтів: повністю де-ідентифіковані сценарії — IT-фахівець з RSU, лікар з MPC, підприємець з CCPC, family relocation, Eligible Investor entry. Frameworks замість returns. Без імен, без точних чисел, без рекомендацій купити-продати specific securities.",
     introBlock:
       "Я Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Усе нижче — освітні рамки прийняття рішень, не рекомендації, не обіцянки результатів. Я не публікую імена клієнтів, не показую брокерські рахунки, не оголошую конкретних securities — це порушує і regulatory правила, і базову етику. Замість цього кожен кейс описує тип клієнта (професія + ситуація), три питання які ми задавали, framework який застосовували, і чим завершився перший рік. Якщо твоя ситуація схожа — це не означає що тобі підійде те саме рішення. Це означає що варто обговорити твою специфіку.",
+    regulatoryTitle: "Регуляторна логіка: чому case studies в Канаді обмежені",
+    regulatoryIntro:
+      "Це не просто моя обережність — це прямі вимоги National Instrument 31-103 (Registrant Conduct), що регулює усіх Dealing Representatives у Канаді. Розумієш ці правила — розумієш чому жоден легальний EMD не публікує \"кейсів з 14% returns\" у своєму блозі, і чому коли ти бачиш такі заяви від \"finfluencer-а\" — це майже завжди ознака unregistered operation.",
+    regulatoryItems: [
+      {
+        cite: "NI 31-103, Part 13 — Dealing with Clients",
+        body: "Правила marketing communications для зареєстрованих фірм. Заборонено: performance claims про specific securities у public marketing, обіцянки future returns, testimonials що підтверджують конкретні investment performance. Дозволено: educational frameworks, generic market data з джерелами, anonymous categorical examples.",
+      },
+      {
+        cite: "NI 31-103, §13.5 — Marketing Practices",
+        body: "Усі marketing materials мають бути fair, balanced, not misleading. Це означає: якщо я показую \"клієнт А заробив 14%\", я також маю показати клієнтів які lost money (CSA reviewer тест). На практиці це робить anonymized case studies зі специфічними returns майже неможливими — простіше публікувати frameworks.",
+      },
+      {
+        cite: "NI 45-106, §1.1 — Eligible Investor & Accredited Investor",
+        body: "Категорії інвесторів, що можуть купувати exempt market securities. Eligible: $75K solo income / $125K household, або $400K net assets. Accredited: $200K solo income / $300K household, або $1M+ financial assets, або $5M+ total net assets. Case studies можуть посилатись на цей фреймворк, але не давати індивідуальної рекомендації — це робиться тільки у private suitability assessment.",
+      },
+      {
+        cite: "PIPEDA — Personal Information Protection",
+        body: "Federal privacy law що зобов'язує захищати персональну інформацію клієнтів. Навіть якщо клієнт дав usnу згоду на публікацію — мінімально достатня анонімізація потрібна щоб \"reasonably\" не можна було ідентифікувати особу через combination факторів (місто + employer + income + age = identifiable).",
+      },
+      {
+        cite: "Joint CSA/CIRO Staff Notice 31-369 (Dec 2025)",
+        body: "Найновіший документ про social media + finfluencer compliance. Підтверджує: освітні fact patterns дозволені; конкретні security recommendations + return claims + performance comparisons — потребують реєстрації + suitability process. Це reframe того, що зареєстровані професіонали можуть казати публічно у 2026 році.",
+      },
+    ],
+    permittedTitle: "Що case studies можуть і не можуть містити",
+    permittedItems: [
+      { ok: "✓ Дозволено", text: "Категорія клієнта (\"IT-фахівець, AB resident, $130-160K income\")" },
+      { ok: "✗ Заборонено", text: "Ім'я, фото, точне місто, employer name" },
+      { ok: "✓ Дозволено", text: "Decision framework (\"RRSP-first у vesting рік для збиття marginal\")" },
+      { ok: "✗ Заборонено", text: "Конкретна стратегія купити specific security X" },
+      { ok: "✓ Дозволено", text: "Generic returns reference (\"historical broad-market ETF 7-12%\")" },
+      { ok: "✗ Заборонено", text: "Performance claim про specific security (\"MIC Y дав 14% у 2024\")" },
+      { ok: "✓ Дозволено", text: "NI 45-106 self-check framework (\"$75K → Eligible Investor\")" },
+      { ok: "✗ Заборонено", text: "Особиста рекомендація (\"тобі підійде exempt market portfolio\")" },
+    ],
     methodTitle: "Як я анонімізую кейси",
     methodItems: [
       {
@@ -165,6 +202,42 @@ const COPY = {
     tldr: "Анонимизированные кейсы клиентов: де-идентифицированные сценарии — IT-специалист с RSU, врач с MPC, предприниматель с CCPC, family relocation, Eligible Investor entry. Frameworks вместо returns. Без имён, без точных чисел.",
     introBlock:
       "Я Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Всё ниже — образовательные рамки принятия решений, не рекомендации, не обещания результатов. Я не публикую имён клиентов, не показываю брокерские счета, не объявляю конкретных securities — это нарушает и regulatory правила, и базовую этику. Вместо этого каждый кейс описывает тип клиента (профессия + ситуация), три вопроса которые мы задавали, framework который применяли, и чем завершился первый год. Если твоя ситуация похожа — это не значит что тебе подойдёт то же решение. Это значит что стоит обсудить твою специфику.",
+    regulatoryTitle: "Регуляторная логика: почему case studies в Канаде ограничены",
+    regulatoryIntro:
+      "Это не просто моя осторожность — это прямые требования National Instrument 31-103 (Registrant Conduct), регулирующего всех Dealing Representatives в Канаде. Понимаешь эти правила — понимаешь почему ни один legal EMD не публикует \"кейсов с 14% returns\" в своём блоге, и почему когда видишь такие заявления от \"finfluencer-а\" — это почти всегда признак unregistered operation.",
+    regulatoryItems: [
+      {
+        cite: "NI 31-103, Part 13 — Dealing with Clients",
+        body: "Правила marketing communications для зарегистрированных фирм. Запрещено: performance claims про specific securities в public marketing, обещания future returns, testimonials подтверждающие конкретные investment performance. Разрешено: educational frameworks, generic market data с источниками.",
+      },
+      {
+        cite: "NI 31-103, §13.5 — Marketing Practices",
+        body: "Все marketing materials должны быть fair, balanced, not misleading. Если показываю \"клиент А заработал 14%\", должен также показать клиентов кто lost money. Это делает anonymized case studies со специфическими returns почти невозможными.",
+      },
+      {
+        cite: "NI 45-106, §1.1 — Eligible Investor & Accredited Investor",
+        body: "Категории инвесторов, которые могут покупать exempt market securities. Eligible: $75K solo / $125K household income, или $400K net assets. Accredited: $200K solo / $300K household, $1M+ financial assets, $5M+ total net assets.",
+      },
+      {
+        cite: "PIPEDA — Personal Information Protection",
+        body: "Federal privacy law обязывающий защищать персональную информацию клиентов. Минимально достаточная анонимизация: нельзя \"reasonably\" идентифицировать особу через combination факторов.",
+      },
+      {
+        cite: "Joint CSA/CIRO Staff Notice 31-369 (Dec 2025)",
+        body: "Новейший документ про social media + finfluencer compliance. Образовательные fact patterns разрешены; конкретные security recommendations + return claims — требуют регистрации + suitability process.",
+      },
+    ],
+    permittedTitle: "Что case studies могут и не могут содержать",
+    permittedItems: [
+      { ok: "✓ Разрешено", text: "Категория клиента (\"IT-специалист, AB resident, $130-160K income\")" },
+      { ok: "✗ Запрещено", text: "Имя, фото, точный город, employer name" },
+      { ok: "✓ Разрешено", text: "Decision framework (\"RRSP-first в vesting год\")" },
+      { ok: "✗ Запрещено", text: "Конкретная стратегия купить specific security X" },
+      { ok: "✓ Разрешено", text: "Generic returns reference (\"historical broad-market ETF 7-12%\")" },
+      { ok: "✗ Запрещено", text: "Performance claim про specific security" },
+      { ok: "✓ Разрешено", text: "NI 45-106 self-check framework" },
+      { ok: "✗ Запрещено", text: "Личная рекомендация" },
+    ],
     methodTitle: "Как я анонимизирую кейсы",
     methodItems: [
       {
@@ -280,6 +353,42 @@ const COPY = {
     tldr: "Anonymized client case studies: fully de-identified scenarios — tech worker with RSUs, physician with MPC, business owner with CCPC, family relocation, Eligible Investor entry. Frameworks instead of return claims. No names, no exact numbers.",
     introBlock:
       "I'm a Licensed Dealing Representative (NRD #4575551, Axcess Capital Advisors Inc.). Everything below is educational decision frameworks, not recommendations, not promises of results. I don't publish client names, account screenshots, or specific securities — that violates regulatory rules and basic ethics. Instead each case describes the client type (profession + situation), the three questions we asked, the framework we applied, and how year one ended. If your situation is similar — that doesn't mean the same solution fits you. It means it's worth discussing your specifics.",
+    regulatoryTitle: "Regulatory rationale: why case studies in Canada are constrained",
+    regulatoryIntro:
+      "This isn't just my caution — it's a direct requirement of National Instrument 31-103 (Registrant Conduct), which governs all Dealing Representatives in Canada. Understand these rules and you understand why no legal EMD publishes \"client cases with 14% returns\" on their blog, and why when you see such claims from a \"finfluencer\" — it's almost always a sign of an unregistered operation.",
+    regulatoryItems: [
+      {
+        cite: "NI 31-103, Part 13 — Dealing with Clients",
+        body: "Marketing communications rules for registered firms. Prohibited: performance claims about specific securities in public marketing, promises of future returns, testimonials confirming specific investment performance. Permitted: educational frameworks, generic market data with sources, anonymous categorical examples.",
+      },
+      {
+        cite: "NI 31-103, §13.5 — Marketing Practices",
+        body: "All marketing materials must be fair, balanced, not misleading. If I show \"client A earned 14%\" I must also show clients who lost money (CSA reviewer test). In practice this makes anonymized case studies with specific returns nearly impossible — frameworks are simpler.",
+      },
+      {
+        cite: "NI 45-106, §1.1 — Eligible Investor & Accredited Investor",
+        body: "Investor categories that may purchase exempt market securities. Eligible: $75K solo income / $125K household, or $400K net assets. Accredited: $200K solo income / $300K household, $1M+ financial assets, or $5M+ total net assets. Case studies may reference this framework but not provide individual recommendations.",
+      },
+      {
+        cite: "PIPEDA — Personal Information Protection",
+        body: "Federal privacy law requiring protection of client personal information. Minimum sufficient anonymization: a person should not be \"reasonably\" identifiable through combinations of factors (city + employer + income + age).",
+      },
+      {
+        cite: "Joint CSA/CIRO Staff Notice 31-369 (Dec 2025)",
+        body: "Newest social-media + finfluencer compliance guidance. Confirms: educational fact patterns are permitted; specific security recommendations + return claims + performance comparisons — require registration + suitability process.",
+      },
+    ],
+    permittedTitle: "What case studies can and cannot contain",
+    permittedItems: [
+      { ok: "✓ Permitted", text: "Client category (\"tech worker, AB resident, $130-160K income\")" },
+      { ok: "✗ Prohibited", text: "Name, photo, precise city, employer name" },
+      { ok: "✓ Permitted", text: "Decision framework (\"RRSP-first in vesting year to knock marginal\")" },
+      { ok: "✗ Prohibited", text: "Specific strategy to buy specific security X" },
+      { ok: "✓ Permitted", text: "Generic returns reference (\"historical broad-market ETF 7-12%\")" },
+      { ok: "✗ Prohibited", text: "Performance claim about specific security (\"MIC Y returned 14% in 2024\")" },
+      { ok: "✓ Permitted", text: "NI 45-106 self-check framework (\"$75K → Eligible Investor\")" },
+      { ok: "✗ Prohibited", text: "Personal recommendation (\"exempt market portfolio would suit you\")" },
+    ],
     methodTitle: "How I anonymize cases",
     methodItems: [
       {
@@ -414,15 +523,12 @@ export async function generateMetadata({ params }) {
       title: c.titleMeta,
       description: c.descriptionMeta,
     },
-    // Audit 5 (#5): /case-studies is a framework page without real case studies
-    // published yet. With 4 methodology cards + 5 type-cards but no actual
-    // case content, indexing risks thin/scaled-content classification in the
-    // May-2026 core update. We noindex until the first 3 real cases ship
-    // (then we revert this block + restore sitemap entry).
-    robots: {
-      index: false,
-      follow: true,
-    },
+    // Indexable as of batch 9 (audit 5 #5 follow-up): the page now contains
+    // a full regulatory-rationale section citing NI 31-103 / NI 45-106 /
+    // PIPEDA / CSA Notice 31-369 + a permitted/prohibited compare table,
+    // making it a standalone reference on Canadian case-study marketing
+    // constraints — not just a thin framework. Real /case-studies/[slug]
+    // entries will still expand it further when shipped.
   };
 }
 
@@ -460,6 +566,7 @@ export default async function CaseStudiesPage({ params }) {
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <ScrollDepthTracker page="case-studies" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -508,6 +615,53 @@ export default async function CaseStudiesPage({ params }) {
       <section className="px-6 pb-12">
         <div className="mx-auto max-w-3xl">
           <p className="text-base text-white/80 leading-relaxed">{c.introBlock}</p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-4 text-2xl sm:text-3xl font-bold">{c.regulatoryTitle}</h2>
+          <p className="mb-8 text-base text-white/75 leading-relaxed">{c.regulatoryIntro}</p>
+          <div className="space-y-4">
+            {c.regulatoryItems.map((item, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border-l-2 border-[var(--color-brand)]/60 bg-white/[0.03] p-5"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-brand)]">
+                  {item.cite}
+                </p>
+                <p className="mt-2 text-sm text-white/80 leading-relaxed">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-6 text-2xl sm:text-3xl font-bold">{c.permittedTitle}</h2>
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            {c.permittedItems.map((item, i) => (
+              <div
+                key={i}
+                className={`flex items-start gap-4 px-5 py-4 ${
+                  i % 2 === 0 ? "bg-white/[0.03]" : "bg-white/[0.01]"
+                }`}
+              >
+                <span
+                  className={`flex-shrink-0 text-sm font-bold ${
+                    item.ok.startsWith("✓") ? "text-[var(--color-brand)]" : "text-red-400/80"
+                  }`}
+                >
+                  {item.ok}
+                </span>
+                <span className="text-sm text-white/80">{item.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

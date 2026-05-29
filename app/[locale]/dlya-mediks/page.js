@@ -19,6 +19,7 @@ import CraLimits2026 from "../../_components/CraLimits2026";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -417,6 +418,57 @@ function buildJsonLd(locale, c, path) {
   };
 }
 
+// MedicalWebPage schema (Audit 5 #11 / Batch 9 pattern). MedicalWebPage is
+// Schema.org's elevated YMYL type for content addressing medical
+// professionals / patients — Google's Search Quality Rater Guidelines hold
+// it to a higher E-E-A-T standard. Layering it next to Article makes the
+// regulatory + professional angle of MPC / IPP / holdco content explicit
+// to AI Overviews + Google KG.
+function buildMedicalWebPageJsonLd(locale, c, path) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": `https://sky-fort.ca${path}#medicalwebpage`,
+    name: c.titleMeta,
+    description: c.descriptionMeta,
+    url: `https://sky-fort.ca${path}`,
+    inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
+    audience: {
+      "@type": "MedicalAudience",
+      audienceType: "Medical professionals (physicians, residents, specialists)",
+      geographicArea: {
+        "@type": "Country",
+        name: "Canada",
+      },
+    },
+    about: [
+      {
+        "@type": "Thing",
+        name: "Medical Professional Corporation (MPC)",
+        description: "Specialized CCPC permitted for licensed Canadian physicians in AB, BC, ON, SK, MB, NS, NB. Provides Small Business Deduction, salary/dividend split, IPP eligibility, and asset protection.",
+      },
+      {
+        "@type": "Thing",
+        name: "Individual Pension Plan (IPP)",
+        description: "Defined-benefit pension plan for one-person CCPC. Allows $40-70K/year contributions for physicians 40+, vs $33,810 RRSP limit. OSFI-regulated.",
+      },
+      {
+        "@type": "Thing",
+        name: "Holdco asset protection",
+        description: "Holding company structure connecting to MPC via §112(1) tax-free dividend. Protects accumulated wealth from malpractice claims against MPC.",
+      },
+    ],
+    reviewedBy: {
+      "@type": "Person",
+      name: "Andrii Andriushchenko",
+      jobTitle: "Licensed Dealing Representative",
+      identifier: "NRD 4575551",
+      url: `https://sky-fort.ca/${locale}/pro-mene`,
+    },
+    lastReviewed: "2026-05-28",
+  };
+}
+
 export default async function MediksPillarPage({ params }) {
   const { locale } = await params;
   const c = COPY[locale] || COPY.uk;
@@ -424,9 +476,14 @@ export default async function MediksPillarPage({ params }) {
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <ScrollDepthTracker page="dlya-mediks" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, c, path)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildMedicalWebPageJsonLd(locale, c, path)) }}
       />
 
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">

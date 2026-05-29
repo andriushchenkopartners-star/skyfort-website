@@ -453,11 +453,30 @@ export default async function GlossaryPage({ params }) {
   const path = `/${locale}/slovnyk`;
   const jsonLd = buildDefinedTermSetJsonLd(locale, c, path);
 
+  // Speakable: voice-search readers (Google Assistant, AI-Overview audio)
+  // get pointed at the H1 + subtitle + intro paragraph — the first
+  // 2-3 sentences that summarize what the glossary covers.
+  const speakableJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `https://sky-fort.ca${path}#webpage`,
+    url: `https://sky-fort.ca${path}`,
+    name: c.title,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["main h1", "main h1 + p", "main h1 ~ p:first-of-type"],
+    },
+  };
+
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableJsonLd) }}
       />
 
       <header className="pt-8 pb-4 px-6">

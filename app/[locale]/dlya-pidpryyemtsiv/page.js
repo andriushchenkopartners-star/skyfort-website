@@ -15,6 +15,7 @@ import CraLimits2026 from "../../_components/CraLimits2026";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -420,6 +421,7 @@ export default async function EntrepreneursPillarPage({ params }) {
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <ScrollDepthTracker page="dlya-pidpryyemtsiv" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, c, path)) }}

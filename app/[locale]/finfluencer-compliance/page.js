@@ -28,6 +28,7 @@ import StaticFaq from "../../_components/StaticFaq";
 import TldrBlock from "../../_components/TldrBlock";
 import RelatedLinks from "../../_components/RelatedLinks";
 import AuthorByline from "../../_components/AuthorByline";
+import ScrollDepthTracker from "../../_components/ScrollDepthTracker";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const CSA_URL = "https://www.securities-administrators.ca/";
@@ -380,6 +381,7 @@ export default async function FinfluencerCompliancePage({ params }) {
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
+      <ScrollDepthTracker page="finfluencer-compliance" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

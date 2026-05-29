@@ -60,6 +60,7 @@ const SOURCE_FILE = {
   "/calculators/tfsa-growth": "app/[locale]/calculators/tfsa-growth/page.js",
   "/calculators/financial-freedom": "app/[locale]/calculators/financial-freedom/page.js",
   "/calculators/mortgage": "app/[locale]/calculators/mortgage/page.js",
+  "/calculators/rsu-tax": "app/[locale]/calculators/rsu-tax/page.js",
   "/links": "app/[locale]/links/page.js",
   "/privacy": "app/[locale]/privacy/page.js",
   "/cookies": "app/[locale]/cookies/page.js",
@@ -67,11 +68,7 @@ const SOURCE_FILE = {
   "/dlya-it-fakhivtsiv": "app/[locale]/dlya-it-fakhivtsiv/page.js",
   "/dlya-mediks": "app/[locale]/dlya-mediks/page.js",
   "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
-  // "/case-studies" removed from SOURCE_FILE + LOCALIZED_PAGES per Audit 5
-  // (#5): page is currently a framework without real case studies → noindex
-  // applied at page level until real cases ship. Restore both entries here +
-  // remove the `robots: { index: false }` block from the page when shipping
-  // the first real /case-studies/[slug] pages.
+  "/case-studies": "app/[locale]/case-studies/page.js",
   "/tt-library": "app/[locale]/tt-library/page.js",
   "/slovnyk": "app/[locale]/slovnyk/page.js",
 };
@@ -91,6 +88,7 @@ const LOCALIZED_PAGES = [
   { path: "/calculators/tfsa-growth",    priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/financial-freedom", priority: 0.8, changeFrequency: "monthly" },
   { path: "/calculators/mortgage",       priority: 0.8, changeFrequency: "monthly" },
+  { path: "/calculators/rsu-tax",        priority: 0.8, changeFrequency: "monthly" },
   { path: "/links",                      priority: 0.5, changeFrequency: "monthly" },
   { path: "/privacy",                    priority: 0.3, changeFrequency: "yearly" },
   { path: "/cookies",                    priority: 0.3, changeFrequency: "yearly" },
@@ -104,8 +102,10 @@ const LOCALIZED_PAGES = [
   { path: "/dlya-it-fakhivtsiv",         priority: 0.85, changeFrequency: "monthly" },
   { path: "/dlya-mediks",                priority: 0.85, changeFrequency: "monthly" },
   { path: "/dlya-pidpryyemtsiv",         priority: 0.85, changeFrequency: "monthly" },
-  // /case-studies excluded from sitemap (noindex) per Audit 5 #5 — see
-  // SOURCE_FILE comment above for restore conditions.
+  // /case-studies re-included as standalone reference page after batch 9
+  // expansion (regulatory rationale + NI 31-103/45-106/PIPEDA citations
+  // + permitted/prohibited table).
+  { path: "/case-studies",               priority: 0.7,  changeFrequency: "monthly" },
   // VideoObject-rich TikTok transcript library — AI-search indexability
   // play (Lantern 2026: YouTube is the most-cited domain in AI answers).
   { path: "/tt-library",                 priority: 0.75, changeFrequency: "weekly" },
