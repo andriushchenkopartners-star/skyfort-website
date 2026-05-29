@@ -68,6 +68,7 @@ const SOURCE_FILE = {
   "/privacy": "app/[locale]/privacy/page.js",
   "/cookies": "app/[locale]/cookies/page.js",
   "/finfluencer-compliance": "app/[locale]/finfluencer-compliance/page.js",
+  "/author/andrii": "app/[locale]/author/andrii/page.js",
   "/dlya-it-fakhivtsiv": "app/[locale]/dlya-it-fakhivtsiv/page.js",
   "/dlya-mediks": "app/[locale]/dlya-mediks/page.js",
   "/dlya-pidpryyemtsiv": "app/[locale]/dlya-pidpryyemtsiv/page.js",
@@ -101,6 +102,8 @@ const LOCALIZED_PAGES = [
   // High priority — these are flagship E-E-A-T pages that justify the
   // licensed-DR positioning and drive AI Overview citations.
   { path: "/finfluencer-compliance",     priority: 0.85, changeFrequency: "monthly" },
+  // Author entity URL — anchor for Article schema author.url resolution.
+  { path: "/author/andrii",              priority: 0.75, changeFrequency: "monthly" },
   // ICP-targeted pillar pages (3 audiences × 3 locales = 9 URLs).
   // Designed to rank for high-intent searches like
   // "RSU vesting Канада українцям" / "MPC vs sole proprietor doctor".

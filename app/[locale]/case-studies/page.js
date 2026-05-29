@@ -171,7 +171,7 @@ const COPY = {
       },
       {
         q: "Чи можна побачити testimonials від реальних клієнтів?",
-        a: "Так — на /uk/pro-mene є секція з review-style відгуками клієнтів (з письмовою згодою на публікацію). Schema.org Review markup. Це не \"performance claims\" — це думки про роботу з мною як professional. CSA розрізняє \"testimonial про advisor\" (можна, з conditions) і \"testimonial про specific security performance\" (заборонено).",
+        a: "Поки реальних testimonials з Review schema на /uk/pro-mene немає — збираю письмові згоди клієнтів і додам Schema.org Review markup коли матиму ≥3 повних відгуки з підтвердженням. CSA розрізняє \"testimonial про advisor\" (дозволено з conditions: реальний клієнт, письмова згода, без performance claims) і \"testimonial про specific security performance\" (заборонено NI 31-103 §13.5). До того часу — discovery call з discussion будь-яких specific examples сильнішим за публічний відгук.",
       },
       {
         q: "Я підходжу під один з кейсів — це означає що мені підійде те саме рішення?",
@@ -322,7 +322,7 @@ const COPY = {
       },
       {
         q: "Можно увидеть testimonials от реальных клиентов?",
-        a: "Да — на /ru/pro-mene есть секция с review-style отзывами клиентов (с письменным согласием на публикацию). Schema.org Review markup. CSA разделяет \"testimonial про advisor\" (можно) и \"testimonial про specific security performance\" (запрещено).",
+        a: "Пока реальных testimonials с Review schema на /ru/pro-mene нет — собираю письменные согласия и добавлю Schema.org Review markup когда наберу ≥3 полных отзыва. CSA разделяет \"testimonial про advisor\" (можно с conditions: реальный клиент, письменное согласие, без performance claims) и \"testimonial про specific security performance\" (запрещено NI 31-103 §13.5).",
       },
       {
         q: "Я подхожу под один из кейсов — мне подойдёт то же решение?",
@@ -473,7 +473,7 @@ const COPY = {
       },
       {
         q: "Can I see testimonials from real clients?",
-        a: "Yes — /en/pro-mene has a Reviews section with written client consent. Schema.org Review markup. CSA distinguishes \"testimonial about advisor\" (allowed with conditions) and \"testimonial about specific security performance\" (prohibited).",
+        a: "Real Schema.org-marked testimonials aren't on /en/pro-mene yet — I'm collecting written client consents and will add Review markup once I have ≥3 complete attestations. CSA distinguishes 'testimonial about advisor' (allowed with conditions: real client, written consent, no performance claims) from 'testimonial about specific security performance' (prohibited by NI 31-103 §13.5).",
       },
       {
         q: "I match one of these cases — does the same solution fit me?",

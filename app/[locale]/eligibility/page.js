@@ -9,6 +9,7 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import EligibilityQuiz from "./quiz";
 import AuthorByline from "../../_components/AuthorByline";
+import UpdatedBadge from "../../_components/UpdatedBadge";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const NRD_URL =
@@ -43,10 +44,11 @@ const META = {
 // AI crawlers (GPTBot, ClaudeBot, PerplexityBot) typically don't execute JS,
 // so they'd only see the intro + Start button.
 //
-// To make the page extraction-ready, we mirror the question content as a
-// static <details>/<summary> block server-side below the interactive widget.
-// Same NI 45-106 §1.1 thresholds, same option ranges, same disclaimer. No
-// JavaScript required to read this block. Caught by the 3rd re-audit (1.7).
+// Batch 15 (Audit 7 #4): previously this content was wrapped in `<details>`
+// (closed by default) which surfaces to crawlers but hides from sighted
+// readers. We now render it OPEN by default + add a TL;DR direct-answer
+// block above + FAQPage JSON-LD covering the 4 questions. This is the
+// canonical AI-Overview / Perplexity / ChatGPT extraction pattern.
 const QUIZ_PREVIEW = {
   uk: {
     heading: "Питання у текстовому вигляді",
@@ -134,45 +136,80 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// WebApplication + Quiz JSON-LD — both surfaces this as a tool to Google.
-// Quiz schema isn't a top-tier rich-snippet type yet but doesn't hurt.
-const buildJsonLd = (locale) => ({
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      name: "Eligible Investor Self-Check",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Web",
-      url: `https://sky-fort.ca/${locale}/eligibility`,
-      description:
-        "Preliminary NI 45-106 financial-threshold self-check. Educational tool, not legal advice. Provided by a Licensed Dealing Representative.",
-      inLanguage: ["uk", "ru", "en"],
-      offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
-      provider: {
-        "@type": "FinancialService",
-        name: "SkyFort Wealth",
-        url: "https://sky-fort.ca",
+// Direct-answer (TL;DR) text per locale — used both for the visible block
+// AND embedded into the FAQPage JSON-LD for AI extraction.
+const DIRECT_ANSWER = {
+  uk: {
+    label: "TL;DR — короткий висновок за NI 45-106 §1.1",
+    text:
+      "У Канаді ти Eligible Investor якщо твій валовий дохід ≥$75K solo (або ≥$125K household) два роки поспіль, АБО net assets ≥$400K (без primary residence). Ти Accredited Investor якщо ≥$200K solo / ≥$300K household income, АБО net financial assets ≥$1M, АБО total net worth ≥$5M. Цей self-check — освітній preliminary check за CSA NI 45-106; формальна класифікація — через KYC + Suitability з registered Dealing Representative.",
+  },
+  ru: {
+    label: "TL;DR — короткий вывод по NI 45-106 §1.1",
+    text:
+      "В Канаде ты Eligible Investor если валовый доход ≥$75K solo (или ≥$125K household) два года подряд, ИЛИ net assets ≥$400K (без primary residence). Ты Accredited Investor если ≥$200K solo / ≥$300K household income, ИЛИ net financial assets ≥$1M, ИЛИ total net worth ≥$5M. Формальная классификация — через KYC + Suitability с registered Dealing Representative.",
+  },
+  en: {
+    label: "TL;DR — short answer under NI 45-106 §1.1",
+    text:
+      "In Canada you're an Eligible Investor if your gross income is ≥$75K solo (or ≥$125K household) in each of the last 2 years, OR net assets ≥$400K (excluding primary residence). You're an Accredited Investor if ≥$200K solo / ≥$300K household income, OR net financial assets ≥$1M, OR total net worth ≥$5M. This self-check is an educational preliminary review under CSA NI 45-106; formal classification only via KYC + Suitability with a registered Dealing Representative.",
+  },
+};
+
+// WebApplication + Quiz + FAQPage JSON-LD.
+// FAQPage added in batch 15 (audit 7 #4) — each of the 4 NI 45-106
+// questions + threshold answer becomes a Question/Answer pair.
+const buildJsonLd = (locale) => {
+  const preview = QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        name: "Eligible Investor Self-Check",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        url: `https://sky-fort.ca/${locale}/eligibility`,
+        description:
+          "Preliminary NI 45-106 financial-threshold self-check. Educational tool, not legal advice. Provided by a Licensed Dealing Representative.",
+        inLanguage: ["uk", "ru", "en"],
+        offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
+        provider: {
+          "@type": "FinancialService",
+          name: "SkyFort Wealth",
+          url: "https://sky-fort.ca",
+        },
       },
-    },
-    {
-      "@type": "Quiz",
-      name: "Eligible Investor self-check (NI 45-106)",
-      about: {
-        "@type": "Thing",
-        name: "Eligible Investor and Accredited Investor categories under CSA National Instrument 45-106",
+      {
+        "@type": "Quiz",
+        name: "Eligible Investor self-check (NI 45-106)",
+        about: {
+          "@type": "Thing",
+          name: "Eligible Investor and Accredited Investor categories under CSA National Instrument 45-106",
+        },
+        educationalLevel: "Adult education",
+        learningResourceType: "Self-assessment",
+        inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
+        provider: {
+          "@type": "FinancialService",
+          name: "SkyFort Wealth",
+          url: "https://sky-fort.ca",
+        },
       },
-      educationalLevel: "Adult education",
-      learningResourceType: "Self-assessment",
-      inLanguage: { uk: "uk", ru: "ru", en: "en-CA" }[locale],
-      provider: {
-        "@type": "FinancialService",
-        name: "SkyFort Wealth",
-        url: "https://sky-fort.ca",
+      {
+        "@type": "FAQPage",
+        mainEntity: preview.questions.map((q) => ({
+          "@type": "Question",
+          name: q.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: q.opts + " — пороги NI 45-106 §1.1 для Eligible/Accredited Investor класифікації",
+          },
+        })),
       },
-    },
-  ],
-});
+    ],
+  };
+};
 
 export default async function EligibilityPage({ params }) {
   const { locale } = await params;
@@ -206,29 +243,43 @@ export default async function EligibilityPage({ params }) {
         </div>
       </div>
 
+      {/* TL;DR direct-answer block — primary AI-extraction surface.
+          Batch 15 (Audit 7 #4): moved out of <details>, made
+          unconditionally visible at top of page. */}
+      <section className="mx-auto max-w-3xl px-6 pt-2 pb-4">
+        <div className="mb-3">
+          <UpdatedBadge date="2026-05-29" locale={locale} />
+        </div>
+        <aside
+          id="tldr"
+          aria-label="Direct answer"
+          className="rounded-2xl border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] p-5 sm:p-6"
+        >
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-brand)]">
+            {(DIRECT_ANSWER[locale] || DIRECT_ANSWER.uk).label}
+          </p>
+          <p className="mt-2 text-base leading-relaxed text-white/90">
+            {(DIRECT_ANSWER[locale] || DIRECT_ANSWER.uk).text}
+          </p>
+        </aside>
+      </section>
+
       <EligibilityQuiz locale={locale} />
 
       {/* SSR fallback — full question text indexed by Google + AI crawlers
-          even without running the client quiz. */}
+          even without running the client quiz. Now rendered as a flat
+          visible section (was hidden in <details> before batch 15). */}
       <section className="mx-auto max-w-3xl px-6 pb-20 pt-4">
-        <details className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] open:border-[var(--color-brand)]/30">
-          <summary className="cursor-pointer list-none p-6 md:p-7">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-xl text-white md:text-2xl">
-                {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).heading}
-              </h2>
-              <span
-                aria-hidden="true"
-                className="text-2xl leading-none text-[var(--color-brand)] transition-transform group-open:rotate-45"
-              >
-                +
-              </span>
-            </div>
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)]">
+          <div className="border-b border-[var(--color-border)] p-6 md:p-7">
+            <h2 className="font-display text-xl text-white md:text-2xl">
+              {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).heading}
+            </h2>
             <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">
               {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).intro}
             </p>
-          </summary>
-          <div className="border-t border-[var(--color-border)] p-6 md:p-8">
+          </div>
+          <div className="p-6 md:p-8">
             <ol className="space-y-5">
               {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).questions.map((q) => (
                 <li key={q.n}>
@@ -254,7 +305,7 @@ export default async function EligibilityPage({ params }) {
               {(QUIZ_PREVIEW[locale] || QUIZ_PREVIEW.uk).disclaimer}
             </p>
           </div>
-        </details>
+        </div>
       </section>
     </main>
   );

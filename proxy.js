@@ -54,8 +54,30 @@ function passWithLangHeader(request) {
   return NextResponse.next({ request: { headers } });
 }
 
+// Audit 7 #2: legacy SkyFort Estate URLs that Google still has indexed.
+// Returning **410 Gone** (instead of 404) signals "permanently removed,
+// please de-index" to Googlebot, which speeds up removal vs 404's
+// "maybe-temporary" semantics. Owner can also file GSC Removals — 410
+// makes those approvals faster.
+//
+// Match prefixes (RegExp source kept readable):
+const LEGACY_GONE_PATTERNS = [
+  /^\/agent(\/|$)/,
+  /^\/property(\/|$)/,
+  /^\/listings?(\/|$)/,
+  /^\/mls(\/|$)/,
+];
+
 export function proxy(request) {
   const { pathname } = request.nextUrl;
+
+  // Legacy Estate URLs → 410 Gone. Crawlers de-index faster than on 404.
+  if (LEGACY_GONE_PATTERNS.some((re) => re.test(pathname))) {
+    return new NextResponse(
+      `<!DOCTYPE html><html lang="uk"><head><title>410 Gone — SkyFort Wealth</title><meta name="robots" content="noindex"/></head><body style="font-family:sans-serif;max-width:640px;margin:80px auto;padding:0 20px;color:#fafafa;background:#191919"><h1 style="color:#2D73E3">410 — Сторінку видалено</h1><p>Це посилання вело на стару версію сайту (SkyFort Estate, real-estate). Поточний сайт — фінансові послуги SkyFort Wealth.</p><p><a href="/" style="color:#2D73E3">→ На головну SkyFort Wealth</a></p></body></html>`,
+      { status: 410, headers: { "Content-Type": "text/html; charset=utf-8" } },
+    );
+  }
 
   // Pass-through for assets, API, and UA-only landings.
   if (ROOT_PASSTHROUGH.some((p) => pathname === p || pathname.startsWith(p + "/"))) {

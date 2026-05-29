@@ -184,6 +184,7 @@ const jsonLd = {
     "https://axcesscapital.ca/",
     "https://sky-fort.ca/uk/perevirka",
     "https://sky-fort.ca/uk/presa",
+    "https://sky-fort.ca/uk/author/andrii",
     // Audit 6 #4 (sameAs expansion): link to composite case studies so
     // AI engines (ChatGPT browse / Perplexity / Gemini) and Google KG
     // can confirm the Person entity authored these illustrations. Each
