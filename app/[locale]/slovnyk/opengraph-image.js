@@ -11,21 +11,21 @@ export const alt = 'Словник канадських фінансів';
 const COPY = {
   uk: {
     eyebrow: 'GLOSSARY',
-    badge: '30+ terms',
+    badge: '50 terms',
     title: 'Словник канадських фінансів.',
     description:
       'TFSA, RRSP, FHSA, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD — source-attributed definitions від canada.ca та CSA.',
   },
   ru: {
     eyebrow: 'GLOSSARY',
-    badge: '30+ терминов',
+    badge: '50 терминов',
     title: 'Словарь канадских финансов.',
     description:
       'TFSA, RRSP, FHSA, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD — source-attributed definitions от canada.ca и CSA.',
   },
   en: {
     eyebrow: 'GLOSSARY',
-    badge: '30+ terms',
+    badge: '50 terms',
     title: 'Canadian finance glossary.',
     description:
       'TFSA, RRSP, FHSA, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD — source-attributed definitions from canada.ca and CSA.',
