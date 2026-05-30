@@ -1,4 +1,4 @@
-// app/_components/portal/BrandPanel.jsx
+// app/_components/portal/BrandPanel.tsx
 // Decorative geometric background panel composed from the SkyFort brand mark.
 // Used as: hero card backgrounds, modal accents, sidebar promo card, etc.
 //
@@ -7,7 +7,17 @@
 //   muted: when true, shapes drop to ~18% opacity so the panel reads as quiet texture
 //   className: standard className prop (positioning is done by parent)
 
-export default function BrandPanel({ tone = 'ink', muted = false, className }) {
+type Tone = 'ink' | 'blue' | 'paper';
+
+export default function BrandPanel({
+  tone = 'ink',
+  muted = false,
+  className,
+}: {
+  tone?: Tone;
+  muted?: boolean;
+  className?: string;
+}) {
   const bg =
     tone === 'ink'
       ? 'var(--portal-ink)'

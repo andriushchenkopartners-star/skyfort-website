@@ -1,9 +1,9 @@
-// app/_components/portal/SFLogotype.jsx
+// app/_components/portal/SFLogotype.tsx
 // SkyFort wordmark = mark + "SKYFORT" type.
 
 import SFMark from './SFMark';
 
-export default function SFLogotype({ height = 18, color = 'currentColor' }) {
+export default function SFLogotype({ height = 18, color = 'currentColor' }: { height?: number; color?: string }) {
   return (
     <div
       style={{

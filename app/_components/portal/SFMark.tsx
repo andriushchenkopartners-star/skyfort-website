@@ -1,8 +1,8 @@
-// app/_components/portal/SFMark.jsx
+// app/_components/portal/SFMark.tsx
 // SkyFort geometric logo mark (square, scalable).
 // Reused from artifact assets/logo.svg.
 
-export default function SFMark({ size = 28, color = 'var(--color-brand)' }) {
+export default function SFMark({ size = 28, color = 'var(--color-brand)' }: { size?: number; color?: string }) {
   return (
     <svg
       viewBox="0 0 97 90"

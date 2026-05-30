@@ -1,4 +1,4 @@
-// app/_components/portal/Btn.jsx
+// app/_components/portal/Btn.tsx
 // SkyFort Client Portal — button primitive.
 //
 // Variants:
@@ -14,14 +14,18 @@
 
 import Link from 'next/link';
 import { forwardRef } from 'react';
+import type { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 
-const SIZE_CLASSES = {
+type Variant = 'primary' | 'ink' | 'ghost' | 'paper' | 'blank';
+type Size = 'sm' | 'md' | 'lg';
+
+const SIZE_CLASSES: Record<Size, string> = {
   sm: 'h-8 px-3 text-[12px] rounded-[8px] gap-1.5',
   md: 'h-10 px-3.5 text-[13px] rounded-[10px] gap-2',
   lg: 'h-12 px-5 text-[14px] rounded-[12px] gap-2.5',
 };
 
-const VARIANT_STYLES = {
+const VARIANT_STYLES: Record<Variant, CSSProperties> = {
   primary: {
     background: 'var(--color-brand)',
     color: '#fff',
@@ -49,7 +53,27 @@ const VARIANT_STYLES = {
   },
 };
 
-const Btn = forwardRef(function Btn(
+interface BtnProps {
+  children?: ReactNode;
+  variant?: Variant;
+  size?: Size;
+  icon?: ReactNode;
+  iconRight?: ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+  href?: string;
+  target?: string;
+  rel?: string;
+  full?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  onClick?: MouseEventHandler<HTMLElement>;
+  className?: string;
+}
+
+// Polymorphic element (a | Link | button) means the forwarded ref instance
+// type can't be a single concrete element without per-element casts; `any`
+// here is the pragmatic, lint-clean choice for the ref slot only.
+const Btn = forwardRef<any, BtnProps>(function Btn(
   {
     children,
     variant = 'primary',

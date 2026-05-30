@@ -1,4 +1,4 @@
-// app/_components/portal/icons.jsx
+// app/_components/portal/icons.tsx
 // SkyFort Client Portal — minimal stroke icon set.
 // Each icon is 14×14 by default, stroke-based, inherits `currentColor`.
 

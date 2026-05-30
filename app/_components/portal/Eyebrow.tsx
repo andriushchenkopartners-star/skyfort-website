@@ -1,7 +1,19 @@
-// app/_components/portal/Eyebrow.jsx
+// app/_components/portal/Eyebrow.tsx
 // SkyFort Client Portal — small uppercase label (used above headings).
 
-export default function Eyebrow({ children, color, className = '', style }) {
+import type { CSSProperties, ReactNode } from 'react';
+
+export default function Eyebrow({
+  children,
+  color,
+  className = '',
+  style,
+}: {
+  children?: ReactNode;
+  color?: string;
+  className?: string;
+  style?: CSSProperties;
+}) {
   return (
     <div
       className={className}

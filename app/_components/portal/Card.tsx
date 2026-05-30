@@ -1,5 +1,17 @@
-// app/_components/portal/Card.jsx
+// app/_components/portal/Card.tsx
 // SkyFort Client Portal — card primitive (paper or ink surface, 18px radius).
+
+import type { CSSProperties, MouseEventHandler, ReactNode } from 'react';
+
+interface CardProps {
+  children?: ReactNode;
+  pad?: number | string;
+  dark?: boolean;
+  accent?: string;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+  className?: string;
+  style?: CSSProperties;
+}
 
 export default function Card({
   children,
@@ -10,8 +22,11 @@ export default function Card({
   className = '',
   style,
   ...rest
-}) {
-  const merged = {
+}: CardProps) {
+  // Annotate as CSSProperties: the object is extracted to a const before being
+  // passed to `style`, so without the annotation literals like `position`
+  // widen to `string` and fail to satisfy React.CSSProperties.
+  const merged: CSSProperties = {
     background: dark ? 'var(--portal-ink)' : '#fff',
     color: dark ? 'var(--portal-paper)' : 'var(--portal-ink)',
     border: dark ? '1px solid var(--portal-ink-3)' : '1px solid var(--portal-line)',
