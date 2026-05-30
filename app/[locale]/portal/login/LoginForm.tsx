@@ -1,9 +1,10 @@
-// app/[locale]/portal/login/LoginForm.jsx
+// app/[locale]/portal/login/LoginForm.tsx
 // Client-side magic link form. Calls supabase.auth.signInWithOtp directly.
 
 'use client';
 
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { browserClient } from '../../../_lib/portal/supabase';
 import Btn from '../../../_components/portal/Btn';
 import Card from '../../../_components/portal/Card';
@@ -11,12 +12,12 @@ import Eyebrow from '../../../_components/portal/Eyebrow';
 import SFLogotype from '../../../_components/portal/SFLogotype';
 import { PortalIcons as I } from '../../../_components/portal/icons';
 
-export default function LoginForm({ locale, t }) {
+export default function LoginForm({ locale, t }: { locale?: string; t?: any }) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'sent' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
 
-  async function onSubmit(e) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email || status === 'sending') return;
     setStatus('sending');

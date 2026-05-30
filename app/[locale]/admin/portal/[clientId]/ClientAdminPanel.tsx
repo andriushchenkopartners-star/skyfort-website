@@ -1,4 +1,4 @@
-// app/[locale]/admin/portal/[clientId]/ClientAdminPanel.jsx
+// app/[locale]/admin/portal/[clientId]/ClientAdminPanel.tsx
 // Interactive admin panel for one client — push todo, send message, upload doc.
 
 'use client';
@@ -21,6 +21,13 @@ export default function ClientAdminPanel({
   initialTodos,
   initialMessages,
   initialDocuments,
+}: {
+  clientId: string;
+  clientName?: string;
+  locale?: string;
+  initialTodos: any[];
+  initialMessages: any[];
+  initialDocuments: any[];
 }) {
   const router = useRouter();
   const [todos, setTodos] = useState(initialTodos);
@@ -39,7 +46,7 @@ export default function ClientAdminPanel({
   // Document upload
   const [docTitle, setDocTitle] = useState('');
   const [docCategory, setDocCategory] = useState('statement');
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function pushTodo() {
     if (!todoTitle.trim() || busy) return;
@@ -85,7 +92,7 @@ export default function ClientAdminPanel({
     }
   }
 
-  async function uploadDoc(file) {
+  async function uploadDoc(file?: File) {
     if (!file || busy) return;
     setBusy(true);
     setError('');

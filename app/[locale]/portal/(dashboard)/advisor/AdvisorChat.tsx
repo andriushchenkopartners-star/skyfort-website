@@ -1,7 +1,8 @@
-// app/[locale]/portal/(dashboard)/advisor/AdvisorChat.jsx
+// app/[locale]/portal/(dashboard)/advisor/AdvisorChat.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { browserClient } from '../../../../_lib/portal/supabase';
 import { ADVISOR } from '../../../../_lib/portal/advisor';
@@ -11,13 +12,23 @@ import Eyebrow from '../../../../_components/portal/Eyebrow';
 import BrandPanel from '../../../../_components/portal/BrandPanel';
 import { PortalIcons as I } from '../../../../_components/portal/icons';
 
-export default function AdvisorChat({ initialMessages, userId, locale, t }) {
+export default function AdvisorChat({
+  initialMessages,
+  userId,
+  locale,
+  t,
+}: {
+  initialMessages: any[];
+  userId?: string;
+  locale?: string;
+  t?: any;
+}) {
   const router = useRouter();
   const [messages, setMessages] = useState(initialMessages);
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const threadRef = useRef(null);
+  const threadRef = useRef<HTMLDivElement>(null);
   const supabase = browserClient();
 
   // Scroll to latest message on load + after send.
@@ -252,7 +263,7 @@ export default function AdvisorChat({ initialMessages, userId, locale, t }) {
   );
 }
 
-function Bubble({ message, t }) {
+function Bubble({ message, t }: { message: any; t?: any }) {
   const isClient = message.from_role === 'client';
   const time = new Date(message.created_at).toLocaleString('en-CA', {
     hour: 'numeric',
@@ -282,7 +293,7 @@ function Bubble({ message, t }) {
   );
 }
 
-function Meta({ label, value }) {
+function Meta({ label, value }: { label?: ReactNode; value?: ReactNode }) {
   return (
     <div>
       <div style={{ fontSize: 10.5, color: 'var(--portal-mute)', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
