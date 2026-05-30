@@ -9,7 +9,21 @@ import {
   Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 
-function formatMoney(n) {
+interface TfsaChartLabels {
+  year: string;
+  bank: string;
+  gic: string;
+  conservative: string;
+  balanced: string;
+  aggressive: string;
+}
+
+interface TfsaChartProps {
+  data: Array<Record<string, number>>;
+  labels: TfsaChartLabels;
+}
+
+function formatMoney(n: number) {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD",
@@ -17,7 +31,7 @@ function formatMoney(n) {
   }).format(n);
 }
 
-export default function TfsaChart({ data, labels }) {
+export default function TfsaChart({ data, labels }: TfsaChartProps) {
   return (
     <div className="h-[420px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -47,7 +61,7 @@ export default function TfsaChart({ data, labels }) {
               borderRadius: 8,
               color: "#fff",
             }}
-            formatter={(value) => formatMoney(value)}
+            formatter={(value) => formatMoney(Number(value))}
           />
           <Legend wrapperStyle={{ fontSize: 12, paddingTop: 16 }} />
           <Line type="monotone" dataKey="bank" name={labels.bank} stroke="#6b6b6b" strokeWidth={2} dot={false} />

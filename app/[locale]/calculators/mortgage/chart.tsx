@@ -8,7 +8,22 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 
-function formatCAD(n) {
+interface MortgageScenario {
+  label: string;
+  color: string;
+}
+
+interface MortgageBalanceChartProps {
+  data: Array<Record<string, number>>;
+  balanceLabel: string;
+}
+
+interface MortgageComparisonChartProps {
+  data: Array<Record<string, number | null>>;
+  scenarios: MortgageScenario[];
+}
+
+function formatCAD(n: number) {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD",
@@ -17,7 +32,7 @@ function formatCAD(n) {
 }
 
 // Single-line balance-over-time chart used by ModeOwn.
-export function MortgageBalanceChart({ data, balanceLabel }) {
+export function MortgageBalanceChart({ data, balanceLabel }: MortgageBalanceChartProps) {
   return (
     <div className="h-[280px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -36,7 +51,7 @@ export function MortgageBalanceChart({ data, balanceLabel }) {
               borderRadius: 8,
               color: "#fff",
             }}
-            formatter={(v) => formatCAD(v)}
+            formatter={(v) => formatCAD(Number(v))}
           />
           <Line
             type="monotone"
@@ -53,7 +68,7 @@ export function MortgageBalanceChart({ data, balanceLabel }) {
 }
 
 // Multi-scenario comparison used by ModeEarlyPayoff.
-export function MortgageComparisonChart({ data, scenarios }) {
+export function MortgageComparisonChart({ data, scenarios }: MortgageComparisonChartProps) {
   return (
     <div className="h-[280px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -72,7 +87,7 @@ export function MortgageComparisonChart({ data, scenarios }) {
               borderRadius: 8,
               color: "#fff",
             }}
-            formatter={(v) => formatCAD(v)}
+            formatter={(v) => formatCAD(Number(v))}
           />
           <Legend wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
           {scenarios.map((s, i) => (

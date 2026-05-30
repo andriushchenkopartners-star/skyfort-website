@@ -8,7 +8,22 @@ import {
   Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from "recharts";
 
-function formatMoney(n) {
+interface FireStrategy {
+  key: string;
+  color: string;
+  strokeWidth: number;
+  dashed?: boolean;
+}
+
+interface FireChartProps {
+  data: Array<Record<string, number>>;
+  labels: { year: string; fiThreshold: string };
+  strategyLabels: Record<string, string>;
+  strategies: FireStrategy[];
+  fiStandard: number;
+}
+
+function formatMoney(n: number) {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD",
@@ -16,7 +31,7 @@ function formatMoney(n) {
   }).format(n);
 }
 
-export default function FireChart({ data, labels, strategyLabels, strategies, fiStandard }) {
+export default function FireChart({ data, labels, strategyLabels, strategies, fiStandard }: FireChartProps) {
   return (
     <div className="h-[460px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -46,7 +61,7 @@ export default function FireChart({ data, labels, strategyLabels, strategies, fi
               borderRadius: 8,
               color: "#fff",
             }}
-            formatter={(value) => formatMoney(value)}
+            formatter={(value) => formatMoney(Number(value))}
           />
           <Legend wrapperStyle={{ fontSize: 12, paddingTop: 16 }} />
           <ReferenceLine
