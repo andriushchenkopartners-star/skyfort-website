@@ -1,4 +1,4 @@
-// app/_components/SiteSearch.jsx
+// app/_components/SiteSearch.tsx
 // Client-side site search modal. Triggered by Cmd/Ctrl+K or '/' keyboard
 // shortcut, or by an external button (passed as `triggerRef` from Nav).
 //
@@ -22,7 +22,24 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { Search, X, ArrowRight, Loader2 } from "lucide-react";
 import { trackSearchOpen, trackSearchQuery, trackSearchClick } from "../_lib/analytics";
 
-function scoreDoc(doc, q) {
+type Locale = "uk" | "ru" | "en";
+
+interface SearchDoc {
+  url: string;
+  title: string;
+  description?: string;
+  pillar?: string;
+}
+
+interface SearchCopy {
+  placeholder: string;
+  empty: string;
+  esc: string;
+  kbd: string;
+  results: string;
+}
+
+function scoreDoc(doc: SearchDoc, q: string): number {
   const ql = q.toLowerCase();
   const title = (doc.title || "").toLowerCase();
   const desc = (doc.description || "").toLowerCase();
@@ -48,13 +65,13 @@ function scoreDoc(doc, q) {
   return score;
 }
 
-const COPY = {
+const COPY: Record<Locale, SearchCopy> = {
   uk: { placeholder: "Шукати по сайту…", empty: "Нічого не знайдено для", esc: "Esc — закрити", kbd: "/ — відкрити", results: "результат(ів)" },
   ru: { placeholder: "Искать по сайту…", empty: "Ничего не найдено для", esc: "Esc — закрыть", kbd: "/ — открыть", results: "результат(ов)" },
   en: { placeholder: "Search the site…", empty: "Nothing found for", esc: "Esc to close", kbd: "/ to open", results: "results" },
 };
 
-function detectLocale() {
+function detectLocale(): Locale {
   if (typeof window === "undefined") return "uk";
   const path = window.location.pathname;
   if (path.startsWith("/ru")) return "ru";
@@ -65,9 +82,9 @@ function detectLocale() {
 export default function SiteSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [docs, setDocs] = useState(null);
+  const [docs, setDocs] = useState<SearchDoc[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const locale = typeof window !== "undefined" ? detectLocale() : "uk";
   const c = COPY[locale] || COPY.uk;
 
@@ -75,7 +92,7 @@ export default function SiteSearch() {
   // Also responds to a 'skyfort:open-search' custom event so other UI
   // (Nav burger, in-page buttons) can open the modal without a ref.
   useEffect(() => {
-    function onKey(e) {
+    function onKey(e: KeyboardEvent) {
       if (
         (e.key === "k" && (e.metaKey || e.ctrlKey)) ||
         (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA")

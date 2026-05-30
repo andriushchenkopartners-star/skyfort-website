@@ -5,10 +5,31 @@
 // Mount: на /uk (hero CTA), /uk/tt (TikTok landing), будь-який pillar блог-пост.
 
 import { useState } from "react";
+import type { FormEvent } from "react";
 import { Mail, Download, CheckCircle2, AlertCircle, ArrowRight } from "lucide-react";
 import { track, getStoredUtms } from "../_lib/analytics";
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+type Variant = "hero" | "card";
+type FormState = "idle" | "sending" | "success" | "error";
+
+interface EmailCaptureCopy {
+  heroTitle: string;
+  heroSub: string;
+  cardTitle: string;
+  cardSub: string;
+  emailPh: string;
+  namePh: string;
+  submit: string;
+  sending: string;
+  success: string;
+  errInvalid: string;
+  errRate: string;
+  errGeneric: string;
+  privacy: string;
+}
+
+const COPY: Record<Locale, EmailCaptureCopy> = {
   uk: {
     heroTitle: "Безкоштовний гайд TFSA → твоя пошта",
     heroSub: "8 типових помилок українців з TFSA + 20-річний план. PDF за 1 клік.",
@@ -56,7 +77,7 @@ const COPY = {
   },
 };
 
-function isValidEmail(e) {
+function isValidEmail(e: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
@@ -66,15 +87,21 @@ export default function EmailCaptureForm({
   source = "unknown",
   leadMagnet = "TFSA_GUIDE",
   className = "",
+}: {
+  locale?: Locale;
+  variant?: Variant;
+  source?: string;
+  leadMagnet?: string;
+  className?: string;
 }) {
   const c = COPY[locale] || COPY.uk;
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
-  const [state, setState] = useState("idle"); // idle | sending | success | error
+  const [state, setState] = useState<FormState>("idle"); // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isValidEmail(email)) {
       setState("error");

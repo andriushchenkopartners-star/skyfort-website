@@ -1,4 +1,4 @@
-// app/_components/StickyBlogCTA.jsx
+// app/_components/StickyBlogCTA.tsx
 // Reveal-on-scroll CTA bar that appears after the reader is past ~40% of
 // the page. Mobile: full-width bottom bar. Desktop: floating bottom-right card.
 // Dismissible — choice stored in sessionStorage (not localStorage, so it
@@ -11,10 +11,20 @@ import { Calendar, X, ArrowRight } from 'lucide-react';
 import { track } from '../_lib/analytics';
 import { useSessionStorage } from '../_lib/hooks';
 
+type Locale = 'uk' | 'ru' | 'en';
+
 const STORAGE_KEY = 'skyfort:blog-cta:dismissed';
 const REVEAL_THRESHOLD = 0.4; // 40% scrolled
 
-const COPY = {
+interface StickyBlogCtaCopy {
+  eyebrow: string;
+  title: string;
+  sub: string;
+  cta: string;
+  dismiss: string;
+}
+
+const COPY: Record<Locale, StickyBlogCtaCopy> = {
   uk: {
     eyebrow: 'Хочеш свою ситуацію персонально?',
     title: 'Безкоштовний 30-хв discovery call',
@@ -38,7 +48,15 @@ const COPY = {
   },
 };
 
-export default function StickyBlogCTA({ locale = 'uk', calendlyUrl, slug }) {
+export default function StickyBlogCTA({
+  locale = 'uk',
+  calendlyUrl,
+  slug,
+}: {
+  locale?: Locale;
+  calendlyUrl?: string;
+  slug?: string;
+}) {
   const [visible, setVisible] = useState(false);
   // Dismissal state: source of truth is sessionStorage (persists across page
   // reloads in the same tab). `localDismissed` flips immediately on click so

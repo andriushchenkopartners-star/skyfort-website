@@ -5,13 +5,32 @@
 // Локалізована UA/RU/EN. Honeypot для anti-spam.
 
 import { useState } from "react";
+import type { FormEvent } from "react";
 import { Lightbulb, CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { track, getStoredUtms } from "../_lib/analytics";
 import { useLocalStorage } from "../_lib/hooks";
 
+type Locale = "uk" | "ru" | "en";
+type FormState = "idle" | "sending" | "success" | "error";
+
 const DRAFT_KEY = "skyfort_topic_draft";
 
-const COPY = {
+interface TopicSuggestCopy {
+  title: string;
+  sub: string;
+  placeholder: string;
+  emailLabel: string;
+  emailPh: string;
+  submit: string;
+  sending: string;
+  success: string;
+  errorMin: string;
+  errorRate: string;
+  errorGeneric: string;
+  privacy: string;
+}
+
+const COPY: Record<Locale, TopicSuggestCopy> = {
   uk: {
     title: "Запропонуй тему наступної статті",
     sub: "Що тобі цікаво розібрати? Я читаю кожне повідомлення і часто пишу статті за запитами.",
@@ -56,7 +75,13 @@ const COPY = {
   },
 };
 
-export default function TopicSuggestForm({ locale = "uk", source = "blog_hub" }) {
+export default function TopicSuggestForm({
+  locale = "uk",
+  source = "blog_hub",
+}: {
+  locale?: Locale;
+  source?: string;
+}) {
   const c = COPY[locale] || COPY.uk;
 
   // Draft persistence: `savedDraft` reads localStorage reactively (null on SSR
@@ -64,15 +89,15 @@ export default function TopicSuggestForm({ locale = "uk", source = "blog_hub" })
   // the textarea shows the saved draft. On every change we write to localStorage
   // in the handler — no setState-in-effect needed.
   const savedDraft = useLocalStorage(DRAFT_KEY);
-  const [override, setOverride] = useState(null);
+  const [override, setOverride] = useState<string | null>(null);
   const topic = override ?? savedDraft ?? "";
 
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
-  const [state, setState] = useState("idle"); // idle | sending | success | error
+  const [state, setState] = useState<FormState>("idle"); // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState("");
 
-  function setTopic(value) {
+  function setTopic(value: string) {
     setOverride(value);
     try {
       localStorage.setItem(DRAFT_KEY, value);
@@ -82,7 +107,7 @@ export default function TopicSuggestForm({ locale = "uk", source = "blog_hub" })
     } catch {}
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (topic.trim().length < 5) {
       setState("error");
