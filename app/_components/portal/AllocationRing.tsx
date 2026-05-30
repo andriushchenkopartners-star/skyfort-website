@@ -1,4 +1,4 @@
-// app/_components/portal/AllocationRing.jsx
+// app/_components/portal/AllocationRing.tsx
 // Donut chart for asset allocation (TFSA / RRSP / FHSA / Exempt / Real estate breakdown).
 //
 // Inputs:
@@ -8,13 +8,34 @@
 //   stroke: ring thickness
 //   center: optional React node rendered in the middle (e.g., total $)
 
+import type { ReactNode } from 'react';
+
+interface AllocationDatum {
+  label: string;
+  pct: number;
+  color: string;
+}
+
+interface AllocationSlice extends AllocationDatum {
+  len: number;
+  offset: number;
+}
+
+interface AllocationRingProps {
+  data?: AllocationDatum[];
+  size?: number;
+  stroke?: number;
+  center?: ReactNode;
+  className?: string;
+}
+
 export default function AllocationRing({
   data,
   size = 180,
   stroke = 18,
   center,
   className,
-}) {
+}: AllocationRingProps) {
   if (!Array.isArray(data) || data.length === 0) return null;
 
   const r = (size - stroke) / 2;
@@ -25,7 +46,9 @@ export default function AllocationRing({
   // in render scope — so the old `let acc = 0; acc += len` accumulator pattern
   // is now an error. Building a fresh accumulator object per iteration sidesteps
   // it cleanly; for a typical allocation chart (<10 slices) the cost is trivial.
-  const slices = data.reduce(
+  // The explicit reduce generic is required: without it the `{ list: [] }`
+  // seed infers `never[]`, which then rejects the computed slice array.
+  const slices = data.reduce<{ list: AllocationSlice[]; cumulative: number }>(
     (acc, d) => {
       const len = (d.pct / 100) * c;
       return {

@@ -1,6 +1,6 @@
 'use client';
 
-// app/_components/portal/Sparkline.jsx
+// app/_components/portal/Sparkline.tsx
 // Tiny SVG line chart for compact stats (e.g., account row preview).
 // Inputs: pts (array of numbers). No axis, no labels — just the shape.
 //
@@ -10,6 +10,15 @@
 
 import { useId } from 'react';
 
+interface SparklineProps {
+  pts?: number[];
+  width?: number;
+  height?: number;
+  color?: string;
+  area?: boolean;
+  className?: string;
+}
+
 export default function Sparkline({
   pts,
   width = 240,
@@ -17,15 +26,15 @@ export default function Sparkline({
   color = 'var(--color-brand)',
   area = true,
   className,
-}) {
+}: SparklineProps) {
   const rawId = useId();
   if (!Array.isArray(pts) || pts.length < 2) return null;
 
   const min = Math.min(...pts);
   const max = Math.max(...pts);
   const r = max - min || 1;
-  const sx = (i) => (i / (pts.length - 1)) * width;
-  const sy = (v) => height - ((v - min) / r) * (height - 6) - 3;
+  const sx = (i: number) => (i / (pts.length - 1)) * width;
+  const sy = (v: number) => height - ((v - min) / r) * (height - 6) - 3;
   const d = pts
     .map((v, i) => `${i ? 'L' : 'M'}${sx(i).toFixed(1)} ${sy(v).toFixed(1)}`)
     .join(' ');

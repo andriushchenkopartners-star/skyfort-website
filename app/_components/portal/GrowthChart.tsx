@@ -1,4 +1,4 @@
-// app/_components/portal/GrowthChart.jsx
+// app/_components/portal/GrowthChart.tsx
 // 12-month area chart: client portfolio vs benchmark (e.g., S&P/TSX 60).
 //
 // Inputs:
@@ -9,12 +9,25 @@
 //
 // The component is intrinsically responsive — viewBox + width="100%".
 
+interface GrowthDatum {
+  m: number;
+  p: number;
+  b: number;
+}
+
+interface GrowthChartProps {
+  data?: GrowthDatum[];
+  monthLabels?: string[];
+  height?: number;
+  width?: number;
+}
+
 export default function GrowthChart({
   data,
   monthLabels,
   height = 220,
   width = 720,
-}) {
+}: GrowthChartProps) {
   if (!Array.isArray(data) || data.length < 2) return null;
 
   const pad = { l: 6, r: 6, t: 14, b: 24 };
@@ -24,8 +37,8 @@ export default function GrowthChart({
   const bs = data.map((d) => d.b);
   const min = Math.min(...ps, ...bs) * 0.98;
   const max = Math.max(...ps, ...bs) * 1.02;
-  const sx = (i) => pad.l + (i / (data.length - 1)) * w;
-  const sy = (v) => pad.t + (1 - (v - min) / (max - min)) * h;
+  const sx = (i: number) => pad.l + (i / (data.length - 1)) * w;
+  const sy = (v: number) => pad.t + (1 - (v - min) / (max - min)) * h;
   const pPath = ps
     .map((v, i) => `${i ? 'L' : 'M'} ${sx(i).toFixed(1)} ${sy(v).toFixed(1)}`)
     .join(' ');
