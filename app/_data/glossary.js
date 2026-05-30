@@ -373,6 +373,118 @@ const TERMS_UK = [
       "CRA дозволяє buffer $2,000 (lifetime) понад твоє RRSP room без penalty. Понад $2,000 — 1% per month penalty на excess. Tax credit на over-contribution не доступний у поточному році, але можна claim у наступному (якщо room звільниться).",
     source: { label: "canada.ca/RRSP-overcontribution", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/excess-contributions.html" },
   },
+  // ─── Batch 21 expansion: +15 terms (newcomer basics, tax fundamentals,
+  //     entrepreneur dividends, investing, real estate) ─────────────────────
+  {
+    id: "sin",
+    term: "SIN — Social Insurance Number",
+    definition:
+      "9-значний номер, обов'язковий щоб legally працювати в Канаді та відкрити будь-який registered рахунок (TFSA, RRSP, FHSA). Newcomers подають заяву через Service Canada у перші дні після прибуття — безкоштовно, часто видають того ж дня. Тимчасові residents (включно з CUAET) отримують SIN, що починається на 9.",
+    source: { label: "canada.ca/SIN", url: "https://www.canada.ca/en/employment-social-development/services/sin.html" },
+  },
+  {
+    id: "credit-score",
+    term: "Credit Score (Equifax / TransUnion)",
+    definition:
+      "Числовий показник кредитоспроможності 300-900, який ведуть два бюро — Equifax і TransUnion. Newcomers починають з нуля: перша secured credit card + вчасні платежі будують історію за 6-12 місяців. Впливає на approval і ставку по mortgage, оренді та авто-кредиту.",
+    source: { label: "FCAC — credit reports", url: "https://www.canada.ca/en/financial-consumer-agency/services/credit-reports-score.html" },
+  },
+  {
+    id: "tax-residency",
+    term: "Tax Residency (residential ties)",
+    definition:
+      "Канада оподатковує за residency, не громадянством. Tax resident платить податок на worldwide income з дати «establishing residential ties» (житло, родина, банк-рахунок) — для newcomers зазвичай дата прибуття. У перший рік ти part-year resident: оподатковується лише дохід після дати в'їзду.",
+    source: { label: "canada.ca — newcomers", url: "https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants.html" },
+  },
+  {
+    id: "tax-slips",
+    term: "Tax Slips — T4, T5, T3, T4A",
+    definition:
+      "Стандартизовані форми, які payers надсилають тобі й CRA про твій дохід. T4 — employment income; T5 — investment income (dividends, interest); T3 — trust/ETF distributions; T4A — pension, scholarships, self-employed commissions. Усі з'являються у CRA My Account до кінця березня й auto-fill у tax software.",
+    source: { label: "canada.ca — tax slips", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/tax-slips.html" },
+  },
+  {
+    id: "acb",
+    term: "ACB — Adjusted Cost Base",
+    definition:
+      "Податкова собівартість investment: ціна купівлі + commissions + reinvested distributions, поділена на кількість units. Capital gain = proceeds − ACB. Для одного й того ж security, купленого в різний час, ACB усереднюється. Точний ACB критичний у non-registered accounts; у TFSA/RRSP не релевантний.",
+    source: { label: "canada.ca — ACB", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/adjusted-cost-base.html" },
+  },
+  {
+    id: "capital-gains-inclusion",
+    term: "Capital Gains Inclusion Rate",
+    definition:
+      "Частка capital gain, що додається до taxable income. У Канаді 50% — продаєш investment з прибутком $10,000, оподатковується $5,000 за твоєю marginal rate. Gains у TFSA/RRSP/FHSA не оподатковуються взагалі. Principal residence — exempt через PRE.",
+    source: { label: "canada.ca — capital gains", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains.html" },
+  },
+  {
+    id: "marginal-rate",
+    term: "Marginal Tax Rate",
+    definition:
+      "Ставка податку на твій наступний зароблений долар (combined federal + provincial). Канада має progressive brackets: перші ~$57K федерально 15%, верхні брекети до 33% + provincial. Average rate завжди нижчий за marginal. Знати свій marginal rate потрібно, щоб оцінити вартість RRSP deduction чи bonus.",
+    source: { label: "canada.ca — tax rates", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html" },
+  },
+  {
+    id: "pre",
+    term: "PRE — Principal Residence Exemption",
+    definition:
+      "Звільнення від capital gains tax при продажу житла, що було твоєю principal residence. За кожен рік designation gain не оподатковується; одне житло на сім'ю на рік. Продаж треба report у Schedule 3 навіть якщо повністю exempt — інакше penalty.",
+    source: { label: "canada.ca — principal residence", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/principal-residence-other-real-estate.html" },
+  },
+  {
+    id: "cda",
+    term: "CDA — Capital Dividend Account",
+    definition:
+      "Нотаційний рахунок CCPC, що відстежує tax-free частину capital gains (50%, не included), life-insurance proceeds та інше. Власник може виплатити capital dividend з CDA повністю без податку. Ключовий tool для tax-efficient extraction прибутку з корпорації; потребує election (T2054) перед виплатою.",
+    source: { label: "canada.ca — capital dividends", url: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/dividends/capital-dividends.html" },
+    related: { label: "Гайд для підприємців", href: "/dlya-pidpryyemtsiv" },
+  },
+  {
+    id: "eligible-dividend",
+    term: "Eligible vs Non-Eligible Dividends",
+    definition:
+      "Дві категорії canadian dividends з різним gross-up і dividend tax credit. Eligible (з public company або CCPC income, оподаткованого по general rate) — нижча personal tax. Non-eligible (з SBD income під 9%) — вища personal tax, бо integration вирівнює загальне навантаження. Впливає на salary-vs-dividend рішення власника.",
+    source: { label: "canada.ca — dividends", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12000-taxable-amount-dividends-eligible-other-than-eligible-taxable-canadian-corporations.html" },
+    related: { label: "Гайд для підприємців", href: "/dlya-pidpryyemtsiv" },
+  },
+  {
+    id: "integration",
+    term: "Tax Integration (corporate–personal)",
+    definition:
+      "Принцип canadian tax системи: дохід, зароблений через корпорацію і виплачений власнику як dividend, має оподатковуватись приблизно так само, як якби зароблений особисто. На практиці integration недосконала — звідси salary-vs-dividend planning. Пояснює, чому non-eligible dividends несуть вищий personal tax.",
+    source: { label: "canada.ca — corporations", url: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/corporations.html" },
+    related: { label: "Гайд для підприємців", href: "/dlya-pidpryyemtsiv" },
+  },
+  {
+    id: "gic",
+    term: "GIC — Guaranteed Investment Certificate",
+    definition:
+      "Депозитний продукт з гарантованим поверненням principal + фіксований interest за term (від 30 днів до 5 років). Insured CDIC до $100,000 на institution. Interest оподатковується щороку як звичайний income (не capital gain) — тому ефективніший у TFSA/RRSP. Буває cashable та non-redeemable.",
+    source: { label: "FCAC — GICs", url: "https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/guaranteed-investment-certificate.html" },
+  },
+  {
+    id: "foreign-withholding",
+    term: "Foreign Withholding Tax",
+    definition:
+      "Податок, який інша країна утримує з dividends перед виплатою тобі. США утримують 15% з dividends на акції/ETF — але у RRSP/RRIF US-listed ETF звільнені від нього за Canada-US tax treaty. У TFSA та non-registered withholding застосовується. Релевантно при виборі, де тримати US-equity ETF.",
+    source: { label: "canada.ca — foreign tax credit", url: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-40500-federal-foreign-tax-credit.html" },
+  },
+  {
+    id: "cmhc",
+    term: "CMHC Mortgage Default Insurance",
+    definition:
+      "Обов'язкове insurance, коли down payment < 20% вартості житла (high-ratio mortgage). Захищає кредитора, не тебе; премія 2.8-4.0% від суми кредиту додається до mortgage. Дозволяє купити з down payment від 5%. Provided CMHC, Sagen, Canada Guaranty; недоступне для житла понад $1.5M.",
+    source: { label: "cmhc-schl.gc.ca", url: "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers" },
+    related: { label: "Іпотечний калькулятор", href: "/calculators/mortgage" },
+  },
+  {
+    id: "amortization",
+    term: "Amortization vs Term (mortgage)",
+    definition:
+      "Amortization — повний період погашення mortgage (typically 25-30 років). Term — період дії поточного контракту і ставки (typically 1-5 років), після якого renew за новою ставкою. Insured mortgage у Канаді обмежений 25-річною amortization (нові винятки для first-time buyers — 30). Довша amortization = нижчий платіж, але більше interest загалом.",
+    source: { label: "FCAC — mortgages", url: "https://www.canada.ca/en/financial-consumer-agency/services/mortgages.html" },
+    related: { label: "Іпотечний калькулятор", href: "/calculators/mortgage" },
+  },
 ];
 
 // RU translations of the same set, abbreviated.
@@ -461,6 +573,22 @@ const TERMS_RU = TERMS_UK.map((t) => {
     "ymp-yampe": "YMPE ($73,200 в 2026) — основной CPP cap. YAMPE ($83,200) — second-tier для CPP2 (enhanced CPP с 2024).",
     "spousal-rrsp": "RRSP где ты contributeешь, но spouse — annuitant. Goal: equalize retirement income. 3-year attribution rule.",
     "rrsp-overcontribution": "CRA позволяет buffer $2,000 (lifetime) сверх RRSP room без penalty. Сверх — 1% per month penalty на excess.",
+    // ─── Batch 21: +15 terms (RU translations) ───────────────────────────
+    "sin": "9-значный номер, обязательный чтобы legally работать в Канаде и открыть любой registered счёт (TFSA, RRSP, FHSA). Newcomers подают заявление через Service Canada в первые дни — бесплатно, часто выдают в тот же день. Временные residents (включая CUAET) получают SIN начинающийся на 9.",
+    "credit-score": "Числовой показатель кредитоспособности 300-900, который ведут два бюро — Equifax и TransUnion. Newcomers начинают с нуля: первая secured credit card + своевременные платежи строят историю за 6-12 месяцев. Влияет на approval и ставку по mortgage, аренде, авто-кредиту.",
+    "tax-residency": "Канада облагает налогом по residency, не гражданству. Tax resident платит налог на worldwide income с даты «establishing residential ties» (жильё, семья, банк-счёт) — для newcomers обычно дата прибытия. В первый год ты part-year resident: облагается только доход после даты въезда.",
+    "tax-slips": "Стандартизированные формы, которые payers присылают тебе и CRA о твоём доходе. T4 — employment income; T5 — investment income (dividends, interest); T3 — trust/ETF distributions; T4A — pension, стипендии, self-employed commissions. Все появляются в CRA My Account к концу марта и auto-fill в tax software.",
+    "acb": "Налоговая себестоимость investment: цена покупки + commissions + reinvested distributions, делённая на количество units. Capital gain = proceeds − ACB. Для одного security, купленного в разное время, ACB усредняется. Точный ACB критичен в non-registered; в TFSA/RRSP не релевантен.",
+    "capital-gains-inclusion": "Доля capital gain, добавляемая к taxable income. В Канаде 50% — продаёшь investment с прибылью $10,000, облагается $5,000 по твоей marginal rate. Gains в TFSA/RRSP/FHSA не облагаются вообще. Principal residence — exempt через PRE.",
+    "marginal-rate": "Ставка налога на твой следующий заработанный доллар (combined federal + provincial). Канада имеет progressive brackets: первые ~$57K федерально 15%, верхние до 33% + provincial. Average rate всегда ниже marginal. Знать свой marginal rate нужно чтобы оценить стоимость RRSP deduction или bonus.",
+    "pre": "Освобождение от capital gains tax при продаже жилья, бывшего твоей principal residence. За каждый год designation gain не облагается; одно жильё на семью в год. Продажу нужно report в Schedule 3 даже если полностью exempt — иначе penalty.",
+    "cda": "Нотационный счёт CCPC, отслеживающий tax-free часть capital gains (50%, не included), life-insurance proceeds и др. Владелец может выплатить capital dividend из CDA полностью без налога. Ключевой tool для tax-efficient извлечения прибыли; требует election (T2054) перед выплатой.",
+    "eligible-dividend": "Две категории canadian dividends с разным gross-up и dividend tax credit. Eligible (из public company или CCPC income по general rate) — ниже personal tax. Non-eligible (из SBD income под 9%) — выше personal tax, потому что integration выравнивает. Влияет на salary-vs-dividend решение владельца.",
+    "integration": "Принцип canadian tax системы: доход, заработанный через корпорацию и выплаченный владельцу как dividend, должен облагаться примерно так же, как если бы заработан лично. На практике integration несовершенна — отсюда salary-vs-dividend planning. Объясняет, почему non-eligible dividends несут выше personal tax.",
+    "gic": "Депозитный продукт с гарантированным возвратом principal + фиксированный interest за term (от 30 дней до 5 лет). Insured CDIC до $100,000 на institution. Interest облагается ежегодно как обычный income (не capital gain) — поэтому эффективнее в TFSA/RRSP. Бывает cashable и non-redeemable.",
+    "foreign-withholding": "Налог, который другая страна удерживает с dividends перед выплатой тебе. США удерживают 15% с dividends на акции/ETF — но в RRSP/RRIF US-listed ETF освобождены от него по Canada-US tax treaty. В TFSA и non-registered withholding применяется. Релевантно при выборе, где держать US-equity ETF.",
+    "cmhc": "Обязательное insurance, когда down payment < 20% стоимости жилья (high-ratio mortgage). Защищает кредитора, не тебя; премия 2.8-4.0% от суммы кредита добавляется к mortgage. Позволяет купить с down payment от 5%. Provided CMHC, Sagen, Canada Guaranty; недоступно для жилья свыше $1.5M.",
+    "amortization": "Amortization — полный период погашения mortgage (typically 25-30 лет). Term — период действия текущего контракта и ставки (typically 1-5 лет), после которого renew по новой ставке. Insured mortgage в Канаде ограничен 25-летней amortization (новые исключения для first-time buyers — 30). Дольше amortization = ниже платёж, но больше interest.",
   };
   return { ...t, term: rmap[t.id] || t.term, definition: dmap[t.id] || t.definition };
 });
@@ -518,14 +646,30 @@ const TERMS_EN = TERMS_UK.map((t) => {
     "ymp-yampe": "YMPE (Year's Maximum Pensionable Earnings, $73,200 in 2026) — primary CPP cap. YAMPE ($83,200 in 2026) — second-tier cap for CPP2 (enhanced CPP rolled out 2024). Earnings between YMPE and YAMPE attract an additional 4% CPP2 contribution.",
     "spousal-rrsp": "Spousal RRSP — RRSP where you (higher-income spouse) contribute but your spouse is the annuitant (owner). Goal: equalize retirement income to minimize total household tax in retirement. 3-year attribution rule: if spouse withdraws within 3 years of your contribution, withdrawal is taxed back to you.",
     "rrsp-overcontribution": "CRA allows a $2,000 lifetime buffer above your RRSP room without penalty. Above $2,000 — 1% per-month penalty on the excess. Tax credit on the over-contribution isn't available in the current year but can be claimed in a future year if room opens up.",
+    // ─── Batch 21: +15 terms (EN definitions) ────────────────────────────
+    "sin": "Social Insurance Number — a 9-digit number required to work legally in Canada and to open any registered account (TFSA, RRSP, FHSA). Newcomers apply through Service Canada in their first days — free, often same-day. Temporary residents (including CUAET) get a SIN starting with 9.",
+    "credit-score": "A 300-900 numeric measure of creditworthiness tracked by two bureaus — Equifax and TransUnion. Newcomers start from zero: a first secured credit card + on-time payments build history over 6-12 months. Affects approval and rate on mortgages, rentals, and auto loans.",
+    "tax-residency": "Canada taxes by residency, not citizenship. A tax resident pays tax on worldwide income from the date of establishing residential ties (home, family, bank account) — usually the arrival date for newcomers. In your first year you're a part-year resident: only income after entry is taxed.",
+    "tax-slips": "Standardized forms that payers send to you and the CRA reporting your income. T4 — employment income; T5 — investment income (dividends, interest); T3 — trust/ETF distributions; T4A — pension, scholarships, self-employed commissions. All appear in CRA My Account by late March and auto-fill into tax software.",
+    "acb": "Adjusted Cost Base — the tax cost of an investment: purchase price + commissions + reinvested distributions, divided by units held. Capital gain = proceeds − ACB. For the same security bought at different times, ACB is averaged. Precise ACB matters in non-registered accounts; irrelevant inside TFSA/RRSP.",
+    "capital-gains-inclusion": "The share of a capital gain added to taxable income. In Canada it's 50% — sell an investment at a $10,000 gain and $5,000 is taxed at your marginal rate. Gains inside TFSA/RRSP/FHSA aren't taxed at all. A principal residence is exempt via the PRE.",
+    "marginal-rate": "The tax rate on your next earned dollar (combined federal + provincial). Canada uses progressive brackets: the first ~$57K is 15% federally, top brackets reach 33% + provincial. Your average rate is always lower than your marginal rate. Knowing it is key to valuing an RRSP deduction or a bonus.",
+    "pre": "Principal Residence Exemption — shelters the capital gain on selling a home that was your principal residence. For each designated year the gain is exempt; one property per family per year. The sale must be reported on Schedule 3 even if fully exempt — otherwise a penalty applies.",
+    "cda": "Capital Dividend Account — a notional CCPC account tracking the tax-free half of capital gains (the 50% not included), life-insurance proceeds, and more. The owner can pay a capital dividend out of the CDA entirely tax-free. A key tool for tax-efficient profit extraction; requires a T2054 election before payment.",
+    "eligible-dividend": "Two categories of Canadian dividends with different gross-up and dividend tax credit. Eligible (from public-company or general-rate CCPC income) — lower personal tax. Non-eligible (from SBD income taxed at 9%) — higher personal tax, because integration evens out the total. Drives an owner's salary-vs-dividend decision.",
+    "integration": "A core principle of Canada's tax system: income earned through a corporation and paid to the owner as a dividend should be taxed roughly the same as if earned personally. In practice integration is imperfect — hence salary-vs-dividend planning. Explains why non-eligible dividends carry higher personal tax.",
+    "gic": "Guaranteed Investment Certificate — a deposit product with guaranteed return of principal + fixed interest over a term (30 days to 5 years). CDIC-insured up to $100,000 per institution. Interest is taxed yearly as ordinary income (not capital gain) — so it's more efficient inside a TFSA/RRSP. Comes in cashable and non-redeemable variants.",
+    "foreign-withholding": "Tax another country withholds from dividends before paying you. The US withholds 15% on dividends from US stocks/ETFs — but US-listed ETFs held in an RRSP/RRIF are exempt under the Canada-US tax treaty. In a TFSA or non-registered account the withholding applies. Relevant to where you hold US-equity ETFs.",
+    "cmhc": "Mortgage default insurance required when your down payment is under 20% of the home price (a high-ratio mortgage). It protects the lender, not you; the 2.8-4.0% premium is added to the mortgage. Lets you buy with as little as 5% down. Provided by CMHC, Sagen, Canada Guaranty; unavailable on homes over $1.5M.",
+    "amortization": "Amortization is the full payoff period of a mortgage (typically 25-30 years). The term is how long your current contract and rate last (typically 1-5 years), after which you renew at a new rate. Insured mortgages in Canada cap amortization at 25 years (new exceptions for first-time buyers — 30). Longer amortization = lower payment but more total interest.",
   };
   return { ...t, definition: dmap[t.id] || t.definition };
 });
 
 export const GLOSSARY_COPY = {
   uk: {
-    titleMeta: "Словник канадських фінансів — 50+ термінів",
-    descriptionMeta: "50+ ключових термінів канадських особистих фінансів: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Словник канадських фінансів — 65+ термінів",
+    descriptionMeta: "65+ ключових термінів канадських особистих фінансів: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Головна",
     crumbThis: "Словник",
     eyebrow: "Glossary · Canadian finance",
@@ -543,8 +687,8 @@ export const GLOSSARY_COPY = {
     terms: TERMS_UK,
   },
   ru: {
-    titleMeta: "Словарь канадских финансов — 50+ терминов",
-    descriptionMeta: "50+ ключевых терминов канадских личных финансов: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Словарь канадских финансов — 65+ терминов",
+    descriptionMeta: "65+ ключевых терминов канадских личных финансов: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Главная",
     crumbThis: "Словарь",
     eyebrow: "Glossary · Canadian finance",
@@ -562,8 +706,8 @@ export const GLOSSARY_COPY = {
     terms: TERMS_RU,
   },
   en: {
-    titleMeta: "Canadian finance glossary — 50+ terms",
-    descriptionMeta: "50+ key Canadian personal-finance terms: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
+    titleMeta: "Canadian finance glossary — 65+ terms",
+    descriptionMeta: "65+ key Canadian personal-finance terms: TFSA, RRSP, FHSA, RESP, CCPC, MPC, MIC, REIT, NI 45-106, Eligible Investor, EMD. Source-attributed definitions.",
     crumbHome: "Home",
     crumbThis: "Glossary",
     eyebrow: "Glossary · Canadian finance",
