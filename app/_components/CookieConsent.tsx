@@ -1,4 +1,4 @@
-// app/_components/CookieConsent.jsx
+// app/_components/CookieConsent.tsx
 // PIPEDA-compliant informational cookie banner — shown once, dismissible.
 // Stores choice in localStorage to suppress on subsequent visits.
 // Doesn't block analytics (Canadian implied-consent model); for users who want
@@ -9,10 +9,18 @@
 import { usePathname } from 'next/navigation';
 import { useLocalStorage, useIsMounted } from '../_lib/hooks';
 
-const STORAGE_KEY = 'skyfort:cookies:ack';
-const SUPPORTED = ['uk', 'ru', 'en'];
+type Locale = 'uk' | 'ru' | 'en';
 
-const COPY = {
+const STORAGE_KEY = 'skyfort:cookies:ack';
+const SUPPORTED: Locale[] = ['uk', 'ru', 'en'];
+
+interface CookieCopy {
+  text: string;
+  learn: string;
+  ack: string;
+}
+
+const COPY: Record<Locale, CookieCopy> = {
   uk: {
     text: 'Сайт використовує cookies для аналітики (Google Analytics, Microsoft Clarity) і email-розсилки (Brevo). Натискаючи "OK" — підтверджуєш ознайомлення.',
     learn: 'Деталі',
@@ -30,9 +38,9 @@ const COPY = {
   },
 };
 
-function localeFromPath(p) {
+function localeFromPath(p: string): Locale {
   const first = p?.split('/')[1];
-  return SUPPORTED.includes(first) ? first : 'uk';
+  return SUPPORTED.includes(first as Locale) ? (first as Locale) : 'uk';
 }
 
 export default function CookieConsent() {

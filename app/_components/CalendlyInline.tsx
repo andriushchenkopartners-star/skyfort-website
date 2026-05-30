@@ -1,6 +1,6 @@
 'use client';
 
-// app/_components/CalendlyInline.jsx
+// app/_components/CalendlyInline.tsx
 // Inline Calendly booking widget. Removes one click from the funnel — visitors
 // who already decided to book don't have to bounce to calendly.com.
 //
@@ -29,7 +29,7 @@ import { track } from '../_lib/analytics';
 const BASE_URL =
   'https://calendly.com/andriushchenko-partners/new-meeting';
 
-function isCalendlyEvent(e) {
+function isCalendlyEvent(e: MessageEvent) {
   return (
     e.origin === 'https://calendly.com' &&
     e.data &&
@@ -41,11 +41,14 @@ function isCalendlyEvent(e) {
 export default function CalendlyInline({
   source = 'contact-inline',
   height = 720,
+}: {
+  source?: string;
+  height?: number;
 }) {
   // GA4/Clarity funnel event hookup. Mount-once listener; no React state.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    function onMsg(e) {
+    function onMsg(e: MessageEvent) {
       if (!isCalendlyEvent(e)) return;
       const evt = e.data.event;
       // Map Calendly events → our taxonomy.

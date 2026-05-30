@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import type { ReactNode } from "react";
 import FaqJsonLd from "../_components/FaqJsonLd";
 
-export default function Faq({ content }) {
+interface FaqItem {
+  q: string;
+  a: ReactNode;
+}
+
+interface FaqContent {
+  faqTitle: string;
+  faq: FaqItem[];
+}
+
+export default function Faq({ content }: { content: FaqContent }) {
   const [open, setOpen] = useState(0);
   return (
     <section className="py-28 md:py-36" id="faq">

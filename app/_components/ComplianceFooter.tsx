@@ -1,12 +1,12 @@
 'use client';
 
-// app/_components/ComplianceFooter.jsx
+// app/_components/ComplianceFooter.tsx
 // Slim regulatory footer rendered on EVERY public page via the root layout.
 // Why every page: per CSA/CIRO Joint Staff Notice 31-369 (December 11, 2025)
 // "Registered firms are reminded that depending on the circumstances, they
 // may be held responsible for statements made on their behalf." — disclosure
 // has to be visible everywhere a registered DR's brand appears, not just on
-// the homepage. The rich homepage Footer (_sections/Footer.jsx) keeps its
+// the homepage. The rich homepage Footer (_sections/Footer.tsx) keeps its
 // contact + nav + tagline; this slim band sits beneath it with the
 // regulatory floor.
 //
@@ -17,16 +17,26 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const SUPPORTED = ['uk', 'ru', 'en'];
-function localeFromPath(p) {
+type Locale = 'uk' | 'ru' | 'en';
+
+const SUPPORTED: Locale[] = ['uk', 'ru', 'en'];
+function localeFromPath(p: string): Locale {
   const first = p?.split('/')[1];
-  return SUPPORTED.includes(first) ? first : 'uk';
+  return SUPPORTED.includes(first as Locale) ? (first as Locale) : 'uk';
 }
 
 const NRD_URL =
   'https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx';
 
-const COPY = {
+interface ComplianceCopy {
+  line1: string;
+  line2: string;
+  disclosure: string;
+  verify: string;
+  verifyHint: string;
+}
+
+const COPY: Record<Locale, ComplianceCopy> = {
   uk: {
     line1: 'Andrii Andriushchenko · Licensed Dealing Representative · NRD #4575551',
     line2: 'Axcess Capital Advisors Inc. (Exempt Market Dealer) · Alberta · BC · Ontario',
