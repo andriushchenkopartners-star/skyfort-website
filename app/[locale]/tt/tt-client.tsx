@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import type { ComponentType } from "react";
 import {
   Calendar,
   Download,
@@ -85,7 +86,7 @@ const CTA_ICONS = {
   whatsapp: MessageCircle,
 };
 
-function buildCtas(locale) {
+function buildCtas(locale: string) {
   return COPY[locale].ctas.map((cta) => {
     let href, external;
     switch (cta.id) {
@@ -99,8 +100,15 @@ function buildCtas(locale) {
   });
 }
 
-export default function TtLandingClient({ locale: rawLocale, portraitSrc, portraitAlt, ImageComponent }) {
-  const locale = resolveLocale(rawLocale);
+interface TtLandingClientProps {
+  locale?: string;
+  portraitSrc: string;
+  portraitAlt: string;
+  ImageComponent: ComponentType<any>;
+}
+
+export default function TtLandingClient({ locale: rawLocale, portraitSrc, portraitAlt, ImageComponent }: TtLandingClientProps) {
+  const locale = resolveLocale(rawLocale) as "uk" | "ru" | "en";
   const copy = COPY[locale];
   const ctas = buildCtas(locale);
 

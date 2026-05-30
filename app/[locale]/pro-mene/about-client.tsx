@@ -238,8 +238,8 @@ const t = {
   },
 };
 
-export default function AboutClient({ locale: rawLocale }) {
-  const locale = resolveLocale(rawLocale);
+export default function AboutClient({ locale: rawLocale }: { locale?: string }) {
+  const locale = resolveLocale(rawLocale) as "uk" | "ru" | "en";
   const c = t[locale];
 
   return (

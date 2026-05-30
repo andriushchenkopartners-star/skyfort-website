@@ -1,4 +1,4 @@
-// app/Nav.jsx
+// app/Nav.tsx
 // Fixed burger menu for the whole site. Click → slide-in panel with site links.
 // Reads the current locale from the URL so all multilingual links keep the user
 // in their language. Pages that stay at the root (UA-only landings) are linked
@@ -100,7 +100,13 @@ const COPY = {
 // `verify` + `compare` + `finfluencer` sit between "about me" and "contact me" as
 // YMYL trust signals. ICP pillars (IT / medics / founders) are grouped under an
 // "audienceHeader" separator that renders as a non-link heading.
-const LINK_ORDER = [
+interface NavLink {
+  key: string;
+  path?: string;
+  separator?: boolean;
+}
+
+const LINK_ORDER: NavLink[] = [
   { key: "home", path: "" },
   { key: "blog", path: "/blog" },
   { key: "services", path: "/services" },
@@ -124,7 +130,7 @@ const LINK_ORDER = [
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 const DEFAULT_LOCALE = "uk";
 
-function currentLocaleFrom(pathname) {
+function currentLocaleFrom(pathname: string): string {
   const first = pathname.split("/")[1];
   return SUPPORTED_LOCALES.includes(first) ? first : DEFAULT_LOCALE;
 }
@@ -148,7 +154,7 @@ export default function Nav() {
 
   useEffect(() => {
     if (isPortal) return;
-    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isPortal]);
