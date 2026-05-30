@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -185,7 +186,7 @@ const CALENDLY_URL = "https://calendly.com/andriushchenko-partners/new-meeting";
  * Calculate future value with monthly contributions.
  * FV = PV × (1+r)^n + PMT × [((1+r)^n - 1) / r]
  */
-function futureValue(initial, monthly, annualRatePercent, years) {
+function futureValue(initial: number, monthly: number, annualRatePercent: number, years: number): number {
   const r = annualRatePercent / 100 / 12; // monthly rate
   const n = years * 12; // months
 
@@ -202,8 +203,8 @@ function futureValue(initial, monthly, annualRatePercent, years) {
 /**
  * Generate year-by-year chart data for all strategies.
  */
-function buildChartData(initial, monthly, years) {
-  const data = [];
+function buildChartData(initial: number, monthly: number, years: number): Array<Record<string, number>> {
+  const data: Array<Record<string, number>> = [];
   for (let y = 0; y <= years; y++) {
     data.push({
       year: y,
@@ -217,7 +218,7 @@ function buildChartData(initial, monthly, years) {
   return data;
 }
 
-function formatMoney(n) {
+function formatMoney(n: number) {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD",
@@ -235,15 +236,14 @@ function formatMoney(n) {
 // MAIN CALCULATOR
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function TFSACalculator({ locale: rawLocale }) {
-  const locale = resolveLocale(rawLocale);
-  const lang = locale; // alias kept for legacy references inside this file
+export default function TFSACalculator({ locale: rawLocale }: { locale?: string }) {
+  const locale = resolveLocale(rawLocale) as "uk" | "ru" | "en";
   // Share-URL state (Audit 7 #8 link-magnet)
   const [initial, setInitial] = useUrlState("init", 10000, "number");
   const [monthly, setMonthly] = useUrlState("monthly", 500, "number");
   const [years, setYears] = useUrlState("years", 20, "number");
   const [rate, setRate] = useUrlState("rate", 8, "number");
-  const [copyState, setCopyState] = useState("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   async function onCopyLink() {
     const ok = await copyShareUrl();
     setCopyState(ok ? "copied" : "failed");
@@ -474,8 +474,28 @@ export default function TFSACalculator({ locale: rawLocale }) {
 // NUMBER INPUT WITH +/- BUTTONS
 // ─────────────────────────────────────────────────────────────────────────────
 
-function NumberInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max = Infinity, decimal = false }) {
-  const handleChange = (e) => {
+function NumberInput({
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  step = 1,
+  min = 0,
+  max = Infinity,
+  decimal = false,
+}: {
+  label: ReactNode;
+  value: number;
+  onChange: (n: number) => void;
+  prefix?: string;
+  suffix?: string;
+  step?: number;
+  min?: number;
+  max?: number;
+  decimal?: boolean;
+}) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^\d.]/g, "");
     const num = decimal ? parseFloat(raw) : parseInt(raw, 10);
     if (isNaN(num)) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -248,7 +249,7 @@ const STRATEGIES = [
  * FV = S(1+r)^n + A * [((1+r)^n - 1) / r]
  * Solve for n given target FV.
  */
-function yearsToFI(currentSavings, monthlySavings, annualRatePercent, targetFI) {
+function yearsToFI(currentSavings: number, monthlySavings: number, annualRatePercent: number, targetFI: number): number {
   if (currentSavings >= targetFI) return 0;
   if (monthlySavings <= 0) return Infinity;
 
@@ -273,7 +274,7 @@ function yearsToFI(currentSavings, monthlySavings, annualRatePercent, targetFI) 
 /**
  * Project net worth at year y given monthly contributions.
  */
-function projectNetWorth(currentSavings, monthlySavings, annualRatePercent, years) {
+function projectNetWorth(currentSavings: number, monthlySavings: number, annualRatePercent: number, years: number): number {
   const r = annualRatePercent / 100 / 12;
   const n = years * 12;
   if (r === 0) return currentSavings + monthlySavings * n;
@@ -285,10 +286,10 @@ function projectNetWorth(currentSavings, monthlySavings, annualRatePercent, year
 /**
  * Build year-by-year chart data for all strategies, capped at maxYears.
  */
-function buildChartData(currentSavings, monthlySavings, maxYears) {
-  const data = [];
+function buildChartData(currentSavings: number, monthlySavings: number, maxYears: number): Array<Record<string, number>> {
+  const data: Array<Record<string, number>> = [];
   for (let y = 0; y <= maxYears; y++) {
-    const row = { year: y };
+    const row: Record<string, number> = { year: y };
     for (const s of STRATEGIES) {
       row[s.key] = Math.round(projectNetWorth(currentSavings, monthlySavings, s.rate, y));
     }
@@ -297,7 +298,7 @@ function buildChartData(currentSavings, monthlySavings, maxYears) {
   return data;
 }
 
-function formatMoney(n) {
+function formatMoney(n: number) {
   if (!isFinite(n)) return "∞";
   return new Intl.NumberFormat("en-CA", {
     style: "currency",
@@ -306,14 +307,14 @@ function formatMoney(n) {
   }).format(n);
 }
 
-function formatYears(n, lang) {
+function formatYears(n: number, lang: string) {
   if (!isFinite(n)) return "∞";
   if (n < 0.1) return lang === "en" ? "now" : "зараз";
   if (n >= 100) return "100+";
   return n.toFixed(1);
 }
 
-function formatFIDate(yearsFromNow, lang) {
+function formatFIDate(yearsFromNow: number, lang: string) {
   if (!isFinite(yearsFromNow) || yearsFromNow > 100) return "—";
   const now = new Date();
   const monthsFromNow = Math.round(yearsFromNow * 12);
@@ -332,15 +333,15 @@ function formatFIDate(yearsFromNow, lang) {
 // MAIN
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function FIRECalculator({ locale: rawLocale }) {
-  const locale = resolveLocale(rawLocale);
+export default function FIRECalculator({ locale: rawLocale }: { locale?: string }) {
+  const locale = resolveLocale(rawLocale) as "uk" | "ru" | "en";
   const lang = locale;
   // Share-URL state (Audit 7 #8 link-magnet)
   const [age, setAge] = useUrlState("age", 32, "number");
   const [income, setIncome] = useUrlState("income", 7000, "number");
   const [expenses, setExpenses] = useUrlState("spend", 4500, "number");
   const [savings, setSavings] = useUrlState("savings", 15000, "number");
-  const [copyState, setCopyState] = useState("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   async function onCopyLink() {
     const ok = await copyShareUrl();
     setCopyState(ok ? "copied" : "failed");
@@ -383,7 +384,7 @@ export default function FIRECalculator({ locale: rawLocale }) {
     [savings, monthlySavings, chartMaxYears]
   );
 
-  const applyPreset = (key) => {
+  const applyPreset = (key: string) => {
     const p = PRESETS[key];
     setAge(p.age);
     setIncome(p.income);
@@ -678,8 +679,26 @@ export default function FIRECalculator({ locale: rawLocale }) {
 // NUMBER INPUT
 // ─────────────────────────────────────────────────────────────────────────────
 
-function NumberInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max = Infinity }) {
-  const handleChange = (e) => {
+function NumberInput({
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  step = 1,
+  min = 0,
+  max = Infinity,
+}: {
+  label: ReactNode;
+  value: number;
+  onChange: (n: number) => void;
+  prefix?: string;
+  suffix?: string;
+  step?: number;
+  min?: number;
+  max?: number;
+}) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^\d.]/g, "");
     const num = parseFloat(raw);
     if (isNaN(num)) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
@@ -34,7 +35,7 @@ const MortgageComparisonChart = dynamic(
 // ─────────────────────────────────────────────────────────────────────────────
 // MATH HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
-function calcPayment(principal, annualRate, years) {
+function calcPayment(principal: number, annualRate: number, years: number): number {
   if (principal <= 0 || years <= 0) return 0;
   const r = annualRate / 100 / 12;
   const n = years * 12;
@@ -42,7 +43,7 @@ function calcPayment(principal, annualRate, years) {
   return principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
 }
 
-function cmhc(price, down) {
+function cmhc(price: number, down: number) {
   const ratio = down / price;
   if (ratio >= 0.20) return { pct: 0, premium: 0 };
   if (ratio < 0.05) return { pct: null, premium: 0 };
@@ -50,19 +51,25 @@ function cmhc(price, down) {
   return { pct, premium: Math.round((price - down) * pct) };
 }
 
-function stressRate(rate) { return Math.max(rate + 2, 5.25); }
+function stressRate(rate: number): number { return Math.max(rate + 2, 5.25); }
 
-function qualifyingIncome(payment, propTaxYr, heatingMo) {
+function qualifyingIncome(payment: number, propTaxYr: number, heatingMo: number): number {
   return (payment + propTaxYr / 12 + heatingMo) / 0.39 * 12;
 }
 
-function buildSchedule(principal, annualRate, years, extra = 0) {
+interface Schedule {
+  data: Array<Record<string, number>>;
+  totalInterest: number;
+  months: number;
+}
+
+function buildSchedule(principal: number, annualRate: number, years: number, extra = 0): Schedule {
   const r = annualRate / 100 / 12;
   const base = calcPayment(principal, annualRate, years);
   const pmt = base + extra;
   let bal = principal;
   let totalInterest = 0;
-  const data = [];
+  const data: Array<Record<string, number>> = [];
   let month = 0;
   while (bal > 1 && month < (years + 10) * 12) {
     const int = bal * r;
@@ -79,12 +86,12 @@ function buildSchedule(principal, annualRate, years, extra = 0) {
 // ─────────────────────────────────────────────────────────────────────────────
 // FORMAT HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
-const C = (n, dec = 0) => {
+const C = (n: number, dec = 0) => {
   if (!isFinite(n) || isNaN(n)) return "—";
   return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: dec }).format(n);
 };
-const P = (n) => `${n.toFixed(2)}%`;
-const YM = (months) => {
+const P = (n: number) => `${n.toFixed(2)}%`;
+const YM = (months: number) => {
   const y = Math.floor(months / 12), m = Math.round(months % 12);
   return y > 0 ? `${y}р ${m}м` : `${m}м`;
 };
@@ -135,7 +142,17 @@ const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 // ─────────────────────────────────────────────────────────────────────────────
 // LangSwitcher imported from shared _components
 
-function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=9999999, note }) {
+function NInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max = 9999999, note }: {
+  label: ReactNode;
+  value: number;
+  onChange: (n: number) => void;
+  prefix?: string;
+  suffix?: string;
+  step?: number;
+  min?: number;
+  max?: number;
+  note?: ReactNode;
+}) {
   return (
     <div>
       <label className="mb-1.5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
@@ -148,7 +165,7 @@ function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=999
         <div className="relative flex-1">
           {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{prefix}</span>}
           <input type="text" inputMode="decimal" value={value}
-            onChange={e => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
             className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
           {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{suffix}</span>}
         </div>
@@ -159,7 +176,12 @@ function NInput({ label, value, onChange, prefix, suffix, step=1, min=0, max=999
   );
 }
 
-function Card({ label, value, sub, color = "neutral" }) {
+function Card({ label, value, sub, color = "neutral" }: {
+  label: ReactNode;
+  value: ReactNode;
+  sub?: ReactNode;
+  color?: string;
+}) {
   const cls = {
     neutral: "border-[#2a2a2a] bg-[#1f1f1f]",
     blue: "border-[var(--color-brand)]/40 bg-[var(--color-brand)]/5",
@@ -178,7 +200,11 @@ function Card({ label, value, sub, color = "neutral" }) {
   );
 }
 
-function SelectGroup({ options, value, onChange }) {
+function SelectGroup({ options, value, onChange }: {
+  options: Array<{ value: number; label: ReactNode }>;
+  value: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div className="flex flex-wrap gap-2">
       {options.map(o => (
@@ -194,7 +220,7 @@ function SelectGroup({ options, value, onChange }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 0: PRIMARY RESIDENCE
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeResidence({ lang }) {
+function ModeResidence({ lang }: { lang: string }) {
   const [price, setPrice] = useUrlState("r_price", 650000, "number");
   const [down, setDown] = useUrlState("r_down", 130000, "number");
   const [amort, setAmort] = useUrlState("r_amort", 25, "number");
@@ -349,7 +375,7 @@ function ModeResidence({ lang }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 1: INVESTMENT PROPERTY
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeInvestment({ lang }) {
+function ModeInvestment({ lang }: { lang: string }) {
   const [price, setPrice] = useUrlState("i_price", 550000, "number");
   const [downPct, setDownPct] = useUrlState("i_downpct", 20, "number");
   const [rate, setRate] = useUrlState("i_rate", 5.0, "number");
@@ -458,7 +484,7 @@ function ModeInvestment({ lang }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 2: HELOC
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeHELOC({ lang }) {
+function ModeHELOC({ lang }: { lang: string }) {
   const [homeValue, setHomeValue] = useUrlState("h_home", 800000, "number");
   const [mortgageBalance, setMortgageBalance] = useUrlState("h_bal", 420000, "number");
   const [helocRate, setHelocRate] = useUrlState("h_rate", 6.7, "number");
@@ -561,7 +587,17 @@ function ModeHELOC({ lang }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 3: EARLY PAYOFF
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeEarlyPayoff({ lang }) {
+interface PayoffScenario {
+  label: string;
+  data: Schedule;
+  color: string;
+  months: number;
+  interest: number;
+  savings?: number;
+  timeSaved?: number;
+}
+
+function ModeEarlyPayoff({ lang }: { lang: string }) {
   const [balance, setBalance] = useUrlState("e_bal", 350000, "number");
   const [rate, setRate] = useUrlState("e_rate", 4.5, "number");
   const [remainingYears, setRemainingYears] = useUrlState("e_years", 22, "number");
@@ -590,7 +626,7 @@ function ModeEarlyPayoff({ lang }) {
   // Memoised so the chartData useMemo below has a stable dependency reference.
   // Without this wrapper, a fresh array literal each render makes chartData
   // recompute every render anyway, defeating the optimisation.
-  const scenarios = useMemo(() => [
+  const scenarios = useMemo<PayoffScenario[]>(() => [
     { label: lbl.base, data: base, color: "#6b6b6b", months: base.months, interest: base.totalInterest },
     { label: lbl.extraPlan, data: withExtra, color: "#2D73E3", months: withExtra.months, interest: withExtra.totalInterest, savings: base.totalInterest - withExtra.totalInterest, timeSaved: base.months - withExtra.months },
     { label: lbl.accel, data: withAccel, color: "#7099d6", months: withAccel.months, interest: withAccel.totalInterest, savings: base.totalInterest - withAccel.totalInterest, timeSaved: base.months - withAccel.months },
@@ -600,9 +636,9 @@ function ModeEarlyPayoff({ lang }) {
   // Build combined chart data
   const maxYears = Math.ceil(base.months / 12) + 1;
   const chartData = useMemo(() => {
-    const d = [];
+    const d: Array<Record<string, number | null>> = [];
     for (let y = 0; y <= maxYears; y++) {
-      const row = { year: y };
+      const row: Record<string, number | null> = { year: y };
       scenarios.forEach((s, i) => {
         const point = s.data.data.find(p => p.year === y);
         row[`s${i}`] = point ? point.balance : y * 12 > s.data.months ? 0 : undefined;
@@ -677,7 +713,7 @@ function ModeEarlyPayoff({ lang }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 4: LENDER SWITCH
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeLenderSwitch({ lang }) {
+function ModeLenderSwitch({ lang }: { lang: string }) {
   const [balance, setBalance] = useUrlState("s_bal", 380000, "number");
   const [currentRate, setCurrentRate] = useUrlState("s_cur", 5.5, "number");
   const [remainingMonths, setRemainingMonths] = useUrlState("s_months", 36, "number");
@@ -782,7 +818,7 @@ function ModeLenderSwitch({ lang }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // MODE 5: AFFORDABILITY (reverse calculator)
 // ─────────────────────────────────────────────────────────────────────────────
-function ModeAffordability({ lang }) {
+function ModeAffordability({ lang }: { lang: string }) {
   const [grossIncome, setGrossIncome] = useUrlState("a_income", 120000, "number");
   const [downPayment, setDownPayment] = useUrlState("a_down", 80000, "number");
   const [rate, setRate] = useUrlState("a_rate", 4.5, "number");
@@ -924,7 +960,7 @@ const MODES = [
   { icon: Star, component: ModeAffordability },
 ];
 
-function CopyLinkButton({ lang }) {
+function CopyLinkButton({ lang }: { lang: string }) {
   const [copied, setCopied] = useState(false);
   async function onCopy() {
     const ok = await copyShareUrl();
@@ -947,8 +983,8 @@ function CopyLinkButton({ lang }) {
   );
 }
 
-export default function MortgageCalculator({ locale: rawLocale }) {
-  const locale = resolveLocale(rawLocale);
+export default function MortgageCalculator({ locale: rawLocale }: { locale?: string }) {
+  const locale = resolveLocale(rawLocale) as "uk" | "ru" | "en";
   const lang = locale;
   const [activeMode, setActiveMode] = useUrlState("mode", 0, "number");
 
