@@ -1,6 +1,6 @@
 "use client";
 
-// app/[locale]/eligibility/quiz.jsx
+// app/[locale]/eligibility/quiz.tsx
 // Eligible / Accredited Investor self-check (audit 3.3).
 // 4-question quiz that maps NI 45-106 §1.1 financial thresholds to one of
 // three preliminary tiers (Accredited / Eligible / Non-Eligible). The result
@@ -16,6 +16,7 @@
 // and (c) gives Eligible/Accredited visitors a calibrated next-step CTA.
 
 import { useState } from "react";
+import type { ElementType } from "react";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -53,7 +54,7 @@ const COPY = {
       back: "Назад",
       next: "Далі",
       finish: "Побачити результат",
-      progress: (cur, total) => `Питання ${cur} з ${total}`,
+      progress: (cur: number, total: number) => `Питання ${cur} з ${total}`,
       retake: "Пройти ще раз",
     },
     questions: [
@@ -161,7 +162,7 @@ const COPY = {
       back: "Назад",
       next: "Далее",
       finish: "Увидеть результат",
-      progress: (cur, total) => `Вопрос ${cur} из ${total}`,
+      progress: (cur: number, total: number) => `Вопрос ${cur} из ${total}`,
       retake: "Пройти ещё раз",
     },
     questions: [
@@ -269,7 +270,7 @@ const COPY = {
       back: "Back",
       next: "Next",
       finish: "See result",
-      progress: (cur, total) => `Question ${cur} of ${total}`,
+      progress: (cur: number, total: number) => `Question ${cur} of ${total}`,
       retake: "Take again",
     },
     questions: [
@@ -365,7 +366,9 @@ const COPY = {
 
 // ─── Classification logic (NI 45-106 §1.1) ──────────────────────────────────
 // Order of evaluation: Accredited > Eligible > Non. First match wins.
-function classify(answers) {
+type ResultKey = "accredited" | "eligible" | "non_eligible";
+
+function classify(answers: Record<string, string>): ResultKey {
   const { q1, q2, q3, q4 } = answers;
 
   // Accredited tests (NI 45-106 §1.1 (j)(k)(l))
@@ -394,16 +397,16 @@ function classify(answers) {
 }
 
 // Map result key → icon for the result card hero.
-const RESULT_ICON = {
+const RESULT_ICON: Record<ResultKey, ElementType> = {
   accredited: Trophy,
   eligible: Sparkles,
   non_eligible: BookOpen,
 };
 
-export default function EligibilityQuiz({ locale = "uk" }) {
+export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) {
   const c = COPY[locale] || COPY.uk;
   const [step, setStep] = useState(-1); // -1 = intro, 0..3 = questions, 4 = result
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<Record<string, string>>({});
 
   const totalQs = c.questions.length;
 
@@ -412,7 +415,7 @@ export default function EligibilityQuiz({ locale = "uk" }) {
     setStep(0);
   }
 
-  function pickAnswer(qid, value) {
+  function pickAnswer(qid: string, value: string) {
     setAnswers((prev) => ({ ...prev, [qid]: value }));
   }
 

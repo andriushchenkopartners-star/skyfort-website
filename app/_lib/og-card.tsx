@@ -1,4 +1,4 @@
-// app/_lib/og-card.jsx
+// app/_lib/og-card.tsx
 // Shared OG-card renderer for Next.js file-based opengraph-image.js routes.
 // One branded template, parametrised per page. Goal: every shareable URL gets
 // a consistent SkyFort card instead of the generic /og-image.png.
@@ -41,23 +41,29 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = 'image/png';
 
 // Footer micro-text per locale — credentials always visible on shared cards.
-const CREDENTIAL_LINE = {
+const CREDENTIAL_LINE: Record<string, string> = {
   uk: 'Licensed Dealing Representative · NRD #4575551 · AB · BC · ON',
   ru: 'Licensed Dealing Representative · NRD #4575551 · AB · BC · ON',
   en: 'Licensed Dealing Representative · NRD #4575551 · AB · BC · ON',
 };
 
+interface BrandCardOpts {
+  /** small uppercase label above the title (e.g. "CALCULATOR") */
+  eyebrow?: string;
+  /** main heading (auto-shrinks at length thresholds) */
+  title?: string;
+  /** sub-line (truncated at 160 chars) */
+  description?: string;
+  /** uk | ru | en; controls footer credential string */
+  locale?: string;
+  /** optional pill text rendered next to the eyebrow */
+  badge?: string;
+}
+
 /**
  * Returns Satori JSX for a branded OG card.
- *
- * @param {object} opts
- * @param {string} [opts.eyebrow] — small uppercase label above the title (e.g. "CALCULATOR")
- * @param {string}  opts.title    — main heading (auto-shrinks at length thresholds)
- * @param {string} [opts.description] — sub-line (truncated at 160 chars)
- * @param {string} [opts.locale]  — uk | ru | en; controls footer credential string
- * @param {string} [opts.badge]   — optional pill text rendered next to the eyebrow
  */
-export function brandCard({ eyebrow, title, description, locale = 'uk', badge }) {
+export function brandCard({ eyebrow, title, description, locale = 'uk', badge }: BrandCardOpts) {
   const safeTitle = title || 'SkyFort';
   const titleFontSize =
     safeTitle.length > 80 ? 56 : safeTitle.length > 50 ? 68 : 78;
