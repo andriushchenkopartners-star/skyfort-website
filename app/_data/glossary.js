@@ -666,6 +666,74 @@ const TERMS_EN = TERMS_UK.map((t) => {
   return { ...t, definition: dmap[t.id] || t.definition };
 });
 
+// ─── Per-term FAQ (flagship registered-account terms) ──────────────────────
+// Optional FAQPage data for the highest-traffic terms. Factual, source-grounded
+// Q&A that deliberately does NOT restate the lead definition (limits, deadlines,
+// edge cases instead). Localised per locale — no UK fallback. Rendered as a
+// visible accordion + matching FAQPage JSON-LD on the entity page; terms with no
+// entry render no FAQ block. Compliance: educational, no advice, no return claims.
+const GLOSSARY_FAQ = {
+  uk: {
+    tfsa: [
+      { q: "Який ліміт TFSA у 2026 році?", a: "Річний ліміт у 2026 — $7,000. Cumulative room для людини, яка була tax-resident з 2009, становить $109,000; невикористана room переноситься без обмежень." },
+      { q: "Чи відновлюється room після зняття коштів з TFSA?", a: "Так, але не одразу: сума зняття додається назад до room лише з 1 січня наступного року. Повторний внесок у тому ж році понад наявну room дає 1% penalty за місяць на overcontribution." },
+    ],
+    rrsp: [
+      { q: "Який ліміт RRSP у 2026 році?", a: "18% earned income попереднього року, максимум $33,810 у 2026, мінус pension adjustment. Точну цифру шукай у рядку «RRSP Deduction Limit» свого Notice of Assessment." },
+      { q: "Коли дедлайн внеску RRSP за податковий рік?", a: "Внески приймаються у перші 60 днів наступного року (зазвичай до 1 березня). Deduction можна застосувати у поточному році або перенести на майбутній." },
+    ],
+    fhsa: [
+      { q: "Чи можна поєднати FHSA і Home Buyers' Plan (HBP)?", a: "Так. З 2023 року дозволено використати і FHSA withdrawal, і HBP (до $60,000 з RRSP) для тієї ж купівлі першого дому — це збільшує доступний down payment." },
+      { q: "Що буде, якщо я не куплю дім?", a: "FHSA має 15-річне вікно. Якщо кваліфікований дім не куплено, кошти переводяться у RRSP/RRIF без податку і без впливу на RRSP room, або знімаються (тоді оподатковуються як income)." },
+    ],
+    resp: [
+      { q: "Скільки CESG можна отримати на дитину?", a: "CESG — 20% від внеску, до $500 на рік і lifetime maximum $7,200 на дитину. Для повного річного гранту внесок має бути щонайменше $2,500 на рік." },
+      { q: "Що буде з RESP, якщо дитина не піде вчитися?", a: "Внески повертаються без податку; накопичений CESG повертається уряду. Інвестиційний дохід можна перевести до $50,000 у власний RRSP (за наявності room) або зняти з податком + 20% (AIP rules)." },
+    ],
+  },
+  ru: {
+    tfsa: [
+      { q: "Какой лимит TFSA в 2026 году?", a: "Годовой лимит в 2026 — $7,000. Cumulative room для человека, бывшего tax-resident с 2009, составляет $109,000; неиспользованная room переносится без ограничений." },
+      { q: "Восстанавливается ли room после снятия с TFSA?", a: "Да, но не сразу: сумма снятия добавляется обратно к room только с 1 января следующего года. Повторный взнос в том же году сверх доступной room даёт 1% penalty в месяц на overcontribution." },
+    ],
+    rrsp: [
+      { q: "Какой лимит RRSP в 2026 году?", a: "18% earned income предыдущего года, максимум $33,810 в 2026, минус pension adjustment. Точную цифру ищи в строке «RRSP Deduction Limit» своего Notice of Assessment." },
+      { q: "Когда дедлайн взноса RRSP за налоговый год?", a: "Взносы принимаются в первые 60 дней следующего года (обычно до 1 марта). Deduction можно применить в текущем году или перенести на будущий." },
+    ],
+    fhsa: [
+      { q: "Можно ли совместить FHSA и Home Buyers' Plan (HBP)?", a: "Да. С 2023 года разрешено использовать и FHSA withdrawal, и HBP (до $60,000 из RRSP) для одной покупки первого дома — это увеличивает доступный down payment." },
+      { q: "Что будет, если я не куплю дом?", a: "У FHSA есть 15-летнее окно. Если квалифицированный дом не куплен, средства переводятся в RRSP/RRIF без налога и без влияния на RRSP room, либо снимаются (тогда облагаются как income)." },
+    ],
+    resp: [
+      { q: "Сколько CESG можно получить на ребёнка?", a: "CESG — 20% от взноса, до $500 в год и lifetime maximum $7,200 на ребёнка. Для полного годового гранта взнос должен быть минимум $2,500 в год." },
+      { q: "Что будет с RESP, если ребёнок не пойдёт учиться?", a: "Взносы возвращаются без налога; накопленный CESG возвращается государству. Инвестиционный доход можно перевести до $50,000 в свой RRSP (при наличии room) или снять с налогом + 20% (AIP rules)." },
+    ],
+  },
+  en: {
+    tfsa: [
+      { q: "What is the 2026 TFSA contribution limit?", a: "The 2026 annual limit is $7,000. Cumulative room for someone who's been a tax resident since 2009 is $109,000; unused room carries forward indefinitely." },
+      { q: "Do TFSA withdrawals restore contribution room?", a: "Yes, but not immediately: the withdrawn amount is added back to your room only on January 1 of the following year. Re-contributing in the same year above your available room triggers a 1%-per-month overcontribution penalty." },
+    ],
+    rrsp: [
+      { q: "What is the 2026 RRSP contribution limit?", a: "18% of prior-year earned income, capped at $33,810 in 2026, minus any pension adjustment. Find your exact figure on the 'RRSP Deduction Limit' line of your Notice of Assessment." },
+      { q: "When is the RRSP contribution deadline for a tax year?", a: "Contributions count for a tax year if made within the first 60 days of the next year (usually by March 1). The deduction can be claimed in the current year or carried forward." },
+    ],
+    fhsa: [
+      { q: "Can I use both an FHSA and the Home Buyers' Plan (HBP)?", a: "Yes. Since 2023 you can use both an FHSA withdrawal and the HBP (up to $60,000 from an RRSP) for the same first-home purchase — increasing your available down payment." },
+      { q: "What happens if I don't buy a home?", a: "An FHSA has a 15-year window. If no qualifying home is bought, funds roll into an RRSP/RRIF tax-free without affecting RRSP room, or can be withdrawn (then taxed as income)." },
+    ],
+    resp: [
+      { q: "How much CESG can I get per child?", a: "CESG is 20% of contributions, up to $500/year and a $7,200 lifetime maximum per child. To capture the full annual grant, contribute at least $2,500/year." },
+      { q: "What happens to an RESP if my child doesn't pursue education?", a: "Contributions are returned tax-free; accumulated CESG is returned to the government. Investment growth can be moved up to $50,000 into your own RRSP (if you have room) or withdrawn with tax + 20% (AIP rules)." },
+    ],
+  },
+};
+
+// Attach locale-correct faq to a term list without leaking another locale's copy.
+function withFaq(terms, faqById) {
+  return terms.map((t) => (faqById[t.id] ? { ...t, faq: faqById[t.id] } : t));
+}
+
 export const GLOSSARY_COPY = {
   uk: {
     titleMeta: "Словник канадських фінансів — 65+ термінів",
@@ -684,7 +752,8 @@ export const GLOSSARY_COPY = {
     ctaTitle: "Потрібен персональний розбір?",
     ctaText: "Discovery call 30 хвилин, без оплати — пояснимо, як цей термін стосується саме твоєї ситуації.",
     ctaButton: "Безкоштовний дзвінок",
-    terms: TERMS_UK,
+    faqHeading: "Часті питання",
+    terms: withFaq(TERMS_UK, GLOSSARY_FAQ.uk),
   },
   ru: {
     titleMeta: "Словарь канадских финансов — 65+ терминов",
@@ -703,7 +772,8 @@ export const GLOSSARY_COPY = {
     ctaTitle: "Нужен персональный разбор?",
     ctaText: "Discovery call 30 минут, без оплаты — объясним, как этот термин относится именно к твоей ситуации.",
     ctaButton: "Бесплатный звонок",
-    terms: TERMS_RU,
+    faqHeading: "Частые вопросы",
+    terms: withFaq(TERMS_RU, GLOSSARY_FAQ.ru),
   },
   en: {
     titleMeta: "Canadian finance glossary — 65+ terms",
@@ -722,7 +792,8 @@ export const GLOSSARY_COPY = {
     ctaTitle: "Want this explained for your situation?",
     ctaText: "30-minute discovery call, no fee — we'll show how this term applies to your specific case.",
     ctaButton: "Free discovery call",
-    terms: TERMS_EN,
+    faqHeading: "Frequently asked questions",
+    terms: withFaq(TERMS_EN, GLOSSARY_FAQ.en),
   },
 };
 

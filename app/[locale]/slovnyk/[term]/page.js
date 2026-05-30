@@ -18,6 +18,7 @@ import Breadcrumbs from "../../../_components/Breadcrumbs";
 import LangSwitcher from "../../../_components/LangSwitcher";
 import AuthorByline from "../../../_components/AuthorByline";
 import UpdatedBadge from "../../../_components/UpdatedBadge";
+import StaticFaq from "../../../_components/StaticFaq";
 import { SUPPORTED_LOCALES } from "../../../_i18n/dictionary";
 import {
   GLOSSARY_COPY,
@@ -216,6 +217,17 @@ export default async function GlossaryTermPage({ params }) {
             </div>
           </div>
         </section>
+      )}
+
+      {/* Per-term FAQ — only flagship terms (TFSA/RRSP/FHSA/RESP) carry one.
+          Visible accordion + matching FAQPage JSON-LD (Google requires the
+          structured-data content to be present on the page). */}
+      {t.faq?.length > 0 && (
+        <StaticFaq
+          faq={t.faq}
+          heading={c.faqHeading}
+          jsonLdId={`https://sky-fort.ca${path}#faq`}
+        />
       )}
 
       {/* CTA — educational discovery call */}
