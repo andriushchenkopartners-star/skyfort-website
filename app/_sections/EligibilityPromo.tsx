@@ -1,4 +1,4 @@
-// app/_sections/EligibilityPromo.jsx
+// app/_sections/EligibilityPromo.tsx
 // Homepage promo strip for the Eligible Investor self-check quiz at
 // /[locale]/eligibility. Sits between Steps and EmailCapture as an
 // alternative "quick path" — visitors who aren't ready to commit to a
@@ -9,7 +9,19 @@
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+
+interface EligibilityCopy {
+  eyebrow: string;
+  title: string;
+  body: string;
+  bullet1: string;
+  bullet2: string;
+  bullet3: string;
+  cta: string;
+}
+
+const COPY: Record<Locale, EligibilityCopy> = {
   uk: {
     eyebrow: "Тест за 60 секунд",
     title: "Чи ти Eligible Investor?",
@@ -39,7 +51,7 @@ const COPY = {
   },
 };
 
-export default function EligibilityPromo({ locale = "uk" }) {
+export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale }) {
   const c = COPY[locale] || COPY.uk;
   return (
     <section className="relative overflow-hidden py-20 md:py-28">

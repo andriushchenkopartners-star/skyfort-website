@@ -1,4 +1,15 @@
-export default function Steps({ content }) {
+interface StepItem {
+  n: string;
+  title: string;
+  desc: string;
+}
+
+interface StepsContent {
+  stepsTitle: string;
+  steps: StepItem[];
+}
+
+export default function Steps({ content }: { content: StepsContent }) {
   return (
     <section className="py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6">

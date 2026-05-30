@@ -1,4 +1,9 @@
-export default function About({ content }) {
+interface AboutContent {
+  aboutTitle: string;
+  about: string[];
+}
+
+export default function About({ content }: { content: AboutContent }) {
   return (
     <section className="py-28 md:py-36" id="about">
       <div className="mx-auto max-w-3xl px-6">

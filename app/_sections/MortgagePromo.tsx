@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, Home } from "lucide-react";
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+
+interface MortgagePromoCopy {
+  kicker: string;
+  title: string;
+  desc: string;
+  cta: string;
+  stat1: string;
+  stat2: string;
+  stat3: string;
+}
+
+const COPY: Record<Locale, MortgagePromoCopy> = {
   uk: {
     kicker: "Калькулятор · Іпотека",
     title: "Канадська іпотека — 6 інструментів",
@@ -31,7 +43,7 @@ const COPY = {
   },
 };
 
-export default function MortgagePromo({ locale }) {
+export default function MortgagePromo({ locale }: { locale: Locale }) {
   const c = COPY[locale] || COPY.uk;
   return (
     <section className="relative overflow-hidden py-20 md:py-28">

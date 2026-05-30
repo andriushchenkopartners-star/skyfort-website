@@ -1,16 +1,33 @@
 import Link from "next/link";
 import { ArrowRight, Calculator } from "lucide-react";
 
+type Locale = "uk" | "ru" | "en";
+
+interface CalcSample {
+  meta: string;
+  value: string;
+  vs: string;
+}
+
+interface CalcPromoContent {
+  calcPromo: {
+    kicker: string;
+    title: string;
+    desc: string;
+    cta: string;
+  };
+}
+
 // Localised mini-stat copy for the right-hand sample card.
 // Previously these strings were hardcoded in Ukrainian, which leaked onto
 // /ru and /en — caught by May-28 re-audit (1.5).
-const SAMPLE = {
+const SAMPLE: Record<Locale, CalcSample> = {
   uk: { meta: "$500/міс · 20 років · diversified 8%", value: "$295K", vs: "vs $120K у банку" },
   ru: { meta: "$500/мес · 20 лет · diversified 8%", value: "$295K", vs: "vs $120K в банке" },
   en: { meta: "$500/mo · 20 years · diversified 8%", value: "$295K", vs: "vs $120K in bank savings" },
 };
 
-export default function CalcPromo({ content, locale }) {
+export default function CalcPromo({ content, locale }: { content: CalcPromoContent; locale: Locale }) {
   const s = SAMPLE[locale] || SAMPLE.uk;
   return (
     <section className="relative overflow-hidden py-20 md:py-28">

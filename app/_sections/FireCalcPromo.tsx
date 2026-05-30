@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, Flame } from "lucide-react";
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+
+interface FireCalcPromoCopy {
+  kicker: string;
+  title: string;
+  desc: string;
+  cta: string;
+  stat1: string;
+  stat2: string;
+  stat3: string;
+}
+
+const COPY: Record<Locale, FireCalcPromoCopy> = {
   uk: {
     kicker: "Калькулятор · Financial Freedom",
     title: "Коли ти станеш фінансово вільним?",
@@ -31,7 +43,7 @@ const COPY = {
   },
 };
 
-export default function FireCalcPromo({ locale }) {
+export default function FireCalcPromo({ locale }: { locale: Locale }) {
   const c = COPY[locale] || COPY.uk;
   return (
     <section className="relative overflow-hidden py-20 md:py-28">

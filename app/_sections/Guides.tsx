@@ -1,7 +1,21 @@
+import type { ComponentType, SVGProps } from "react";
 import { ArrowRight } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
 
-export default function Guides({ content }) {
+interface GuideItem {
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  file: string;
+  title: string;
+  desc: string;
+}
+
+interface GuidesContent {
+  guidesTitle: string;
+  guidesSub: string;
+  guides: GuideItem[];
+}
+
+export default function Guides({ content }: { content: GuidesContent }) {
   return (
     <section id="guides" className="py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6">

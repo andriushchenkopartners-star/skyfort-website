@@ -2,7 +2,13 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
 
-export default function FinalCta({ content }) {
+interface FinalCtaContent {
+  ctaTitle: string;
+  ctaSub: string;
+  ctaBtn: string;
+}
+
+export default function FinalCta({ content }: { content: FinalCtaContent }) {
   return (
     <section className="relative overflow-hidden py-28 md:py-36">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">

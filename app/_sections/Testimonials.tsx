@@ -1,120 +1,141 @@
-// app/_sections/Testimonials.jsx
+// app/_sections/Testimonials.tsx
 // Homepage social proof. Conditionally renders:
 //   - If TESTIMONIALS array has entries → full carousel/grid of reviews + Review schema
 //   - If empty → trust-signals fallback (NRD verification, languages, jurisdictions)
 //
 // Compliance: see app/_data/testimonials.js for CSA NI 31-103 notes.
 
-import { Quote, ShieldCheck, Languages, Star, MapPin, ExternalLink } from 'lucide-react';
-import { getTestimonials, getAggregateRating } from '../_data/testimonials';
+import { Quote, ShieldCheck, Languages, Star, MapPin, ExternalLink } from "lucide-react";
+import { getTestimonials, getAggregateRating } from "../_data/testimonials";
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+
+interface TrustSignal {
+  icon: string;
+  label: string;
+  value: string;
+  sub: string;
+  href?: string;
+}
+
+interface TestimonialsCopy {
+  eyebrow: string;
+  headlineWithData: string;
+  headlineEmpty: string;
+  emptyLead: string;
+  trustSignals: TrustSignal[];
+  leaveReviewLine: string;
+  ratingLabel: string;
+  reviewsLabel: string;
+}
+
+const COPY: Record<Locale, TestimonialsCopy> = {
   uk: {
-    eyebrow: 'Що кажуть клієнти',
-    headlineWithData: 'Реальні відгуки',
-    headlineEmpty: 'Перевір довіру — на цифрах, не словах',
+    eyebrow: "Що кажуть клієнти",
+    headlineWithData: "Реальні відгуки",
+    headlineEmpty: "Перевір довіру — на цифрах, не словах",
     emptyLead:
-      'Я ще збираю письмові відгуки від клієнтів. Поки що — ось як перевірити серйозність моєї практики за 3 хвилини:',
+      "Я ще збираю письмові відгуки від клієнтів. Поки що — ось як перевірити серйозність моєї практики за 3 хвилини:",
     trustSignals: [
       {
-        icon: 'shield',
-        label: 'Зареєстрований у CSA NRD',
-        value: 'NRD #4575551',
-        sub: 'Перевір на info.securities-administrators.ca',
-        href: 'https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx',
+        icon: "shield",
+        label: "Зареєстрований у CSA NRD",
+        value: "NRD #4575551",
+        sub: "Перевір на info.securities-administrators.ca",
+        href: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
       },
       {
-        icon: 'map',
-        label: 'Ліцензований у',
-        value: 'AB · BC · ON',
-        sub: 'Provincial registration окремо для кожної',
+        icon: "map",
+        label: "Ліцензований у",
+        value: "AB · BC · ON",
+        sub: "Provincial registration окремо для кожної",
       },
       {
-        icon: 'lang',
-        label: 'Робочі мови',
-        value: 'UA · RU · EN',
-        sub: 'Discovery call твоєю мовою',
+        icon: "lang",
+        label: "Робочі мови",
+        value: "UA · RU · EN",
+        sub: "Discovery call твоєю мовою",
       },
     ],
     leaveReviewLine:
-      'Працювали разом? Можеш залишити відгук на Google Business (link з\'явиться скоро).',
-    ratingLabel: 'на основі',
-    reviewsLabel: 'відгуків',
+      "Працювали разом? Можеш залишити відгук на Google Business (link з'явиться скоро).",
+    ratingLabel: "на основі",
+    reviewsLabel: "відгуків",
   },
   ru: {
-    eyebrow: 'Что говорят клиенты',
-    headlineWithData: 'Реальные отзывы',
-    headlineEmpty: 'Проверь доверие — на цифрах, не словах',
+    eyebrow: "Что говорят клиенты",
+    headlineWithData: "Реальные отзывы",
+    headlineEmpty: "Проверь доверие — на цифрах, не словах",
     emptyLead:
-      'Я ещё собираю письменные отзывы от клиентов. Пока — вот как проверить серьёзность моей практики за 3 минуты:',
+      "Я ещё собираю письменные отзывы от клиентов. Пока — вот как проверить серьёзность моей практики за 3 минуты:",
     trustSignals: [
       {
-        icon: 'shield',
-        label: 'Зарегистрирован в CSA NRD',
-        value: 'NRD #4575551',
-        sub: 'Проверь на info.securities-administrators.ca',
-        href: 'https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx',
+        icon: "shield",
+        label: "Зарегистрирован в CSA NRD",
+        value: "NRD #4575551",
+        sub: "Проверь на info.securities-administrators.ca",
+        href: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
       },
       {
-        icon: 'map',
-        label: 'Лицензирован в',
-        value: 'AB · BC · ON',
-        sub: 'Provincial registration отдельно для каждой',
+        icon: "map",
+        label: "Лицензирован в",
+        value: "AB · BC · ON",
+        sub: "Provincial registration отдельно для каждой",
       },
       {
-        icon: 'lang',
-        label: 'Рабочие языки',
-        value: 'UA · RU · EN',
-        sub: 'Discovery call на твоём языке',
+        icon: "lang",
+        label: "Рабочие языки",
+        value: "UA · RU · EN",
+        sub: "Discovery call на твоём языке",
       },
     ],
     leaveReviewLine:
-      'Работали вместе? Можешь оставить отзыв на Google Business (link появится скоро).',
-    ratingLabel: 'на основе',
-    reviewsLabel: 'отзывов',
+      "Работали вместе? Можешь оставить отзыв на Google Business (link появится скоро).",
+    ratingLabel: "на основе",
+    reviewsLabel: "отзывов",
   },
   en: {
-    eyebrow: 'What clients say',
-    headlineWithData: 'Real reviews',
-    headlineEmpty: 'Verify trust — by the numbers, not words',
+    eyebrow: "What clients say",
+    headlineWithData: "Real reviews",
+    headlineEmpty: "Verify trust — by the numbers, not words",
     emptyLead:
       "I'm still collecting written client reviews. In the meantime, here's how to verify the seriousness of my practice in 3 minutes:",
     trustSignals: [
       {
-        icon: 'shield',
-        label: 'Registered with CSA NRD',
-        value: 'NRD #4575551',
-        sub: 'Verify at info.securities-administrators.ca',
-        href: 'https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx',
+        icon: "shield",
+        label: "Registered with CSA NRD",
+        value: "NRD #4575551",
+        sub: "Verify at info.securities-administrators.ca",
+        href: "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
       },
       {
-        icon: 'map',
-        label: 'Licensed in',
-        value: 'AB · BC · ON',
-        sub: 'Provincial registration in each',
+        icon: "map",
+        label: "Licensed in",
+        value: "AB · BC · ON",
+        sub: "Provincial registration in each",
       },
       {
-        icon: 'lang',
-        label: 'Working languages',
-        value: 'UA · RU · EN',
-        sub: 'Discovery call in your language',
+        icon: "lang",
+        label: "Working languages",
+        value: "UA · RU · EN",
+        sub: "Discovery call in your language",
       },
     ],
     leaveReviewLine:
-      'Worked together? You can leave a review on Google Business (link coming soon).',
-    ratingLabel: 'based on',
-    reviewsLabel: 'reviews',
+      "Worked together? You can leave a review on Google Business (link coming soon).",
+    ratingLabel: "based on",
+    reviewsLabel: "reviews",
   },
 };
 
-function pickIcon(name, className) {
-  if (name === 'shield') return <ShieldCheck className={className} aria-hidden="true" />;
-  if (name === 'map') return <MapPin className={className} aria-hidden="true" />;
-  if (name === 'lang') return <Languages className={className} aria-hidden="true" />;
+function pickIcon(name: string, className: string) {
+  if (name === "shield") return <ShieldCheck className={className} aria-hidden="true" />;
+  if (name === "map") return <MapPin className={className} aria-hidden="true" />;
+  if (name === "lang") return <Languages className={className} aria-hidden="true" />;
   return null;
 }
 
-export default function Testimonials({ locale = 'uk' }) {
+export default function Testimonials({ locale = "uk" }: { locale?: Locale }) {
   const c = COPY[locale] || COPY.uk;
   const items = getTestimonials(locale, 6);
   const hasData = items.length > 0;
@@ -123,13 +144,13 @@ export default function Testimonials({ locale = 'uk' }) {
   // Review JSON-LD when data exists
   const jsonLd = hasData
     ? {
-        '@context': 'https://schema.org',
-        '@type': 'FinancialService',
-        '@id': 'https://sky-fort.ca/#business',
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "@id": "https://sky-fort.ca/#business",
         ...(aggregate
           ? {
               aggregateRating: {
-                '@type': 'AggregateRating',
+                "@type": "AggregateRating",
                 ratingValue: aggregate.ratingValue,
                 reviewCount: aggregate.reviewCount,
                 bestRating: 5,
@@ -138,12 +159,12 @@ export default function Testimonials({ locale = 'uk' }) {
             }
           : {}),
         review: items.map((t) => ({
-          '@type': 'Review',
-          author: { '@type': 'Person', name: t.authorName },
+          "@type": "Review",
+          author: { "@type": "Person", name: t.authorName },
           datePublished: t.datePublished,
           reviewBody: t.text,
           reviewRating: {
-            '@type': 'Rating',
+            "@type": "Rating",
             ratingValue: t.rating,
             bestRating: 5,
             worstRating: 1,
@@ -180,16 +201,16 @@ export default function Testimonials({ locale = 'uk' }) {
                     key={i}
                     className={
                       i < Math.round(aggregate.ratingValue)
-                        ? 'h-4 w-4 fill-[var(--color-accent)] text-[var(--color-accent)]'
-                        : 'h-4 w-4 text-[var(--color-fg-subtle)]'
+                        ? "h-4 w-4 fill-[var(--color-accent)] text-[var(--color-accent)]"
+                        : "h-4 w-4 text-[var(--color-fg-subtle)]"
                     }
                     aria-hidden="true"
                   />
                 ))}
-              </span>{' '}
+              </span>{" "}
               <span className="ml-2 font-semibold text-[var(--color-fg)]">
                 {aggregate.ratingValue.toFixed(1)}/5
-              </span>{' '}
+              </span>{" "}
               <span>
                 {c.ratingLabel} {aggregate.reviewCount} {c.reviewsLabel}
               </span>
@@ -215,7 +236,7 @@ export default function Testimonials({ locale = 'uk' }) {
                     <div className="font-semibold text-[var(--color-fg)]">{t.authorName}</div>
                     {(t.authorCity || t.authorContext) && (
                       <div className="text-xs text-[var(--color-fg-subtle)]">
-                        {[t.authorCity, t.authorContext].filter(Boolean).join(' · ')}
+                        {[t.authorCity, t.authorContext].filter(Boolean).join(" · ")}
                       </div>
                     )}
                   </div>
@@ -225,8 +246,8 @@ export default function Testimonials({ locale = 'uk' }) {
                         key={i}
                         className={
                           i < t.rating
-                            ? 'h-3.5 w-3.5 fill-[var(--color-accent)] text-[var(--color-accent)]'
-                            : 'h-3.5 w-3.5 text-[var(--color-fg-subtle)]'
+                            ? "h-3.5 w-3.5 fill-[var(--color-accent)] text-[var(--color-accent)]"
+                            : "h-3.5 w-3.5 text-[var(--color-fg-subtle)]"
                         }
                         aria-hidden="true"
                       />
@@ -248,7 +269,7 @@ export default function Testimonials({ locale = 'uk' }) {
                 const Inner = (
                   <div className="flex h-full flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 transition-colors hover:border-[var(--color-brand)]/40">
                     <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-brand-soft)]">
-                      {pickIcon(sig.icon, 'h-5 w-5 text-[var(--color-brand)]')}
+                      {pickIcon(sig.icon, "h-5 w-5 text-[var(--color-brand)]")}
                     </div>
                     <div className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                       {sig.label}

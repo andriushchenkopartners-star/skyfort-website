@@ -1,4 +1,13 @@
-export default function Stats({ content }) {
+interface StatItem {
+  value: string;
+  label: string;
+}
+
+interface StatsContent {
+  stats: StatItem[];
+}
+
+export default function Stats({ content }: { content: StatsContent }) {
   return (
     <section
       className="border-y border-[#2a2a2a] bg-[#1f1f1f]"

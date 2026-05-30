@@ -2,7 +2,19 @@ import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
 
-export default function Hero({ content }) {
+interface HeroContent {
+  hero: {
+    kicker: string;
+    title: string;
+    titleAccent: string;
+    titleEnd: string;
+    sub: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
+}
+
+export default function Hero({ content }: { content: HeroContent }) {
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">

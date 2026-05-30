@@ -4,13 +4,33 @@ import Logo from "../_components/Logo";
 import TikTokIcon from "../_components/TikTokIcon";
 import { CONFIG } from "../_i18n/config";
 
-const LEGAL_LINKS = {
-  uk: { contact: 'Контакти', press: 'Преса', privacy: 'Приватність', cookies: 'Cookies' },
-  ru: { contact: 'Контакты', press: 'Пресса', privacy: 'Приватность', cookies: 'Cookies' },
-  en: { contact: 'Contact', press: 'Press', privacy: 'Privacy', cookies: 'Cookies' },
+type Locale = "uk" | "ru" | "en";
+
+interface LegalLinks {
+  contact: string;
+  press: string;
+  privacy: string;
+  cookies: string;
+}
+
+interface FooterContent {
+  footer: {
+    tagline: string;
+    contactTitle: string;
+    legalTitle: string;
+    disclaimer: string;
+    finfluencerNote?: string;
+    rights: string;
+  };
+}
+
+const LEGAL_LINKS: Record<Locale, LegalLinks> = {
+  uk: { contact: "Контакти", press: "Преса", privacy: "Приватність", cookies: "Cookies" },
+  ru: { contact: "Контакты", press: "Пресса", privacy: "Приватность", cookies: "Cookies" },
+  en: { contact: "Contact", press: "Press", privacy: "Privacy", cookies: "Cookies" },
 };
 
-export default function Footer({ content, locale = 'uk' }) {
+export default function Footer({ content, locale = "uk" }: { content: FooterContent; locale?: Locale }) {
   // Locale comes from the route segment now (passed as prop). The previous
   // localeFromContent() heuristic looked at content.footer.contactTitle and
   // tried to distinguish "Контакти" (UA) from "Контакты" (RU) by checking if
