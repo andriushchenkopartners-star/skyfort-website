@@ -1,4 +1,4 @@
-// app/_components/UpdatedBadge.jsx
+// app/_components/UpdatedBadge.tsx
 // Visible "Updated: YYYY-MM-DD" pill for money pages. Per Audit 7 #12:
 // Perplexity / Google AI Overviews favor content with visible recent
 // dates (recency bias — Seer Interactive 2026: ~3.2× more citations
@@ -6,13 +6,21 @@
 //
 // Pair with dateModified in Article JSON-LD for full signal coverage.
 
-const COPY = {
+type Locale = "uk" | "ru" | "en";
+
+const COPY: Record<Locale, string> = {
   uk: "Оновлено",
   ru: "Обновлено",
   en: "Updated",
 };
 
-export default function UpdatedBadge({ date, locale = "uk", className = "" }) {
+interface UpdatedBadgeProps {
+  date?: string;
+  locale?: Locale;
+  className?: string;
+}
+
+export default function UpdatedBadge({ date, locale = "uk", className = "" }: UpdatedBadgeProps) {
   if (!date) return null;
   const label = COPY[locale] || COPY.uk;
   return (

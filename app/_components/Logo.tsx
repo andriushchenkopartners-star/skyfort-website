@@ -2,7 +2,10 @@
 // Paths match the official asset in public/icon.svg (viewBox 97×90).
 // Color comes from currentColor → set via Tailwind text-* class.
 
-const PATHS = [
+type Variant = "mark" | "full";
+type Size = "sm" | "md" | "lg";
+
+const PATHS: string[] = [
   "M27.69 0V55.38C12.41 55.38 0 42.98 0 27.69C0 12.41 12.41 0 27.69 0Z",
   "M34.61 90L34.61 34.62C49.89 34.62 62.3 47.03 62.3 62.31C62.3 77.59 49.89 90 34.61 90Z",
   "M62.31 27.69C47.02 27.69 34.62 15.29 34.62 0H62.31V27.69Z",
@@ -12,12 +15,18 @@ const PATHS = [
 ];
 
 // Wordmark text — SKYFORT.
-function Wordmark({ className = "" }) {
+function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`text-lg font-bold tracking-wider text-[var(--color-fg)] ${className}`}>
       SKYFORT
     </span>
   );
+}
+
+interface LogoProps {
+  variant?: Variant;
+  size?: Size;
+  className?: string;
 }
 
 /**
@@ -27,7 +36,7 @@ function Wordmark({ className = "" }) {
  *  - className: applied to the wrapper; control color via Tailwind text-* utility
  *  - size: "sm" | "md" | "lg" — sets mark height (28 / 36 / 44 px)
  */
-export default function Logo({ variant = "mark", size = "md", className = "" }) {
+export default function Logo({ variant = "mark", size = "md", className = "" }: LogoProps) {
   const heightClass = { sm: "h-6", md: "h-7", lg: "h-9" }[size] || "h-7";
   const colorClass = "text-[var(--color-brand)]";
   const mark = (

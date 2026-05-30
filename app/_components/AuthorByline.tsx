@@ -1,4 +1,4 @@
-// app/_components/AuthorByline.jsx
+// app/_components/AuthorByline.tsx
 // Author + credentials byline for YMYL pillar pages. Mirrors the byline on
 // blog posts so every long-form piece has visible E-E-A-T (author, role,
 // firm, NRD link, photo). Per the May-28-2026 audit: every YMYL page should
@@ -16,10 +16,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 
+type Locale = "uk" | "ru" | "en";
+
+interface BylineCopy {
+  name: string;
+  role: string;
+  firm: string;
+  nrdLabel: string;
+  proMeneLabel: string;
+  proMeneHref: string;
+}
+
 const NRD_URL =
   "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 
-const COPY = {
+const COPY: Record<Locale, BylineCopy> = {
   uk: {
     name: "Andrii Andriushchenko",
     role: "Licensed Dealing Representative",
@@ -46,7 +57,12 @@ const COPY = {
   },
 };
 
-export default function AuthorByline({ locale = "uk", className = "" }) {
+interface AuthorBylineProps {
+  locale?: Locale;
+  className?: string;
+}
+
+export default function AuthorByline({ locale = "uk", className = "" }: AuthorBylineProps) {
   const c = COPY[locale] || COPY.uk;
   return (
     <div

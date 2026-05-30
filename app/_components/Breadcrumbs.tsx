@@ -3,12 +3,22 @@ import { ChevronRight } from "lucide-react";
 
 const SITE_URL = "https://sky-fort.ca";
 
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface BreadcrumbsProps {
+  items: Crumb[];
+  className?: string;
+}
+
 /**
  * <Breadcrumbs items=[{ label, href }] />
  * Renders both visual breadcrumbs and BreadcrumbList JSON-LD.
  * The last item should be the current page (no href required).
  */
-export default function Breadcrumbs({ items, className = "" }) {
+export default function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   if (!Array.isArray(items) || items.length === 0) return null;
 
   const jsonLd = {

@@ -1,7 +1,13 @@
 // Inline TikTok glyph — lucide-react does not ship one.
 // Use as: <TikTokIcon className="h-4 w-4" />
 
-export default function TikTokIcon({ className = "h-4 w-4", ...rest }) {
+import type { SVGProps } from "react";
+
+interface TikTokIconProps extends SVGProps<SVGSVGElement> {
+  className?: string;
+}
+
+export default function TikTokIcon({ className = "h-4 w-4", ...rest }: TikTokIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
