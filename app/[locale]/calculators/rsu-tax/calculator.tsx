@@ -1,4 +1,4 @@
-// app/[locale]/calculators/rsu-tax/calculator.jsx
+// app/[locale]/calculators/rsu-tax/calculator.tsx
 // Interactive RSU vesting tax calculator. Client component — does the math
 // in real time as user changes inputs.
 //
@@ -13,9 +13,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { ReactNode } from "react";
 import { Calculator, Info, Link as LinkIcon } from "lucide-react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import TldrBlock from "../../../_components/TldrBlock";
+
+type Locale = "uk" | "ru" | "en";
 
 // 2026 federal brackets (combined rate, no surtax).
 const FED_BRACKETS_2026 = [
@@ -53,7 +56,7 @@ const PROV_BRACKETS_2026 = {
 };
 
 // Sum of federal + provincial tax on a given income, using progressive brackets.
-function computeTax(income, province) {
+function computeTax(income: number, province: string): number {
   if (income <= 0) return 0;
   let fedTax = 0,
     prevCap = 0;
@@ -75,7 +78,7 @@ function computeTax(income, province) {
 }
 
 // Marginal rate at a given income level — useful to display "your bracket".
-function marginalRate(income, province) {
+function marginalRate(income: number, province: string): number {
   let fed = 0;
   for (const b of FED_BRACKETS_2026) {
     if (income <= b.upTo) {
@@ -183,7 +186,7 @@ const T = {
   },
 };
 
-function fmt(n) {
+function fmt(n: number) {
   return "$" + Math.round(n).toLocaleString("en-CA");
 }
 
@@ -193,13 +196,13 @@ const PRESETS = [
   { base: 220000, rsu: 150000, province: "BC", rrsp: 33810 },
 ];
 
-export default function RsuCalculator({ locale = "uk" }) {
+export default function RsuCalculator({ locale = "uk" }: { locale?: Locale }) {
   const t = T[locale] || T.uk;
   const [base, setBase] = useUrlState("base", 140000, "number");
   const [rsu, setRsu] = useUrlState("rsu", 80000, "number");
   const [province, setProvince] = useUrlState("prov", "AB");
   const [rrsp, setRrsp] = useUrlState("rrsp", 33810, "number");
-  const [copyState, setCopyState] = useState("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
 
   async function onCopyLink() {
     const ok = await copyShareUrl();
@@ -374,7 +377,7 @@ export default function RsuCalculator({ locale = "uk" }) {
   );
 }
 
-function Field({ label, children }) {
+function Field({ label, children }: { label: ReactNode; children?: ReactNode }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-white/60">
@@ -385,7 +388,7 @@ function Field({ label, children }) {
   );
 }
 
-function Row({ label, value, muted, good, big }) {
+function Row({ label, value, muted, good, big }: { label: ReactNode; value: ReactNode; muted?: boolean; good?: boolean; big?: boolean }) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-b border-white/5 pb-2 last:border-0 last:pb-0">
       <dt className="text-white/65">{label}</dt>

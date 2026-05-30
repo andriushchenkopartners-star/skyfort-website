@@ -9,11 +9,24 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import type { ReactNode } from "react";
 import { TrendingDown, Calculator, Info, Link as LinkIcon } from "lucide-react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import TldrBlock from "../../../_components/TldrBlock";
 
-function compound({ monthly, years, annualRate, mer }) {
+type Locale = "uk" | "ru" | "en";
+
+function compound({
+  monthly,
+  years,
+  annualRate,
+  mer,
+}: {
+  monthly: number;
+  years: number;
+  annualRate: number;
+  mer: number;
+}) {
   const netRate = (annualRate - mer) / 100;
   const monthlyRate = netRate / 12;
   const n = years * 12;
@@ -130,11 +143,11 @@ const PRESETS = [
   { monthly: 300, years: 40, grossReturn: 8, highMer: 2.0, lowMer: 0.2 },
 ];
 
-function fmt(n) {
+function fmt(n: number) {
   return "$" + Math.round(n).toLocaleString("en-CA");
 }
 
-export default function MerCalculator({ locale = "uk" }) {
+export default function MerCalculator({ locale = "uk" }: { locale?: Locale }) {
   const t = T[locale] || T.uk;
   // useUrlState — reads ?monthly=500&years=30&… on mount, writes URL on
   // every change (debounced via microtask). Shared link reproduces exact
@@ -144,7 +157,7 @@ export default function MerCalculator({ locale = "uk" }) {
   const [grossReturn, setGrossReturn] = useUrlState("rate", 8, "number");
   const [highMer, setHighMer] = useUrlState("merA", 2.0, "number");
   const [lowMer, setLowMer] = useUrlState("merB", 0.2, "number");
-  const [copyState, setCopyState] = useState("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
 
   async function onCopyLink() {
     const ok = await copyShareUrl();
@@ -305,7 +318,7 @@ export default function MerCalculator({ locale = "uk" }) {
   );
 }
 
-function Field({ label, children }) {
+function Field({ label, children }: { label: ReactNode; children?: ReactNode }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-white/60">{label}</span>
@@ -314,7 +327,19 @@ function Field({ label, children }) {
   );
 }
 
-function Row({ label, value, muted, good, big }) {
+function Row({
+  label,
+  value,
+  muted,
+  good,
+  big,
+}: {
+  label: ReactNode;
+  value: ReactNode;
+  muted?: boolean;
+  good?: boolean;
+  big?: boolean;
+}) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-b border-white/5 pb-2 last:border-0 last:pb-0">
       <dt className="text-white/65">{label}</dt>

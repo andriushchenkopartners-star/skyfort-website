@@ -3,8 +3,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Calculator, Info, Stethoscope, Link as LinkIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { Info, Stethoscope, Link as LinkIcon } from "lucide-react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
+
+type Locale = "uk" | "ru" | "en";
 
 const FED_BRACKETS_2026 = [
   { upTo: 57375, rate: 0.15 },
@@ -51,7 +54,7 @@ const ELIGIBLE_DIV_RATE = { AB: 0.32, BC: 0.36, ON: 0.39 };
 const CPP_MAX_2026 = 73200;
 const CPP_RATE = 0.115; // employee + employer combined for self-employed
 
-function computeTax(income, province) {
+function computeTax(income: number, province: string): number {
   if (income <= 0) return 0;
   let fed = 0, prev = 0;
   for (const b of FED_BRACKETS_2026) {
@@ -176,18 +179,18 @@ const PRESETS = [
   { gross: 200000, expenses: 40000, province: "AB", salary: 73200, dividend: 30000 },
 ];
 
-function fmt(n) {
+function fmt(n: number) {
   return "$" + Math.round(n).toLocaleString("en-CA");
 }
 
-export default function MpcCalculator({ locale = "uk" }) {
+export default function MpcCalculator({ locale = "uk" }: { locale?: Locale }) {
   const t = T[locale] || T.uk;
   const [gross, setGross] = useUrlState("gross", 300000, "number");
   const [expenses, setExpenses] = useUrlState("expenses", 50000, "number");
   const [province, setProvince] = useUrlState("prov", "AB");
   const [salary, setSalary] = useUrlState("salary", CPP_MAX_2026, "number");
   const [dividend, setDividend] = useUrlState("dividend", 50000, "number");
-  const [copyState, setCopyState] = useState("idle");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
 
   async function onCopyLink() {
     const ok = await copyShareUrl();
@@ -357,7 +360,7 @@ export default function MpcCalculator({ locale = "uk" }) {
   );
 }
 
-function Field({ label, children }) {
+function Field({ label, children }: { label: ReactNode; children?: ReactNode }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-white/60">{label}</span>
@@ -366,7 +369,7 @@ function Field({ label, children }) {
   );
 }
 
-function RowMini({ label, value, bold, good }) {
+function RowMini({ label, value, bold, good }: { label: ReactNode; value: ReactNode; bold?: boolean; good?: boolean }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
       <dt className="text-white/65 text-xs">{label}</dt>
