@@ -1,4 +1,4 @@
-// app/_components/portal/PortalSidebar.jsx
+// app/_components/portal/PortalSidebar.tsx
 // Left navigation rail for the portal dashboard. Pure client component
 // because it uses usePathname() to highlight the active route.
 
@@ -11,8 +11,24 @@ import SFMark from './SFMark';
 import Eyebrow from './Eyebrow';
 import { PortalIcons as I } from './icons';
 
+// Minimal shape of the portal dictionary slice this sidebar reads.
+interface PortalSidebarT {
+  nav?: Record<string, string>;
+  ca_finance_for_newcomers?: string;
+  services?: string;
+}
+
+interface PortalSidebarProps {
+  locale?: string;
+  t?: PortalSidebarT;
+  clientName?: string;
+  clientInitials?: string;
+  memberSince?: number | null;
+  documentsBadge?: number;
+}
+
 /** Returns the route key by reading the URL: '/uk/portal/overview' → 'overview' */
-function routeKeyFromPath(pathname) {
+function routeKeyFromPath(pathname: string) {
   const m = pathname?.match(/\/portal\/([^/?#]+)/);
   return m ? m[1] : 'overview';
 }
@@ -25,7 +41,7 @@ const NAV_ITEMS = [
   { key: 'documents', icon: 'documents' },
 ];
 
-function NavIcon({ kind }) {
+function NavIcon({ kind }: { kind: string }) {
   if (kind === 'overview')
     return (
       <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
@@ -74,7 +90,7 @@ export default function PortalSidebar({
   clientInitials = '',
   memberSince,
   documentsBadge,
-}) {
+}: PortalSidebarProps) {
   const pathname = usePathname() || '';
   const currentKey = routeKeyFromPath(pathname);
 
@@ -133,7 +149,7 @@ export default function PortalSidebar({
                 <NavIcon kind={item.icon} />
               </span>
               {label}
-              {item.key === 'documents' && documentsBadge > 0 && (
+              {item.key === 'documents' && documentsBadge && documentsBadge > 0 && (
                 <span
                   style={{
                     marginLeft: 'auto',

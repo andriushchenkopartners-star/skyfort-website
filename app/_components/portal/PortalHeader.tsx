@@ -1,4 +1,4 @@
-// app/_components/portal/PortalHeader.jsx
+// app/_components/portal/PortalHeader.tsx
 // Top bar for the portal dashboard: breadcrumb + lang switcher + bell + book CTA.
 // Client component because of the dropdown + book modal triggers.
 
@@ -15,8 +15,22 @@ const LANGS = [
   { code: 'uk', label: 'УКРАЇНСЬКОЮ', short: 'UK' },
 ];
 
+// Minimal shape of the portal dictionary slice this header reads.
+interface PortalHeaderT {
+  nav?: Record<string, string>;
+  book_call?: string;
+}
+
+interface PortalHeaderProps {
+  locale?: string;
+  t?: PortalHeaderT;
+  unreadBell?: boolean;
+  onBookClick?: () => void;
+  onMenuClick?: () => void;
+}
+
 /** Pull the current route key from `/uk/portal/<key>` for the breadcrumb label */
-function routeKeyFromPath(pathname) {
+function routeKeyFromPath(pathname: string) {
   const m = pathname?.match(/\/portal\/([^/?#]+)/);
   return m ? m[1] : 'overview';
 }
@@ -27,7 +41,7 @@ export default function PortalHeader({
   unreadBell = false,
   onBookClick,
   onMenuClick,
-}) {
+}: PortalHeaderProps) {
   const router = useRouter();
   const pathname = usePathname() || '';
   const [showLangMenu, setShowLangMenu] = useState(false);
@@ -35,7 +49,7 @@ export default function PortalHeader({
   const currentKey = routeKeyFromPath(pathname);
   const sectionLabel = (t?.nav?.[currentKey] || currentKey).toUpperCase();
 
-  function switchLang(newLocale) {
+  function switchLang(newLocale: string) {
     if (newLocale === locale) {
       setShowLangMenu(false);
       return;

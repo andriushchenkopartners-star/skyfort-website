@@ -1,4 +1,4 @@
-// app/_components/portal/DashboardChrome.jsx
+// app/_components/portal/DashboardChrome.tsx
 // Client wrapper for the dashboard shell — handles the mobile drawer state.
 // Desktop ≥1024px: fixed sidebar + main column.
 // Mobile <1024px: sidebar hidden behind drawer, hamburger in header opens it.
@@ -6,9 +6,33 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import PortalSidebar from './PortalSidebar';
 import PortalHeader from './PortalHeader';
+
+// Minimal shape of the portal dictionary slice these chrome components read.
+interface PortalChromeT {
+  nav?: Record<string, string>;
+  book_call?: string;
+  ca_finance_for_newcomers?: string;
+  services?: string;
+}
+
+interface PortalClient {
+  full_name?: string;
+  initials?: string;
+  member_since?: string | null;
+}
+
+interface DashboardChromeProps {
+  locale: string;
+  t: PortalChromeT;
+  client: PortalClient;
+  documentsBadge?: number;
+  unreadBell?: boolean;
+  children?: ReactNode;
+}
 
 export default function DashboardChrome({
   locale,
@@ -17,14 +41,14 @@ export default function DashboardChrome({
   documentsBadge = 0,
   unreadBell = false,
   children,
-}) {
+}: DashboardChromeProps) {
   const pathname = usePathname();
   // Store the path the drawer was opened on. The drawer is "open" only when
   // the current path matches. When the user navigates (pathname changes),
   // drawerOpen becomes false automatically — no useEffect+setState needed.
   // This avoids the react-hooks/set-state-in-effect violation we'd hit by
   // calling setDrawerOpen(false) inside a useEffect([pathname]).
-  const [openedAtPath, setOpenedAtPath] = useState(null);
+  const [openedAtPath, setOpenedAtPath] = useState<string | null>(null);
   const drawerOpen = openedAtPath !== null && openedAtPath === pathname;
 
   const openDrawer = () => setOpenedAtPath(pathname);
@@ -33,7 +57,7 @@ export default function DashboardChrome({
   // Close on Escape — pure DOM side effect, no setState-in-effect issue.
   useEffect(() => {
     if (!drawerOpen) return;
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpenedAtPath(null);
     };
     window.addEventListener('keydown', onKey);
