@@ -1,0 +1,113 @@
+---
+title: "Крипто-налоги в Канаде для новоприбывших: правила CRA 2026"
+description: "Как CRA облагает crypto: capital gain vs business income, 50% inclusion, каждый trade = taxable event, T1135 для foreign exchanges, как вести records. Гайд 2026."
+date: "2026-05-29"
+author: "Andrii Andriushchenko"
+tags: ["crypto", "tax", "CRA", "capital gains", "T1135", "newcomer", "Канада"]
+pillar: "Tax"
+ogImage: "/og-image.png"
+draft: false
+---
+
+> **Коротко:** CRA трактует crypto как **commodity, не валюту**. Каждое dispose-событие (продажа, обмен crypto-на-crypto, оплата товара, конвертация в CAD) — **taxable event**. Если это investment — **capital gain** (50% inclusion: половина прибыли облагается налогом). Если active trading/mining как бизнес — **100% business income**. Crypto на foreign exchange (Binance, Coinbase non-Canadian) > $100K cost = **T1135 reporting**. Новоприбывшие, которые привезли crypto: cost base = fair market value в день, когда стал Canadian tax resident. Веди records каждой транзакции — CRA активно аудитит crypto.
+
+## Как CRA классифицирует crypto
+
+CRA НЕ считает crypto валютой. Для налоговых целей это **commodity** (как золото). Это значит:
+- Покупка crypto за CAD — **не** taxable (просто конвертация)
+- **Dispose** crypto — taxable event. Dispose включает:
+  - Продажу crypto за CAD
+  - **Обмен crypto на crypto** (BTC → ETH — ТОЖЕ, даже если не выводил в фиат!)
+  - Оплату товара/услуги crypto
+  - Подарок crypto кому-то (кроме spouse)
+
+Самый большой сюрприз: **crypto-to-crypto swap — это taxable event.** Поменял BTC на ETH → CRA видит это как «продал BTC (realize gain) + купил ETH». Многие это пропускают.
+
+> ⚠️ **EMD compliance disclaimer:** Это образовательный материал, не налоговая консультация. Crypto tax — сложная область; для individual filing engage Canadian CPA с crypto specialization. Я не даю tax-advice и не торгую crypto через свою EMD лицензию.
+
+## Capital gain vs business income — критическая разница
+
+Это определяет сколько налога ты платишь:
+
+### Capital gain (большинство investors)
+Если ты **buy-and-hold** investor (купил, держишь, изредка продаёшь):
+- **50% inclusion rate**: только половина gain облагается налогом
+- Пример: купил BTC за $10K, продал за $30K → gain $20K → taxable $10K (50%) → при marginal 40% = $4K налога
+- Убытки (capital losses) offset-ят другие capital gains
+
+### Business income (active traders / miners)
+Если CRA определяет что твоя crypto activity = бизнес (frequent trading, day-trading patterns, mining operation, high volume):
+- **100% inclusion**: вся прибыль облагается налогом как income
+- Пример: тот же $20K gain → taxable $20K (100%) → при 40% = $8K налога (в 2× больше!)
+- Но: можно deduct business expenses (electricity для mining, etc.)
+
+**Что определяет business vs capital** (CRA factors): frequency of trades, holding period, knowledge/sophistication, time spent, intention to profit short-term, financing. Casual holder = capital. Day-trader = business. Серая зона — discuss с CPA.
+
+## Новоприбывшие, которые привезли crypto: cost base
+
+Если у тебя был crypto ДО приезда в Канаду:
+- Твой **cost base** для CRA = **fair market value в день, когда ты стал Canadian tax resident** (типично arrival day с residential ties)
+- НЕ цена, за которую ты купил в Украине годы назад
+- Это "deemed acquisition" при immigration
+
+Пример: купил 1 BTC за $5K в 2020 в Украине. Приехал в Канаду март 2024 когда BTC = $60K. Твой Canadian cost base = $60K (not $5K). Если продаёшь в 2026 за $80K → Canadian capital gain = $20K (not $75K). Только post-arrival appreciation облагается налогом.
+
+**Зафиксируй FMV на arrival day** — это критично для будущего capital gain calculation. Скриншот цены + дата.
+
+## T1135 для crypto на foreign exchanges
+
+Если твой crypto хранится на **non-Canadian exchange** (Binance, Coinbase Global, Kraken US) и combined foreign assets (включая crypto cost) > **$100K CAD** — нужен **T1135 Foreign Income Verification**.
+
+- Crypto на **Canadian exchange** (Wealthsimple Crypto, NDAX, Bitbuy, Newton) — **НЕ** foreign property, не считается для T1135
+- Crypto в self-custody wallet (Ledger, MetaMask) — серая зона; CRA guidance развивается; консервативно — считай если exchange-linked
+
+Стратегия: держи crypto на **Canadian exchange** → избегаешь T1135 complexity. Детали T1135 — [отдельный гайд](/ru/blog/t1135-foreign-property-newcomer).
+
+## Records — CRA активно аудитит crypto
+
+CRA с 2022 значительно усилил crypto enforcement (data-sharing с exchanges, mandatory reporting). Веди records **каждой** транзакции:
+- Дата
+- Тип (buy/sell/swap/spend)
+- Amount в crypto + CAD value на момент (по exchange rate того дня)
+- Counterparty exchange/wallet
+- Fees
+
+**Инструменты**: Koinly, CoinTracker, CryptoTaxCalculator — импортируют с exchanges, считают capital gains автоматически, генерируют CRA-ready report. Worth $50-200/год если у тебя > 50 транзакций.
+
+Без records при audit — CRA может assess по худшему scenario (считать весь proceeds как gain, без cost base). Records = твоя защита.
+
+## Crypto в TFSA / RRSP?
+
+- **Прямой crypto** (BTC, ETH в wallet) — **НЕ можно** держать в TFSA/RRSP. Registered accounts позволяют только "qualified investments" (securities), не raw crypto.
+- **Crypto ETF** (e.g. Bitcoin ETF на TSX — BTCC, EBIT) — **МОЖНО** в TFSA/RRSP! Это qualified investment.
+- Стратегия: для tax-free crypto exposure → Bitcoin/Ethereum ETF в TFSA вместо raw crypto в non-registered. Gains tax-free.
+
+> Я не рекомендую конкретные crypto products (вне EMD scope + high volatility). Это структурная информация, не investment advice.
+
+## Common ошибки новоприбывших с crypto-tax
+
+### Ошибка 1: «Я не выводил в фиат, поэтому налога нет»
+Wrong. Crypto-to-crypto swap = taxable. Spending crypto = taxable. Только holding (без dispose) = no tax.
+
+### Ошибка 2: игнорировать мелкие транзакции
+Каждый swap считается. 200 мелких trades = 200 taxable events. Use tracking software.
+
+### Ошибка 3: не зафиксировать arrival-day FMV
+Если привёз crypto — без FMV на день residency ты не сможешь правильно посчитать Canadian cost base → переплатишь налог или будут проблемы при audit.
+
+### Ошибка 4: держать на foreign exchange игнорируя T1135
+Binance balance > часть $100K foreign assets → T1135 mandatory. Penalty $25/день.
+
+### Ошибка 5: смешивать personal + "business" trading
+Если ты day-trade-ишь — это business income (100%), не capital gain (50%). Неправильная классификация = reassessment риск.
+
+## Action plan
+
+1. **Если привёз crypto**: зафиксируй FMV на arrival day (твой Canadian cost base)
+2. **Перенеси на Canadian exchange** (Wealthsimple Crypto, NDAX) — избегаешь T1135
+3. **Tracking software** (Koinly) — импортируй всю историю
+4. **Для tax-free exposure**: Bitcoin/Ethereum ETF в TFSA вместо raw crypto
+5. **Tax season**: capital gains в T1 (Schedule 3); если foreign exchange > $100K — T1135; если day-trading — business income
+6. **Engage crypto-CPA** если volume высокий или сложная история
+
+Больше про newcomer tax ошибки — [10 tax ошибок новоприбывших](/ru/blog/newcomer-first-year-tax-mistakes).
