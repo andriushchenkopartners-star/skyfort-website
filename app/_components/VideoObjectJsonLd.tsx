@@ -1,4 +1,4 @@
-// app/_components/VideoObjectJsonLd.jsx
+// app/_components/VideoObjectJsonLd.tsx
 // Reusable VideoObject JSON-LD emitter for TikTok / YouTube embeds.
 //
 // Lantern 2026: YouTube is the most-cited domain in AI-search answers
@@ -25,7 +25,20 @@
 //   viewCount:     number  — optional, view/play count (becomes interactionStatistic)
 //   inLanguage:    string  — optional, BCP-47 language tag (default "uk")
 
-function deriveTikTokEmbedUrl(contentUrl) {
+interface VideoObjectJsonLdProps {
+  name?: string;
+  description?: string;
+  thumbnailUrl?: string | string[];
+  uploadDate?: string;
+  contentUrl?: string;
+  embedUrl?: string;
+  duration?: string;
+  transcript?: string;
+  viewCount?: number;
+  inLanguage?: string;
+}
+
+function deriveTikTokEmbedUrl(contentUrl?: string): string | null {
   if (!contentUrl) return null;
   if (!contentUrl.includes("tiktok.com")) return null;
   // TikTok oEmbed convention: https://www.tiktok.com/embed/v2/<video-id>
@@ -48,7 +61,7 @@ export default function VideoObjectJsonLd({
   transcript,
   viewCount,
   inLanguage = "uk",
-}) {
+}: VideoObjectJsonLdProps) {
   if (!name || !description || !thumbnailUrl || !uploadDate) return null;
 
   const resolvedEmbedUrl = embedUrl || deriveTikTokEmbedUrl(contentUrl);

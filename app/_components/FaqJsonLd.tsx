@@ -2,7 +2,19 @@
 // renders on screen so search engines and the visible page stay aligned.
 // Pass a `faq` array of { q, a } objects.
 
-export default function FaqJsonLd({ faq, id }) {
+import type { ReactNode } from "react";
+
+interface FaqItem {
+  q: string;
+  a: ReactNode;
+}
+
+interface FaqJsonLdProps {
+  faq: FaqItem[];
+  id?: string;
+}
+
+export default function FaqJsonLd({ faq, id }: FaqJsonLdProps) {
   if (!Array.isArray(faq) || faq.length === 0) return null;
   const data = {
     "@context": "https://schema.org",

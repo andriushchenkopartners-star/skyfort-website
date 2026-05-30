@@ -1,4 +1,4 @@
-// app/_components/CraLimits2026.jsx
+// app/_components/CraLimits2026.tsx
 // Reusable 2026 CRA tax-shelter limits table — single source of truth for
 // blog posts, calculators, service pages. The 4th re-audit (2.13) flagged
 // the absence of a structured, source-attributed table as a citation gap
@@ -16,9 +16,30 @@
 // Per Wellows AI Overview analysis 2026, structured tables with 15+ named
 // entities + verifiable claims have 4.8× higher citation rate.
 
-import Link from "next/link";
+type Locale = "uk" | "ru" | "en";
 
-const COPY = {
+interface CraRow {
+  account: string;
+  annual: string;
+  lifetime: string;
+  source: string;
+  sourceUrl: string;
+}
+
+interface CraCopy {
+  title: string;
+  sub: string;
+  headers: {
+    account: string;
+    annual: string;
+    lifetime: string;
+    source: string;
+  };
+  rows: CraRow[];
+  note: string;
+}
+
+const COPY: Record<Locale, CraCopy> = {
   uk: {
     title: "Ліміти CRA на 2026 рік",
     sub: "Усі цифри з canada.ca. Перевір актуальність на CRA My Account.",
@@ -165,7 +186,7 @@ const COPY = {
   },
 };
 
-export default function CraLimits2026({ locale = "uk" }) {
+export default function CraLimits2026({ locale = "uk" }: { locale?: Locale }) {
   const c = COPY[locale] || COPY.uk;
   return (
     <section className="my-10 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 md:p-8">

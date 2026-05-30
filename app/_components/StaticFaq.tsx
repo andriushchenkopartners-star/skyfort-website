@@ -1,4 +1,4 @@
-// app/_components/StaticFaq.jsx
+// app/_components/StaticFaq.tsx
 // Server-rendered FAQ accordion. Uses native <details>/<summary> so the
 // accordion works without JavaScript — works for SSR, no-JS users, and
 // crawlers. Pair with <FaqJsonLd> for matching FAQPage schema.
@@ -8,9 +8,22 @@
 //   heading: string (the H2 above the list)
 //   id:      optional id for the wrapping <section> (default "faq")
 
-import FaqJsonLd from './FaqJsonLd';
+import type { ReactNode } from "react";
+import FaqJsonLd from "./FaqJsonLd";
 
-export default function StaticFaq({ faq, heading, id = 'faq', jsonLdId }) {
+interface FaqItem {
+  q: string;
+  a: ReactNode;
+}
+
+interface StaticFaqProps {
+  faq: FaqItem[];
+  heading?: string;
+  id?: string;
+  jsonLdId?: string;
+}
+
+export default function StaticFaq({ faq, heading, id = "faq", jsonLdId }: StaticFaqProps) {
   if (!Array.isArray(faq) || faq.length === 0) return null;
 
   return (

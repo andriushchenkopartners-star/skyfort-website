@@ -1,4 +1,4 @@
-// app/_components/TldrBlock.jsx
+// app/_components/TldrBlock.tsx
 // Visible "TL;DR" summary block at the top of long-form pillar pages.
 // Emits matching schema.org/SpeakableSpecification JSON-LD so voice-search
 // (Google Assistant) and AI-Overview audio readers know which selector
@@ -18,7 +18,14 @@
 //     pageUrl="https://..."   // canonical URL
 //   />
 
-export default function TldrBlock({ label = "TL;DR", text, pageName, pageUrl }) {
+interface TldrBlockProps {
+  label?: string;
+  text?: string;
+  pageName?: string;
+  pageUrl?: string;
+}
+
+export default function TldrBlock({ label = "TL;DR", text, pageName, pageUrl }: TldrBlockProps) {
   if (!text) return null;
 
   const speakableJsonLd = pageName && pageUrl

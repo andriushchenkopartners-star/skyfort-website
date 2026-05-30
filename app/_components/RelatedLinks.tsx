@@ -1,4 +1,4 @@
-// app/_components/RelatedLinks.jsx
+// app/_components/RelatedLinks.tsx
 // Reusable internal-linking widget. Renders a section with a heading and 2-4
 // cards linking to related pages on the site. Server-only — no client JS.
 //
@@ -14,10 +14,22 @@
 //   items:   Array<{ href: string; label: string; description?: string }>
 //   variant: 'cards' (default — 2-col grid) | 'list' (vertical, blog-style)
 
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-export default function RelatedLinks({ heading, items, variant = 'cards' }) {
+interface RelatedLinkItem {
+  href: string;
+  label: string;
+  description?: string;
+}
+
+interface RelatedLinksProps {
+  heading?: string;
+  items: RelatedLinkItem[];
+  variant?: "cards" | "list";
+}
+
+export default function RelatedLinks({ heading, items, variant = "cards" }: RelatedLinksProps) {
   if (!Array.isArray(items) || items.length === 0) return null;
 
   return (
@@ -31,9 +43,9 @@ export default function RelatedLinks({ heading, items, variant = 'cards' }) {
 
         <ul
           className={
-            variant === 'list'
-              ? 'space-y-3'
-              : 'grid gap-4 md:grid-cols-2'
+            variant === "list"
+              ? "space-y-3"
+              : "grid gap-4 md:grid-cols-2"
           }
         >
           {items.map((item, i) => (
