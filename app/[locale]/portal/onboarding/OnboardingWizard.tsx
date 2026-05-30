@@ -1,4 +1,4 @@
-// app/[locale]/portal/onboarding/OnboardingWizard.jsx
+// app/[locale]/portal/onboarding/OnboardingWizard.tsx
 // 3-step wizard:
 //   1) About you      — full_name, preferred_lang, jurisdictions
 //   2) Your accounts  — add one (or skip)
@@ -9,9 +9,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 import { browserClient } from '../../../_lib/portal/supabase';
 import { initialsFromName } from '../../../_lib/portal/fmt';
-import { ACCOUNT_TYPES, ACCOUNT_COLORS, GOAL_KEYS } from '../../../_lib/portal/constants';
+import { ACCOUNT_TYPES, GOAL_KEYS } from '../../../_lib/portal/constants';
 import Btn from '../../../_components/portal/Btn';
 import Card from '../../../_components/portal/Card';
 import Eyebrow from '../../../_components/portal/Eyebrow';
@@ -20,7 +21,19 @@ import { PortalIcons as I } from '../../../_components/portal/icons';
 
 const JURISDICTIONS = ['Alberta', 'British Columbia', 'Ontario', 'Other'];
 
-export default function OnboardingWizard({ locale, t, userId, userEmail, existingClient }) {
+export default function OnboardingWizard({
+  locale,
+  t,
+  userId,
+  userEmail,
+  existingClient,
+}: {
+  locale?: string;
+  t?: any;
+  userId?: string;
+  userEmail?: string;
+  existingClient?: any;
+}) {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
@@ -45,7 +58,7 @@ export default function OnboardingWizard({ locale, t, userId, userEmail, existin
     target: '',
   });
 
-  function toggleJurisdiction(j) {
+  function toggleJurisdiction(j: string) {
     setProfile((p) => {
       const has = p.jurisdictions.includes(j);
       return {
@@ -210,7 +223,19 @@ export default function OnboardingWizard({ locale, t, userId, userEmail, existin
 }
 
 // ─── Step 1 — about you ─────────────────────────────────────────────────────
-function Step1({ t, profile, setProfile, toggleJurisdiction, email }) {
+function Step1({
+  t,
+  profile,
+  setProfile,
+  toggleJurisdiction,
+  email,
+}: {
+  t?: any;
+  profile?: any;
+  setProfile?: any;
+  toggleJurisdiction?: (j: string) => void;
+  email?: string;
+}) {
   return (
     <>
       <h2 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--portal-ink)' }}>
@@ -266,7 +291,17 @@ function Step1({ t, profile, setProfile, toggleJurisdiction, email }) {
 }
 
 // ─── Step 2 — first account ─────────────────────────────────────────────────
-function Step2({ t, account, setAccount, locale }) {
+function Step2({
+  t,
+  account,
+  setAccount,
+  locale,
+}: {
+  t?: any;
+  account?: any;
+  setAccount?: any;
+  locale?: string;
+}) {
   return (
     <>
       <h2 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--portal-ink)' }}>
@@ -332,7 +367,17 @@ function Step2({ t, account, setAccount, locale }) {
 }
 
 // ─── Step 3 — first goal ────────────────────────────────────────────────────
-function Step3({ t, goal, setGoal, locale }) {
+function Step3({
+  t,
+  goal,
+  setGoal,
+  locale,
+}: {
+  t?: any;
+  goal?: any;
+  setGoal?: any;
+  locale?: string;
+}) {
   const titlePh = defaultGoalTitle(goal.goal_key, t);
   return (
     <>
@@ -403,15 +448,15 @@ function Step3({ t, goal, setGoal, locale }) {
 }
 
 // ─── helpers ────────────────────────────────────────────────────────────────
-function defaultGoalTitle(key, t) {
+function defaultGoalTitle(key: string, t: any) {
   return t['goal_' + key] || key;
 }
 
-function Field({ children }) {
+function Field({ children }: { children?: ReactNode; label?: ReactNode }) {
   return <div style={{ marginBottom: 14 }}>{children}</div>;
 }
 
-const inputStyle = {
+const inputStyle: CSSProperties = {
   width: '100%',
   padding: '11px 13px',
   border: '1px solid var(--portal-line)',
@@ -423,7 +468,7 @@ const inputStyle = {
   outline: 'none',
 };
 
-function chipStyle(active) {
+function chipStyle(active: boolean): CSSProperties {
   return {
     padding: '8px 12px',
     borderRadius: 10,

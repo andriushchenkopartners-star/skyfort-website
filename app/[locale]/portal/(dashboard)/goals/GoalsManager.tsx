@@ -1,7 +1,8 @@
-// app/[locale]/portal/(dashboard)/goals/GoalsManager.jsx
+// app/[locale]/portal/(dashboard)/goals/GoalsManager.tsx
 'use client';
 
 import { useState } from 'react';
+import type { ReactNode, CSSProperties, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { browserClient } from '../../../../_lib/portal/supabase';
 import { GOAL_KEYS } from '../../../../_lib/portal/constants';
@@ -11,10 +12,20 @@ import Btn from '../../../../_components/portal/Btn';
 import Eyebrow from '../../../../_components/portal/Eyebrow';
 import { PortalIcons as I } from '../../../../_components/portal/icons';
 
-export default function GoalsManager({ initialGoals, userId, locale, t }) {
+export default function GoalsManager({
+  initialGoals,
+  userId,
+  locale,
+  t,
+}: {
+  initialGoals: any[];
+  userId?: string;
+  locale?: string;
+  t?: any;
+}) {
   const router = useRouter();
   const [goals, setGoals] = useState(initialGoals);
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -32,7 +43,7 @@ export default function GoalsManager({ initialGoals, userId, locale, t }) {
     router.refresh();
   }
 
-  async function save(id, patch) {
+  async function save(id: string, patch: any) {
     setBusy(true);
     setError('');
     try {
@@ -47,7 +58,7 @@ export default function GoalsManager({ initialGoals, userId, locale, t }) {
     }
   }
 
-  async function remove(id) {
+  async function remove(id: string) {
     if (!confirm(t.delete + '?')) return;
     setBusy(true);
     try {
@@ -61,7 +72,7 @@ export default function GoalsManager({ initialGoals, userId, locale, t }) {
     }
   }
 
-  async function add(payload) {
+  async function add(payload: any) {
     setBusy(true);
     setError('');
     try {
@@ -137,7 +148,27 @@ export default function GoalsManager({ initialGoals, userId, locale, t }) {
   );
 }
 
-function GoalCard({ goal, t, moneyLocale, isEditing, busy, onEdit, onCancel, onSave, onDelete }) {
+function GoalCard({
+  goal,
+  t,
+  moneyLocale,
+  isEditing,
+  busy,
+  onEdit,
+  onCancel,
+  onSave,
+  onDelete,
+}: {
+  goal: any;
+  t?: any;
+  moneyLocale?: string;
+  isEditing?: boolean;
+  busy?: boolean;
+  onEdit?: () => void;
+  onCancel?: () => void;
+  onSave?: (p: any) => void;
+  onDelete?: () => void;
+}) {
   const [title, setTitle] = useState(goal.title);
   const [saved, setSaved] = useState(String(goal.saved ?? ''));
   const [target, setTarget] = useState(String(goal.target ?? ''));
@@ -249,7 +280,19 @@ function GoalCard({ goal, t, moneyLocale, isEditing, busy, onEdit, onCancel, onS
   );
 }
 
-function AddGoalModal({ locale, t, busy, onClose, onSubmit }) {
+function AddGoalModal({
+  locale,
+  t,
+  busy,
+  onClose,
+  onSubmit,
+}: {
+  locale?: string;
+  t?: any;
+  busy?: boolean;
+  onClose?: () => void;
+  onSubmit?: (payload: any) => void;
+}) {
   const [goalKey, setGoalKey] = useState('house');
   const [title, setTitle] = useState('');
   const [target, setTarget] = useState('');
@@ -257,7 +300,7 @@ function AddGoalModal({ locale, t, busy, onClose, onSubmit }) {
   const [monthly, setMonthly] = useState('');
   const [eta, setEta] = useState('');
 
-  function submit(e) {
+  function submit(e: FormEvent) {
     e.preventDefault();
     if (!target || parseFloat(target) <= 0) return;
     onSubmit({
@@ -341,7 +384,7 @@ function AddGoalModal({ locale, t, busy, onClose, onSubmit }) {
   );
 }
 
-function Field({ label, children, full }) {
+function Field({ label, children, full }: { label?: ReactNode; children?: ReactNode; full?: boolean }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6, gridColumn: full ? '1 / -1' : 'auto' }}>
       <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--portal-mute)' }}>
@@ -352,7 +395,7 @@ function Field({ label, children, full }) {
   );
 }
 
-const inputStyle = {
+const inputStyle: CSSProperties = {
   width: '100%',
   padding: '10px 12px',
   border: '1px solid var(--portal-line)',
@@ -364,7 +407,7 @@ const inputStyle = {
   outline: 'none',
 };
 
-const iconBtnStyle = {
+const iconBtnStyle: CSSProperties = {
   width: 32,
   height: 32,
   borderRadius: 8,

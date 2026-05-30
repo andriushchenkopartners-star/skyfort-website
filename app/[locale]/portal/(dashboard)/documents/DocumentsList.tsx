@@ -1,4 +1,4 @@
-// app/[locale]/portal/(dashboard)/documents/DocumentsList.jsx
+// app/[locale]/portal/(dashboard)/documents/DocumentsList.tsx
 'use client';
 
 import { useState, useRef } from 'react';
@@ -19,14 +19,14 @@ const ALLOWED_TYPES = [
   'image/webp',
 ];
 
-function fmtBytes(n) {
+function fmtBytes(n: number) {
   if (!n) return '—';
   if (n < 1024) return n + ' B';
   if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
   return (n / 1024 / 1024).toFixed(1) + ' MB';
 }
 
-function categoryColor(cat) {
+function categoryColor(cat?: string) {
   return (
     {
       kyc: '#b7791f',
@@ -38,7 +38,7 @@ function categoryColor(cat) {
   );
 }
 
-function categoryLabel(cat, locale) {
+function categoryLabel(cat?: string, locale?: string) {
   const dict = {
     uk: { kyc: 'KYC', statement: 'Виписка', tax: 'Податки', agreement: 'Договір', welcome: 'Welcome' },
     ru: { kyc: 'KYC', statement: 'Выписка', tax: 'Налоги', agreement: 'Договор', welcome: 'Welcome' },
@@ -51,18 +51,28 @@ function categoryLabel(cat, locale) {
 // `Date.now()` call doesn't trip React 19's purity rule when the React
 // Compiler analyses the component body — impure functions are fine in
 // module-level helpers, only flagged inside render-scope code.
-function buildUploadPath(userId, fileName) {
+function buildUploadPath(userId: string, fileName: string) {
   const safeName = fileName.replace(/[^\w.\-]/g, '_');
   return `${userId}/${Date.now()}-${safeName}`;
 }
 
-export default function DocumentsList({ initialDocuments, userId, locale, t }) {
+export default function DocumentsList({
+  initialDocuments,
+  userId,
+  locale,
+  t,
+}: {
+  initialDocuments: any[];
+  userId?: string;
+  locale?: string;
+  t?: any;
+}) {
   const router = useRouter();
   const [documents, setDocuments] = useState(initialDocuments);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [uploadProgress, setUploadProgress] = useState(null);
-  const fileInputRef = useRef(null);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const supabase = browserClient();
 
   async function refresh() {
@@ -76,7 +86,7 @@ export default function DocumentsList({ initialDocuments, userId, locale, t }) {
     router.refresh();
   }
 
-  async function handleUpload(file) {
+  async function handleUpload(file?: File) {
     if (!file) return;
     setError('');
 
@@ -138,7 +148,7 @@ export default function DocumentsList({ initialDocuments, userId, locale, t }) {
     }
   }
 
-  async function handleDownload(doc) {
+  async function handleDownload(doc: any) {
     setError('');
     setBusy(true);
     try {
@@ -154,7 +164,7 @@ export default function DocumentsList({ initialDocuments, userId, locale, t }) {
     }
   }
 
-  async function handleDelete(doc) {
+  async function handleDelete(doc: any) {
     if (doc.uploaded_by !== 'client') return; // can only delete own uploads
     if (!confirm(t.delete + '?')) return;
     setBusy(true);

@@ -1,9 +1,10 @@
-// app/[locale]/portal/(dashboard)/accounts/AccountsManager.jsx
+// app/[locale]/portal/(dashboard)/accounts/AccountsManager.tsx
 // Client-side editor for portal_accounts.
 
 'use client';
 
 import { useState } from 'react';
+import type { ReactNode, CSSProperties, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { browserClient } from '../../../../_lib/portal/supabase';
 import { ACCOUNT_TYPES, ACCOUNT_COLORS } from '../../../../_lib/portal/constants';
@@ -13,10 +14,20 @@ import Btn from '../../../../_components/portal/Btn';
 import Eyebrow from '../../../../_components/portal/Eyebrow';
 import { PortalIcons as I } from '../../../../_components/portal/icons';
 
-export default function AccountsManager({ initialAccounts, userId, locale, t }) {
+export default function AccountsManager({
+  initialAccounts,
+  userId,
+  locale,
+  t,
+}: {
+  initialAccounts: any[];
+  userId?: string;
+  locale?: string;
+  t?: any;
+}) {
   const router = useRouter();
   const [accounts, setAccounts] = useState(initialAccounts);
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -34,7 +45,7 @@ export default function AccountsManager({ initialAccounts, userId, locale, t }) 
     router.refresh(); // refresh server-rendered counts in layout
   }
 
-  async function saveAccount(id, patch) {
+  async function saveAccount(id: string, patch: any) {
     setBusy(true);
     setError('');
     try {
@@ -52,7 +63,7 @@ export default function AccountsManager({ initialAccounts, userId, locale, t }) 
     }
   }
 
-  async function deleteAccount(id) {
+  async function deleteAccount(id: string) {
     if (!confirm(localizedConfirm(locale, 'delete_account'))) return;
     setBusy(true);
     try {
@@ -69,7 +80,7 @@ export default function AccountsManager({ initialAccounts, userId, locale, t }) 
     }
   }
 
-  async function addAccount(payload) {
+  async function addAccount(payload: any) {
     setBusy(true);
     setError('');
     try {
@@ -175,7 +186,29 @@ export default function AccountsManager({ initialAccounts, userId, locale, t }) 
 }
 
 // ─── Account card ─────────────────────────────────────────────────────
-function AccountCard({ account, t, locale, moneyLocale, isEditing, busy, onEdit, onCancel, onSave, onDelete }) {
+function AccountCard({
+  account,
+  t,
+  locale,
+  moneyLocale,
+  isEditing,
+  busy,
+  onEdit,
+  onCancel,
+  onSave,
+  onDelete,
+}: {
+  account: any;
+  t?: any;
+  locale?: string;
+  moneyLocale?: string;
+  isEditing?: boolean;
+  busy?: boolean;
+  onEdit?: () => void;
+  onCancel?: () => void;
+  onSave?: (patch: any) => void;
+  onDelete?: () => void;
+}) {
   const [balance, setBalance] = useState(String(account.balance ?? ''));
   const [ytdPct, setYtdPct] = useState(account.ytd_pct != null ? String(account.ytd_pct) : '');
   const [ytdContrib, setYtdContrib] = useState(String(account.ytd_contrib ?? ''));
@@ -369,13 +402,25 @@ function AccountCard({ account, t, locale, moneyLocale, isEditing, busy, onEdit,
 }
 
 // ─── Add account modal ────────────────────────────────────────────────
-function AddAccountModal({ locale, t, busy, onClose, onSubmit }) {
+function AddAccountModal({
+  locale,
+  t,
+  busy,
+  onClose,
+  onSubmit,
+}: {
+  locale?: string;
+  t?: any;
+  busy?: boolean;
+  onClose?: () => void;
+  onSubmit?: (payload: any) => void;
+}) {
   const [type, setType] = useState('tfsa');
   const [displayName, setDisplayName] = useState('');
   const [balance, setBalance] = useState('');
   const [room, setRoom] = useState('');
 
-  function submit(e) {
+  function submit(e: FormEvent) {
     e.preventDefault();
     if (!balance) return;
     onSubmit({
@@ -486,7 +531,7 @@ function AddAccountModal({ locale, t, busy, onClose, onSubmit }) {
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────
-function Field({ label, children }) {
+function Field({ label, children }: { label?: ReactNode; children?: ReactNode }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--portal-mute)' }}>
@@ -497,7 +542,7 @@ function Field({ label, children }) {
   );
 }
 
-const inputStyle = {
+const inputStyle: CSSProperties = {
   width: '100%',
   padding: '10px 12px',
   border: '1px solid var(--portal-line)',
@@ -509,7 +554,7 @@ const inputStyle = {
   outline: 'none',
 };
 
-const iconBtnStyle = {
+const iconBtnStyle: CSSProperties = {
   width: 32,
   height: 32,
   borderRadius: 8,
@@ -521,7 +566,7 @@ const iconBtnStyle = {
   cursor: 'pointer',
 };
 
-function localizedConfirm(locale, key) {
+function localizedConfirm(locale: string, key: string) {
   const dict = {
     delete_account: {
       uk: 'Видалити цей рахунок? Дія незворотна.',
