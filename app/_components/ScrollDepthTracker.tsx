@@ -1,4 +1,4 @@
-// app/_components/ScrollDepthTracker.jsx
+// app/_components/ScrollDepthTracker.tsx
 // Client-only widget that fires scroll_depth GA4 events at 25/50/75/100%
 // of page scroll. Drop into any long page (ICP pillars, blog posts, slovnyk)
 // to know which sections users actually reach.
@@ -16,12 +16,12 @@ import { trackScrollDepth } from "../_lib/analytics";
 
 const THRESHOLDS = [25, 50, 75, 100];
 
-export default function ScrollDepthTracker({ page }) {
+export default function ScrollDepthTracker({ page }: { page?: string }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!page) return;
 
-    const fired = new Set();
+    const fired = new Set<number>();
 
     function onScroll() {
       const doc = document.documentElement;

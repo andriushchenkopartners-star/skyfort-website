@@ -5,7 +5,16 @@ import Logo from "../_components/Logo";
 import LangSwitcher from "../_components/LangSwitcher";
 import { CONFIG } from "../_i18n/config";
 
-export default function HomeNav({ locale, content }) {
+type Locale = "uk" | "ru" | "en";
+
+interface HomeNavContent {
+  nav: {
+    about: string;
+    book: string;
+  };
+}
+
+export default function HomeNav({ locale, content }: { locale: Locale; content: HomeNavContent }) {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">

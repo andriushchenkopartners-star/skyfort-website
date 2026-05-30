@@ -1,4 +1,4 @@
-// app/_components/StickyCta.jsx
+// app/_components/StickyCta.tsx
 // Sticky "Book a call" bar that appears after the user has scrolled past
 // 50% of a long pillar page. Pairs with ScrollDepthTracker for full
 // attribution: we know which 50%-readers convert via the sticky CTA
@@ -19,15 +19,17 @@ import { useEffect, useState } from "react";
 import { trackCtaPosition } from "../_lib/analytics";
 import { useSessionStorage } from "../_lib/hooks";
 
+type Locale = "uk" | "ru" | "en";
+
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
 
-const COPY = {
+const COPY: Record<Locale, { cta: string; dismiss: string }> = {
   uk: { cta: "Безкоштовний дзвінок", dismiss: "Сховати" },
   ru: { cta: "Бесплатный звонок", dismiss: "Скрыть" },
   en: { cta: "Free discovery call", dismiss: "Hide" },
 };
 
-export default function StickyCta({ locale = "uk", page }) {
+export default function StickyCta({ locale = "uk", page }: { locale?: Locale; page?: string }) {
   const [visible, setVisible] = useState(false);
   // useSessionStorage is useSyncExternalStore-based — React 19 rule
   // `react-hooks/set-state-in-effect` forbids setting React state in an

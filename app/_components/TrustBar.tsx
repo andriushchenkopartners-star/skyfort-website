@@ -5,12 +5,22 @@
 
 import { ShieldCheck, Building2, ExternalLink, Globe } from "lucide-react";
 
+type Locale = "uk" | "ru" | "en";
+
 const NRD_URL =
   "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 const FIRM_URL =
   "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx";
 
-const COPY = {
+interface TrustBarCopy {
+  nrd: string;
+  firm: string;
+  nrdLabel: string;
+  firmLabel: string;
+  langsLabel: string;
+}
+
+const COPY: Record<Locale, TrustBarCopy> = {
   uk: {
     nrd: "Перевірити реєстрацію",
     firm: "Axcess Capital Advisors Inc.",
@@ -34,7 +44,7 @@ const COPY = {
   },
 };
 
-export default function TrustBar({ locale = "uk", className = "" }) {
+export default function TrustBar({ locale = "uk", className = "" }: { locale?: Locale; className?: string }) {
   const c = COPY[locale] || COPY.uk;
   return (
     <section

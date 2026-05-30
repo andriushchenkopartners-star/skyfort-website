@@ -7,17 +7,25 @@ import { Globe } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { SUPPORTED_LOCALES } from "../_i18n/dictionary";
 
-const LANGS = [
+type Locale = "uk" | "ru" | "en";
+
+const LANGS: { code: Locale; label: string }[] = [
   { code: "uk", label: "УК" },
   { code: "ru", label: "RU" },
   { code: "en", label: "EN" },
 ];
 
-export default function LangSwitcher({ locale, compact = false, className = "" }) {
+interface LangSwitcherProps {
+  locale?: Locale;
+  compact?: boolean;
+  className?: string;
+}
+
+export default function LangSwitcher({ locale, compact = false, className = "" }: LangSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const switchTo = (newLocale) => {
+  const switchTo = (newLocale: Locale) => {
     if (newLocale === locale) return;
     const segments = (pathname || "/").split("/");
     if (SUPPORTED_LOCALES.includes(segments[1])) {

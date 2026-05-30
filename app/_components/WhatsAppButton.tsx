@@ -11,7 +11,7 @@ import { useIsMounted } from "../_lib/hooks";
 const WHATSAPP_URL = "https://wa.me/14033972553";
 
 // SVG glyph stays inline so we don't need yet another icon dep.
-function WhatsAppGlyph({ size = 28 }) {
+function WhatsAppGlyph({ size = 28 }: { size?: number }) {
   return (
     <svg
       width={size}
