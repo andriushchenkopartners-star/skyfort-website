@@ -11,6 +11,7 @@
 import { useState, useMemo } from "react";
 import { TrendingDown, Calculator, Info, Link as LinkIcon } from "lucide-react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
+import TldrBlock from "../../../_components/TldrBlock";
 
 function compound({ monthly, years, annualRate, mer }) {
   const netRate = (annualRate - mer) / 100;
@@ -25,6 +26,8 @@ const T = {
   uk: {
     title: "MER калькулятор: скільки комісії з'їдають",
     sub: "Реальна різниця між банківським mutual fund та self-directed ETF на твоїй horizon",
+    tldrLabel: "Коротко",
+    tldr: "MER (management expense ratio) — це річна комісія фонду, яку стягують незалежно від результату. Навіть 1–2% різниці за десятиліття коштують десятки тисяч через втрачений складний відсоток. Цей калькулятор показує гіпотетичну різницю між високим і низьким MER. Освітній інструмент, не інвестиційна порада.",
     inputs: {
       monthly: "Щомісячний внесок ($)",
       years: "Років",
@@ -56,6 +59,8 @@ const T = {
   ru: {
     title: "MER калькулятор: сколько комиссии съедают",
     sub: "Реальная разница между банковским mutual fund и self-directed ETF",
+    tldrLabel: "Коротко",
+    tldr: "MER (management expense ratio) — это годовая комиссия фонда, взимаемая независимо от результата. Даже 1–2% разницы за десятилетие стоят десятки тысяч из-за потерянного сложного процента. Этот калькулятор показывает гипотетическую разницу между высоким и низким MER. Образовательный инструмент, не инвестиционный совет.",
     inputs: {
       monthly: "Ежемесячный взнос ($)",
       years: "Лет",
@@ -87,6 +92,8 @@ const T = {
   en: {
     title: "MER impact calculator: how much fees eat",
     sub: "Real dollar gap between bank mutual fund and self-directed ETF over your horizon",
+    tldrLabel: "TL;DR",
+    tldr: "An MER (management expense ratio) is a fund's annual fee, charged regardless of performance. Even a 1–2% difference compounds into tens of thousands lost over a decade. This calculator shows the hypothetical gap between a high and low MER. It's an educational tool, not investment advice.",
     inputs: {
       monthly: "Monthly contribution ($)",
       years: "Years",
@@ -169,6 +176,14 @@ export default function MerCalculator({ locale = "uk" }) {
           </p>
           <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold">{t.title}</h1>
           <p className="mt-3 text-lg text-white/75">{t.sub}</p>
+          <div className="mt-6">
+            <TldrBlock
+              label={t.tldrLabel}
+              text={t.tldr}
+              pageName={t.title}
+              pageUrl={`https://sky-fort.ca/${locale}/calculators/mer-impact`}
+            />
+          </div>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">

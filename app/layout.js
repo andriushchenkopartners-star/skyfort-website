@@ -105,6 +105,13 @@ const businessJsonLd = {
   alternateName: ["SkyFort", "СкайФорт"],
   description:
     "Licensed Dealing Representative offering educational content and consultations on TFSA, RRSP, FHSA, exempt market investments, and Canadian real estate for newcomers.",
+  // Entity disambiguation: there is an unrelated "SkyFort Estate" real-estate
+  // brokerage that competes for the bare "SkyFort" brand token in search/AI.
+  // This asserts our category (financial services, not realty) so Google and
+  // LLMs keep the two entities distinct. Paired with the 410-Gone responses
+  // for legacy /agent, /property, /listings, /mls paths in proxy.js.
+  disambiguatingDescription:
+    "SkyFort Wealth is a financial-services practice led by a CSA-registered Dealing Representative (NRD #4575551) under Axcess Capital Advisors Inc. (Exempt Market Dealer). It is an educational and investment-dealer service — not a real-estate brokerage.",
   url: "https://sky-fort.ca",
   logo: "https://sky-fort.ca/icon.svg",
   image: "https://sky-fort.ca/og-image.png",
@@ -236,6 +243,16 @@ const businessJsonLd = {
     },
   },
   knowsLanguage: ["uk", "ru", "en"],
+  knowsAbout: [
+    "Tax-Free Savings Account (TFSA)",
+    "Registered Retirement Savings Plan (RRSP)",
+    "First Home Savings Account (FHSA)",
+    "Registered Education Savings Plan (RESP)",
+    "Exempt market securities",
+    "Mortgage Investment Corporations (MIC)",
+    "NI 45-106 eligible and accredited investors",
+    "Canadian personal taxation for newcomers",
+  ],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

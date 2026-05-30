@@ -6,10 +6,13 @@ import dynamic from "next/dynamic";
 import {
   ArrowRight, Home, Building2, CreditCard,
   Zap, RefreshCw, Star, TrendingUp, DollarSign, AlertTriangle, CheckCircle2,
+  Link2 as LinkIcon,
 } from "lucide-react";
+import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
 import LangSwitcher from "../../../_components/LangSwitcher";
+import TldrBlock from "../../../_components/TldrBlock";
 import { resolveLocale } from "../../../_i18n/dictionary";
 
 // Lazy-load recharts (~80KB gzip) — one shared chunk for both chart variants.
@@ -94,6 +97,8 @@ const T = {
     back: "На головну", kicker: "Калькулятор · Іпотека",
     title: "Іпотека в Канаді — без сюрпризів",
     sub: "6 інструментів: стрес-тест, CMHC, дострокове погашення, розрив контракту, інвестиція, доступність.",
+    tldrLabel: "Коротко",
+    tldr: "Цей калькулятор поєднує 6 інструментів для іпотеки в Канаді: стрес-тест OSFI, страхування CMHC, дострокове погашення, штраф за розрив контракту, інвестиційну нерухомість і доступність. Це гіпотетичні оцінки для планування, а не пропозиція кредиту. Іпотечне кредитування — поза моєю ліцензією; за конкретними умовами звертайся до ліцензованого mortgage broker.",
     tabs: ["🏠 Основне житло", "🏢 Інвестиція", "💳 HELOC", "⚡ Дострокове", "🔄 Зміна лендера", "⭐ Доступність"],
     cta: "Записатись на консультацію",
     ctaSub: "30 хв — розберемо твою ситуацію, порахуємо реальні цифри, знайдемо найкращий варіант.",
@@ -103,6 +108,8 @@ const T = {
     back: "На главную", kicker: "Калькулятор · Ипотека",
     title: "Ипотека в Канаде — без сюрпризов",
     sub: "6 инструментов: стресс-тест, CMHC, досрочное погашение, разрыв контракта, инвестиция, доступность.",
+    tldrLabel: "Коротко",
+    tldr: "Этот калькулятор объединяет 6 инструментов для ипотеки в Канаде: стресс-тест OSFI, страхование CMHC, досрочное погашение, штраф за разрыв контракта, инвестиционную недвижимость и доступность. Это гипотетические оценки для планирования, а не предложение кредита. Ипотечное кредитование — вне моей лицензии; за конкретными условиями обращайся к лицензированному mortgage broker.",
     tabs: ["🏠 Основное жильё", "🏢 Инвестиция", "💳 HELOC", "⚡ Досрочное", "🔄 Смена лендера", "⭐ Доступность"],
     cta: "Записаться на консультацию",
     ctaSub: "30 мин — разберём твою ситуацию, посчитаем реальные цифры, найдём лучший вариант.",
@@ -112,6 +119,8 @@ const T = {
     back: "Back to home", kicker: "Calculator · Mortgage",
     title: "Canadian mortgage — no surprises",
     sub: "6 tools: stress test, CMHC, early payoff, break penalty, investment property, affordability.",
+    tldrLabel: "TL;DR",
+    tldr: "This calculator bundles 6 Canadian-mortgage tools: the OSFI stress test, CMHC insurance, early payoff, break penalties, investment property, and affordability. These are hypothetical planning estimates, not a loan offer. Mortgage lending is outside my licence — for actual terms, consult a licensed mortgage broker.",
     tabs: ["🏠 Primary Home", "🏢 Investment", "💳 HELOC", "⚡ Early Payoff", "🔄 Lender Switch", "⭐ Affordability"],
     cta: "Book a consultation",
     ctaSub: "30 min — we'll review your situation, calculate real numbers, find the best option.",
@@ -186,12 +195,12 @@ function SelectGroup({ options, value, onChange }) {
 // MODE 0: PRIMARY RESIDENCE
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeResidence({ lang }) {
-  const [price, setPrice] = useState(650000);
-  const [down, setDown] = useState(130000);
-  const [amort, setAmort] = useState(25);
-  const [rate, setRate] = useState(4.5);
-  const [propTax, setPropTax] = useState(4500);
-  const [heating, setHeating] = useState(150);
+  const [price, setPrice] = useUrlState("r_price", 650000, "number");
+  const [down, setDown] = useUrlState("r_down", 130000, "number");
+  const [amort, setAmort] = useUrlState("r_amort", 25, "number");
+  const [rate, setRate] = useUrlState("r_rate", 4.5, "number");
+  const [propTax, setPropTax] = useUrlState("r_tax", 4500, "number");
+  const [heating, setHeating] = useUrlState("r_heat", 150, "number");
 
   const labels = {
     uk: { price:"Вартість нерухомості", down:"Перший внесок", amort:"Амортизація (роки)", rate:"Відсоткова ставка", tax:"Податок на нерухомість/рік", heat:"Опалення/місяць" },
@@ -341,15 +350,15 @@ function ModeResidence({ lang }) {
 // MODE 1: INVESTMENT PROPERTY
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeInvestment({ lang }) {
-  const [price, setPrice] = useState(550000);
-  const [downPct, setDownPct] = useState(20);
-  const [rate, setRate] = useState(5.0);
-  const [amort, setAmort] = useState(25);
-  const [rent, setRent] = useState(2400);
-  const [vacancy, setVacancy] = useState(5);
-  const [propTax, setPropTax] = useState(4200);
-  const [maintenance, setMaintenance] = useState(1);
-  const [mgmt, setMgmt] = useState(8);
+  const [price, setPrice] = useUrlState("i_price", 550000, "number");
+  const [downPct, setDownPct] = useUrlState("i_downpct", 20, "number");
+  const [rate, setRate] = useUrlState("i_rate", 5.0, "number");
+  const [amort, setAmort] = useUrlState("i_amort", 25, "number");
+  const [rent, setRent] = useUrlState("i_rent", 2400, "number");
+  const [vacancy, setVacancy] = useUrlState("i_vac", 5, "number");
+  const [propTax, setPropTax] = useUrlState("i_tax", 4200, "number");
+  const [maintenance, setMaintenance] = useUrlState("i_maint", 1, "number");
+  const [mgmt, setMgmt] = useUrlState("i_mgmt", 8, "number");
 
   const down = price * downPct / 100;
   const mortgage = price - down;
@@ -450,11 +459,11 @@ function ModeInvestment({ lang }) {
 // MODE 2: HELOC
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeHELOC({ lang }) {
-  const [homeValue, setHomeValue] = useState(800000);
-  const [mortgageBalance, setMortgageBalance] = useState(420000);
-  const [helocRate, setHelocRate] = useState(6.7);
-  const [investRate, setInvestRate] = useState(9.0);
-  const [borrowAmount, setBorrowAmount] = useState(50000);
+  const [homeValue, setHomeValue] = useUrlState("h_home", 800000, "number");
+  const [mortgageBalance, setMortgageBalance] = useUrlState("h_bal", 420000, "number");
+  const [helocRate, setHelocRate] = useUrlState("h_rate", 6.7, "number");
+  const [investRate, setInvestRate] = useUrlState("h_invest", 9.0, "number");
+  const [borrowAmount, setBorrowAmount] = useUrlState("h_borrow", 50000, "number");
 
   // HELOC limit: min(home * 80% - mortgage, home * 65%)
   const maxHeloc80 = homeValue * 0.80 - mortgageBalance;
@@ -553,11 +562,11 @@ function ModeHELOC({ lang }) {
 // MODE 3: EARLY PAYOFF
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeEarlyPayoff({ lang }) {
-  const [balance, setBalance] = useState(350000);
-  const [rate, setRate] = useState(4.5);
-  const [remainingYears, setRemainingYears] = useState(22);
-  const [extra, setExtra] = useState(500);
-  const [lumpSum, setLumpSum] = useState(20000);
+  const [balance, setBalance] = useUrlState("e_bal", 350000, "number");
+  const [rate, setRate] = useUrlState("e_rate", 4.5, "number");
+  const [remainingYears, setRemainingYears] = useUrlState("e_years", 22, "number");
+  const [extra, setExtra] = useUrlState("e_extra", 500, "number");
+  const [lumpSum, setLumpSum] = useUrlState("e_lump", 20000, "number");
 
   const base = useMemo(() => buildSchedule(balance, rate, remainingYears), [balance, rate, remainingYears]);
   const withExtra = useMemo(() => buildSchedule(balance, rate, remainingYears, extra), [balance, rate, remainingYears, extra]);
@@ -669,12 +678,12 @@ function ModeEarlyPayoff({ lang }) {
 // MODE 4: LENDER SWITCH
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeLenderSwitch({ lang }) {
-  const [balance, setBalance] = useState(380000);
-  const [currentRate, setCurrentRate] = useState(5.5);
-  const [remainingMonths, setRemainingMonths] = useState(36);
-  const [newRate, setNewRate] = useState(4.0);
-  const [postedRate, setPostedRate] = useState(6.0);
-  const [amort, setAmort] = useState(22);
+  const [balance, setBalance] = useUrlState("s_bal", 380000, "number");
+  const [currentRate, setCurrentRate] = useUrlState("s_cur", 5.5, "number");
+  const [remainingMonths, setRemainingMonths] = useUrlState("s_months", 36, "number");
+  const [newRate, setNewRate] = useUrlState("s_new", 4.0, "number");
+  const [postedRate, setPostedRate] = useUrlState("s_posted", 6.0, "number");
+  const [amort, setAmort] = useUrlState("s_amort", 22, "number");
 
   // Penalties
   const threeMonthInt = balance * (currentRate / 100) / 12 * 3;
@@ -774,12 +783,12 @@ function ModeLenderSwitch({ lang }) {
 // MODE 5: AFFORDABILITY (reverse calculator)
 // ─────────────────────────────────────────────────────────────────────────────
 function ModeAffordability({ lang }) {
-  const [grossIncome, setGrossIncome] = useState(120000);
-  const [downPayment, setDownPayment] = useState(80000);
-  const [rate, setRate] = useState(4.5);
-  const [amort, setAmort] = useState(25);
-  const [propTax, setPropTax] = useState(4500);
-  const [heating, setHeating] = useState(150);
+  const [grossIncome, setGrossIncome] = useUrlState("a_income", 120000, "number");
+  const [downPayment, setDownPayment] = useUrlState("a_down", 80000, "number");
+  const [rate, setRate] = useUrlState("a_rate", 4.5, "number");
+  const [amort, setAmort] = useUrlState("a_amort", 25, "number");
+  const [propTax, setPropTax] = useUrlState("a_tax", 4500, "number");
+  const [heating, setHeating] = useUrlState("a_heat", 150, "number");
 
   const sRate = stressRate(rate);
 
@@ -915,10 +924,33 @@ const MODES = [
   { icon: Star, component: ModeAffordability },
 ];
 
+function CopyLinkButton({ lang }) {
+  const [copied, setCopied] = useState(false);
+  async function onCopy() {
+    const ok = await copyShareUrl();
+    setCopied(ok);
+    setTimeout(() => setCopied(false), 2000);
+  }
+  const label = copied
+    ? (lang === "en" ? "Copied!" : lang === "ru" ? "Скопировано!" : "Скопійовано!")
+    : (lang === "en" ? "Copy link" : lang === "ru" ? "Копировать ссылку" : "Копіювати посилання");
+  return (
+    <button
+      type="button"
+      onClick={onCopy}
+      aria-label={label}
+      className="flex-shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/10 px-3 py-2 text-xs font-bold text-[var(--color-brand)] transition-colors hover:bg-[var(--color-brand)]/20"
+    >
+      <LinkIcon className="h-3.5 w-3.5" />
+      {label}
+    </button>
+  );
+}
+
 export default function MortgageCalculator({ locale: rawLocale }) {
   const locale = resolveLocale(rawLocale);
   const lang = locale;
-  const [activeMode, setActiveMode] = useState(0);
+  const [activeMode, setActiveMode] = useUrlState("mode", 0, "number");
 
   const t = T[locale];
   const ActiveComponent = MODES[activeMode].component;
@@ -956,12 +988,20 @@ export default function MortgageCalculator({ locale: rawLocale }) {
           </p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{t.title}</h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#a3a3a3] md:text-lg">{t.sub}</p>
+          <div className="mt-8 max-w-2xl">
+            <TldrBlock
+              label={t.tldrLabel}
+              text={t.tldr}
+              pageName={t.title}
+              pageUrl={`https://sky-fort.ca/${locale}/calculators/mortgage`}
+            />
+          </div>
         </div>
       </section>
 
       {/* MODE TABS */}
       <div className="sticky top-[65px] z-40 border-b border-[#2a2a2a] bg-[#191919]/95 backdrop-blur-xl">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex overflow-x-auto scrollbar-hide gap-0">
             {t.tabs.map((tab, i) => (
               <button
@@ -977,6 +1017,7 @@ export default function MortgageCalculator({ locale: rawLocale }) {
               </button>
             ))}
           </div>
+          <CopyLinkButton lang={lang} />
         </div>
       </div>
 

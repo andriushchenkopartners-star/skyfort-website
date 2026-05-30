@@ -19,6 +19,7 @@ import {
 } from "../_sections";
 import TrustBar from "../_components/TrustBar";
 import EmailCaptureForm from "../_components/EmailCaptureForm";
+import TldrBlock from "../_components/TldrBlock";
 import { dictionary as t, resolveLocale } from "../_i18n/dictionary";
 
 export default function SkyFortLanding({ params }) {
@@ -31,6 +32,14 @@ export default function SkyFortLanding({ params }) {
       <HomeNav locale={locale} content={content} />
       <Hero content={content} />
       <TrustBar locale={locale} />
+      <section className="mx-auto max-w-3xl px-6 pt-10">
+        <TldrBlock
+          label={content.homeTldr.label}
+          text={content.homeTldr.text}
+          pageName="SkyFort Wealth"
+          pageUrl={`https://sky-fort.ca/${locale}`}
+        />
+      </section>
       <Stats content={content} />
       <About content={content} />
       <Guides content={content} />

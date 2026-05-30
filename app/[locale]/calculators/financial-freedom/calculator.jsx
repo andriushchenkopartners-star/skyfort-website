@@ -8,6 +8,7 @@ import { ArrowRight, Flame, Calculator, TrendingUp, Sparkles, Users } from "luci
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
 import LangSwitcher from "../../../_components/LangSwitcher";
+import TldrBlock from "../../../_components/TldrBlock";
 import { resolveLocale } from "../../../_i18n/dictionary";
 
 // Lazy-load recharts (~80KB gzip) — only loads when this chart mounts.
@@ -31,6 +32,8 @@ const t = {
     kicker: "Калькулятор · Financial Freedom",
     title: "Коли ти станеш фінансово вільним?",
     sub: "Точна дата на основі твоїх цифр. Побач як exempt market прискорює freedom на роки.",
+    tldrLabel: "Коротко",
+    tldr: "Фінансова незалежність (FIRE) настає, коли пасивний дохід покриває твої витрати — орієнтир «правила 4%» означає капітал приблизно у 25 річних витрат. Цей калькулятор оцінює гіпотетичну дату на основі твоєї норми заощаджень і доходності. Освітній інструмент, не інвестиційна порада.",
     inputs: {
       age: "Твій вік зараз",
       income: "Чистий дохід на місяць",
@@ -91,6 +94,8 @@ const t = {
     kicker: "Калькулятор · Financial Freedom",
     title: "Когда ты станешь финансово свободным?",
     sub: "Точная дата на основе твоих цифр. Увидь как exempt market ускоряет freedom на годы.",
+    tldrLabel: "Коротко",
+    tldr: "Финансовая независимость (FIRE) наступает, когда пассивный доход покрывает твои расходы — ориентир «правила 4%» означает капитал примерно в 25 годовых расходов. Этот калькулятор оценивает гипотетическую дату на основе твоей нормы сбережений и доходности. Образовательный инструмент, не инвестиционный совет.",
     inputs: {
       age: "Твой возраст сейчас",
       income: "Чистый доход в месяц",
@@ -151,6 +156,8 @@ const t = {
     kicker: "Calculator · Financial Freedom",
     title: "When will you be financially free?",
     sub: "Exact date based on your numbers. See how exempt market accelerates freedom by years.",
+    tldrLabel: "TL;DR",
+    tldr: "Financial independence (FIRE) is reached when passive income covers your expenses — the «4% rule» benchmark implies a portfolio of roughly 25× your annual spending. This calculator estimates a hypothetical date based on your savings rate and return assumptions. It's an educational tool, not investment advice.",
     inputs: {
       age: "Your age now",
       income: "Net monthly income",
@@ -423,6 +430,14 @@ export default function FIRECalculator({ locale: rawLocale }) {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3] md:text-xl">
             {content.sub}
           </p>
+          <div className="mt-8 max-w-2xl">
+            <TldrBlock
+              label={content.tldrLabel}
+              text={content.tldr}
+              pageName={content.title}
+              pageUrl={`https://sky-fort.ca/${locale}/calculators/financial-freedom`}
+            />
+          </div>
         </div>
       </section>
 

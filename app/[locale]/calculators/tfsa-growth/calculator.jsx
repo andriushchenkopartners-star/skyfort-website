@@ -8,6 +8,7 @@ import { ArrowRight, TrendingUp, Calculator } from "lucide-react";
 import Logo from "../../../_components/Logo";
 import Breadcrumbs from "../../../_components/Breadcrumbs";
 import LangSwitcher from "../../../_components/LangSwitcher";
+import TldrBlock from "../../../_components/TldrBlock";
 import { resolveLocale } from "../../../_i18n/dictionary";
 
 // Lazy-load the chart (recharts is ~80KB gzip) — saves it from the initial bundle.
@@ -31,6 +32,8 @@ const t = {
     kicker: "Калькулятор · TFSA Growth",
     title: "Скільки буде у твоєму TFSA через 20 років?",
     sub: "Реальна математика compound interest. Порівняй банк, GIC і ETF — побач різницю своїми очима.",
+    tldrLabel: "Коротко",
+    tldr: "TFSA — це зареєстрований рахунок, де весь дохід (відсотки, дивіденди, приріст капіталу) не оподатковується. Цей калькулятор показує гіпотетичний ріст складних відсотків за різних річних доходностей — щоб побачити, як ставка і час впливають на результат. Освітній інструмент, не інвестиційна порада.",
     inputs: {
       initial: "Початковий капітал",
       monthly: "Щомісячний внесок",
@@ -78,6 +81,8 @@ const t = {
     kicker: "Калькулятор · TFSA Growth",
     title: "Сколько будет в твоём TFSA через 20 лет?",
     sub: "Реальная математика compound interest. Сравни банк, GIC и ETF — увидь разницу своими глазами.",
+    tldrLabel: "Коротко",
+    tldr: "TFSA — это зарегистрированный счёт, где весь доход (проценты, дивиденды, прирост капитала) не облагается налогом. Этот калькулятор показывает гипотетический рост сложных процентов при разных годовых доходностях — чтобы увидеть, как ставка и время влияют на результат. Образовательный инструмент, не инвестиционный совет.",
     inputs: {
       initial: "Начальный капитал",
       monthly: "Ежемесячный взнос",
@@ -125,6 +130,8 @@ const t = {
     kicker: "Calculator · TFSA Growth",
     title: "How much will your TFSA have in 20 years?",
     sub: "Real compound interest math. Compare bank, GIC, and ETF — see the difference with your own eyes.",
+    tldrLabel: "TL;DR",
+    tldr: "A TFSA is a registered account where all income (interest, dividends, capital gains) grows tax-free. This calculator shows hypothetical compound growth at different annual returns so you can see how rate and time shape the outcome. It's an educational tool, not investment advice.",
     inputs: {
       initial: "Initial capital",
       monthly: "Monthly contribution",
@@ -299,6 +306,14 @@ export default function TFSACalculator({ locale: rawLocale }) {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3] md:text-xl">
             {content.sub}
           </p>
+          <div className="mt-8 max-w-2xl">
+            <TldrBlock
+              label={content.tldrLabel}
+              text={content.tldr}
+              pageName={content.title}
+              pageUrl={`https://sky-fort.ca/${locale}/calculators/tfsa-growth`}
+            />
+          </div>
         </div>
       </section>
 

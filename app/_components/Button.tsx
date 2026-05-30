@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { forwardRef } from "react";
+import type { ElementType, ReactNode, Ref } from "react";
 
 // Variants resolved to Tailwind utility classes that reference design tokens (globals.css).
-const VARIANTS = {
+type Variant = "primary" | "secondary" | "ghost" | "accent";
+type Size = "sm" | "md" | "lg" | "xl";
+
+const VARIANTS: Record<Variant, string> = {
   primary:
     "bg-[var(--color-brand)] text-[var(--color-fg)] hover:bg-[var(--color-brand-hover)] " +
     "shadow-[var(--shadow-card)]",
@@ -19,7 +23,7 @@ const VARIANTS = {
     "shadow-[var(--shadow-card)]",
 };
 
-const SIZES = {
+const SIZES: Record<Size, string> = {
   sm: "h-9 px-3 text-sm rounded-md gap-1.5",
   md: "h-11 px-5 text-base rounded-lg gap-2",
   lg: "h-13 px-7 text-lg rounded-lg gap-2.5",
@@ -32,7 +36,22 @@ const BASE =
   "disabled:opacity-50 disabled:pointer-events-none " +
   "focus-visible:outline-none";
 
-const Button = forwardRef(function Button(
+interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
+  variant?: Variant;
+  size?: Size;
+  icon?: ElementType;
+  iconPosition?: "left" | "right";
+  loading?: boolean;
+  disabled?: boolean;
+  href?: string;
+  target?: string;
+  rel?: string;
+  type?: "button" | "submit" | "reset";
+  className?: string;
+  children?: ReactNode;
+}
+
+const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   {
     children,
     variant = "primary",
@@ -70,7 +89,7 @@ const Button = forwardRef(function Button(
     if (isExternal) {
       return (
         <a
-          ref={ref}
+          ref={ref as Ref<HTMLAnchorElement>}
           href={href}
           target={target || "_blank"}
           rel={linkRel}
@@ -84,7 +103,7 @@ const Button = forwardRef(function Button(
     }
     return (
       <Link
-        ref={ref}
+        ref={ref as Ref<HTMLAnchorElement>}
         href={href}
         target={target}
         rel={linkRel}
@@ -99,7 +118,7 @@ const Button = forwardRef(function Button(
 
   return (
     <button
-      ref={ref}
+      ref={ref as Ref<HTMLButtonElement>}
       type={type}
       disabled={disabled || loading}
       className={classes}

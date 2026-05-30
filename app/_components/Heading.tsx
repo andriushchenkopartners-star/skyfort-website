@@ -1,7 +1,17 @@
 // Heading — separates semantic level (h1..h6) from visual size.
 // Pass `level` for semantics (default h2), `visual` for which type-scale token to apply.
 
-const VISUAL = {
+import type { ElementType, ReactNode, HTMLAttributes } from "react";
+
+type Visual =
+  | "display-xl"
+  | "display-lg"
+  | "display-md"
+  | "heading-lg"
+  | "heading-md"
+  | "heading-sm";
+
+const VISUAL: Record<Visual, string> = {
   "display-xl":
     "text-[var(--text-display-xl)] leading-[var(--text-display-xl--line-height)] " +
     "tracking-[var(--text-display-xl--letter-spacing)] font-extrabold",
@@ -20,6 +30,14 @@ const VISUAL = {
     "text-[var(--text-heading-sm)] leading-[var(--text-heading-sm--line-height)] font-semibold",
 };
 
+interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  visual?: Visual;
+  className?: string;
+  id?: string;
+  children?: ReactNode;
+}
+
 export default function Heading({
   level = 2,
   visual = "heading-lg",
@@ -27,8 +45,8 @@ export default function Heading({
   id,
   children,
   ...rest
-}) {
-  const Tag = `h${Math.min(Math.max(level, 1), 6)}`;
+}: HeadingProps) {
+  const Tag = `h${Math.min(Math.max(level, 1), 6)}` as ElementType;
   const classes = [VISUAL[visual] || VISUAL["heading-lg"], "text-[var(--color-fg)]", className]
     .filter(Boolean)
     .join(" ");

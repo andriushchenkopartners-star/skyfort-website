@@ -31,6 +31,10 @@ export const dictionary = {
       ctaPrimary: "Записатись на консультацію",
       ctaSecondary: "Завантажити гайди",
     },
+    homeTldr: {
+      label: "Коротко",
+      text: "SkyFort Wealth — це освітня фінансова практика Андрія Андрющенка, ліцензованого Dealing Representative (NRD #4575551) при Axcess Capital Advisors Inc. (Exempt Market Dealer). Тут українсько- та російськомовні новоприбулі в Канаді отримують зрозумілі пояснення про TFSA, RRSP, FHSA, іпотеку й exempt market — освітньо, без персональних інвестиційних порад.",
+    },
     stats: [
       { value: "0%", label: "Податок на TFSA — на ріст і виплати назавжди" },
       { value: "$109K", label: "Накопичений TFSA room 2026 для резидентів з 2009 · твій ≈ $34K (2022), $27K (2023), $20K (2024)" },
@@ -107,6 +111,10 @@ export const dictionary = {
       ctaPrimary: "Записаться на консультацию",
       ctaSecondary: "Скачать гайды",
     },
+    homeTldr: {
+      label: "Коротко",
+      text: "SkyFort Wealth — это образовательная финансовая практика Андрея Андрющенко, лицензированного Dealing Representative (NRD #4575551) при Axcess Capital Advisors Inc. (Exempt Market Dealer). Здесь украинско- и русскоязычные новоприбывшие в Канаде получают понятные объяснения про TFSA, RRSP, FHSA, ипотеку и exempt market — образовательно, без персональных инвестиционных советов.",
+    },
     stats: [
       { value: "0%", label: "Налог на TFSA — на рост и выплаты навсегда" },
       { value: "$109K", label: "Накопленный TFSA room 2026 для резидентов с 2009 · твой ≈ $34K (2022), $27K (2023), $20K (2024)" },
@@ -182,6 +190,10 @@ export const dictionary = {
       sub: "TFSA, RRSP, FHSA, real estate, exempt market. Real numbers, regulatory precision, no pushy sales.",
       ctaPrimary: "Book a discovery call",
       ctaSecondary: "Download the guides",
+    },
+    homeTldr: {
+      label: "TL;DR",
+      text: "SkyFort Wealth is the educational financial practice of Andrii Andriushchenko, a licensed Dealing Representative (NRD #4575551) with Axcess Capital Advisors Inc. (Exempt Market Dealer). It helps Ukrainian- and Russian-speaking newcomers to Canada understand TFSAs, RRSPs, FHSAs, mortgages, and the exempt market — educational, never personal investment advice.",
     },
     stats: [
       { value: "0%", label: "Tax on TFSA growth and withdrawals — forever" },

@@ -8,6 +8,7 @@ import {
 } from "./_lib/services-cities";
 import { getCaseSlugs } from "./_data/case-studies";
 import { getComparisonSlugs } from "./_data/comparisons";
+import { getTermIds } from "./_data/glossary";
 
 const BASE = "https://sky-fort.ca";
 const LOCALES = ["uk", "ru", "en"];
@@ -231,6 +232,28 @@ export default function sitemap() {
         lastModified: comparisonTemplateMtime,
         changeFrequency: "monthly",
         priority: 0.8,
+        alternates: { languages: alternates },
+      });
+    }
+  }
+
+  // Glossary entity pages — one DefinedTerm URL per term × 3 locales.
+  // All share the [term] template, so share one mtime. Priority slightly
+  // below the /slovnyk hub (0.7) since they're leaf reference pages.
+  const glossaryTemplateMtime = lastModifiedFor(
+    "app/[locale]/slovnyk/[term]/page.js",
+  );
+  for (const locale of LOCALES) {
+    for (const id of getTermIds()) {
+      const alternates = Object.fromEntries(
+        LOCALES.map((l) => [HREFLANG[l], `${BASE}/${l}/slovnyk/${id}`]),
+      );
+      alternates["x-default"] = `${BASE}/uk/slovnyk/${id}`;
+      entries.push({
+        url: `${BASE}/${locale}/slovnyk/${id}`,
+        lastModified: glossaryTemplateMtime,
+        changeFrequency: "monthly",
+        priority: 0.6,
         alternates: { languages: alternates },
       });
     }

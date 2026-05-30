@@ -15,6 +15,7 @@
 import { useState, useMemo } from "react";
 import { Calculator, Info, Link as LinkIcon } from "lucide-react";
 import { useUrlState, copyShareUrl } from "../../../_lib/use-url-state";
+import TldrBlock from "../../../_components/TldrBlock";
 
 // 2026 federal brackets (combined rate, no surtax).
 const FED_BRACKETS_2026 = [
@@ -96,6 +97,8 @@ const T = {
   uk: {
     title: "RSU Tax калькулятор",
     sub: "Точна податкова математика на RSU vesting у Канаді 2026",
+    tldrLabel: "Коротко",
+    tldr: "Коли RSU вестяться, їхня ринкова вартість оподатковується як дохід з працевлаштування (T4) за твоєю граничною ставкою. Цей калькулятор оцінює федеральний і провінційний податок (AB/BC/ON, 2026) на момент вестингу — приблизно, без CPP/EI. Освітній інструмент, не податкова порада.",
     inputs: {
       base: "Базова зарплата (T4)",
       rsu: "RSU vesting amount (FMV at vest)",
@@ -123,6 +126,8 @@ const T = {
   ru: {
     title: "RSU Tax калькулятор",
     sub: "Точная налоговая математика на RSU vesting в Канаде 2026",
+    tldrLabel: "Коротко",
+    tldr: "Когда RSU вестятся, их рыночная стоимость облагается как доход от трудоустройства (T4) по твоей предельной ставке. Этот калькулятор оценивает федеральный и провинциальный налог (AB/BC/ON, 2026) на момент вестинга — приблизительно, без CPP/EI. Образовательный инструмент, не налоговая консультация.",
     inputs: {
       base: "Базовая зарплата (T4)",
       rsu: "RSU vesting amount (FMV at vest)",
@@ -150,6 +155,8 @@ const T = {
   en: {
     title: "RSU Tax Calculator",
     sub: "Exact tax math on RSU vesting in Canada 2026",
+    tldrLabel: "TL;DR",
+    tldr: "When RSUs vest, their market value is taxed as employment income (T4) at your marginal rate. This calculator estimates federal and provincial tax (AB/BC/ON, 2026) on a vesting event — approximate, excluding CPP/EI. It's an educational tool, not tax advice.",
     inputs: {
       base: "Base salary (T4)",
       rsu: "RSU vesting amount (FMV at vest)",
@@ -233,6 +240,14 @@ export default function RsuCalculator({ locale = "uk" }) {
           </p>
           <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold">{t.title}</h1>
           <p className="mt-3 text-lg text-white/75">{t.sub}</p>
+          <div className="mt-6">
+            <TldrBlock
+              label={t.tldrLabel}
+              text={t.tldr}
+              pageName={t.title}
+              pageUrl={`https://sky-fort.ca/${locale}/calculators/rsu-tax`}
+            />
+          </div>
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">

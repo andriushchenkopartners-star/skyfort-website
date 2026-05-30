@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code (machine-local permission config; launch.json is shareable)
+.claude/settings.local.json
