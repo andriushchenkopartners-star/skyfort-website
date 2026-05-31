@@ -16,6 +16,7 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import AuthorByline from "../../_components/AuthorByline";
 import UpdatedBadge from "../../_components/UpdatedBadge";
+import StaticFaq from "../../_components/StaticFaq";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
 
 const LIMITS = [
@@ -174,6 +175,15 @@ const COPY = {
     sourceLabel: "Джерело",
     relatedLabel: "Пов'язано",
     footerNote: "Цифри підтверджені на 2026-05-29. CRA публікує annual indexation adjustments у грудні-січні; ця сторінка оновлюється у січні. Для актуальної інформації перевір canada.ca напряму.",
+    faqHeading: "Часті питання про ліміти 2026",
+    faq: [
+      { q: "Який ліміт TFSA на 2026 рік?", a: "Річний ліміт TFSA у 2026 — $7,000. Cumulative room для людини, яка була tax-resident з 2009, становить близько $109,000. Newcomer накопичує room з року отримання tax-resident status; невикористана room переноситься без обмежень." },
+      { q: "Який ліміт RRSP на 2026 рік?", a: "18% earned income попереднього року, максимум $33,810 у 2026, мінус pension adjustment. Точна цифра — у рядку «RRSP Deduction Limit» твого Notice of Assessment. Є lifetime буфер $2,000 на випадок випадкового over-contribution без penalty." },
+      { q: "Який ліміт FHSA і чи можна поєднати з HBP?", a: "FHSA — $8,000 на рік, $40,000 lifetime. З 2023 року FHSA можна поєднати з Home Buyers' Plan ($60,000 з RRSP) для тієї ж першої покупки — разом до $100,000 на down payment для однієї особи." },
+      { q: "Скільки можна зняти через Home Buyers' Plan (HBP) у 2026?", a: "До $60,000 з власного RRSP на купівлю першого дому, з поверненням протягом 15 років. Пара може зняти по $60,000 кожен. У поєднанні з FHSA ($40K) одна особа отримує до $100K tax-advantaged коштів на down payment." },
+      { q: "Що таке CPP YMPE на 2026 і скільки платить self-employed?", a: "YMPE (Year's Maximum Pensionable Earnings) у 2026 — $73,200, плюс другий рівень YAMPE $83,200 (CPP2). Self-employed платить обидві частини: 11.9% до YMPE і додатково 4% (CPP2) на earnings між YMPE та YAMPE." },
+      { q: "Коли треба подавати форму T1135?", a: "Якщо сукупна вартість (cost basis, не market value) закордонних активів — квартира в Україні, акції в US-брокера, іноземні рахунки — перевищує $100,000 CAD у будь-який момент року. Штраф — $25/день, максимум $2,500/рік." },
+    ],
   },
   ru: {
     titleMeta: "CRA лимиты 2026: TFSA, RRSP, FHSA, RESP, HBP, LCGE, CPP — полный справочник",
@@ -189,6 +199,15 @@ const COPY = {
     sourceLabel: "Источник",
     relatedLabel: "Связано",
     footerNote: "Цифры подтверждены на 2026-05-29. CRA публикует annual indexation adjustments в декабре-январе; страница обновляется в январе.",
+    faqHeading: "Частые вопросы о лимитах 2026",
+    faq: [
+      { q: "Какой лимит TFSA на 2026 год?", a: "Годовой лимит TFSA в 2026 — $7,000. Cumulative room для человека, бывшего tax-resident с 2009, составляет около $109,000. Newcomer накапливает room с года получения tax-resident status; неиспользованная room переносится без ограничений." },
+      { q: "Какой лимит RRSP на 2026 год?", a: "18% earned income предыдущего года, максимум $33,810 в 2026, минус pension adjustment. Точная цифра — в строке «RRSP Deduction Limit» твоего Notice of Assessment. Есть lifetime буфер $2,000 на случай случайного over-contribution без penalty." },
+      { q: "Какой лимит FHSA и можно ли совместить с HBP?", a: "FHSA — $8,000 в год, $40,000 lifetime. С 2023 года FHSA можно совместить с Home Buyers' Plan ($60,000 из RRSP) для одной покупки первого дома — вместе до $100,000 на down payment для одного человека." },
+      { q: "Сколько можно снять через Home Buyers' Plan (HBP) в 2026?", a: "До $60,000 из своего RRSP на покупку первого дома, с возвратом в течение 15 лет. Пара может снять по $60,000 каждый. В сочетании с FHSA ($40K) один человек получает до $100K tax-advantaged средств на down payment." },
+      { q: "Что такое CPP YMPE на 2026 и сколько платит self-employed?", a: "YMPE (Year's Maximum Pensionable Earnings) в 2026 — $73,200, плюс второй уровень YAMPE $83,200 (CPP2). Self-employed платит обе части: 11.9% до YMPE и дополнительно 4% (CPP2) на earnings между YMPE и YAMPE." },
+      { q: "Когда нужно подавать форму T1135?", a: "Если совокупная стоимость (cost basis, не market value) зарубежных активов — квартира в Украине, акции у US-брокера, иностранные счета — превышает $100,000 CAD в любой момент года. Штраф — $25/день, максимум $2,500/год." },
+    ],
   },
   en: {
     titleMeta: "CRA Limits 2026: TFSA, RRSP, FHSA, RESP, HBP, LCGE, CPP — full reference",
@@ -204,6 +223,15 @@ const COPY = {
     sourceLabel: "Source",
     relatedLabel: "Related",
     footerNote: "Figures confirmed as of 2026-05-29. CRA publishes annual indexation adjustments in December-January; this page updates in January. For current authority, verify at canada.ca directly.",
+    faqHeading: "Frequently asked questions about 2026 limits",
+    faq: [
+      { q: "What is the 2026 TFSA contribution limit?", a: "The 2026 annual TFSA limit is $7,000. Cumulative room for someone who has been a tax resident since 2009 is about $109,000. Newcomers accrue room from the year they become a tax resident; unused room carries forward indefinitely." },
+      { q: "What is the 2026 RRSP contribution limit?", a: "18% of prior-year earned income, up to a maximum of $33,810 in 2026, minus any pension adjustment. Your exact figure is on the \"RRSP Deduction Limit\" line of your Notice of Assessment. A $2,000 lifetime buffer covers accidental over-contributions without penalty." },
+      { q: "What is the FHSA limit, and can it be combined with the HBP?", a: "FHSA is $8,000 per year, $40,000 lifetime. Since 2023 you can combine an FHSA withdrawal with the Home Buyers' Plan ($60,000 from an RRSP) for the same first-home purchase — up to $100,000 toward a down payment for one person." },
+      { q: "How much can I withdraw under the Home Buyers' Plan (HBP) in 2026?", a: "Up to $60,000 from your own RRSP for a first home, repaid over 15 years. A couple can each withdraw $60,000. Combined with an FHSA ($40K), one person can access up to $100K in tax-advantaged down-payment funds." },
+      { q: "What is the 2026 CPP YMPE, and how much do the self-employed pay?", a: "The 2026 YMPE (Year's Maximum Pensionable Earnings) is $73,200, plus a second tier, YAMPE, at $83,200 (CPP2). The self-employed pay both halves: 11.9% up to YMPE and an extra 4% (CPP2) on earnings between YMPE and YAMPE." },
+      { q: "When do I need to file Form T1135?", a: "When the total cost basis (not market value) of your foreign assets — a Ukrainian apartment, US-broker stocks, foreign accounts — exceeds $100,000 CAD at any point in the year. The penalty is $25/day, up to $2,500/year." },
+    ],
   },
 };
 
@@ -318,6 +346,16 @@ export default async function CraLimits2026Page({ params }) {
           ))}
         </div>
       </section>
+
+      {/* AEO/GEO: visible FAQ accordion + matching FAQPage JSON-LD. Targets the
+          January-peak intent queries ("TFSA limit 2026", "RRSP max 2026",
+          "FHSA limit") that AI Overviews + Perplexity answer from FAQPage data.
+          Answers mirror the sourced LIMITS rows above — no new claims. */}
+      <StaticFaq
+        faq={c.faq}
+        heading={c.faqHeading}
+        jsonLdId={`https://sky-fort.ca${path}#faq`}
+      />
 
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-3xl">
