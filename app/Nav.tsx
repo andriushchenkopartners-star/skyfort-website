@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./_components/Logo";
+import LangSwitcher from "./_components/LangSwitcher";
 import SiteSearch from "./_components/SiteSearch";
 import { trackSearchOpen } from "./_lib/analytics";
 import { SUPPORTED_LOCALES } from "./_i18n/dictionary";
@@ -38,6 +39,7 @@ const COPY = {
     audienceFounders: "Підприємцям",
     caseStudies: "Кейси клієнтів",
     search: "Пошук (⌘K)",
+    language: "Мова",
     cta: "Безкоштовний дзвінок →",
     rootLinks: [
       { label: "TFSA калькулятор", href: "/tfsa-kalkulyator" },
@@ -67,6 +69,7 @@ const COPY = {
     audienceFounders: "Предпринимателям",
     caseStudies: "Кейсы клиентов",
     search: "Поиск (⌘K)",
+    language: "Язык",
     cta: "Бесплатный звонок →",
     // UA-only landing pages don't have RU equivalents → hidden on /ru/
     rootLinks: [],
@@ -93,6 +96,7 @@ const COPY = {
     audienceFounders: "Business owners",
     caseStudies: "Client cases",
     search: "Search (⌘K)",
+    language: "Language",
     cta: "Free discovery call →",
     // UA-only landing pages don't have EN equivalents → hidden on /en/
     rootLinks: [],
@@ -233,8 +237,20 @@ export default function Nav() {
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="mb-7">
+        <div className="mb-6">
           <Logo variant="full" size="sm" />
+        </div>
+        {/* Language switcher — lives in the burger so it's reachable on every
+            page on mobile (the homepage inline pill was being clipped by the
+            fixed search/burger buttons). */}
+        <div className="mb-5 border-b border-white/5 pb-5">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/40">
+            {t.language}
+          </p>
+          <LangSwitcher
+            locale={locale as "uk" | "ru" | "en"}
+            onSwitch={() => setOpen(false)}
+          />
         </div>
         <ul className="flex-1 list-none overflow-y-auto p-0 m-0">
           {LINK_ORDER.map((l) => {

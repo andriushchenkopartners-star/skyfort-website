@@ -248,7 +248,7 @@ function buildJsonLd(locale, c, path) {
     sameAs: [
       NRD_URL,
       "https://www.tiktok.com/@andrii.wealthcanada",
-      "https://instagram.com/andrii.wealthcanada",
+      // Instagram omitted until profile is active (see CONFIG.instagramActive)
       "https://t.me/skyfortwealth",
       "https://calendly.com/andriushchenko-partners/new-meeting",
       "https://axcesscapital.ca/",

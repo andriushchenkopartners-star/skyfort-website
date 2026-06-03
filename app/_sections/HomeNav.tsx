@@ -22,7 +22,12 @@ export default function HomeNav({ locale, content }: { locale: Locale; content: 
           <Logo variant="mark" />
         </a>
         <div className="flex items-center gap-3">
-          <LangSwitcher locale={locale} />
+          {/* Inline switcher only on ≥sm — on mobile it collided with the
+              fixed search/burger buttons, so language switching moves into
+              the burger menu there. */}
+          <div className="hidden sm:flex">
+            <LangSwitcher locale={locale} />
+          </div>
           <Link
             href={`/${locale}/pro-mene`}
             className="hidden text-xs font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors hover:text-white sm:inline-flex"

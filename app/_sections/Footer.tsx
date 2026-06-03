@@ -81,17 +81,21 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
                   TikTok · {CONFIG.tiktokHandle}
                 </a>
               </li>
-              <li>
-                <a
-                  href={CONFIG.instagram}
-                  target="_blank"
-                  rel="noopener"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
-                >
-                  <AtSign className="h-3.5 w-3.5" aria-hidden="true" />
-                  Instagram
-                </a>
-              </li>
+              {/* Instagram temporarily hidden — profile not live yet.
+                  Re-enables automatically when CONFIG.instagramActive = true. */}
+              {CONFIG.instagramActive && (
+                <li>
+                  <a
+                    href={CONFIG.instagram}
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                  >
+                    <AtSign className="h-3.5 w-3.5" aria-hidden="true" />
+                    Instagram
+                  </a>
+                </li>
+              )}
               <li>
                 <a
                   href={CONFIG.telegram}

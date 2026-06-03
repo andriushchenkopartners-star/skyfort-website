@@ -178,7 +178,7 @@ const jsonLd = {
   sameAs: [
     "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
     "https://www.tiktok.com/@andrii.wealthcanada",
-    "https://instagram.com/andrii.wealthcanada",
+    // Instagram omitted until profile is active (see CONFIG.instagramActive)
     "https://t.me/skyfortwealth",
     "https://calendly.com/andriushchenko-partners/new-meeting",
     "https://axcesscapital.ca/",

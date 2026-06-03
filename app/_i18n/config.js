@@ -5,6 +5,9 @@ export const CONFIG = {
   email: "andrii@sky-fort.ca",
   phone: "(403) 397-2553",
   instagram: "https://instagram.com/andrii.wealthcanada",
+  // Profile not live yet — gates the footer link + JSON-LD sameAs.
+  // Flip to true (and re-add the sameAs lines) once the IG account is active.
+  instagramActive: false,
   telegram: "https://t.me/skyfortwealth",
   whatsapp: "https://wa.me/14033972553",
   tiktok: "https://www.tiktok.com/@andrii.wealthcanada",

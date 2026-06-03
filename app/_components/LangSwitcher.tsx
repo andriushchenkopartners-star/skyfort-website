@@ -19,13 +19,16 @@ interface LangSwitcherProps {
   locale?: Locale;
   compact?: boolean;
   className?: string;
+  /** Called whenever a language button is tapped — e.g. to close the burger menu. */
+  onSwitch?: () => void;
 }
 
-export default function LangSwitcher({ locale, compact = false, className = "" }: LangSwitcherProps) {
+export default function LangSwitcher({ locale, compact = false, className = "", onSwitch }: LangSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
 
   const switchTo = (newLocale: Locale) => {
+    onSwitch?.();
     if (newLocale === locale) return;
     const segments = (pathname || "/").split("/");
     if (SUPPORTED_LOCALES.includes(segments[1])) {

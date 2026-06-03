@@ -18,7 +18,7 @@ const LINKS = {
 const CONTACT = {
   email: "andrii@sky-fort.ca",     // або andriushchenko.partners@gmail.com
   phone: "+1 403-397-2553",
-  ig: "https://instagram.com/andrii.wealthcanada",
+  // ig temporarily removed — Instagram profile not active yet
   tiktok: "https://tiktok.com/@andrii.wealthcanada",
 };
 // ↑↑↑ ─────────────────── ↑↑↑

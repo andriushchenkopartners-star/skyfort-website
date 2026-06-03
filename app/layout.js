@@ -264,7 +264,7 @@ const businessJsonLd = {
   sameAs: [
     "https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx",
     "https://www.tiktok.com/@andrii.wealthcanada",
-    "https://instagram.com/andrii.wealthcanada",
+    // Instagram omitted until profile is active (see CONFIG.instagramActive)
   ],
   paymentAccepted: ["Cash", "Credit Card", "Debit Card", "e-Transfer", "Wire Transfer"],
   currenciesAccepted: "CAD",
