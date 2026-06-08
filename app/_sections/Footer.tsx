@@ -113,11 +113,11 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
             <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-fg-subtle)]">
               {content.footer.legalTitle}
             </h3>
-            <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">
+            <p className="text-xs leading-relaxed text-[var(--color-fg-muted)]">
               {content.footer.disclaimer}
             </p>
             {content.footer.finfluencerNote && (
-              <p className="mt-3 border-t border-[var(--color-border)] pt-3 text-[11px] leading-relaxed text-[var(--color-fg-subtle)]">
+              <p className="mt-3 border-t border-[var(--color-border)] pt-3 text-[11px] leading-relaxed text-[var(--color-fg-muted)]">
                 {content.footer.finfluencerNote}
               </p>
             )}

@@ -463,7 +463,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
       {/* DISCLAIMER */}
       <footer className="border-t border-[var(--color-border)] py-10">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.disclaimer}</p>
+          <p className="text-xs leading-relaxed text-[var(--color-fg-muted)]">{content.disclaimer}</p>
         </div>
       </footer>
     </main>

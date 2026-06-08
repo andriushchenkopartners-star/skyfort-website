@@ -212,7 +212,7 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
       </div>
 
       <footer className="mt-8 text-center space-y-3">
-        <p className="text-xs text-[var(--color-fg-subtle)] leading-relaxed">
+        <p className="text-xs text-[var(--color-fg-muted)] leading-relaxed">
           {copy.disclaimer}
         </p>
         <a

@@ -1087,7 +1087,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
       {/* DISCLAIMER */}
       <footer className="border-t border-[var(--color-border)] py-8">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{t.disclaimer}</p>
+          <p className="text-xs leading-relaxed text-[var(--color-fg-muted)]">{t.disclaimer}</p>
         </div>
       </footer>
     </main>

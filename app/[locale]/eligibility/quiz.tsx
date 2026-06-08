@@ -469,7 +469,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
 
-        <p className="mt-12 text-xs text-[var(--color-fg-subtle)]">{c.bottomDisclaimer}</p>
+        <p className="mt-12 text-xs text-[var(--color-fg-muted)]">{c.bottomDisclaimer}</p>
       </section>
     );
   }
@@ -556,7 +556,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
           </button>
         </div>
 
-        <p className="mt-12 text-xs text-[var(--color-fg-subtle)]">{c.bottomDisclaimer}</p>
+        <p className="mt-12 text-xs text-[var(--color-fg-muted)]">{c.bottomDisclaimer}</p>
       </section>
     );
   }
@@ -655,7 +655,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
         </button>
       </div>
 
-      <p className="mt-12 text-xs text-[var(--color-fg-subtle)]">{c.bottomDisclaimer}</p>
+      <p className="mt-12 text-xs text-[var(--color-fg-muted)]">{c.bottomDisclaimer}</p>
     </section>
   );
 }
