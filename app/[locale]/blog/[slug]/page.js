@@ -122,13 +122,13 @@ export async function generateMetadata({ params }) {
 // MDX components — keep minimal; can be extended later (Callout, Stat, etc.)
 const mdxComponents = {
   h1: (props) => (
-    <h1 className="mt-12 font-display text-4xl text-white md:text-5xl" {...props} />
+    <h1 className="mt-12 font-display text-4xl leading-[1.15]! text-white md:text-5xl" {...props} />
   ),
   h2: (props) => (
-    <h2 className="mt-12 font-display text-3xl text-white md:text-4xl" {...props} />
+    <h2 className="mt-12 font-display text-3xl leading-[1.15]! text-white md:text-4xl" {...props} />
   ),
   h3: (props) => (
-    <h3 className="mt-8 font-display text-2xl text-white md:text-3xl" {...props} />
+    <h3 className="mt-8 font-display text-2xl leading-[1.2]! text-white md:text-3xl" {...props} />
   ),
   p: (props) => (
     <p className="mt-5 text-lg leading-relaxed text-[var(--color-fg-muted)]" {...props} />
