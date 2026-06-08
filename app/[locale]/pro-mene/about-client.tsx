@@ -324,7 +324,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
             href={NRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             <ExternalLink className="h-4 w-4" /> {c.verify}
           </a>
@@ -379,7 +379,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
           href={CALENDLY}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mt-10 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+          className="group mt-10 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
         >
           {c.cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
@@ -388,7 +388,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
           <div className="mt-6">
             <Link
               href={`/${locale}/eligibility`}
-              className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               {c.selfCheckLabel}
             </Link>
