@@ -131,13 +131,13 @@ const mdxComponents = {
     <h3 className="mt-8 font-display text-2xl leading-[1.2]! text-white md:text-3xl" {...props} />
   ),
   p: (props) => (
-    <p className="mt-5 text-lg leading-relaxed text-[var(--color-fg-muted)]" {...props} />
+    <p className="mt-5 text-lg leading-relaxed text-[var(--color-fg-body)]" {...props} />
   ),
   ul: (props) => (
-    <ul className="mt-5 list-disc space-y-2 pl-6 text-lg text-[var(--color-fg-muted)]" {...props} />
+    <ul className="mt-5 list-disc space-y-2 pl-6 text-lg text-[var(--color-fg-body)]" {...props} />
   ),
   ol: (props) => (
-    <ol className="mt-5 list-decimal space-y-2 pl-6 text-lg text-[var(--color-fg-muted)]" {...props} />
+    <ol className="mt-5 list-decimal space-y-2 pl-6 text-lg text-[var(--color-fg-body)]" {...props} />
   ),
   li: (props) => <li className="leading-relaxed" {...props} />,
   blockquote: (props) => (
@@ -161,7 +161,7 @@ const mdxComponents = {
     <th className="border-b border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-4 py-3 text-left font-semibold text-white" {...props} />
   ),
   td: (props) => (
-    <td className="border-b border-[var(--color-border)] px-4 py-3 align-top text-[var(--color-fg-muted)]" {...props} />
+    <td className="border-b border-[var(--color-border)] px-4 py-3 align-top text-[var(--color-fg-body)]" {...props} />
   ),
   code: (props) => (
     <code className="rounded bg-[var(--color-bg-elevated)] px-1.5 py-0.5 font-mono text-sm text-[var(--color-brand)]" {...props} />
@@ -274,7 +274,7 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           <h1 className="mt-5 font-display text-4xl text-white md:text-6xl">{post.title}</h1>
-          <p className="mt-6 text-xl text-[var(--color-fg-muted)]">{post.description}</p>
+          <p className="mt-6 text-xl text-[var(--color-fg-body)]">{post.description}</p>
 
           {/* Author byline + compliance review line — YMYL E-E-A-T signal.
               Per the May-28-2026 audit: every blog post should show who
