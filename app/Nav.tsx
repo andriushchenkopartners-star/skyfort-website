@@ -181,7 +181,7 @@ export default function Nav() {
           discover it visually even without knowing the ⌘K shortcut. */}
       <button
         type="button"
-        className="fixed right-[76px] top-5 z-[1002] flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"
+        className="fixed right-[76px] top-5 z-[1002] flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-[transform,border-color] duration-200 ease-[var(--ease-out)] hover:border-[var(--color-brand-hover)] active:scale-95"
         aria-label={t.search}
         title={t.search}
         onClick={() => {
@@ -199,24 +199,24 @@ export default function Nav() {
 
       <button
         type="button"
-        className="fixed right-5 top-5 z-[1002] flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-colors hover:border-[var(--color-brand-hover)]"
+        className="fixed right-5 top-5 z-[1002] flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-xl border border-white/10 bg-black/85 backdrop-blur-md transition-[transform,border-color] duration-200 ease-[var(--ease-out)] hover:border-[var(--color-brand-hover)] active:scale-95"
         aria-label={open ? t.close : t.open}
         aria-expanded={open}
         aria-controls="sf-nav-panel"
         onClick={() => setOpen((v) => !v)}
       >
         <span
-          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ${
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ease-[var(--ease-out)] ${
             open ? "translate-y-[7px] rotate-45" : ""
           }`}
         />
         <span
-          className={`block h-[2px] w-5 rounded-sm bg-white transition-opacity duration-200 ${
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-opacity duration-200 ease-[var(--ease-out)] ${
             open ? "opacity-0" : "opacity-100"
           }`}
         />
         <span
-          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ${
+          className={`block h-[2px] w-5 rounded-sm bg-white transition-transform duration-200 ease-[var(--ease-out)] ${
             open ? "-translate-y-[7px] -rotate-45" : ""
           }`}
         />
@@ -233,7 +233,7 @@ export default function Nav() {
       <nav
         id="sf-nav-panel"
         aria-hidden={!open}
-        className={`fixed right-0 top-0 z-[1001] flex h-[100dvh] w-[min(82vw,340px)] flex-col border-l border-white/10 bg-[#161616] px-7 pb-10 pt-[88px] transition-transform duration-300 ease-out ${
+        className={`fixed right-0 top-0 z-[1001] flex h-[100dvh] w-[min(82vw,340px)] flex-col border-l border-white/10 bg-[#161616] px-7 pb-10 pt-[88px] transition-transform duration-300 ease-[var(--ease-out)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -270,7 +270,7 @@ export default function Nav() {
                 <Link
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-all hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
+                  className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-[color,padding-left] duration-200 ease-[var(--ease-out)] hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
                 >
                   {t[l.key]}
                 </Link>
@@ -282,7 +282,7 @@ export default function Nav() {
               <Link
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-all hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
+                className="block border-b border-white/5 py-3 text-base font-semibold text-white transition-[color,padding-left] duration-200 ease-[var(--ease-out)] hover:pl-1.5 hover:text-[var(--color-brand-hover)]"
               >
                 {l.label}
               </Link>
@@ -294,7 +294,7 @@ export default function Nav() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setOpen(false)}
-          className="mt-6 block rounded-xl bg-[var(--color-brand)] py-4 text-center text-sm font-bold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+          className="mt-6 block rounded-xl bg-[var(--color-brand)] py-4 text-center text-sm font-bold text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
         >
           {t.cta}
         </a>
