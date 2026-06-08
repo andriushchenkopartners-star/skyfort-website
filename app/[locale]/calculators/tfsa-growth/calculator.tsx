@@ -368,7 +368,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                       <button
                         key={key}
                         onClick={() => setRate(preset.rate)}
-                        className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${
+                        className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${
                           isActive
                             ? "border-[var(--color-brand)] bg-[var(--color-brand)] text-white"
                             : "border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"
@@ -452,7 +452,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener"
-            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
           >
             {content.ctaBtn}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -516,7 +516,7 @@ function NumberInput({
       <div className="flex items-center gap-2">
         <button
           onClick={decrement}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[var(--color-brand)] hover:text-white"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Decrease"
         >
           −
@@ -532,7 +532,7 @@ function NumberInput({
             inputMode="numeric"
             value={value}
             onChange={handleChange}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors focus:border-[var(--color-brand)] ${
+            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] ${
               prefix ? "pl-8" : ""
             } ${suffix ? "pr-8" : ""}`}
           />
@@ -544,7 +544,7 @@ function NumberInput({
         </div>
         <button
           onClick={increment}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-all hover:border-[var(--color-brand)] hover:text-white"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Increase"
         >
           +
