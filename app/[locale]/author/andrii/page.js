@@ -345,7 +345,7 @@ export default async function AuthorAndriiPage({ params }) {
             href={NRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] hover:bg-[var(--color-brand)]/[0.12]"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:bg-[var(--color-brand)]/[0.12]"
           >
             <ExternalLink size={14} aria-hidden="true" /> {c.verifyCta}
           </a>

@@ -426,7 +426,7 @@ export default async function PerevirkaPage({ params }) {
               href={AXCESS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-brand)]"
+              className="transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
             >
               Axcess Capital Advisors Inc.
             </a>
@@ -435,7 +435,7 @@ export default async function PerevirkaPage({ params }) {
               href={NRD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-brand)]"
+              className="transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
             >
               NRD #4575551
             </a>
