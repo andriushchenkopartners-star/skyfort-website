@@ -89,6 +89,9 @@ export const dictionary = {
     ctaTitle: "Готовий розібратись?",
     ctaSub: "30 хвилин · Zoom або Google Meet · Українською, російською або англійською.",
     ctaBtn: "Записатись на discovery call",
+    ctaDisclosure:
+      "Андрій Андрющенко — Dealing Representative при Axcess Capital Advisors Inc. (Exempt Market Dealer), NRD #4575551. Це освітня консультація, не персональна інвестиційна порада.",
+    ctaVerify: "Перевірити мою реєстрацію",
     footer: {
       tagline: "Wealth building для українців у Канаді",
       contactTitle: "Контакти",
@@ -169,6 +172,9 @@ export const dictionary = {
     ctaTitle: "Готов разобраться?",
     ctaSub: "30 минут · Zoom или Google Meet · На украинском, русском или английском.",
     ctaBtn: "Записаться на discovery call",
+    ctaDisclosure:
+      "Андрей Андрющенко — Dealing Representative при Axcess Capital Advisors Inc. (Exempt Market Dealer), NRD #4575551. Это образовательная консультация, не персональная инвестиционная рекомендация.",
+    ctaVerify: "Проверить мою регистрацию",
     footer: {
       tagline: "Wealth building для русскоязычных в Канаде",
       contactTitle: "Контакты",
@@ -249,6 +255,9 @@ export const dictionary = {
     ctaTitle: "Ready to figure it out?",
     ctaSub: "30 minutes · Zoom or Google Meet · Available in Ukrainian, Russian, or English.",
     ctaBtn: "Book a discovery call",
+    ctaDisclosure:
+      "Andrii Andriushchenko — Dealing Representative with Axcess Capital Advisors Inc. (Exempt Market Dealer), NRD #4575551. This is an educational consultation, not personal investment advice.",
+    ctaVerify: "Verify my registration",
     footer: {
       tagline: "Wealth building for newcomers to Canada",
       contactTitle: "Contact",

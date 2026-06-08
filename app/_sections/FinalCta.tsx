@@ -1,14 +1,23 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
 
 interface FinalCtaContent {
   ctaTitle: string;
   ctaSub: string;
   ctaBtn: string;
+  ctaDisclosure: string;
+  ctaVerify: string;
 }
 
-export default function FinalCta({ content }: { content: FinalCtaContent }) {
+export default function FinalCta({
+  content,
+  locale = "uk",
+}: {
+  content: FinalCtaContent;
+  locale?: string;
+}) {
   return (
     <section className="relative overflow-hidden py-28 md:py-36">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
@@ -44,6 +53,29 @@ export default function FinalCta({ content }: { content: FinalCtaContent }) {
             aria-hidden="true"
           />
         </a>
+
+        {/* Clear-and-conspicuous registration disclosure at the booking
+            decision point. Joint CSA/CIRO Staff Notice 31-369 treats footer-
+            only disclosure as inadequate when the reader has to scroll or
+            click for it — so the DR / EMD / NRD identity and the
+            "educational, not advice" framing sit right beside the CTA, at a
+            legible size, with an on-site path to verify the registration. */}
+        <div className="mx-auto mt-10 max-w-xl border-t border-[var(--color-border)] pt-6">
+          <p className="flex items-start justify-center gap-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
+            <ShieldCheck
+              className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-brand)]"
+              aria-hidden="true"
+            />
+            <span>{content.ctaDisclosure}</span>
+          </p>
+          <Link
+            href={`/${locale}/perevirka`}
+            className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
+          >
+            {content.ctaVerify}
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
   );

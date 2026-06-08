@@ -64,7 +64,7 @@ export default function SkyFortLanding({ params }) {
 
       <Reveal><Faq content={content} /></Reveal>
       <Reveal><Testimonials locale={locale} /></Reveal>
-      <Reveal><FinalCta content={content} /></Reveal>
+      <Reveal><FinalCta content={content} locale={locale} /></Reveal>
       <Footer content={content} locale={locale} />
     </main>
   );
