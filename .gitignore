@@ -42,3 +42,4 @@ next-env.d.ts
 
 # claude code (machine-local permission config; launch.json is shareable)
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
