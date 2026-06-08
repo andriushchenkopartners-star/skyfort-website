@@ -195,12 +195,12 @@ export default function EmailCaptureForm({
             placeholder={c.emailPh}
             required
             disabled={state === "sending"}
-            className="flex-1 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-5 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
+            className="flex-1 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-5 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] transition-[border-color] duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={state === "sending" || !email}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98] disabled:opacity-50"
           >
             {state === "sending" ? c.sending : c.submit}
             {state !== "sending" && (
@@ -267,7 +267,7 @@ export default function EmailCaptureForm({
           placeholder={c.namePh}
           maxLength={100}
           disabled={state === "sending"}
-          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
+          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] transition-[border-color] duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
         />
         <input
           type="email"
@@ -276,7 +276,7 @@ export default function EmailCaptureForm({
           placeholder={c.emailPh}
           required
           disabled={state === "sending"}
-          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
+          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] transition-[border-color] duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
         />
 
         {errorMsg && (
@@ -294,7 +294,7 @@ export default function EmailCaptureForm({
           <button
             type="submit"
             disabled={state === "sending" || !email}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)] disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98] disabled:opacity-50"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
             {state === "sending" ? c.sending : c.submit}

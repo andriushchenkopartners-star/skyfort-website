@@ -226,7 +226,7 @@ export default function TopicSuggestForm({
             maxLength={500}
             disabled={state === "sending"}
             required
-            className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
+            className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-3 text-base text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] transition-[border-color] duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
           />
           <div className="mt-1 text-right text-xs text-[var(--color-fg-subtle)]">
             {topic.length}/500
@@ -247,7 +247,7 @@ export default function TopicSuggestForm({
             onChange={(e) => setEmail(e.target.value)}
             placeholder={c.emailPh}
             disabled={state === "sending"}
-            className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
+            className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-fg-subtle)] transition-[border-color] duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] focus:outline-none disabled:opacity-50"
           />
         </div>
 
@@ -266,7 +266,7 @@ export default function TopicSuggestForm({
           <button
             type="submit"
             disabled={state === "sending" || topic.trim().length < 5}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)] disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98] disabled:opacity-50"
           >
             {state === "sending" ? c.sending : c.submit}
             <Send className="h-4 w-4" aria-hidden="true" />
