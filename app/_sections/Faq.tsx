@@ -27,13 +27,13 @@ export default function Faq({ content }: { content: FaqContent }) {
           {content.faq.map((item, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+              className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)]"
             >
               <dt>
                 <button
                   onClick={() => setOpen(open === i ? -1 : i)}
                   aria-expanded={open === i}
-                  className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-[#222]"
+                  className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-[var(--color-bg-elevated)]"
                 >
                   <span className="font-bold uppercase tracking-wide text-white">
                     {item.q}
@@ -56,7 +56,7 @@ export default function Faq({ content }: { content: FaqContent }) {
                   were invisible to crawlers, contradicting the FAQPage
                   schema we emit. 3rd re-audit (1.13). */}
               <dd
-                className={`border-t border-[#2a2a2a] px-6 py-5 leading-relaxed text-[#a3a3a3] ${
+                className={`border-t border-[var(--color-border)] px-6 py-5 leading-relaxed text-[var(--color-fg-muted)] ${
                   open === i ? "" : "hidden"
                 }`}
               >

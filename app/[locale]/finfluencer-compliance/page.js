@@ -392,7 +392,7 @@ export default async function FinfluencerCompliancePage({ params }) {
       />
 
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -412,7 +412,7 @@ export default async function FinfluencerCompliancePage({ params }) {
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.eyebrow}</p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{c.title}</h1>
           <p className="mt-4 text-xl font-bold text-[#c4c4c4] md:text-2xl">{c.subtitle}</p>
-          <p className="mt-7 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+          <p className="mt-7 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
           <div className="mt-7 flex flex-wrap items-center gap-4 text-sm">
             <a
               href={NOTICE_URL}
@@ -493,7 +493,7 @@ export default async function FinfluencerCompliancePage({ params }) {
                   >
                     <td className="px-5 py-4 font-semibold text-white">{row.aspect}</td>
                     <td className="px-5 py-4 text-[#c4c4c4]">{row.licensed}</td>
-                    <td className="px-5 py-4 text-[#a3a3a3]">{row.unlicensed}</td>
+                    <td className="px-5 py-4 text-[var(--color-fg-muted)]">{row.unlicensed}</td>
                   </tr>
                 ))}
               </tbody>
@@ -589,7 +589,7 @@ export default async function FinfluencerCompliancePage({ params }) {
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.bottomCtaText}</p>
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.bottomCtaText}</p>
         <a
           href={CALENDLY}
           target="_blank"

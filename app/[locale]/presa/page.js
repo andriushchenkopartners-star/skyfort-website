@@ -173,7 +173,7 @@ export default async function PressPage({ params }) {
       />
 
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -191,7 +191,7 @@ export default async function PressPage({ params }) {
         {/* HERO */}
         <header className="mt-10 pb-10">
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
 
         {/* EXPERTISE */}
@@ -206,7 +206,7 @@ export default async function PressPage({ params }) {
                     <Icon className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
                     <h3 className="font-bold text-white">{item.title}</h3>
                   </div>
-                  <p className="text-sm leading-relaxed text-[#a3a3a3]">{item.desc}</p>
+                  <p className="text-sm leading-relaxed text-[var(--color-fg-muted)]">{item.desc}</p>
                 </li>
               );
             })}
@@ -216,7 +216,7 @@ export default async function PressPage({ params }) {
         {/* CONTACT */}
         <section className="mt-8 pb-16">
           <h2 className="font-display text-3xl text-white md:text-4xl">{c.contactTitle}</h2>
-          <p className="mt-3 text-sm text-[#a3a3a3]">{c.contactNote}</p>
+          <p className="mt-3 text-sm text-[var(--color-fg-muted)]">{c.contactNote}</p>
           <ul className="mt-8 grid gap-4 md:grid-cols-2">
             <li className="rounded-2xl border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5 p-6">
               <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
@@ -230,7 +230,7 @@ export default async function PressPage({ params }) {
               </a>
             </li>
             <li className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
-              <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
+              <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-muted)]">
                 <Phone className="h-3.5 w-3.5" aria-hidden="true" /> Phone
               </div>
               <a

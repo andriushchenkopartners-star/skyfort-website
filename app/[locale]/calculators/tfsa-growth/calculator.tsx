@@ -17,7 +17,7 @@ const TfsaChart = dynamic(() => import("./chart"), {
   ssr: false,
   loading: () => (
     <div
-      className="h-[420px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+      className="h-[420px] w-full animate-pulse rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)]"
       aria-label="Loading chart"
     />
   ),
@@ -267,9 +267,9 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
   const resultLabelText = content.resultLabel.replace("X", years);
 
   return (
-    <main className="min-h-screen bg-[#191919] text-white antialiased">
+    <main className="min-h-screen bg-[var(--color-bg)] text-white antialiased">
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`} aria-label="SkyFort home">
             <Logo variant="full" />
@@ -303,7 +303,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
           <h1 className="font-display-tight text-4xl text-white md:text-6xl lg:text-7xl">
             {content.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3] md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)] md:text-xl">
             {content.sub}
           </p>
           <div className="mt-8 max-w-2xl">
@@ -322,7 +322,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.5fr]">
             {/* LEFT — INPUTS */}
-            <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-7">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7">
               <div className="space-y-6">
                 <NumberInput
                   label={content.inputs.initial}
@@ -356,7 +356,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                 />
               </div>
 
-              <div className="mt-8 border-t border-[#2a2a2a] pt-6">
+              <div className="mt-8 border-t border-[var(--color-border)] pt-6">
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {content.presets.title}
                 </p>
@@ -371,7 +371,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                         className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${
                           isActive
                             ? "border-[var(--color-brand)] bg-[var(--color-brand)] text-white"
-                            : "border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"
+                            : "border-[var(--color-border-strong)] text-[var(--color-fg-muted)] hover:border-[var(--color-brand)] hover:text-white"
                         }`}
                       >
                         {preset.label}
@@ -385,13 +385,13 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
             {/* RIGHT — RESULTS */}
             <div className="space-y-6">
               {/* Big result number */}
-              <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-gradient-to-br from-[#1f1f1f] to-[#222] p-8">
+              <div className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-bg-card)] to-[var(--color-bg-elevated)] p-8">
                 <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[var(--color-brand)] opacity-10 blur-3xl" />
-                <p className="text-sm text-[#a3a3a3]">{resultLabelText}</p>
+                <p className="text-sm text-[var(--color-fg-muted)]">{resultLabelText}</p>
                 <p className="mt-3 font-display-tight text-5xl text-[var(--color-brand)] md:text-7xl">
                   {formatMoney(finalValue)}
                 </p>
-                <div className="mt-6 grid grid-cols-2 gap-4 border-t border-[#2a2a2a] pt-6">
+                <div className="mt-6 grid grid-cols-2 gap-4 border-t border-[var(--color-border)] pt-6">
                   <div>
                     <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                       {content.contributed}
@@ -417,7 +417,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                   <TrendingUp className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--color-brand)]" />
                   <div>
                     <h3 className="font-display text-lg text-white">{content.insightTitle}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[#a3a3a3]">{content.insightDesc}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">{content.insightDesc}</p>
                   </div>
                 </div>
               </div>
@@ -432,14 +432,14 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
           <h2 className="mb-8 font-display text-3xl text-white md:text-4xl">
             {content.comparisonTitle}
           </h2>
-          <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-4 md:p-6">
+          <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 md:p-6">
             <TfsaChart data={chartData} labels={content.chartLabels} />
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden border-t border-[#2a2a2a] py-24 md:py-32">
+      <section className="relative overflow-hidden border-t border-[var(--color-border)] py-24 md:py-32">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-brand)] opacity-[0.08] blur-3xl" />
         </div>
@@ -447,7 +447,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
           <h2 className="font-display-tight text-4xl text-white md:text-6xl">
             {content.ctaTitle}
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-[#a3a3a3]">{content.ctaSub}</p>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-[var(--color-fg-muted)]">{content.ctaSub}</p>
           <a
             href={CALENDLY_URL}
             target="_blank"
@@ -461,7 +461,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
       </section>
 
       {/* DISCLAIMER */}
-      <footer className="border-t border-[#2a2a2a] py-10">
+      <footer className="border-t border-[var(--color-border)] py-10">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.disclaimer}</p>
         </div>
@@ -510,13 +510,13 @@ function NumberInput({
 
   return (
     <div>
-      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
+      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[var(--color-fg-muted)]">
         {label}
       </label>
       <div className="flex items-center gap-2">
         <button
           onClick={decrement}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-xl text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Decrease"
         >
           −
@@ -532,7 +532,7 @@ function NumberInput({
             inputMode="numeric"
             value={value}
             onChange={handleChange}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] ${
+            className={`w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] py-3 text-center font-display text-xl text-white outline-none transition-colors duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] ${
               prefix ? "pl-8" : ""
             } ${suffix ? "pr-8" : ""}`}
           />
@@ -544,7 +544,7 @@ function NumberInput({
         </div>
         <button
           onClick={increment}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-xl text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Increase"
         >
           +

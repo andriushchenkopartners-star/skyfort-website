@@ -447,7 +447,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
           {c.intro.kicker}
         </p>
         <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.intro.title}</h1>
-        <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro.sub}</p>
+        <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro.sub}</p>
 
         <div className="mt-10 rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-10">
           <div className="flex items-start gap-4">

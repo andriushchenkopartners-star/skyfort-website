@@ -29,7 +29,7 @@ export default function SkyFortLanding({ params }) {
   const content = t[locale];
 
   return (
-    <main id="main" className="min-h-screen bg-[#191919] text-white antialiased">
+    <main id="main" className="min-h-screen bg-[var(--color-bg)] text-white antialiased">
       <HomeNav locale={locale} content={content} />
       <Hero content={content} />
       <TrustBar locale={locale} />
@@ -51,7 +51,7 @@ export default function SkyFortLanding({ params }) {
       <Reveal><EligibilityPromo locale={locale} /></Reveal>
 
       {/* Email capture — між Steps і FAQ, ~30% scroll */}
-      <section className="border-y border-[#2a2a2a] bg-[#1f1f1f] py-20 md:py-28">
+      <section className="border-y border-[var(--color-border)] bg-[var(--color-bg-card)] py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-6">
           <EmailCaptureForm
             locale={locale}

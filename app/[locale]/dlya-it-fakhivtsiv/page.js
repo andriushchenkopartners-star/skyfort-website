@@ -469,7 +469,7 @@ export default async function ItPillarPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildAudienceWebPageJsonLd(locale, c, path)) }}
       />
 
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -483,7 +483,7 @@ export default async function ItPillarPage({ params }) {
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.eyebrow}</p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{c.title}</h1>
           <p className="mt-4 text-xl font-bold text-[#c4c4c4] md:text-2xl">{c.subtitle}</p>
-          <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+          <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
 
         <div className="pb-4">
@@ -539,7 +539,7 @@ export default async function ItPillarPage({ params }) {
             {c.pitfalls.map((p, i) => (
               <li key={i} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5">
                 <div className="font-semibold text-white">{i + 1}. {p.title}</div>
-                <p className="mt-2 text-sm text-[#a3a3a3]">{p.body}</p>
+                <p className="mt-2 text-sm text-[var(--color-fg-muted)]">{p.body}</p>
               </li>
             ))}
           </ul>
@@ -593,7 +593,7 @@ export default async function ItPillarPage({ params }) {
 
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.bottomCtaText}</p>
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.bottomCtaText}</p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href={CALENDLY}

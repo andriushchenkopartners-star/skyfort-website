@@ -285,7 +285,7 @@ export default async function PerevirkaPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -304,7 +304,7 @@ export default async function PerevirkaPage({ params }) {
         <header className="mt-10 pb-8">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
         <div className="mb-12">
           <AuthorByline locale={locale} />
@@ -378,7 +378,7 @@ export default async function PerevirkaPage({ params }) {
                   <FileText className="mt-1 h-4 w-4 flex-shrink-0 text-[var(--color-fg-subtle)]" aria-hidden="true" />
                   {item.label}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[#a3a3a3]">{item.desc}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-muted)]">{item.desc}</p>
               </li>
             ))}
           </ul>
@@ -412,7 +412,7 @@ export default async function PerevirkaPage({ params }) {
         {/* CTA */}
         <section className="mt-12 pb-24 text-center">
           <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-[#a3a3a3]">{c.bottomCtaText}</p>
+          <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--color-fg-muted)]">{c.bottomCtaText}</p>
           <a
             href={CALENDLY}
             target="_blank"

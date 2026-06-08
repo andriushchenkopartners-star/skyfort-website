@@ -555,7 +555,7 @@ export default async function PorivnyanniaPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -575,7 +575,7 @@ export default async function PorivnyanniaPage({ params }) {
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
           <p className="mt-4 text-2xl font-bold text-[#c4c4c4] md:text-3xl">{c.subtitle}</p>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
         <div className="mb-12 max-w-3xl">
           <AuthorByline locale={locale} />
@@ -583,7 +583,7 @@ export default async function PorivnyanniaPage({ params }) {
 
         {/* HISTORY NOTE */}
         <section className="mb-12 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 md:p-6">
-          <p className="text-sm leading-relaxed text-[#a3a3a3]">
+          <p className="text-sm leading-relaxed text-[var(--color-fg-muted)]">
             <strong className="text-white">Note:</strong> {c.historyNote}
           </p>
         </section>
@@ -604,13 +604,13 @@ export default async function PorivnyanniaPage({ params }) {
                 <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <h2 className="font-display-tight text-4xl text-white md:text-5xl">{lic.name}</h2>
-                    <p className="mt-2 text-sm text-[#a3a3a3]">{lic.fullName}</p>
+                    <p className="mt-2 text-sm text-[var(--color-fg-muted)]">{lic.fullName}</p>
                   </div>
                   <span
                     className={`inline-flex items-center rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider ${
                       isMe
                         ? "border border-[var(--color-brand)]/50 bg-[var(--color-brand)]/15 text-[var(--color-brand)]"
-                        : "border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] text-[#a3a3a3]"
+                        : "border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] text-[var(--color-fg-muted)]"
                     }`}
                   >
                     {lic.andriiBadge}
@@ -732,7 +732,7 @@ export default async function PorivnyanniaPage({ params }) {
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.bottomCtaTitle}</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[#a3a3a3]">{c.bottomCtaText}</p>
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.bottomCtaText}</p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href={CALENDLY}

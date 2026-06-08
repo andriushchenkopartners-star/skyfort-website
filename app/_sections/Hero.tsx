@@ -26,13 +26,13 @@ export default function Hero({ content }: { content: HeroContent }) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#191919]/68" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#191919]/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[var(--color-bg)]/68" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/80 via-transparent to-transparent" />
       </div>
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[var(--color-brand)] opacity-[0.08] blur-3xl" />
         <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[var(--color-brand)] opacity-[0.06] blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#191919]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)]/60 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
@@ -45,10 +45,10 @@ export default function Hero({ content }: { content: HeroContent }) {
             <br />
             <span className="text-[var(--color-brand)]">{content.hero.titleAccent}.</span>
           </h1>
-          <p className="hero-in hero-in-3 mt-6 font-display text-2xl text-[#a3a3a3] md:text-3xl">
+          <p className="hero-in hero-in-3 mt-6 font-display text-2xl text-[var(--color-fg-muted)] md:text-3xl">
             {content.hero.titleEnd}.
           </p>
-          <p className="hero-in hero-in-4 mt-8 max-w-xl text-lg leading-relaxed text-[#a3a3a3]">
+          <p className="hero-in hero-in-4 mt-8 max-w-xl text-lg leading-relaxed text-[var(--color-fg-muted)]">
             {content.hero.sub}
           </p>
           <div className="hero-in hero-in-5 mt-10 flex flex-col gap-3 sm:flex-row">
@@ -63,7 +63,7 @@ export default function Hero({ content }: { content: HeroContent }) {
             </a>
             <a
               href="#guides"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#3a3a3a] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color,border-color] duration-200 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:bg-[#222] active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--color-border-strong)] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color,border-color] duration-200 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:bg-[var(--color-bg-elevated)] active:scale-[0.98]"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               {content.hero.ctaSecondary}
@@ -81,7 +81,7 @@ export default function Hero({ content }: { content: HeroContent }) {
               height={900}
               priority
               sizes="(min-width: 1024px) 50vw, (min-width: 640px) 360px, 100vw"
-              className="relative h-auto w-full rounded-[24px] border border-[#2a2a2a] object-cover shadow-2xl"
+              className="relative h-auto w-full rounded-[24px] border border-[var(--color-border)] object-cover shadow-2xl"
               style={{ aspectRatio: "4 / 5" }}
             />
           </div>

@@ -24,7 +24,7 @@ export default function Guides({ content }: { content: GuidesContent }) {
           <h2 className="font-display text-4xl leading-[0.95] text-white md:text-6xl">
             {content.guidesTitle}
           </h2>
-          <p className="mt-6 text-lg text-[#a3a3a3]">{content.guidesSub}</p>
+          <p className="mt-6 text-lg text-[var(--color-fg-muted)]">{content.guidesSub}</p>
         </Reveal>
         <Reveal className="reveal-stagger grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {content.guides.map((g, i) => {
@@ -35,14 +35,14 @@ export default function Guides({ content }: { content: GuidesContent }) {
                 href={`${CONFIG.pdfBaseUrl}/${g.file}`}
                 target="_blank"
                 rel="noopener"
-                className="card-glow group relative flex flex-col rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-7"
+                className="card-glow group relative flex flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7"
                 aria-label={`Download ${g.title} PDF`}
               >
                 <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--color-brand)]/10 text-[var(--color-brand)]">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <h3 className="font-display text-xl text-white">{g.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#a3a3a3]">
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-fg-muted)]">
                   {g.desc}
                 </p>
                 <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">

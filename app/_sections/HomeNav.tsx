@@ -16,7 +16,7 @@ interface HomeNavContent {
 
 export default function HomeNav({ locale, content }: { locale: Locale; content: HomeNavContent }) {
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#top" aria-label="SkyFort home">
           <Logo variant="mark" />
@@ -30,7 +30,7 @@ export default function HomeNav({ locale, content }: { locale: Locale; content: 
           </div>
           <Link
             href={`/${locale}/pro-mene`}
-            className="hidden text-xs font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors duration-150 ease-[var(--ease-out)] hover:text-white sm:inline-flex"
+            className="hidden text-xs font-bold uppercase tracking-wider text-[var(--color-fg-muted)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-white sm:inline-flex"
           >
             {content.nav.about}
           </Link>

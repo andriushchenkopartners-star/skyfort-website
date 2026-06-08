@@ -12,7 +12,7 @@ export default function About({ content }: { content: AboutContent }) {
         </h2>
         <div className="mt-12 space-y-6">
           {content.about.map((p, i) => (
-            <p key={i} className="text-lg leading-relaxed text-[#a3a3a3]">
+            <p key={i} className="text-lg leading-relaxed text-[var(--color-fg-muted)]">
               {p}
             </p>
           ))}

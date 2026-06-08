@@ -49,7 +49,7 @@ export default function TrustBar({ locale = "uk", className = "" }: { locale?: L
   return (
     <section
       aria-label="Regulatory trust signals"
-      className={`border-y border-[#2a2a2a] bg-[#191919]/60 backdrop-blur-sm ${className}`}
+      className={`border-y border-[var(--color-border)] bg-[var(--color-bg)]/60 backdrop-blur-sm ${className}`}
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-5 text-sm md:flex-row md:justify-between md:gap-6">
         {/* NRD */}

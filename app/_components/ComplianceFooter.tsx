@@ -76,10 +76,10 @@ export default function ComplianceFooter() {
     <footer
       role="contentinfo"
       aria-label="Regulatory disclosure"
-      className="border-t border-[#1f1f1f] bg-[#0d0d0d] py-7"
+      className="border-t border-[var(--color-bg-card)] bg-[#0d0d0d] py-7"
     >
       <div className="mx-auto max-w-4xl px-6 text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-[#a3a3a3]">
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--color-fg-muted)]">
           {c.line1}
         </p>
         <p className="mt-1 text-[11px] text-[var(--color-fg-subtle)]">{c.line2}</p>

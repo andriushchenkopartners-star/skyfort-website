@@ -61,7 +61,7 @@ export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale })
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[#1f1f1f] to-[#0d2860] p-10 md:p-14">
+        <div className="overflow-hidden rounded-3xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#0d2860] p-10 md:p-14">
           <div className="grid items-center gap-10 md:grid-cols-[1.4fr_1fr]">
             <div>
               <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">
@@ -82,7 +82,7 @@ export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale })
               </Link>
             </div>
             <div className="hidden md:block">
-              <ul className="space-y-3 rounded-2xl border border-[var(--color-border-strong)] bg-[#191919] p-6">
+              <ul className="space-y-3 rounded-2xl border border-[var(--color-border-strong)] bg-[var(--color-bg)] p-6">
                 {[c.bullet1, c.bullet2, c.bullet3].map((b, i) => (
                   <li
                     key={i}

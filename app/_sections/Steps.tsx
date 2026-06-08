@@ -23,7 +23,7 @@ export default function Steps({ content }: { content: StepsContent }) {
                 {s.n}
               </div>
               <h3 className="font-display text-2xl text-white">{s.title}</h3>
-              <p className="mt-4 leading-relaxed text-[#a3a3a3]">{s.desc}</p>
+              <p className="mt-4 leading-relaxed text-[var(--color-fg-muted)]">{s.desc}</p>
             </li>
           ))}
         </ol>

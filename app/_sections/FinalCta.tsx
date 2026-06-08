@@ -20,7 +20,7 @@ export default function FinalCta({ content }: { content: FinalCtaContent }) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#191919]/85" />
+        <div className="absolute inset-0 bg-[var(--color-bg)]/85" />
       </div>
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-brand)] opacity-[0.08] blur-3xl" />
@@ -29,7 +29,7 @@ export default function FinalCta({ content }: { content: FinalCtaContent }) {
         <h2 className="font-display-tight text-5xl text-white md:text-7xl">
           {content.ctaTitle}
         </h2>
-        <p className="mx-auto mt-8 max-w-xl text-lg text-[#a3a3a3]">
+        <p className="mx-auto mt-8 max-w-xl text-lg text-[var(--color-fg-muted)]">
           {content.ctaSub}
         </p>
         <a

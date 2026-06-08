@@ -51,7 +51,7 @@ export default function FireCalcPromo({ locale }: { locale: Locale }) {
         <div className="absolute -right-32 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-accent opacity-[0.07] blur-3xl" />
       </div>
       <div className="mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#1f1f1f] to-[#2d2418] p-10 md:p-14">
+        <div className="overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#2d2418] p-10 md:p-14">
           <div className="grid items-center gap-8 md:grid-cols-[1.5fr_1fr]">
             <div>
               <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
@@ -61,12 +61,12 @@ export default function FireCalcPromo({ locale }: { locale: Locale }) {
               <h2 className="font-display-tight text-3xl text-white md:text-5xl">
                 {c.title}
               </h2>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-[#a3a3a3] md:text-lg">
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-[var(--color-fg-muted)] md:text-lg">
                 {c.desc}
               </p>
               <Link
                 href={`/${locale}/calculators/financial-freedom`}
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#191919] transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-hover active:scale-[0.98]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[var(--color-bg)] transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-hover active:scale-[0.98]"
               >
                 {c.cta}
                 <ArrowRight
@@ -76,7 +76,7 @@ export default function FireCalcPromo({ locale }: { locale: Locale }) {
               </Link>
             </div>
             <div className="hidden md:block">
-              <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
+              <div className="rounded-2xl border border-[var(--color-border-strong)] bg-[var(--color-bg)] p-6 text-center">
                 <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {c.stat1}
                 </p>

@@ -19,7 +19,7 @@ import { resolveLocale } from "../../../_i18n/dictionary";
 // Lazy-load recharts (~80KB gzip) — one shared chunk for both chart variants.
 const chartSkeleton = (
   <div
-    className="h-[280px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+    className="h-[280px] w-full animate-pulse rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)]"
     aria-label="Loading chart"
   />
 );
@@ -155,22 +155,22 @@ function NInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max
 }) {
   return (
     <div>
-      <label className="mb-1.5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
+      <label className="mb-1.5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[var(--color-fg-muted)]">
         <span>{label}</span>
         {note && <span className="text-[10px] text-[var(--color-fg-subtle)] normal-case font-normal tracking-normal">{note}</span>}
       </label>
       <div className="flex items-center gap-2">
         <button onClick={() => onChange(Math.max(min, parseFloat((value-step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">−</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-lg text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">−</button>
         <div className="relative flex-1">
           {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[var(--color-fg-subtle)]">{prefix}</span>}
           <input type="text" inputMode="decimal" value={value}
             onChange={(e: ChangeEvent<HTMLInputElement>) => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
+            className={`w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
           {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[var(--color-fg-subtle)]">{suffix}</span>}
         </div>
         <button onClick={() => onChange(Math.min(max, parseFloat((value+step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">+</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-lg text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">+</button>
       </div>
     </div>
   );
@@ -183,7 +183,7 @@ function Card({ label, value, sub, color = "neutral" }: {
   color?: string;
 }) {
   const cls = {
-    neutral: "border-[#2a2a2a] bg-[#1f1f1f]",
+    neutral: "border-[var(--color-border)] bg-[var(--color-bg-card)]",
     blue: "border-[var(--color-brand)]/40 bg-[var(--color-brand)]/5",
     gold: "border-accent/40 bg-accent/5",
     red: "border-red-500/40 bg-red-500/5",
@@ -209,7 +209,7 @@ function SelectGroup({ options, value, onChange }: {
     <div className="flex flex-wrap gap-2">
       {options.map(o => (
         <button key={o.value} onClick={() => onChange(o.value)}
-          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${value===o.value?"border-[var(--color-brand)] bg-[var(--color-brand)] text-white":"border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"}`}>
+          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${value===o.value?"border-[var(--color-brand)] bg-[var(--color-brand)] text-white":"border-[var(--color-border-strong)] text-[var(--color-fg-muted)] hover:border-[var(--color-brand)] hover:text-white"}`}>
           {o.label}
         </button>
       ))}
@@ -282,7 +282,7 @@ function ModeResidence({ lang }: { lang: string }) {
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
         {/* Inputs */}
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={labels.price} value={price} onChange={setPrice} prefix="$" step={5000} />
           <NInput label={labels.down} value={down} onChange={setDown} prefix="$" step={5000}
             note={`${(dp*100).toFixed(1)}% LTV`} />
@@ -358,7 +358,7 @@ function ModeResidence({ lang }: { lang: string }) {
 
       {/* Chart */}
       {schedBase.length > 0 && (
-        <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5">
           <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
             {lang==="en"?"Balance over time":lang==="ru"?"Остаток по годам":"Залишок по роках"}
           </p>
@@ -420,7 +420,7 @@ function ModeInvestment({ lang }: { lang: string }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={lbl.price} value={price} onChange={setPrice} prefix="$" step={10000} />
           <NInput label={lbl.down} value={downPct} onChange={setDownPct} suffix="%" step={1} min={20} max={50}
             note={`${C(down)} — min 20% for investment`} />
@@ -444,21 +444,21 @@ function ModeInvestment({ lang }: { lang: string }) {
           <Card label={lbl.breakeven} value={C(breakEvenRent)} sub={lang==="en"?"Minimum rent to break even":lang==="ru"?"Мин. аренда для безубыточности":"Мін. оренда для беззбитковості"} color="gold" />
 
           {/* Expense waterfall */}
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#1f1f1f] p-4">
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
               {lang==="en"?"Monthly expenses breakdown":lang==="ru"?"Разбивка расходов":"Розбивка витрат"}
             </p>
             <div className="space-y-2">
               {expenseItems.map(e => (
                 <div key={e.label} className="flex items-center gap-3">
-                  <span className="w-24 text-xs text-[#a3a3a3]">{e.label}</span>
-                  <div className="flex-1 overflow-hidden rounded-full bg-[#2a2a2a]" style={{height:6}}>
+                  <span className="w-24 text-xs text-[var(--color-fg-muted)]">{e.label}</span>
+                  <div className="flex-1 overflow-hidden rounded-full bg-[var(--color-border)]" style={{height:6}}>
                     <div className="h-full rounded-full" style={{width:`${Math.min(100,(e.value/totalExpenses)*100)}%`,backgroundColor:e.color}} />
                   </div>
                   <span className="w-20 text-right text-xs font-bold text-white">{C(e.value)}</span>
                 </div>
               ))}
-              <div className="mt-2 flex items-center justify-between border-t border-[#2a2a2a] pt-2">
+              <div className="mt-2 flex items-center justify-between border-t border-[var(--color-border)] pt-2">
                 <span className="text-xs font-bold text-[var(--color-fg-subtle)]">{lang==="en"?"Total":lang==="ru"?"Итого":"Всього"}</span>
                 <span className="text-sm font-bold text-white">{C(totalExpenses)}</span>
               </div>
@@ -518,11 +518,11 @@ function ModeHELOC({ lang }: { lang: string }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={lbl.home} value={homeValue} onChange={setHomeValue} prefix="$" step={10000} />
           <NInput label={lbl.mortgage} value={mortgageBalance} onChange={setMortgageBalance} prefix="$" step={5000} />
           <NInput label={lbl.helocRate} value={helocRate} onChange={setHelocRate} suffix="%" step={0.05} min={1} max={20} />
-          <div className="border-t border-[#2a2a2a] pt-4">
+          <div className="border-t border-[var(--color-border)] pt-4">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-accent">
               {lang==="en"?"Investment Arbitrage Scenario":lang==="ru"?"Сценарий арбитража":"Сценарій арбітражу"}
             </p>
@@ -571,7 +571,7 @@ function ModeHELOC({ lang }: { lang: string }) {
             </p>
           </div>
 
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[var(--color-fg-subtle)] leading-relaxed">
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] p-4 text-xs text-[var(--color-fg-subtle)] leading-relaxed">
             🇨🇦 {lang==="en"
               ? "Canadian HELOC rules: max 80% combined LTV (mortgage + HELOC), max HELOC = 65% of home value. Rate = prime + spread."
               : lang==="ru"
@@ -651,11 +651,11 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={lbl.balance} value={balance} onChange={setBalance} prefix="$" step={5000} />
           <NInput label={lbl.rate} value={rate} onChange={setRate} suffix="%" step={0.05} min={0.5} max={20} />
           <NInput label={lbl.years} value={remainingYears} onChange={setRemainingYears} step={1} min={1} max={30} />
-          <div className="border-t border-[#2a2a2a] pt-4">
+          <div className="border-t border-[var(--color-border)] pt-4">
             <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
               {lang==="en"?"Scenarios":lang==="ru"?"Сценарии":"Сценарії"}
             </p>
@@ -668,7 +668,7 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
 
         <div className="space-y-3">
           {scenarios.map((s, i) => (
-            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[#2a2a2a] bg-[#1f1f1f]":"border-[#2a2a2a] bg-[#1f1f1f] hover:border-[var(--color-brand)]/30 transition-colors duration-200 ease-[var(--ease-out)]"}`}>
+            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[var(--color-border)] bg-[var(--color-bg-card)]":"border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-brand)]/30 transition-colors duration-200 ease-[var(--ease-out)]"}`}>
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-3 w-3 rounded-full flex-shrink-0" style={{backgroundColor:s.color}} />
                 <span className="font-bold text-white text-sm">{s.label}</span>
@@ -700,7 +700,7 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
       </div>
 
       {/* Combined chart */}
-      <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
+      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5">
         <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
           {lang==="en"?"Balance comparison":lang==="ru"?"Сравнение остатков":"Порівняння залишків"}
         </p>
@@ -746,11 +746,11 @@ function ModeLenderSwitch({ lang }: { lang: string }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={lbl.balance} value={balance} onChange={setBalance} prefix="$" step={5000} />
           <NInput label={lbl.curRate} value={currentRate} onChange={setCurrentRate} suffix="%" step={0.05} min={0.5} max={20} />
           <NInput label={lbl.months} value={remainingMonths} onChange={setRemainingMonths} step={1} min={1} max={60} />
-          <div className="border-t border-[#2a2a2a] pt-4">
+          <div className="border-t border-[var(--color-border)] pt-4">
             <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
               {lang==="en"?"New offer":lang==="ru"?"Новое предложение":"Нова пропозиція"}
             </p>
@@ -765,21 +765,21 @@ function ModeLenderSwitch({ lang }: { lang: string }) {
 
         <div className="space-y-4">
           {/* Penalty comparison */}
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
               {lang==="en"?"Penalty calculation":lang==="ru"?"Расчёт штрафа":"Розрахунок штрафу"}
             </p>
             <div className="grid grid-cols-2 gap-3">
-              <div className={`rounded-lg border p-3 ${penaltyType!=="IRD"?"border-[#2a2a2a]":"border-red-500/40 bg-red-500/5"}`}>
+              <div className={`rounded-lg border p-3 ${penaltyType!=="IRD"?"border-[var(--color-border)]":"border-red-500/40 bg-red-500/5"}`}>
                 <p className="text-xs text-[var(--color-fg-subtle)]">{lbl.ird}</p>
                 <p className={`text-xl font-bold ${penaltyType==="IRD"?"text-red-400":"text-white"}`}>{C(irdPenalty)}</p>
               </div>
-              <div className={`rounded-lg border p-3 ${penaltyType!=="3-month"?"border-[#2a2a2a]":"border-red-500/40 bg-red-500/5"}`}>
+              <div className={`rounded-lg border p-3 ${penaltyType!=="3-month"?"border-[var(--color-border)]":"border-red-500/40 bg-red-500/5"}`}>
                 <p className="text-xs text-[var(--color-fg-subtle)]">{lbl.threeM}</p>
                 <p className={`text-xl font-bold ${penaltyType==="3-month"?"text-red-400":"text-white"}`}>{C(threeMonthInt)}</p>
               </div>
             </div>
-            <div className="mt-3 flex items-center justify-between rounded-lg bg-[#191919] p-3">
+            <div className="mt-3 flex items-center justify-between rounded-lg bg-[var(--color-bg)] p-3">
               <span className="text-xs text-[var(--color-fg-subtle)]">{lbl.penalty} ({lbl.type}: {penaltyType})</span>
               <span className="font-bold text-red-400">{C(penalty)}</span>
             </div>
@@ -795,7 +795,7 @@ function ModeLenderSwitch({ lang }: { lang: string }) {
             <p className={`text-sm font-bold ${worthIt?"text-green-400":"text-red-400"}`}>
               {worthIt ? "✅" : "⚠️"} {lbl.verdict}
             </p>
-            <p className="mt-2 text-sm text-[#a3a3a3]">
+            <p className="mt-2 text-sm text-[var(--color-fg-muted)]">
               {worthIt
                 ? (lang==="en"
                   ? `Worth switching. You'll recoup the ${C(penalty)} penalty in ${Math.ceil(breakEvenMonths)} months. With ${remainingMonths} months left in term, you save ${C(monthlySavings*(remainingMonths-Math.ceil(breakEvenMonths)))} net.`
@@ -866,7 +866,7 @@ function ModeAffordability({ lang }: { lang: string }) {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-5 rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+        <div className="space-y-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
           <NInput label={lbl.income} value={grossIncome} onChange={setGrossIncome} prefix="$" step={5000} />
           <NInput label={lbl.down} value={downPayment} onChange={setDownPayment} prefix="$" step={5000} />
           <NInput label={lbl.rate} value={rate} onChange={setRate} suffix="%" step={0.05} min={0.5} max={12} />
@@ -886,7 +886,7 @@ function ModeAffordability({ lang }: { lang: string }) {
           {needsCMHC && (
             <div className="rounded-xl border border-accent/30 bg-accent/5 p-4">
               <p className="text-xs font-bold uppercase tracking-wider text-accent">CMHC</p>
-              <p className="mt-1 text-sm text-[#a3a3a3]">
+              <p className="mt-1 text-sm text-[var(--color-fg-muted)]">
                 {lang==="en"
                   ? `Down payment < 20% → CMHC insurance ${C(cmhcData.premium)} (${P(cmhcData.pct * 100)} of mortgage) added to mortgage.`
                   : lang==="ru"
@@ -896,14 +896,14 @@ function ModeAffordability({ lang }: { lang: string }) {
             </div>
           )}
 
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[var(--color-fg-subtle)]">
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] p-4 text-xs text-[var(--color-fg-subtle)]">
             {lbl.stressNote}: {P(sRate)} | GDS ≤ 39% | {lang==="en"?"Based on":"На основі"} ${(grossIncome/12).toFixed(0)}/mo
           </div>
         </div>
       </div>
 
       {/* Rate sensitivity table */}
-      <div className="rounded-2xl border border-[#2a2a2a] overflow-hidden">
+      <div className="rounded-2xl border border-[var(--color-border)] overflow-hidden">
         <div className="bg-[#1a1a1a] px-5 py-3">
           <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{lbl.table}</p>
         </div>
@@ -928,7 +928,7 @@ function ModeAffordability({ lang }: { lang: string }) {
             {rateTable.map(row => {
               const isCurrent = Math.abs(row.rate - rate) < 0.01;
               return (
-                <tr key={row.rate} className={`border-t border-[#1f1f1f] ${isCurrent?"bg-[var(--color-brand)]/5":""}`}>
+                <tr key={row.rate} className={`border-t border-[var(--color-bg-card)] ${isCurrent?"bg-[var(--color-brand)]/5":""}`}>
                   <td className="px-5 py-3">
                     <span className={`font-bold ${isCurrent?"text-[var(--color-brand)]":"text-white"}`}>{P(row.rate)}</span>
                     {isCurrent && <span className="ml-2 text-[9px] font-bold uppercase text-[var(--color-brand)]">
@@ -937,7 +937,7 @@ function ModeAffordability({ lang }: { lang: string }) {
                   </td>
                   <td className="px-5 py-3 text-[var(--color-fg-subtle)] text-sm">{P(stressRate(row.rate))}</td>
                   <td className="px-5 py-3 text-right font-bold text-white">{C(row.maxPrice)}</td>
-                  <td className="px-5 py-3 text-right text-sm text-[#a3a3a3]">{C(row.maxMortgage)}</td>
+                  <td className="px-5 py-3 text-right text-sm text-[var(--color-fg-muted)]">{C(row.maxMortgage)}</td>
                 </tr>
               );
             })}
@@ -992,9 +992,9 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
   const ActiveComponent = MODES[activeMode].component;
 
   return (
-    <main className="min-h-screen bg-[#191919] text-white antialiased">
+    <main className="min-h-screen bg-[var(--color-bg)] text-white antialiased">
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`} aria-label="SkyFort home"><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -1023,7 +1023,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
             {t.kicker}
           </p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{t.title}</h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#a3a3a3] md:text-lg">{t.sub}</p>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-fg-muted)] md:text-lg">{t.sub}</p>
           <div className="mt-8 max-w-2xl">
             <TldrBlock
               label={t.tldrLabel}
@@ -1036,7 +1036,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
       </section>
 
       {/* MODE TABS */}
-      <div className="sticky top-[65px] z-40 border-b border-[#2a2a2a] bg-[#191919]/95 backdrop-blur-xl">
+      <div className="sticky top-[65px] z-40 border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6">
           <div className="flex overflow-x-auto scrollbar-hide gap-0">
             {t.tabs.map((tab, i) => (
@@ -1046,7 +1046,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
                 className={`flex-shrink-0 px-4 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-[color,border-color] duration-200 ease-[var(--ease-out)] whitespace-nowrap ${
                   activeMode === i
                     ? "border-[var(--color-brand)] text-white"
-                    : "border-transparent text-[var(--color-fg-subtle)] hover:text-[#a3a3a3]"
+                    : "border-transparent text-[var(--color-fg-subtle)] hover:text-[var(--color-fg-muted)]"
                 }`}
               >
                 {tab}
@@ -1065,7 +1065,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden border-t border-[#2a2a2a] py-20 md:py-28">
+      <section className="relative overflow-hidden border-t border-[var(--color-border)] py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-brand)] opacity-[0.07] blur-3xl" />
         </div>
@@ -1075,7 +1075,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
              :lang==="ru"?"Цифры ясны. Теперь стратегия."
              :"Цифри зрозумілі. Далі — стратегія."}
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-base text-[#a3a3a3]">{t.ctaSub}</p>
+          <p className="mx-auto mt-5 max-w-xl text-base text-[var(--color-fg-muted)]">{t.ctaSub}</p>
           <a href={CALENDLY} target="_blank" rel="noopener"
             className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]">
             {t.cta}
@@ -1085,7 +1085,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
       </section>
 
       {/* DISCLAIMER */}
-      <footer className="border-t border-[#2a2a2a] py-8">
+      <footer className="border-t border-[var(--color-border)] py-8">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{t.disclaimer}</p>
         </div>

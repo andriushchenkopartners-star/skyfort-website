@@ -17,7 +17,7 @@ const FireChart = dynamic(() => import("./chart"), {
   ssr: false,
   loading: () => (
     <div
-      className="h-[460px] w-full animate-pulse rounded-xl border border-[#2a2a2a] bg-[#1f1f1f]"
+      className="h-[460px] w-full animate-pulse rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)]"
       aria-label="Loading chart"
     />
   ),
@@ -393,9 +393,9 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
   };
 
   return (
-    <main className="min-h-screen bg-[#191919] text-white antialiased">
+    <main className="min-h-screen bg-[var(--color-bg)] text-white antialiased">
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`} aria-label="SkyFort home">
             <Logo variant="full" />
@@ -428,7 +428,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
           <h1 className="font-display-tight text-4xl text-white md:text-6xl lg:text-7xl">
             {content.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#a3a3a3] md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-fg-muted)] md:text-xl">
             {content.sub}
           </p>
           <div className="mt-8 max-w-2xl">
@@ -447,9 +447,9 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.5fr]">
             {/* LEFT — INPUTS */}
-            <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-7">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7">
               {/* Presets */}
-              <div className="mb-6 border-b border-[#2a2a2a] pb-6">
+              <div className="mb-6 border-b border-[var(--color-border)] pb-6">
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {content.presets.title}
                 </p>
@@ -462,10 +462,10 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                     <button
                       key={key}
                       onClick={() => applyPreset(key)}
-                      className="flex items-center gap-3 rounded-lg border border-[#3a3a3a] px-4 py-2.5 text-left text-sm transition-[transform,border-color,background-color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:bg-[var(--color-brand)]/5 active:scale-[0.98]"
+                      className="flex items-center gap-3 rounded-lg border border-[var(--color-border-strong)] px-4 py-2.5 text-left text-sm transition-[transform,border-color,background-color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:bg-[var(--color-brand)]/5 active:scale-[0.98]"
                     >
                       <span className="text-lg">{icon}</span>
-                      <span className="font-bold text-[#a3a3a3]">{content.presets[key]}</span>
+                      <span className="font-bold text-[var(--color-fg-muted)]">{content.presets[key]}</span>
                     </button>
                   ))}
                 </div>
@@ -479,7 +479,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
               </div>
 
               {/* Live derived */}
-              <div className="mt-6 border-t border-[#2a2a2a] pt-5">
+              <div className="mt-6 border-t border-[var(--color-border)] pt-5">
                 {negativeSavings ? (
                   <p className="text-sm leading-relaxed text-[#ff6b6b]">
                     {content.negativeSavings}
@@ -506,13 +506,13 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
               </p>
               <div className="grid gap-4 md:grid-cols-2">
                 {/* Safe */}
-                <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
-                  <p className="text-xs uppercase tracking-wider text-[#a3a3a3]">{content.fiSafe}</p>
+                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
+                  <p className="text-xs uppercase tracking-wider text-[var(--color-fg-muted)]">{content.fiSafe}</p>
                   <p className="mt-3 font-display-tight text-3xl text-white md:text-4xl">{formatMoney(fiSafe)}</p>
                   <p className="mt-3 text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.fiSafeDesc}</p>
                 </div>
                 {/* Standard */}
-                <div className="relative overflow-hidden rounded-2xl border border-[var(--color-brand)]/40 bg-gradient-to-br from-[#1f1f1f] to-[#222] p-6">
+                <div className="relative overflow-hidden rounded-2xl border border-[var(--color-brand)]/40 bg-gradient-to-br from-[var(--color-bg-card)] to-[var(--color-bg-elevated)] p-6">
                   <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[var(--color-brand)] opacity-10 blur-3xl" />
                   <p className="text-xs uppercase tracking-wider text-[var(--color-brand)]">{content.fiStandard}</p>
                   <p className="mt-3 font-display-tight text-3xl text-[var(--color-brand)] md:text-4xl">{formatMoney(fiStandard)}</p>
@@ -522,7 +522,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
 
               {/* Your plan summary */}
               {!negativeSavings && (
-                <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
+                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
                   <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.yourPlan}</p>
                   <div className="mt-4 grid grid-cols-2 gap-4">
                     <div>
@@ -544,7 +544,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                     <Sparkles className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" />
                     <div>
                       <h3 className="font-display text-lg text-white">{content.insightTitle}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-[#a3a3a3]">
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--color-fg-muted)]">
                         {content.insightDescBefore} <span className="font-bold text-white">{formatYears(balancedYears, lang)} {lang === "en" ? "years" : "років"}</span>.{" "}
                         {content.insightDescAfter} <span className="font-bold text-accent">{formatYears(yearsSavedByExempt, lang)} {lang === "en" ? "years" : "років"}</span>.
                       </p>
@@ -563,9 +563,9 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
         <section className="pb-16">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="font-display text-3xl text-white md:text-4xl">{content.comparisonTitle}</h2>
-            <p className="mt-2 text-sm text-[#a3a3a3]">{content.comparisonSub}</p>
+            <p className="mt-2 text-sm text-[var(--color-fg-muted)]">{content.comparisonSub}</p>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-[#2a2a2a]">
+            <div className="mt-8 overflow-hidden rounded-2xl border border-[var(--color-border)]">
               <table className="w-full">
                 <thead className="bg-[#1a1a1a]">
                   <tr>
@@ -583,7 +583,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                     return (
                       <tr
                         key={s.key}
-                        className={`border-t border-[#2a2a2a] ${
+                        className={`border-t border-[var(--color-border)] ${
                           isExempt ? "bg-accent/5" : isBalanced ? "bg-[var(--color-brand)]/5" : ""
                         }`}
                       >
@@ -606,7 +606,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                         <td className="px-5 py-4 text-right font-display text-lg text-white">
                           {formatYears(s.years, lang)}
                         </td>
-                        <td className="px-5 py-4 text-right text-sm text-[#a3a3a3]">{s.date}</td>
+                        <td className="px-5 py-4 text-right text-sm text-[var(--color-fg-muted)]">{s.date}</td>
                         <td className="px-5 py-4 text-right text-sm">
                           {diff === null || !isFinite(diff) ? (
                             <span className="text-[var(--color-fg-subtle)]">—</span>
@@ -632,7 +632,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
       {!negativeSavings && (
         <section className="pb-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-4 md:p-6">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 md:p-6">
               <FireChart
                 data={chartData}
                 labels={content.chartLabels}
@@ -646,18 +646,18 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
       )}
 
       {/* CTA */}
-      <section className="relative overflow-hidden border-t border-[#2a2a2a] py-24 md:py-32">
+      <section className="relative overflow-hidden border-t border-[var(--color-border)] py-24 md:py-32">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-[0.08] blur-3xl" />
         </div>
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-display-tight text-4xl text-white md:text-6xl">{content.ctaTitle}</h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-[#a3a3a3]">{content.ctaSub}</p>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-[var(--color-fg-muted)]">{content.ctaSub}</p>
           <a
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener"
-            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#191919] transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-hover active:scale-[0.98]"
+            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-bold uppercase tracking-wider text-[var(--color-bg)] transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-hover active:scale-[0.98]"
           >
             {content.ctaBtn}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -666,7 +666,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
       </section>
 
       {/* DISCLAIMER */}
-      <footer className="border-t border-[#2a2a2a] py-10">
+      <footer className="border-t border-[var(--color-border)] py-10">
         <div className="mx-auto max-w-3xl px-6">
           <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.disclaimer}</p>
         </div>
@@ -713,13 +713,13 @@ function NumberInput({
 
   return (
     <div>
-      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
+      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[var(--color-fg-muted)]">
         {label}
       </label>
       <div className="flex items-center gap-2">
         <button
           onClick={decrement}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-xl text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Decrease"
         >
           −
@@ -735,7 +735,7 @@ function NumberInput({
             inputMode="numeric"
             value={value}
             onChange={handleChange}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-3 text-center font-display text-xl text-white outline-none transition-colors duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] ${
+            className={`w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg)] py-3 text-center font-display text-xl text-white outline-none transition-colors duration-150 ease-[var(--ease-out)] focus:border-[var(--color-brand)] ${
               prefix ? "pl-8" : ""
             } ${suffix ? "pr-8" : ""}`}
           />
@@ -747,7 +747,7 @@ function NumberInput({
         </div>
         <button
           onClick={increment}
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-xl text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-[var(--color-border-strong)] text-xl text-[var(--color-fg-muted)] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95"
           aria-label="Increase"
         >
           +

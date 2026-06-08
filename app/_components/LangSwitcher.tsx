@@ -43,7 +43,7 @@ export default function LangSwitcher({ locale, compact = false, className = "", 
     <div
       role="group"
       aria-label="Language"
-      className={`flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1 ${className}`}
+      className={`flex items-center gap-0 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-1 ${className}`}
     >
       {!compact && (
         <Globe className="ml-2 h-3.5 w-3.5 text-[var(--color-fg-subtle)]" aria-hidden="true" />
@@ -57,7 +57,7 @@ export default function LangSwitcher({ locale, compact = false, className = "", 
           className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${
             locale === l.code
               ? "bg-[var(--color-brand)] text-white"
-              : "text-[#a3a3a3] hover:text-white"
+              : "text-[var(--color-fg-muted)] hover:text-white"
           }`}
         >
           {l.label}
