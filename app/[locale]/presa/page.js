@@ -247,7 +247,7 @@ export default async function PressPage({ params }) {
         <section className="mt-8 pb-24">
           <h2 className="font-display text-3xl text-white md:text-4xl">{c.boilerplateTitle}</h2>
           <div className="mt-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 md:p-8">
-            <p className="text-base leading-relaxed text-[#c4c4c4]">{c.boilerplate}</p>
+            <p className="text-base leading-relaxed text-[var(--color-fg-body)]">{c.boilerplate}</p>
             <a
               href={NRD_URL}
               target="_blank"

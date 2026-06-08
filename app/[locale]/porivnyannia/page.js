@@ -574,7 +574,7 @@ export default async function PorivnyanniaPage({ params }) {
         <header className="mt-10 pb-8">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.kicker}</p>
           <h1 className="font-display-tight text-5xl text-white md:text-7xl">{c.title}</h1>
-          <p className="mt-4 text-2xl font-bold text-[#c4c4c4] md:text-3xl">{c.subtitle}</p>
+          <p className="mt-4 text-2xl font-bold text-[var(--color-fg-body)] md:text-3xl">{c.subtitle}</p>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
         <div className="mb-12 max-w-3xl">
@@ -634,7 +634,7 @@ export default async function PorivnyanniaPage({ params }) {
                           <Icon className="h-3.5 w-3.5 text-[var(--color-brand)]" aria-hidden="true" />
                           {c.aspectLabels[key]}
                         </dt>
-                        <dd className="text-sm leading-relaxed text-[#c4c4c4]">{lic[key]}</dd>
+                        <dd className="text-sm leading-relaxed text-[var(--color-fg-body)]">{lic[key]}</dd>
                       </div>
                     );
                   })}
@@ -681,7 +681,7 @@ export default async function PorivnyanniaPage({ params }) {
                       )}
                       <p className="text-base font-semibold text-white">{item.scenario}</p>
                     </div>
-                    <p className={`text-sm leading-relaxed ${isMe ? "text-white" : "text-[#c4c4c4]"}`}>
+                    <p className={`text-sm leading-relaxed ${isMe ? "text-white" : "text-[var(--color-fg-body)]"}`}>
                       <span className="font-bold text-[var(--color-brand)]">→</span> {item.answer}
                     </p>
                   </div>
@@ -697,7 +697,7 @@ export default async function PorivnyanniaPage({ params }) {
             <div className="grid items-center gap-6 md:grid-cols-[1.4fr_auto]">
               <div>
                 <h3 className="font-display text-2xl text-white md:text-3xl">{c.eligibilityPromoTitle}</h3>
-                <p className="mt-3 text-base leading-relaxed text-[#c4c4c4]">{c.eligibilityPromoBody}</p>
+                <p className="mt-3 text-base leading-relaxed text-[var(--color-fg-body)]">{c.eligibilityPromoBody}</p>
               </div>
               <Link
                 href={`/${locale}/eligibility`}

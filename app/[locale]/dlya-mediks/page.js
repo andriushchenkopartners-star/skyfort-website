@@ -503,7 +503,7 @@ export default async function MediksPillarPage({ params }) {
         <header className="mt-10 pb-10">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.eyebrow}</p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{c.title}</h1>
-          <p className="mt-4 text-xl font-bold text-[#c4c4c4] md:text-2xl">{c.subtitle}</p>
+          <p className="mt-4 text-xl font-bold text-[var(--color-fg-body)] md:text-2xl">{c.subtitle}</p>
           <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
         </header>
 
@@ -532,7 +532,7 @@ export default async function MediksPillarPage({ params }) {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h2 className="font-display text-xl text-white md:text-2xl">{s.title}</h2>
-                    <p className="mt-3 text-base leading-relaxed text-[#c4c4c4]">{s.body}</p>
+                    <p className="mt-3 text-base leading-relaxed text-[var(--color-fg-body)]">{s.body}</p>
                   </div>
                 </div>
               </article>
@@ -548,7 +548,7 @@ export default async function MediksPillarPage({ params }) {
             {c.roadmap.map((step, i) => (
               <li key={i} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5">
                 <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">{step.month}</div>
-                <p className="mt-2 text-sm text-[#c4c4c4]">{step.action}</p>
+                <p className="mt-2 text-sm text-[var(--color-fg-body)]">{step.action}</p>
               </li>
             ))}
           </ol>
@@ -572,7 +572,7 @@ export default async function MediksPillarPage({ params }) {
             {c.scenarios.map((s, i) => (
               <li key={i} className="rounded-2xl border border-[var(--color-brand)]/30 bg-gradient-to-br from-[var(--color-bg-card)] to-[#1a2d4a] p-6">
                 <div className="font-bold text-white">{s.name}</div>
-                <p className="mt-3 text-sm leading-relaxed text-[#c4c4c4]">{s.breakdown}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-body)]">{s.breakdown}</p>
               </li>
             ))}
           </ul>

@@ -9,6 +9,7 @@
 
   /* ─── text ──────────────────────────────────────────────────────── */
   --color-fg: #fafafa;
+  --color-fg-body: #c4c4c4;     /* long-form reading copy — brighter than muted for sustained reading on content pages */
   --color-fg-muted: #a3a3a3;
   --color-fg-subtle: #7a7a7a;   /* nudged up from #6b6b6b for AA contrast on dark bg */
   --color-fg-inverse: #0a0a0a;
@@ -79,6 +80,7 @@
 
   /* text */
   --color-fg: var(--color-fg);
+  --color-fg-body: var(--color-fg-body);
   --color-fg-muted: var(--color-fg-muted);
   --color-fg-subtle: var(--color-fg-subtle);
   --color-fg-inverse: var(--color-fg-inverse);

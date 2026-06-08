@@ -316,7 +316,7 @@ export default async function PerevirkaPage({ params }) {
             <ShieldCheck className="mt-1 h-6 w-6 flex-shrink-0 text-[var(--color-brand)]" aria-hidden="true" />
             <div>
               <h2 className="font-display text-2xl text-white md:text-3xl">{c.whyTitle}</h2>
-              <p className="mt-4 text-base leading-relaxed text-[#c4c4c4]">{c.whyText}</p>
+              <p className="mt-4 text-base leading-relaxed text-[var(--color-fg-body)]">{c.whyText}</p>
             </div>
           </div>
         </section>
@@ -342,7 +342,7 @@ export default async function PerevirkaPage({ params }) {
                         <span className="font-display text-3xl text-[var(--color-brand)]">{step.n}</span>
                         <h3 className="font-display text-xl text-white md:text-2xl">{step.title}</h3>
                       </div>
-                      <p className="mt-3 text-base leading-relaxed text-[#c4c4c4]">{step.body}</p>
+                      <p className="mt-3 text-base leading-relaxed text-[var(--color-fg-body)]">{step.body}</p>
                       <div className="mt-5 flex flex-wrap items-center gap-3">
                         <a
                           href={step.ctaUrl}

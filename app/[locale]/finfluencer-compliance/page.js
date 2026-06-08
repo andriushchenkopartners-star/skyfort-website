@@ -411,7 +411,7 @@ export default async function FinfluencerCompliancePage({ params }) {
         <header className="mt-10 pb-10">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.eyebrow}</p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{c.title}</h1>
-          <p className="mt-4 text-xl font-bold text-[#c4c4c4] md:text-2xl">{c.subtitle}</p>
+          <p className="mt-4 text-xl font-bold text-[var(--color-fg-body)] md:text-2xl">{c.subtitle}</p>
           <p className="mt-7 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
           <div className="mt-7 flex flex-wrap items-center gap-4 text-sm">
             <a
@@ -464,7 +464,7 @@ export default async function FinfluencerCompliancePage({ params }) {
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-display text-xl text-white md:text-2xl">{s.title}</h3>
-                      <p className="mt-3 text-base leading-relaxed text-[#c4c4c4]">{s.body}</p>
+                      <p className="mt-3 text-base leading-relaxed text-[var(--color-fg-body)]">{s.body}</p>
                     </div>
                   </div>
                 </article>
@@ -492,7 +492,7 @@ export default async function FinfluencerCompliancePage({ params }) {
                     className="border-b border-[var(--color-border)] last:border-b-0"
                   >
                     <td className="px-5 py-4 font-semibold text-white">{row.aspect}</td>
-                    <td className="px-5 py-4 text-[#c4c4c4]">{row.licensed}</td>
+                    <td className="px-5 py-4 text-[var(--color-fg-body)]">{row.licensed}</td>
                     <td className="px-5 py-4 text-[var(--color-fg-muted)]">{row.unlicensed}</td>
                   </tr>
                 ))}

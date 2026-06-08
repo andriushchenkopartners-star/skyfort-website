@@ -340,7 +340,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
             </h3>
             <ul className="mt-6 space-y-4">
               {c.canDo.map((item, i) => (
-                <li key={i} className="flex gap-3 text-sm leading-relaxed text-[#c4c4c4]">
+                <li key={i} className="flex gap-3 text-sm leading-relaxed text-[var(--color-fg-body)]">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-400" />
                   <span>{item}</span>
                 </li>
@@ -353,7 +353,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
             </h3>
             <ul className="mt-6 space-y-4">
               {c.cantDo.map((item, i) => (
-                <li key={i} className="flex gap-3 text-sm leading-relaxed text-[#c4c4c4]">
+                <li key={i} className="flex gap-3 text-sm leading-relaxed text-[var(--color-fg-body)]">
                   <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-fg-subtle)]" />
                   <span>{item}</span>
                 </li>

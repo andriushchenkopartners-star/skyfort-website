@@ -69,7 +69,7 @@ export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale })
                 {c.eyebrow}
               </p>
               <h2 className="font-display-tight text-3xl text-white md:text-5xl">{c.title}</h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-[#c4c4c4] md:text-lg">{c.body}</p>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--color-fg-body)] md:text-lg">{c.body}</p>
               <Link
                 href={`/${locale}/eligibility`}
                 className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
@@ -86,7 +86,7 @@ export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale })
                 {[c.bullet1, c.bullet2, c.bullet3].map((b, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-3 text-sm text-[#c4c4c4]"
+                    className="flex items-start gap-3 text-sm text-[var(--color-fg-body)]"
                   >
                     <span className="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-brand)]" />
                     <span>{b}</span>

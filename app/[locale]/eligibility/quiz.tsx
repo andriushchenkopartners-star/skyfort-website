@@ -454,7 +454,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
             <ShieldCheck className="mt-1 h-6 w-6 flex-shrink-0 text-[var(--color-brand)]" aria-hidden="true" />
             <div>
               <h2 className="font-display text-xl text-white md:text-2xl">{c.intro.whyTitle}</h2>
-              <p className="mt-4 text-sm leading-relaxed text-[#c4c4c4]">{c.intro.whyText}</p>
+              <p className="mt-4 text-sm leading-relaxed text-[var(--color-fg-body)]">{c.intro.whyText}</p>
               <p className="mt-3 text-xs text-[var(--color-fg-subtle)]">{c.intro.privacyNote}</p>
             </div>
           </div>
@@ -515,7 +515,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
                   }`}
                   aria-pressed={isSelected}
                 >
-                  <span className={`font-semibold ${isSelected ? "text-white" : "text-[#c4c4c4]"}`}>
+                  <span className={`font-semibold ${isSelected ? "text-white" : "text-[var(--color-fg-body)]"}`}>
                     {opt.label}
                   </span>
                   <span
@@ -602,13 +602,13 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
           </div>
         </div>
 
-        <p className="mt-7 text-lg leading-relaxed text-[#c4c4c4]">{r.oneLine}</p>
+        <p className="mt-7 text-lg leading-relaxed text-[var(--color-fg-body)]">{r.oneLine}</p>
 
         <div className="mt-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] p-5 md:p-6">
           <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
             {locale === "en" ? "What it means" : locale === "ru" ? "Что это значит" : "Що це означає"}
           </h3>
-          <p className="mt-3 text-sm leading-relaxed text-[#c4c4c4]">{r.whatItMeans}</p>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--color-fg-body)]">{r.whatItMeans}</p>
         </div>
 
         <div className="mt-6 rounded-2xl border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/5 p-5 md:p-6">
