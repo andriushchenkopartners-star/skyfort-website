@@ -174,11 +174,11 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
                 >
                   <cta.icon size={20} />
                 </span>
-                <span className="flex flex-col gap-0.5 flex-1">
-                  <span className="text-[var(--color-fg)] text-base md:text-lg font-semibold leading-tight">
+                <span className="flex flex-col gap-0.5 flex-1 min-w-0">
+                  <span className="text-[var(--color-fg)] text-base md:text-lg font-semibold leading-tight whitespace-normal">
                     {cta.title}
                   </span>
-                  <span className="text-[var(--color-fg-muted)] text-sm font-normal leading-snug">
+                  <span className="text-[var(--color-fg-muted)] text-sm font-normal leading-snug whitespace-normal">
                     {cta.subtitle}
                   </span>
                 </span>
