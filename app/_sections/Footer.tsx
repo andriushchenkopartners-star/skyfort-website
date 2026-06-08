@@ -40,22 +40,22 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
   // audit (May 28, 2026). Pass locale explicitly to remove the guesswork.
   const l = LEGAL_LINKS[locale] || LEGAL_LINKS.uk;
   return (
-    <footer className="border-t border-[#2a2a2a] bg-[#191919] pt-24 pb-12">
+    <footer className="border-t border-[var(--color-border)] bg-[var(--color-bg)] pt-24 pb-12">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
             <Logo variant="mark" />
-            <p className="mt-4 text-sm text-[#6b6b6b]">{content.footer.tagline}</p>
+            <p className="mt-4 text-sm text-[var(--color-fg-subtle)]">{content.footer.tagline}</p>
           </div>
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#6b6b6b]">
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-fg-subtle)]">
               {content.footer.contactTitle}
             </h3>
-            <ul className="space-y-3 text-sm text-[#a3a3a3]">
+            <ul className="space-y-3 text-sm text-[var(--color-fg-muted)]">
               <li>
                 <a
                   href={`mailto:${CONFIG.email}`}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                  className="inline-flex items-center gap-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                 >
                   <Mail className="h-3.5 w-3.5" aria-hidden="true" />
                   {CONFIG.email}
@@ -64,7 +64,7 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
               <li>
                 <a
                   href={`tel:${CONFIG.phone.replace(/\D/g, "")}`}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                  className="inline-flex items-center gap-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                 >
                   <Phone className="h-3.5 w-3.5" aria-hidden="true" />
                   {CONFIG.phone}
@@ -75,7 +75,7 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
                   href={CONFIG.tiktok}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                  className="inline-flex items-center gap-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                 >
                   <TikTokIcon className="h-3.5 w-3.5" />
                   TikTok · {CONFIG.tiktokHandle}
@@ -89,7 +89,7 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
                     href={CONFIG.instagram}
                     target="_blank"
                     rel="noopener"
-                    className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                    className="inline-flex items-center gap-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                   >
                     <AtSign className="h-3.5 w-3.5" aria-hidden="true" />
                     Instagram
@@ -101,7 +101,7 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
                   href={CONFIG.telegram}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-[var(--color-brand)]"
+                  className="inline-flex items-center gap-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                 >
                   <Send className="h-3.5 w-3.5" aria-hidden="true" />
                   Telegram
@@ -110,22 +110,22 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
             </ul>
           </div>
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#6b6b6b]">
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-fg-subtle)]">
               {content.footer.legalTitle}
             </h3>
-            <p className="text-xs leading-relaxed text-[#6b6b6b]">
+            <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">
               {content.footer.disclaimer}
             </p>
             {content.footer.finfluencerNote && (
-              <p className="mt-3 border-t border-[#2a2a2a] pt-3 text-[11px] leading-relaxed text-[#6b6b6b]">
+              <p className="mt-3 border-t border-[var(--color-border)] pt-3 text-[11px] leading-relaxed text-[var(--color-fg-subtle)]">
                 {content.footer.finfluencerNote}
               </p>
             )}
           </div>
         </div>
-        <div className="mt-16 border-t border-[#2a2a2a] pt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="text-xs text-[#6b6b6b]">{content.footer.rights}</div>
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#a3a3a3]">
+        <div className="mt-16 border-t border-[var(--color-border)] pt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="text-xs text-[var(--color-fg-subtle)]">{content.footer.rights}</div>
+          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--color-fg-muted)]">
             <Link href={`/${locale}/contact`} className="inline-flex items-center gap-1 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]">
               <MapPin className="h-3 w-3" aria-hidden="true" />
               {l.contact}
