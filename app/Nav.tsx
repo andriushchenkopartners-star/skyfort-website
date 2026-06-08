@@ -233,6 +233,7 @@ export default function Nav() {
       <nav
         id="sf-nav-panel"
         aria-hidden={!open}
+        inert={!open}
         className={`fixed right-0 top-0 z-[1001] flex h-[100dvh] w-[min(82vw,340px)] flex-col border-l border-white/10 bg-[#161616] px-7 pb-10 pt-[88px] transition-transform duration-300 ease-[var(--ease-out)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
