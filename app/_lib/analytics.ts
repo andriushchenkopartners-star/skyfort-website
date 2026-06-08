@@ -1,15 +1,33 @@
 // Centralized event tracking. Safe to call before GA loads — events queue in dataLayer.
 // Use these helpers everywhere instead of calling gtag directly.
 
-// Global gtag/clarity types — narrow declarations for the two surfaces we use.
+// Global gtag/clarity/ttq types — narrow declarations for the surfaces we use.
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
     clarity?: (...args: unknown[]) => void;
+    ttq?: {
+      track: (event: string, params?: Record<string, unknown>) => void;
+      page: () => void;
+      [key: string]: unknown;
+    };
   }
 }
 
 export type EventParams = Record<string, unknown>;
+
+// Map our internal event names → TikTok standard events. Only funnel-critical
+// conversions are forwarded so the pixel signal stays clean for retargeting +
+// lookalike audiences; GA4 still receives every event. The keys are the actual
+// event names already fired across the app (email_subscribe, booking_confirmed,
+// etc.), so the whole funnel is instrumented with no per-CTA changes.
+const TIKTOK_EVENTS: Record<string, string> = {
+  email_subscribe: "CompleteRegistration", // lead captured (newsletter / magnet)
+  booking_confirmed: "SubmitForm", // call actually booked — strongest signal
+  book_call_click: "Contact",
+  eligibility_quiz_cta_calendly: "Contact",
+  whatsapp_click: "Contact",
+};
 
 export function track(eventName: string, params: EventParams = {}): void {
   if (typeof window === "undefined") return;
@@ -19,6 +37,11 @@ export function track(eventName: string, params: EventParams = {}): void {
   // Microsoft Clarity custom event (it auto-tracks most things, but custom tags help segmentation)
   if (typeof window.clarity === "function") {
     window.clarity("set", eventName, JSON.stringify(params));
+  }
+  // TikTok Pixel standard event (only for mapped conversions; pixel may be absent)
+  const ttEvent = TIKTOK_EVENTS[eventName];
+  if (ttEvent && window.ttq && typeof window.ttq.track === "function") {
+    window.ttq.track(ttEvent, params as Record<string, unknown>);
   }
 }
 
