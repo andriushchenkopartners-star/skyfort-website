@@ -243,9 +243,9 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
   const c = t[locale];
 
   return (
-    <div id="main" className="min-h-screen bg-[#191919] text-white">
+    <div id="main" className="min-h-screen bg-[var(--color-bg)] text-white">
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#2a2a2a] bg-[#191919]/80 backdrop-blur-xl">
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href={`/${locale}`}><Logo variant="full" /></Link>
           <LangSwitcher locale={locale} />
@@ -274,7 +274,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
               height={800}
               priority
               sizes="(min-width: 768px) 50vw, 384px"
-              className="h-auto w-full rounded-3xl border border-[#2a2a2a] object-cover"
+              className="h-auto w-full rounded-3xl border border-[var(--color-border)] object-cover"
             />
           </div>
           <div>
@@ -283,7 +283,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
             <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/10 px-4 py-2 text-sm font-semibold text-[#7eaef5]">
               <ShieldCheck className="h-4 w-4" /> {c.role}
             </p>
-            <p className="mt-6 text-lg leading-relaxed text-[#a3a3a3]">{c.intro}</p>
+            <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
           </div>
         </div>
       </section>
@@ -293,30 +293,30 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
         <h2 className="font-display text-4xl leading-[0.95] text-white md:text-5xl">{c.storyTitle}</h2>
         <div className="mt-8 space-y-5">
           {c.story.map((p, i) => (
-            <p key={i} className="text-lg leading-relaxed text-[#a3a3a3]">{p}</p>
+            <p key={i} className="text-lg leading-relaxed text-[var(--color-fg-muted)]">{p}</p>
           ))}
         </div>
       </section>
 
       {/* CREDENTIALS */}
       <section className="mx-auto max-w-4xl px-6 py-16">
-        <div className="rounded-3xl border border-[#2a2a2a] bg-[#1f1f1f] p-8 md:p-12">
+        <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-8 md:p-12">
           <h2 className="font-display text-3xl text-white md:text-4xl">{c.credTitle}</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credRegLabel}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{c.credRegLabel}</p>
               <p className="mt-1 text-base text-white">{c.credReg}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credFirmLabel}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{c.credFirmLabel}</p>
               <p className="mt-1 text-base text-white">{c.credFirm}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credNrdLabel}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{c.credNrdLabel}</p>
               <p className="mt-1 text-base font-bold text-[var(--color-brand)]">NRD #4575551</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{c.credCourseLabel}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{c.credCourseLabel}</p>
               <p className="mt-1 text-base text-white">{c.credCourse}</p>
             </div>
           </div>
@@ -347,19 +347,19 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl border border-[#3a3a3a] bg-[#1f1f1f] p-8">
+          <div className="rounded-3xl border border-[var(--color-border-strong)] bg-[var(--color-bg-card)] p-8">
             <h3 className="flex items-center gap-2 font-display text-2xl text-white">
-              <XCircle className="h-6 w-6 text-[#6b6b6b]" /> {c.cantTitle}
+              <XCircle className="h-6 w-6 text-[var(--color-fg-subtle)]" /> {c.cantTitle}
             </h3>
             <ul className="mt-6 space-y-4">
               {c.cantDo.map((item, i) => (
                 <li key={i} className="flex gap-3 text-sm leading-relaxed text-[#c4c4c4]">
-                  <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#6b6b6b]" />
+                  <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-fg-subtle)]" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 border-t border-[#2a2a2a] pt-4 text-xs leading-relaxed text-[#6b6b6b]">{c.cantNote}</p>
+            <p className="mt-6 border-t border-[var(--color-border)] pt-4 text-xs leading-relaxed text-[var(--color-fg-subtle)]">{c.cantNote}</p>
           </div>
         </div>
       </section>
@@ -374,7 +374,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h2 className="font-display-tight text-4xl text-white md:text-6xl">{c.ctaTitle}</h2>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-[#a3a3a3]">{c.ctaDesc}</p>
+        <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--color-fg-muted)]">{c.ctaDesc}</p>
         <a
           href={CALENDLY}
           target="_blank"
