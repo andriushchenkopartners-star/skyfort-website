@@ -314,7 +314,7 @@ export default async function CraLimits2026Page({ params }) {
       <section className="px-6 pb-16">
         <div className="mx-auto max-w-3xl space-y-4">
           {LIMITS.map((l) => (
-            <article key={l.id} id={l.id} className="scroll-mt-24 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <article key={l.id} id={l.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div className="min-w-0 flex-1">
                   <h2 className="text-xl sm:text-2xl font-bold text-white">{l.name}</h2>

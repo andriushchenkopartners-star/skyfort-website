@@ -331,7 +331,7 @@ export default async function PerevirkaPage({ params }) {
                 <li
                   key={i}
                   id={`step-${i + 1}`}
-                  className="scroll-mt-32 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-8"
+                  className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-8"
                 >
                   <div className="flex items-start gap-5">
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/10">

@@ -171,7 +171,7 @@ export default async function GlossaryPage({ params }) {
               <div
                 key={t.id}
                 id={t.id}
-                className="scroll-mt-24 rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-6"
               >
                 <dt className="text-lg sm:text-xl font-bold text-white">
                   <Link

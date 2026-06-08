@@ -181,6 +181,15 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* In-page anchor navigation, centralised so individual targets don't each
+   need scroll-mt-*. scroll-padding-top clears the fixed header (~65px) plus
+   breathing room. Reduced-motion users get scroll-behavior: auto via the
+   prefers-reduced-motion block further down. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
 /* Accessibility — focus ring for keyboard users */
 *:focus-visible {
   outline: none;
