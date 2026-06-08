@@ -1,6 +1,7 @@
 import type { ComponentType, SVGProps } from "react";
 import { ArrowRight } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
+import Reveal from "../_components/Reveal";
 
 interface GuideItem {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -19,13 +20,13 @@ export default function Guides({ content }: { content: GuidesContent }) {
   return (
     <section id="guides" className="py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-16 max-w-2xl">
+        <Reveal className="reveal mb-16 max-w-2xl">
           <h2 className="font-display text-4xl leading-[0.95] text-white md:text-6xl">
             {content.guidesTitle}
           </h2>
           <p className="mt-6 text-lg text-[#a3a3a3]">{content.guidesSub}</p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        </Reveal>
+        <Reveal className="reveal-stagger grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {content.guides.map((g, i) => {
             const Icon = g.icon;
             return (
@@ -54,7 +55,7 @@ export default function Guides({ content }: { content: GuidesContent }) {
               </a>
             );
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

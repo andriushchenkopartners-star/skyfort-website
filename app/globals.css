@@ -60,8 +60,12 @@
   --shadow-brand-glow: 0 0 0 1px var(--color-brand-soft), 0 8px 24px var(--color-brand-glow);
   --shadow-focus: 0 0 0 3px rgba(45, 115, 227, 0.45);
 
-  /* ─── motion ────────────────────────────────────────────────────── */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* ─── motion ────────────────────────────────────────────────────────
+     A small easing *system* (per emil-design-eng): ease-out for things
+     entering/leaving (starts fast = feels responsive), ease-in-out for
+     elements moving on-screen. Never `transition: all`; name properties. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* strong expo-out — UI enter/exit */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);  /* on-screen movement/morph */
   --duration-fast: 0.15s;
   --duration-base: 0.25s;
   --duration-slow: 0.4s;
@@ -218,10 +222,75 @@ html, body {
 
 .animate-fade-up { animation: fadeUp 0.6s var(--ease-out); }
 
-.card-glow { transition: all var(--duration-base) var(--ease-out); }
-.card-glow:hover {
-  border-color: var(--color-brand);
-  box-shadow: var(--shadow-brand-glow);
+/* Card hover — named transitions (never `transition: all`) + a 2px lift with a
+   stronger brand glow. Hover is gated behind a real pointer so touch taps don't
+   leave the lift stuck on. */
+.card-glow {
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-glow:hover {
+    border-color: var(--color-brand);
+    box-shadow: var(--shadow-brand-glow);
+    transform: translateY(-2px);
+  }
+}
+
+/* ─── Scroll choreography ───────────────────────────────────────────────
+   Elements rise + fade into view once. _components/Reveal adds `.is-visible`
+   when the element enters the viewport (IntersectionObserver, once). GPU-only
+   (transform + opacity). transform: none after settling so no stale containing
+   block is left behind. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Stagger — direct children cascade when the container becomes visible. */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.reveal-stagger.is-visible > * { opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 300ms; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 360ms; }
+.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 420ms; }
+
+/* Above-fold hero entrance — plays once on load, staggered (MOTION_INTENSITY 7).
+   `both` fill holds the start frame during the delay so there is no flash. */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-in { opacity: 0; animation: riseIn 0.55s var(--ease-out) both; }
+.hero-in-1 { animation-delay: 0.05s; }
+.hero-in-2 { animation-delay: 0.13s; }
+.hero-in-3 { animation-delay: 0.21s; }
+.hero-in-4 { animation-delay: 0.29s; }
+.hero-in-5 { animation-delay: 0.37s; }
+
+/* Reduced motion — guarantee content is visible even if motion is off or JS is
+   slow. Overrides the hidden start states above; the global block below also
+   neutralises durations. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+  .hero-in { opacity: 1 !important; animation: none !important; }
 }
 
 ::selection {

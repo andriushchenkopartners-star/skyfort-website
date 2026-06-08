@@ -20,6 +20,7 @@ import {
 import TrustBar from "../_components/TrustBar";
 import EmailCaptureForm from "../_components/EmailCaptureForm";
 import TldrBlock from "../_components/TldrBlock";
+import Reveal from "../_components/Reveal";
 import { dictionary as t, resolveLocale } from "../_i18n/dictionary";
 
 export default function SkyFortLanding({ params }) {
@@ -40,14 +41,14 @@ export default function SkyFortLanding({ params }) {
           pageUrl={`https://sky-fort.ca/${locale}`}
         />
       </section>
-      <Stats content={content} />
-      <About content={content} />
+      <Reveal><Stats content={content} /></Reveal>
+      <Reveal><About content={content} /></Reveal>
       <Guides content={content} />
-      <CalcPromo content={content} locale={locale} />
-      <FireCalcPromo locale={locale} />
-      <MortgagePromo locale={locale} />
-      <Steps content={content} />
-      <EligibilityPromo locale={locale} />
+      <Reveal><CalcPromo content={content} locale={locale} /></Reveal>
+      <Reveal><FireCalcPromo locale={locale} /></Reveal>
+      <Reveal><MortgagePromo locale={locale} /></Reveal>
+      <Reveal><Steps content={content} /></Reveal>
+      <Reveal><EligibilityPromo locale={locale} /></Reveal>
 
       {/* Email capture — між Steps і FAQ, ~30% scroll */}
       <section className="border-y border-[#2a2a2a] bg-[#1f1f1f] py-20 md:py-28">
@@ -61,9 +62,9 @@ export default function SkyFortLanding({ params }) {
         </div>
       </section>
 
-      <Faq content={content} />
-      <Testimonials locale={locale} />
-      <FinalCta content={content} />
+      <Reveal><Faq content={content} /></Reveal>
+      <Reveal><Testimonials locale={locale} /></Reveal>
+      <Reveal><FinalCta content={content} /></Reveal>
       <Footer content={content} locale={locale} />
     </main>
   );
