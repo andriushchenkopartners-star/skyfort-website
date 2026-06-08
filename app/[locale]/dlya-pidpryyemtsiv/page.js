@@ -483,7 +483,7 @@ export default async function EntrepreneursPillarPage({ params }) {
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-brand)]">{c.eyebrow}</p>
           <h1 className="font-display-tight text-4xl text-white md:text-6xl">{c.title}</h1>
           <p className="mt-4 text-xl font-bold text-[var(--color-fg-body)] md:text-2xl">{c.subtitle}</p>
-          <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
+          <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-body)]">{c.intro}</p>
         </header>
 
         <div className="pb-4">
