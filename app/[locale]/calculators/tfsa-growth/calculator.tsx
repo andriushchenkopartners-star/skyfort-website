@@ -357,7 +357,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
               </div>
 
               <div className="mt-8 border-t border-[#2a2a2a] pt-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {content.presets.title}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -393,7 +393,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                 </p>
                 <div className="mt-6 grid grid-cols-2 gap-4 border-t border-[#2a2a2a] pt-6">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                       {content.contributed}
                     </p>
                     <p className="mt-1 font-display text-xl text-white">
@@ -401,7 +401,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                       {content.gained}
                     </p>
                     <p className="mt-1 font-display text-xl text-[var(--color-brand)]">
@@ -463,7 +463,7 @@ export default function TFSACalculator({ locale: rawLocale }: { locale?: string 
       {/* DISCLAIMER */}
       <footer className="border-t border-[#2a2a2a] py-10">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-xs leading-relaxed text-[#6b6b6b]">{content.disclaimer}</p>
+          <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.disclaimer}</p>
         </div>
       </footer>
     </main>
@@ -523,7 +523,7 @@ function NumberInput({
         </button>
         <div className="relative flex-1">
           {prefix && (
-            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6b6b6b]">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-fg-subtle)]">
               {prefix}
             </span>
           )}
@@ -537,7 +537,7 @@ function NumberInput({
             } ${suffix ? "pr-8" : ""}`}
           />
           {suffix && (
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#6b6b6b]">
+            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-fg-subtle)]">
               {suffix}
             </span>
           )}

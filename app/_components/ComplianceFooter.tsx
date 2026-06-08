@@ -82,8 +82,8 @@ export default function ComplianceFooter() {
         <p className="text-[11px] font-semibold uppercase tracking-wider text-[#a3a3a3]">
           {c.line1}
         </p>
-        <p className="mt-1 text-[11px] text-[#6b6b6b]">{c.line2}</p>
-        <p className="mx-auto mt-4 max-w-3xl text-[10px] leading-relaxed text-[#6b6b6b]">
+        <p className="mt-1 text-[11px] text-[var(--color-fg-subtle)]">{c.line2}</p>
+        <p className="mx-auto mt-4 max-w-3xl text-[10px] leading-relaxed text-[var(--color-fg-subtle)]">
           {c.disclosure}
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[10px]">
@@ -95,7 +95,7 @@ export default function ComplianceFooter() {
           >
             {c.verify} →
           </a>
-          <span className="text-[#6b6b6b]">{c.verifyHint}</span>
+          <span className="text-[var(--color-fg-subtle)]">{c.verifyHint}</span>
         </div>
       </div>
     </footer>

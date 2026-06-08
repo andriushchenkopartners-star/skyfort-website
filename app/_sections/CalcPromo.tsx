@@ -61,13 +61,13 @@ export default function CalcPromo({ content, locale }: { content: CalcPromoConte
             </div>
             <div className="hidden md:block">
               <div className="rounded-2xl border border-[#3a3a3a] bg-[#191919] p-6 text-center">
-                <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">
+                <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {s.meta}
                 </p>
                 <p className="mt-3 font-display-tight text-5xl text-[var(--color-brand)]">
                   {s.value}
                 </p>
-                <p className="mt-2 text-xs text-[#6b6b6b]">{s.vs}</p>
+                <p className="mt-2 text-xs text-[var(--color-fg-subtle)]">{s.vs}</p>
               </div>
             </div>
           </div>

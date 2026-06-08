@@ -450,7 +450,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
             <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-7">
               {/* Presets */}
               <div className="mb-6 border-b border-[#2a2a2a] pb-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                   {content.presets.title}
                 </p>
                 <div className="grid grid-cols-1 gap-2">
@@ -487,11 +487,11 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                 ) : (
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{content.monthlySavings}</p>
+                      <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.monthlySavings}</p>
                       <p className="mt-1 font-display text-lg text-white">{formatMoney(monthlySavings)}</p>
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wider text-[#6b6b6b]">{content.savingsRate}</p>
+                      <p className="text-xs uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.savingsRate}</p>
                       <p className="mt-1 font-display text-lg text-[var(--color-brand)]">{savingsRate}%</p>
                     </div>
                   </div>
@@ -501,7 +501,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
 
             {/* RIGHT — FI Numbers (dual) */}
             <div className="space-y-6">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#6b6b6b]">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--color-fg-subtle)]">
                 {content.fiNumberTitle}
               </p>
               <div className="grid gap-4 md:grid-cols-2">
@@ -509,28 +509,28 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                 <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
                   <p className="text-xs uppercase tracking-wider text-[#a3a3a3]">{content.fiSafe}</p>
                   <p className="mt-3 font-display-tight text-3xl text-white md:text-4xl">{formatMoney(fiSafe)}</p>
-                  <p className="mt-3 text-xs leading-relaxed text-[#6b6b6b]">{content.fiSafeDesc}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.fiSafeDesc}</p>
                 </div>
                 {/* Standard */}
                 <div className="relative overflow-hidden rounded-2xl border border-[var(--color-brand)]/40 bg-gradient-to-br from-[#1f1f1f] to-[#222] p-6">
                   <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[var(--color-brand)] opacity-10 blur-3xl" />
                   <p className="text-xs uppercase tracking-wider text-[var(--color-brand)]">{content.fiStandard}</p>
                   <p className="mt-3 font-display-tight text-3xl text-[var(--color-brand)] md:text-4xl">{formatMoney(fiStandard)}</p>
-                  <p className="mt-3 text-xs leading-relaxed text-[#6b6b6b]">{content.fiStandardDesc}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.fiStandardDesc}</p>
                 </div>
               </div>
 
               {/* Your plan summary */}
               {!negativeSavings && (
                 <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-6">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{content.yourPlan}</p>
+                  <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.yourPlan}</p>
                   <div className="mt-4 grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-xs text-[#6b6b6b]">{content.yearsToFI} (Balanced 8%)</p>
+                      <p className="text-xs text-[var(--color-fg-subtle)]">{content.yearsToFI} (Balanced 8%)</p>
                       <p className="mt-1 font-display text-2xl text-white">{formatYears(balancedYears, lang)}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-[#6b6b6b]">{content.fiDate} (Balanced 8%)</p>
+                      <p className="text-xs text-[var(--color-fg-subtle)]">{content.fiDate} (Balanced 8%)</p>
                       <p className="mt-1 font-display text-2xl text-white">{formatFIDate(balancedYears, lang)}</p>
                     </div>
                   </div>
@@ -548,7 +548,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                         {content.insightDescBefore} <span className="font-bold text-white">{formatYears(balancedYears, lang)} {lang === "en" ? "years" : "років"}</span>.{" "}
                         {content.insightDescAfter} <span className="font-bold text-accent">{formatYears(yearsSavedByExempt, lang)} {lang === "en" ? "years" : "років"}</span>.
                       </p>
-                      <p className="mt-3 text-xs italic text-[#6b6b6b]">{content.insightCTA}</p>
+                      <p className="mt-3 text-xs italic text-[var(--color-fg-subtle)]">{content.insightCTA}</p>
                     </div>
                   </div>
                 </div>
@@ -569,10 +569,10 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
               <table className="w-full">
                 <thead className="bg-[#1a1a1a]">
                   <tr>
-                    <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{content.table.strategy}</th>
-                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{content.table.years}</th>
-                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{content.table.date}</th>
-                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{content.table.vsBalanced}</th>
+                    <th className="px-5 py-4 text-left text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.table.strategy}</th>
+                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.table.years}</th>
+                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.table.date}</th>
+                    <th className="px-5 py-4 text-right text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{content.table.vsBalanced}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -609,9 +609,9 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
                         <td className="px-5 py-4 text-right text-sm text-[#a3a3a3]">{s.date}</td>
                         <td className="px-5 py-4 text-right text-sm">
                           {diff === null || !isFinite(diff) ? (
-                            <span className="text-[#6b6b6b]">—</span>
+                            <span className="text-[var(--color-fg-subtle)]">—</span>
                           ) : Math.abs(diff) < 0.05 ? (
-                            <span className="text-[#6b6b6b]">—</span>
+                            <span className="text-[var(--color-fg-subtle)]">—</span>
                           ) : diff < 0 ? (
                             <span className="font-bold text-accent">{diff.toFixed(1)}</span>
                           ) : (
@@ -668,7 +668,7 @@ export default function FIRECalculator({ locale: rawLocale }: { locale?: string 
       {/* DISCLAIMER */}
       <footer className="border-t border-[#2a2a2a] py-10">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-xs leading-relaxed text-[#6b6b6b]">{content.disclaimer}</p>
+          <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{content.disclaimer}</p>
         </div>
       </footer>
     </main>
@@ -726,7 +726,7 @@ function NumberInput({
         </button>
         <div className="relative flex-1">
           {prefix && (
-            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6b6b6b]">
+            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-fg-subtle)]">
               {prefix}
             </span>
           )}
@@ -740,7 +740,7 @@ function NumberInput({
             } ${suffix ? "pr-8" : ""}`}
           />
           {suffix && (
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#6b6b6b]">
+            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-fg-subtle)]">
               {suffix}
             </span>
           )}

@@ -46,7 +46,7 @@ export default function LangSwitcher({ locale, compact = false, className = "", 
       className={`flex items-center gap-0 rounded-full border border-[#2a2a2a] bg-[#222] p-1 ${className}`}
     >
       {!compact && (
-        <Globe className="ml-2 h-3.5 w-3.5 text-[#6b6b6b]" aria-hidden="true" />
+        <Globe className="ml-2 h-3.5 w-3.5 text-[var(--color-fg-subtle)]" aria-hidden="true" />
       )}
       {LANGS.map((l) => (
         <button

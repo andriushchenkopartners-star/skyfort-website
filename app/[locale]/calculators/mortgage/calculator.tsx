@@ -157,17 +157,17 @@ function NInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max
     <div>
       <label className="mb-1.5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#a3a3a3]">
         <span>{label}</span>
-        {note && <span className="text-[10px] text-[#6b6b6b] normal-case font-normal tracking-normal">{note}</span>}
+        {note && <span className="text-[10px] text-[var(--color-fg-subtle)] normal-case font-normal tracking-normal">{note}</span>}
       </label>
       <div className="flex items-center gap-2">
         <button onClick={() => onChange(Math.max(min, parseFloat((value-step).toFixed(4))))}
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">−</button>
         <div className="relative flex-1">
-          {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{prefix}</span>}
+          {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[var(--color-fg-subtle)]">{prefix}</span>}
           <input type="text" inputMode="decimal" value={value}
             onChange={(e: ChangeEvent<HTMLInputElement>) => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
             className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
-          {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{suffix}</span>}
+          {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[var(--color-fg-subtle)]">{suffix}</span>}
         </div>
         <button onClick={() => onChange(Math.min(max, parseFloat((value+step).toFixed(4))))}
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">+</button>
@@ -190,12 +190,12 @@ function Card({ label, value, sub, color = "neutral" }: {
     green: "border-green-500/40 bg-green-500/5",
   }[color];
   const valCls = { neutral:"text-white", blue:"text-[var(--color-brand)]", gold:"text-accent", red:"text-red-400", green:"text-green-400" }[color];
-  const lblCls = { neutral:"text-[#6b6b6b]", blue:"text-[var(--color-brand)]", gold:"text-accent", red:"text-red-400", green:"text-green-400" }[color];
+  const lblCls = { neutral:"text-[var(--color-fg-subtle)]", blue:"text-[var(--color-brand)]", gold:"text-accent", red:"text-red-400", green:"text-green-400" }[color];
   return (
     <div className={`rounded-xl border p-4 ${cls}`}>
       <p className={`text-xs uppercase tracking-wider ${lblCls}`}>{label}</p>
       <p className={`mt-1.5 text-2xl font-bold ${valCls}`}>{value}</p>
-      {sub && <p className="mt-1 text-xs text-[#6b6b6b]">{sub}</p>}
+      {sub && <p className="mt-1 text-xs text-[var(--color-fg-subtle)]">{sub}</p>}
     </div>
   );
 }
@@ -318,15 +318,15 @@ function ModeResidence({ lang }: { lang: string }) {
             <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">{ins.title}</p>
             <div className="mt-3 grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-[#6b6b6b]">{ins.stressRate}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{ins.stressRate}</p>
                 <p className="text-xl font-bold text-white">{P(stressR)}</p>
               </div>
               <div>
-                <p className="text-xs text-[#6b6b6b]">{ins.income}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{ins.income}</p>
                 <p className="text-xl font-bold text-[var(--color-brand)]">{C(reqIncome)}</p>
               </div>
             </div>
-            <p className="mt-3 text-xs text-[#6b6b6b]">
+            <p className="mt-3 text-xs text-[var(--color-fg-subtle)]">
               {lang==="en"
                 ? `Bank qualifies you at stress test rate. GDS ≤ 39%: max ${P(39)} of gross income.`
                 : lang==="ru"
@@ -343,11 +343,11 @@ function ModeResidence({ lang }: { lang: string }) {
               </p>
               <div className="mt-3 grid grid-cols-2 gap-3">
                 <div>
-                  <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Time saved":lang==="ru"?"Время сохранено":"Зекономлено часу"}</p>
+                  <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Time saved":lang==="ru"?"Время сохранено":"Зекономлено часу"}</p>
                   <p className="text-xl font-bold text-green-400">{YM(monthsSaved)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Interest saved":lang==="ru"?"Процентов сохранено":"Зекономлено відсотків"}</p>
+                  <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Interest saved":lang==="ru"?"Процентов сохранено":"Зекономлено відсотків"}</p>
                   <p className="text-xl font-bold text-green-400">{C(interestSaved)}</p>
                 </div>
               </div>
@@ -359,7 +359,7 @@ function ModeResidence({ lang }: { lang: string }) {
       {/* Chart */}
       {schedBase.length > 0 && (
         <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
-          <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[#6b6b6b]">
+          <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
             {lang==="en"?"Balance over time":lang==="ru"?"Остаток по годам":"Залишок по роках"}
           </p>
           <MortgageBalanceChart
@@ -445,7 +445,7 @@ function ModeInvestment({ lang }: { lang: string }) {
 
           {/* Expense waterfall */}
           <div className="rounded-xl border border-[#2a2a2a] bg-[#1f1f1f] p-4">
-            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
               {lang==="en"?"Monthly expenses breakdown":lang==="ru"?"Разбивка расходов":"Розбивка витрат"}
             </p>
             <div className="space-y-2">
@@ -459,7 +459,7 @@ function ModeInvestment({ lang }: { lang: string }) {
                 </div>
               ))}
               <div className="mt-2 flex items-center justify-between border-t border-[#2a2a2a] pt-2">
-                <span className="text-xs font-bold text-[#6b6b6b]">{lang==="en"?"Total":lang==="ru"?"Итого":"Всього"}</span>
+                <span className="text-xs font-bold text-[var(--color-fg-subtle)]">{lang==="en"?"Total":lang==="ru"?"Итого":"Всього"}</span>
                 <span className="text-sm font-bold text-white">{C(totalExpenses)}</span>
               </div>
             </div>
@@ -548,19 +548,19 @@ function ModeHELOC({ lang }: { lang: string }) {
             <p className="text-xs font-bold uppercase tracking-wider text-accent">{lbl.arbitrage}</p>
             <div className="mt-3 grid grid-cols-3 gap-3">
               <div>
-                <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Borrow cost":lang==="ru"?"Стоимость":"Вартість"}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Borrow cost":lang==="ru"?"Стоимость":"Вартість"}</p>
                 <p className="text-lg font-bold text-red-400">{C(annualBorrowCost)}</p>
               </div>
               <div>
-                <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Return":lang==="ru"?"Доход":"Дохід"}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Return":lang==="ru"?"Доход":"Дохід"}</p>
                 <p className="text-lg font-bold text-green-400">{C(annualInvestReturn)}</p>
               </div>
               <div>
-                <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Net spread":lang==="ru"?"Спред":"Спред"}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Net spread":lang==="ru"?"Спред":"Спред"}</p>
                 <p className={`text-lg font-bold ${annualSpread>0?"text-green-400":"text-red-400"}`}>{C(annualSpread)}</p>
               </div>
             </div>
-            <p className="mt-3 text-xs text-[#6b6b6b]">
+            <p className="mt-3 text-xs text-[var(--color-fg-subtle)]">
               {annualSpread > 0
                 ? (lang==="en" ? `✅ ${P(spreadPct)} net annual spread on ${C(borrowAmount)} borrowed. Strategy works if investment returns hold.`
                   : lang==="ru" ? `✅ Чистый спред ${P(spreadPct)} на ${C(borrowAmount)}. Стратегия работает при условии стабильной доходности.`
@@ -571,7 +571,7 @@ function ModeHELOC({ lang }: { lang: string }) {
             </p>
           </div>
 
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[#6b6b6b] leading-relaxed">
+          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[var(--color-fg-subtle)] leading-relaxed">
             🇨🇦 {lang==="en"
               ? "Canadian HELOC rules: max 80% combined LTV (mortgage + HELOC), max HELOC = 65% of home value. Rate = prime + spread."
               : lang==="ru"
@@ -675,11 +675,11 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Payoff":lang==="ru"?"Погашение":"Погашення"}</p>
+                  <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Payoff":lang==="ru"?"Погашение":"Погашення"}</p>
                   <p className="text-sm font-bold text-white">{YM(s.months)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#6b6b6b]">{lang==="en"?"Total interest":lang==="ru"?"Проценты":"Відсотки"}</p>
+                  <p className="text-xs text-[var(--color-fg-subtle)]">{lang==="en"?"Total interest":lang==="ru"?"Проценты":"Відсотки"}</p>
                   <p className="text-sm font-bold text-white">{C(s.interest)}</p>
                 </div>
                 {s.savings !== undefined && (
@@ -701,7 +701,7 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
 
       {/* Combined chart */}
       <div className="rounded-2xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
-        <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[#6b6b6b]">
+        <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
           {lang==="en"?"Balance comparison":lang==="ru"?"Сравнение остатков":"Порівняння залишків"}
         </p>
         <MortgageComparisonChart data={chartData} scenarios={scenarios} />
@@ -766,21 +766,21 @@ function ModeLenderSwitch({ lang }: { lang: string }) {
         <div className="space-y-4">
           {/* Penalty comparison */}
           <div className="rounded-xl border border-[#2a2a2a] bg-[#1f1f1f] p-5">
-            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
               {lang==="en"?"Penalty calculation":lang==="ru"?"Расчёт штрафа":"Розрахунок штрафу"}
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div className={`rounded-lg border p-3 ${penaltyType!=="IRD"?"border-[#2a2a2a]":"border-red-500/40 bg-red-500/5"}`}>
-                <p className="text-xs text-[#6b6b6b]">{lbl.ird}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{lbl.ird}</p>
                 <p className={`text-xl font-bold ${penaltyType==="IRD"?"text-red-400":"text-white"}`}>{C(irdPenalty)}</p>
               </div>
               <div className={`rounded-lg border p-3 ${penaltyType!=="3-month"?"border-[#2a2a2a]":"border-red-500/40 bg-red-500/5"}`}>
-                <p className="text-xs text-[#6b6b6b]">{lbl.threeM}</p>
+                <p className="text-xs text-[var(--color-fg-subtle)]">{lbl.threeM}</p>
                 <p className={`text-xl font-bold ${penaltyType==="3-month"?"text-red-400":"text-white"}`}>{C(threeMonthInt)}</p>
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between rounded-lg bg-[#191919] p-3">
-              <span className="text-xs text-[#6b6b6b]">{lbl.penalty} ({lbl.type}: {penaltyType})</span>
+              <span className="text-xs text-[var(--color-fg-subtle)]">{lbl.penalty} ({lbl.type}: {penaltyType})</span>
               <span className="font-bold text-red-400">{C(penalty)}</span>
             </div>
           </div>
@@ -896,7 +896,7 @@ function ModeAffordability({ lang }: { lang: string }) {
             </div>
           )}
 
-          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[#6b6b6b]">
+          <div className="rounded-xl border border-[#2a2a2a] bg-[#191919] p-4 text-xs text-[var(--color-fg-subtle)]">
             {lbl.stressNote}: {P(sRate)} | GDS ≤ 39% | {lang==="en"?"Based on":"На основі"} ${(grossIncome/12).toFixed(0)}/mo
           </div>
         </div>
@@ -905,21 +905,21 @@ function ModeAffordability({ lang }: { lang: string }) {
       {/* Rate sensitivity table */}
       <div className="rounded-2xl border border-[#2a2a2a] overflow-hidden">
         <div className="bg-[#1a1a1a] px-5 py-3">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">{lbl.table}</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">{lbl.table}</p>
         </div>
         <table className="w-full">
           <thead className="bg-[#161616]">
             <tr>
-              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                 {lang==="en"?"Rate":lang==="ru"?"Ставка":"Ставка"}
               </th>
-              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+              <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                 {lang==="en"?"Stress test":lang==="ru"?"Стресс-тест":"Стрес-тест"}
               </th>
-              <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+              <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                 {lang==="en"?"Max price":lang==="ru"?"Макс. цена":"Макс. ціна"}
               </th>
-              <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-[#6b6b6b]">
+              <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-[var(--color-fg-subtle)]">
                 {lang==="en"?"Max mortgage":lang==="ru"?"Макс. ипотека":"Макс. іпотека"}
               </th>
             </tr>
@@ -935,7 +935,7 @@ function ModeAffordability({ lang }: { lang: string }) {
                       {lang==="en"?"current":lang==="ru"?"текущая":"поточна"}
                     </span>}
                   </td>
-                  <td className="px-5 py-3 text-[#6b6b6b] text-sm">{P(stressRate(row.rate))}</td>
+                  <td className="px-5 py-3 text-[var(--color-fg-subtle)] text-sm">{P(stressRate(row.rate))}</td>
                   <td className="px-5 py-3 text-right font-bold text-white">{C(row.maxPrice)}</td>
                   <td className="px-5 py-3 text-right text-sm text-[#a3a3a3]">{C(row.maxMortgage)}</td>
                 </tr>
@@ -1046,7 +1046,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
                 className={`flex-shrink-0 px-4 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-[color,border-color] duration-200 ease-[var(--ease-out)] whitespace-nowrap ${
                   activeMode === i
                     ? "border-[var(--color-brand)] text-white"
-                    : "border-transparent text-[#6b6b6b] hover:text-[#a3a3a3]"
+                    : "border-transparent text-[var(--color-fg-subtle)] hover:text-[#a3a3a3]"
                 }`}
               >
                 {tab}
@@ -1087,7 +1087,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
       {/* DISCLAIMER */}
       <footer className="border-t border-[#2a2a2a] py-8">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="text-xs leading-relaxed text-[#6b6b6b]">{t.disclaimer}</p>
+          <p className="text-xs leading-relaxed text-[var(--color-fg-subtle)]">{t.disclaimer}</p>
         </div>
       </footer>
     </main>
