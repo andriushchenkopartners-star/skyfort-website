@@ -204,7 +204,7 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackTtCtaClick("follow_tiktok")}
-          className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-5 py-2.5 text-sm font-semibold text-[var(--color-fg)] transition-all hover:border-[var(--color-brand)] hover:bg-[var(--color-bg-card)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-5 py-2.5 text-sm font-semibold text-[var(--color-fg)] transition-[transform,border-color,background-color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:bg-[var(--color-bg-card)] active:scale-95"
         >
           <TikTokIcon className="h-4 w-4" />
           {copy.followCta} · {CONFIG.tiktokHandle}
@@ -219,7 +219,7 @@ export default function TtLandingClient({ locale: rawLocale, portraitSrc, portra
           href={NRD_LOOKUP}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-[var(--color-fg-muted)] hover:text-[var(--color-brand)] underline underline-offset-2"
+          className="inline-flex items-center gap-1 text-xs text-[var(--color-fg-muted)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)] underline underline-offset-2"
         >
           {copy.verifyLink} <ExternalLink size={11} aria-hidden="true" />
         </a>
