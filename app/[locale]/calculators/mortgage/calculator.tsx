@@ -161,16 +161,16 @@ function NInput({ label, value, onChange, prefix, suffix, step = 1, min = 0, max
       </label>
       <div className="flex items-center gap-2">
         <button onClick={() => onChange(Math.max(min, parseFloat((value-step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white transition-all">−</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">−</button>
         <div className="relative flex-1">
           {prefix && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{prefix}</span>}
           <input type="text" inputMode="decimal" value={value}
             onChange={(e: ChangeEvent<HTMLInputElement>) => { const v=parseFloat(e.target.value.replace(/[^\d.]/g,"")); if(!isNaN(v)) onChange(Math.min(max,Math.max(min,v))); }}
-            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
+            className={`w-full rounded-lg border border-[#3a3a3a] bg-[#191919] py-2.5 text-center text-lg font-bold text-white outline-none focus:border-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] ${prefix?"pl-7":""} ${suffix?"pr-7":""}`}/>
           {suffix && <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#6b6b6b]">{suffix}</span>}
         </div>
         <button onClick={() => onChange(Math.min(max, parseFloat((value+step).toFixed(4))))}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white transition-all">+</button>
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-[#3a3a3a] text-lg text-[#a3a3a3] transition-[transform,border-color,color] duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)] hover:text-white active:scale-95">+</button>
       </div>
     </div>
   );
@@ -209,7 +209,7 @@ function SelectGroup({ options, value, onChange }: {
     <div className="flex flex-wrap gap-2">
       {options.map(o => (
         <button key={o.value} onClick={() => onChange(o.value)}
-          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${value===o.value?"border-[var(--color-brand)] bg-[var(--color-brand)] text-white":"border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"}`}>
+          className={`rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-[transform,background-color,border-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${value===o.value?"border-[var(--color-brand)] bg-[var(--color-brand)] text-white":"border-[#3a3a3a] text-[#a3a3a3] hover:border-[var(--color-brand)] hover:text-white"}`}>
           {o.label}
         </button>
       ))}
@@ -668,7 +668,7 @@ function ModeEarlyPayoff({ lang }: { lang: string }) {
 
         <div className="space-y-3">
           {scenarios.map((s, i) => (
-            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[#2a2a2a] bg-[#1f1f1f]":"border-[#2a2a2a] bg-[#1f1f1f] hover:border-[var(--color-brand)]/30 transition-colors"}`}>
+            <div key={i} className={`rounded-xl border p-4 ${i===0?"border-[#2a2a2a] bg-[#1f1f1f]":"border-[#2a2a2a] bg-[#1f1f1f] hover:border-[var(--color-brand)]/30 transition-colors duration-200 ease-[var(--ease-out)]"}`}>
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-3 w-3 rounded-full flex-shrink-0" style={{backgroundColor:s.color}} />
                 <span className="font-bold text-white text-sm">{s.label}</span>
@@ -975,7 +975,7 @@ function CopyLinkButton({ lang }: { lang: string }) {
       type="button"
       onClick={onCopy}
       aria-label={label}
-      className="flex-shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/10 px-3 py-2 text-xs font-bold text-[var(--color-brand)] transition-colors hover:bg-[var(--color-brand)]/20"
+      className="flex-shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/10 px-3 py-2 text-xs font-bold text-[var(--color-brand)] transition-[transform,background-color] duration-150 ease-[var(--ease-out)] hover:bg-[var(--color-brand)]/20 active:scale-95"
     >
       <LinkIcon className="h-3.5 w-3.5" />
       {label}
@@ -1043,7 +1043,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
               <button
                 key={i}
                 onClick={() => setActiveMode(i)}
-                className={`flex-shrink-0 px-4 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-4 py-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-[color,border-color] duration-200 ease-[var(--ease-out)] whitespace-nowrap ${
                   activeMode === i
                     ? "border-[var(--color-brand)] text-white"
                     : "border-transparent text-[#6b6b6b] hover:text-[#a3a3a3]"
@@ -1077,7 +1077,7 @@ export default function MortgageCalculator({ locale: rawLocale }: { locale?: str
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-[#a3a3a3]">{t.ctaSub}</p>
           <a href={CALENDLY} target="_blank" rel="noopener"
-            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-[var(--color-brand-hover)] transition-all">
+            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]">
             {t.cta}
             <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
           </a>
