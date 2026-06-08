@@ -126,13 +126,13 @@ export default function Footer({ content, locale = "uk" }: { content: FooterCont
         <div className="mt-16 border-t border-[#2a2a2a] pt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="text-xs text-[#6b6b6b]">{content.footer.rights}</div>
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#a3a3a3]">
-            <Link href={`/${locale}/contact`} className="inline-flex items-center gap-1 hover:text-[var(--color-brand)]">
+            <Link href={`/${locale}/contact`} className="inline-flex items-center gap-1 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]">
               <MapPin className="h-3 w-3" aria-hidden="true" />
               {l.contact}
             </Link>
-            <Link href={`/${locale}/presa`} className="hover:text-[var(--color-brand)]">{l.press}</Link>
-            <Link href={`/${locale}/privacy`} className="hover:text-[var(--color-brand)]">{l.privacy}</Link>
-            <Link href={`/${locale}/cookies`} className="hover:text-[var(--color-brand)]">{l.cookies}</Link>
+            <Link href={`/${locale}/presa`} className="transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]">{l.press}</Link>
+            <Link href={`/${locale}/privacy`} className="transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]">{l.privacy}</Link>
+            <Link href={`/${locale}/cookies`} className="transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]">{l.cookies}</Link>
           </nav>
         </div>
       </div>

@@ -30,7 +30,7 @@ export default function HomeNav({ locale, content }: { locale: Locale; content: 
           </div>
           <Link
             href={`/${locale}/pro-mene`}
-            className="hidden text-xs font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors hover:text-white sm:inline-flex"
+            className="hidden text-xs font-bold uppercase tracking-wider text-[#a3a3a3] transition-colors duration-150 ease-[var(--ease-out)] hover:text-white sm:inline-flex"
           >
             {content.nav.about}
           </Link>
@@ -38,7 +38,7 @@ export default function HomeNav({ locale, content }: { locale: Locale; content: 
             href={CONFIG.calendlyUrl}
             target="_blank"
             rel="noopener"
-            className="hidden rounded-full bg-[var(--color-brand)] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)] sm:inline-flex"
+            className="hidden rounded-full bg-[var(--color-brand)] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98] sm:inline-flex"
           >
             {content.nav.book}
           </a>
