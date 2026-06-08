@@ -72,7 +72,7 @@ export default function EligibilityPromo({ locale = "uk" }: { locale?: Locale })
               <p className="mt-5 max-w-xl text-base leading-relaxed text-[#c4c4c4] md:text-lg">{c.body}</p>
               <Link
                 href={`/${locale}/eligibility`}
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
               >
                 {c.cta}
                 <ArrowRight

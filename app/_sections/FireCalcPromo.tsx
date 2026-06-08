@@ -66,7 +66,7 @@ export default function FireCalcPromo({ locale }: { locale: Locale }) {
               </p>
               <Link
                 href={`/${locale}/calculators/financial-freedom`}
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#191919] transition-all hover:bg-accent-hover"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#191919] transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-hover active:scale-[0.98]"
               >
                 {c.cta}
                 <ArrowRight

@@ -36,7 +36,7 @@ export default function FinalCta({ content }: { content: FinalCtaContent }) {
           href={CONFIG.calendlyUrl}
           target="_blank"
           rel="noopener"
-          className="group mt-12 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+          className="group mt-12 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
         >
           {content.ctaBtn}
           <ArrowRight

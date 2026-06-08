@@ -50,7 +50,7 @@ export default function CalcPromo({ content, locale }: { content: CalcPromoConte
               </p>
               <Link
                 href={`/${locale}/calculators/tfsa-growth`}
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
               >
                 {content.calcPromo.cta}
                 <ArrowRight

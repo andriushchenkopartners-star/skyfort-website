@@ -701,7 +701,7 @@ export default async function PorivnyanniaPage({ params }) {
               </div>
               <Link
                 href={`/${locale}/eligibility`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
               >
                 {c.eligibilityPromoCta}
                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -738,7 +738,7 @@ export default async function PorivnyanniaPage({ params }) {
             href={CALENDLY}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
           >
             {c.bottomCtaBtn}
           </a>

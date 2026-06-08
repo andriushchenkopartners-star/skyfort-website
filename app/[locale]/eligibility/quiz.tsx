@@ -463,7 +463,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
         <button
           type="button"
           onClick={start}
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
         >
           {c.intro.start}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -489,7 +489,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
           </div>
           <div className="h-1 w-full overflow-hidden rounded-full bg-[var(--color-border)]">
             <div
-              className="h-full bg-[var(--color-brand)] transition-all duration-300"
+              className="h-full bg-[var(--color-brand)] transition-[width] duration-300 ease-[var(--ease-out)]"
               style={{ width: `${((step + 1) / totalQs) * 100}%` }}
             />
           </div>
@@ -508,7 +508,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
                 <button
                   type="button"
                   onClick={() => pickAnswer(q.id, opt.value)}
-                  className={`flex w-full items-center justify-between gap-4 rounded-xl border px-5 py-4 text-left transition-all ${
+                  className={`flex w-full items-center justify-between gap-4 rounded-xl border px-5 py-4 text-left transition-[transform,border-color,background-color] duration-150 ease-[var(--ease-out)] active:scale-[0.99] ${
                     isSelected
                       ? "border-[var(--color-brand)] bg-[var(--color-brand)]/10"
                       : "border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-brand)]/40"
@@ -549,7 +549,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
             type="button"
             onClick={goNext}
             disabled={!canAdvance}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)] disabled:cursor-not-allowed disabled:opacity-30"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30"
           >
             {step === totalQs - 1 ? c.nav.finish : c.nav.next}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -625,7 +625,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("eligibility_quiz_cta_calendly", { locale, result: resultKey })}
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-[var(--color-brand-hover)]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
           >
             {r.cta}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

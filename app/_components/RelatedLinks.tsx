@@ -52,7 +52,7 @@ export default function RelatedLinks({ heading, items, variant = "cards" }: Rela
             <li key={i}>
               <Link
                 href={item.href}
-                className="card-glow group flex items-start justify-between gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 transition-all hover:border-[var(--color-brand)]/40"
+                className="card-glow group flex items-start justify-between gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 hover:border-[var(--color-brand)]/40"
               >
                 <div className="min-w-0 flex-1">
                   <div className="font-bold text-white">{item.label}</div>
@@ -63,7 +63,7 @@ export default function RelatedLinks({ heading, items, variant = "cards" }: Rela
                   )}
                 </div>
                 <ArrowRight
-                  className="mt-1 h-4 w-4 flex-shrink-0 text-[var(--color-fg-subtle)] transition-all group-hover:translate-x-0.5 group-hover:text-[var(--color-brand)]"
+                  className="mt-1 h-4 w-4 flex-shrink-0 text-[var(--color-fg-subtle)] transition-[transform,color] duration-200 ease-[var(--ease-out)] group-hover:translate-x-0.5 group-hover:text-[var(--color-brand)]"
                   aria-hidden="true"
                 />
               </Link>

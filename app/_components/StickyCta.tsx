@@ -69,7 +69,7 @@ export default function StickyCta({ locale = "uk", page }: { locale?: Locale; pa
   return (
     <div
       aria-hidden={!visible}
-      className={`fixed inset-x-0 bottom-0 z-[990] flex justify-center pointer-events-none px-3 pb-3 transition-all duration-200 ${
+      className={`fixed inset-x-0 bottom-0 z-[990] flex justify-center pointer-events-none px-3 pb-3 transition-[transform,opacity] duration-200 ease-[var(--ease-out)] ${
         visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
       }`}
     >
@@ -79,7 +79,7 @@ export default function StickyCta({ locale = "uk", page }: { locale?: Locale; pa
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => page && trackCtaPosition(page, "sticky", "book_call")}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[var(--color-brand-hover)] sm:px-5 sm:text-sm"
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-4 py-2 text-xs font-bold text-white transition-[transform,background-color] duration-150 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-95 sm:px-5 sm:text-sm"
         >
           {t.cta} →
         </a>

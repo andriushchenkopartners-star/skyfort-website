@@ -54,7 +54,7 @@ export default function LangSwitcher({ locale, compact = false, className = "", 
           type="button"
           onClick={() => switchTo(l.code)}
           aria-pressed={locale === l.code}
-          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-all ${
+          className={`rounded-full px-3 py-1 text-xs font-bold tracking-wider transition-[transform,background-color,color] duration-150 ease-[var(--ease-out)] active:scale-95 ${
             locale === l.code
               ? "bg-[var(--color-brand)] text-white"
               : "text-[#a3a3a3] hover:text-white"
