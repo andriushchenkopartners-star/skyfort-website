@@ -102,7 +102,7 @@ export default async function BlogHubPage({ params }) {
               <li key={post.slug}>
                 <Link
                   href={`/${locale}/blog/${post.slug}`}
-                  className="card-glow group block rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 transition-all md:p-9"
+                  className="card-glow group block rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-7 md:p-9"
                 >
                   <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--color-fg-subtle)]">
                     {post.pillar && (
