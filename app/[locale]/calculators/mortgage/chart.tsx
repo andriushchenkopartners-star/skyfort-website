@@ -38,7 +38,7 @@ export function MortgageBalanceChart({ data, balanceLabel }: MortgageBalanceChar
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-          <XAxis dataKey="year" stroke="#6b6b6b" style={{ fontSize: 11 }} />
+          <XAxis dataKey="year" stroke="#6b6b6b" minTickGap={28} style={{ fontSize: 11 }} />
           <YAxis
             stroke="#6b6b6b"
             style={{ fontSize: 11 }}
@@ -74,7 +74,7 @@ export function MortgageComparisonChart({ data, scenarios }: MortgageComparisonC
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-          <XAxis dataKey="year" stroke="#6b6b6b" style={{ fontSize: 11 }} />
+          <XAxis dataKey="year" stroke="#6b6b6b" minTickGap={28} style={{ fontSize: 11 }} />
           <YAxis
             stroke="#6b6b6b"
             style={{ fontSize: 11 }}

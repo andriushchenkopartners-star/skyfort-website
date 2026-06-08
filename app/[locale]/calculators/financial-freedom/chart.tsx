@@ -40,6 +40,7 @@ export default function FireChart({ data, labels, strategyLabels, strategies, fi
           <XAxis
             dataKey="year"
             stroke="#6b6b6b"
+            minTickGap={28}
             style={{ fontSize: 12 }}
             label={{
               value: labels.year,
