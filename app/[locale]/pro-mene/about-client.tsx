@@ -283,7 +283,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
             <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-brand)]/30 bg-[var(--color-brand)]/10 px-4 py-2 text-sm font-semibold text-[#7eaef5]">
               <ShieldCheck className="h-4 w-4" /> {c.role}
             </p>
-            <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-muted)]">{c.intro}</p>
+            <p className="mt-6 text-lg leading-relaxed text-[var(--color-fg-body)]">{c.intro}</p>
           </div>
         </div>
       </section>
@@ -293,7 +293,7 @@ export default function AboutClient({ locale: rawLocale }: { locale?: string }) 
         <h2 className="font-display text-4xl leading-[0.95] text-white md:text-5xl">{c.storyTitle}</h2>
         <div className="mt-8 space-y-5">
           {c.story.map((p, i) => (
-            <p key={i} className="text-lg leading-relaxed text-[var(--color-fg-muted)]">{p}</p>
+            <p key={i} className="text-lg leading-relaxed text-[var(--color-fg-body)]">{p}</p>
           ))}
         </div>
       </section>
