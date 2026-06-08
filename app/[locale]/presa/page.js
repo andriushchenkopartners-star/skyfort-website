@@ -224,7 +224,7 @@ export default async function PressPage({ params }) {
               </div>
               <a
                 href={`mailto:${CONFIG.email}?subject=Press%20inquiry`}
-                className="break-all text-lg font-semibold text-white hover:text-[var(--color-brand)]"
+                className="break-all text-lg font-semibold text-white transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
               >
                 {CONFIG.email}
               </a>
@@ -235,7 +235,7 @@ export default async function PressPage({ params }) {
               </div>
               <a
                 href={`tel:${CONFIG.phone.replace(/\D/g, "")}`}
-                className="text-lg font-semibold text-white hover:text-[var(--color-brand)]"
+                className="text-lg font-semibold text-white transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
               >
                 {CONFIG.phone}
               </a>
@@ -252,7 +252,7 @@ export default async function PressPage({ params }) {
               href={NRD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
               {c.verifyLabel}

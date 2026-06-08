@@ -172,7 +172,7 @@ export default async function GlossaryTermPage({ params }) {
                 href={t.source.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-semibold text-white/65 hover:text-[var(--color-brand)]"
+                className="inline-flex items-center gap-1.5 font-semibold text-white/65 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
               >
                 <ExternalLink size={13} aria-hidden="true" />
                 {c.sourceLabel}: {t.source.label}
@@ -181,7 +181,7 @@ export default async function GlossaryTermPage({ params }) {
             {t.related && (
               <Link
                 href={`/${locale}${t.related.href}`}
-                className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
               >
                 {c.relatedLabel}: {t.related.label} →
               </Link>

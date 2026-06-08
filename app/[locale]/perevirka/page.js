@@ -387,7 +387,7 @@ export default async function PerevirkaPage({ params }) {
               href={CIRO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               {c.ciroLinkLabel}
@@ -401,7 +401,7 @@ export default async function PerevirkaPage({ params }) {
             <h3 className="font-display text-xl text-white md:text-2xl">{c.moreTitle}</h3>
             <Link
               href={`/${locale}/porivnyannia`}
-              className="mt-4 inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="mt-4 inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               {c.moreLinkLabel}
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />

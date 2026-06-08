@@ -418,7 +418,7 @@ export default async function FinfluencerCompliancePage({ params }) {
               href={NOTICE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="inline-flex items-center gap-2 font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
               {c.noticeLinkLabel}
@@ -426,7 +426,7 @@ export default async function FinfluencerCompliancePage({ params }) {
             <span className="text-[var(--color-fg-subtle)]">·</span>
             <Link
               href={`/${locale}/perevirka`}
-              className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               {c.verifyLinkLabel} →
             </Link>

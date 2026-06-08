@@ -207,7 +207,7 @@ export default function SiteSearch() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close search"
-            className="rounded-md p-1.5 text-white/60 hover:bg-white/10 hover:text-white"
+            className="rounded-md p-1.5 text-white/60 transition-colors duration-150 ease-[var(--ease-out)] hover:bg-white/10 hover:text-white"
           >
             <X size={16} aria-hidden="true" />
           </button>

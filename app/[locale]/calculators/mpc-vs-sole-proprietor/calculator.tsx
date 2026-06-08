@@ -283,7 +283,7 @@ export default function MpcCalculator({ locale = "uk" }: { locale?: Locale }) {
                     setSalary(p.salary);
                     setDividend(p.dividend);
                   }}
-                  className="rounded-md border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-semibold text-white/85 hover:border-[var(--color-brand)]/40 hover:text-white"
+                  className="rounded-md border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-semibold text-white/85 transition-colors duration-150 ease-[var(--ease-out)] hover:border-[var(--color-brand)]/40 hover:text-white"
                 >
                   {t[`p${i + 1}`]}
                 </button>
@@ -335,7 +335,7 @@ export default function MpcCalculator({ locale = "uk" }: { locale?: Locale }) {
             <button
               type="button"
               onClick={onCopyLink}
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] hover:bg-[var(--color-brand)]/[0.14]"
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-brand)]/40 bg-[var(--color-brand)]/[0.08] px-4 py-2 text-sm font-bold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:bg-[var(--color-brand)]/[0.14]"
             >
               <LinkIcon size={14} aria-hidden="true" />
               {copyState === "copied"

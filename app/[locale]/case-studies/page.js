@@ -722,7 +722,7 @@ export default async function CaseStudiesPage({ params }) {
                       </p>
                       <Link
                         href={`/${locale}${item.topicHref}`}
-                        className="mt-4 inline-block text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                        className="mt-4 inline-block text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                       >
                         {item.topicLabel}
                       </Link>

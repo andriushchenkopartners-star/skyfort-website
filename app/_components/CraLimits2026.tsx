@@ -218,7 +218,7 @@ export default function CraLimits2026({ locale = "uk" }: { locale?: Locale }) {
                     href={row.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                    className="text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                   >
                     {row.source} ↗
                   </a>

@@ -348,7 +348,7 @@ export default async function ContactPage({ params }) {
             href="https://info.securities-administrators.ca/nrsmobile/nrssearch.aspx"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             {c.verifyLink}
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -401,7 +401,7 @@ export default async function ContactPage({ params }) {
               href={CONFIG.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-fg-muted)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
             >
               <ExternalLink className="h-3 w-3" aria-hidden="true" />
               {locale === "en" ? "Open in Calendly" : locale === "ru" ? "Открыть в Calendly" : "Відкрити в Calendly"}

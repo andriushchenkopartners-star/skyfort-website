@@ -627,7 +627,7 @@ export default async function MediksPillarPage({ params }) {
           </a>
         </div>
         <div className="mt-6 text-sm">
-          <Link href={`/${locale}/eligibility`} className="text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]">
+          <Link href={`/${locale}/eligibility`} className="text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]">
             {c.secondaryCtaText} · {c.secondaryCtaLink}
           </Link>
         </div>

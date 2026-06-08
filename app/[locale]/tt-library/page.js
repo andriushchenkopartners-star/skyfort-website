@@ -298,7 +298,7 @@ export default async function TtLibraryPage({ params }) {
                   href={v.tiktokUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                 >
                   <Play size={14} aria-hidden="true" />
                   {c.watchCta}

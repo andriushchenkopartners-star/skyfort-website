@@ -219,7 +219,7 @@ export default async function CookiesPage({ params }) {
           {c.moreInfo}{' '}
           <Link
             href={`/${locale}/privacy`}
-            className="font-semibold text-[var(--color-brand)] underline underline-offset-2 hover:text-[var(--color-brand-hover)]"
+            className="font-semibold text-[var(--color-brand)] underline underline-offset-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             {c.privacyLink}
           </Link>

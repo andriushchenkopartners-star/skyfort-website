@@ -187,7 +187,7 @@ export default async function GlossaryPage({ params }) {
                 <div className="mt-4 flex flex-wrap items-center gap-4 text-xs">
                   <Link
                     href={`/${locale}/slovnyk/${t.id}`}
-                    className="inline-flex items-center gap-1.5 font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                    className="inline-flex items-center gap-1.5 font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                   >
                     {t.term.split(" — ")[0].split(" (")[0]} →
                   </Link>
@@ -196,7 +196,7 @@ export default async function GlossaryPage({ params }) {
                       href={t.source.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-semibold text-white/60 hover:text-[var(--color-brand)]"
+                      className="inline-flex items-center gap-1.5 font-semibold text-white/60 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                     >
                       <ExternalLink size={12} aria-hidden="true" />
                       {c.sourceLabel}: {t.source.label}
@@ -205,7 +205,7 @@ export default async function GlossaryPage({ params }) {
                   {t.related && (
                     <Link
                       href={`/${locale}${t.related.href}`}
-                      className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                      className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                     >
                       {c.relatedLabel}: {t.related.label} →
                     </Link>

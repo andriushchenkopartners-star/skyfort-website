@@ -84,7 +84,7 @@ export default function AuthorByline({ locale = "uk", className = "" }: AuthorBy
       <div className="min-w-0 flex-1">
         <Link
           href={c.proMeneHref}
-          className="font-semibold text-white hover:text-[var(--color-brand)]"
+          className="font-semibold text-white transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
         >
           {c.name}
         </Link>
@@ -103,7 +103,7 @@ export default function AuthorByline({ locale = "uk", className = "" }: AuthorBy
             href={NRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             {c.nrdLabel}
           </a>

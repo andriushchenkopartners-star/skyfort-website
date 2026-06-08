@@ -645,7 +645,7 @@ export default async function PorivnyanniaPage({ params }) {
                     href={lic.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                   >
                     <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                     <span className="text-[var(--color-fg-subtle)]">{c.aspectLabels.verify}:</span>
@@ -744,7 +744,7 @@ export default async function PorivnyanniaPage({ params }) {
           </a>
           <Link
             href={`/${locale}/perevirka`}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             {c.verifyLinkLabel}
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />

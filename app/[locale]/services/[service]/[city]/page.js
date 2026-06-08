@@ -467,7 +467,7 @@ export default async function ServiceCityPage({ params }) {
                       <li key={otherCity}>
                         <Link
                           href={`/${locale}/services/${service}/${otherCity}`}
-                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                         >
                           <ArrowRight className="h-3 w-3 flex-shrink-0" aria-hidden="true" />
                           <span>{svcName} · {ocName}</span>
@@ -489,7 +489,7 @@ export default async function ServiceCityPage({ params }) {
                       <li key={otherService}>
                         <Link
                           href={`/${locale}/services/${otherService}/${city}`}
-                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-brand)]"
+                          className="inline-flex items-center gap-2 text-sm text-[var(--color-fg-muted)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
                         >
                           <ArrowRight className="h-3 w-3 flex-shrink-0" aria-hidden="true" />
                           <span>{osName} · {cityName}</span>

@@ -148,7 +148,7 @@ const mdxComponents = {
   ),
   a: (props) => (
     <a
-      className="font-semibold text-[var(--color-brand)] underline underline-offset-2 hover:text-[var(--color-brand-hover)]"
+      className="font-semibold text-[var(--color-brand)] underline underline-offset-2 transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
       {...props}
     />
   ),
@@ -296,7 +296,7 @@ export default async function BlogPostPage({ params }) {
             <div className="min-w-0 flex-1">
               <Link
                 href={`/${locale}/pro-mene`}
-                className="font-semibold text-white hover:text-[var(--color-brand)]"
+                className="font-semibold text-white transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand)]"
               >
                 {post.author}
               </Link>
@@ -312,7 +312,7 @@ export default async function BlogPostPage({ params }) {
                   href={NRD_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+                  className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
                 >
                   {m.authorNrd}
                 </a>

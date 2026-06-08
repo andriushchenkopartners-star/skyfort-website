@@ -634,7 +634,7 @@ export default function EligibilityQuiz({ locale = "uk" }: { locale?: string }) 
             <Link
               href={r.ctaSecondaryHref}
               onClick={() => track("eligibility_quiz_cta_secondary", { locale, result: resultKey })}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
             >
               {r.ctaSecondary}
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

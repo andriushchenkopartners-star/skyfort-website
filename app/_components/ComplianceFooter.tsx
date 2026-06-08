@@ -91,7 +91,7 @@ export default function ComplianceFooter() {
             href={NRD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
+            className="font-semibold text-[var(--color-brand)] transition-colors duration-150 ease-[var(--ease-out)] hover:text-[var(--color-brand-hover)]"
           >
             {c.verify} →
           </a>
