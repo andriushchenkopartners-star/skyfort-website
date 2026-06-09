@@ -10,6 +10,13 @@
 // Each term: { id, term, definition, source: {label, url}, related: {label, href}? }
 // Definitions are 1-3 sentences max so they fit AI-search snippet format.
 // IDs become anchor fragments (#tfsa, #rrsp, etc.) for direct linking.
+
+// Single source of truth for the glossary "last reviewed" date — drives both
+// the visible UpdatedBadge and the dateModified in the WebPage JSON-LD on the
+// hub and every term page, so the freshness signal can never drift between
+// what the reader sees and what crawlers read. Bump when terms are reviewed.
+export const TERMS_REVIEWED = "2026-05-29";
+
 const TERMS_UK = [
   {
     id: "tfsa",

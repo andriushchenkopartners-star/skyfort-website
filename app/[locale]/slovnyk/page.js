@@ -19,7 +19,7 @@ import Breadcrumbs from "../../_components/Breadcrumbs";
 import LangSwitcher from "../../_components/LangSwitcher";
 import UpdatedBadge from "../../_components/UpdatedBadge";
 import { SUPPORTED_LOCALES } from "../../_i18n/dictionary";
-import { GLOSSARY_COPY } from "../../_data/glossary";
+import { GLOSSARY_COPY, TERMS_REVIEWED } from "../../_data/glossary";
 
 export async function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
@@ -94,6 +94,9 @@ export default async function GlossaryPage({ params }) {
     "@id": `https://sky-fort.ca${path}#webpage`,
     url: `https://sky-fort.ca${path}`,
     name: c.title,
+    // Freshness signal mirrors the visible UpdatedBadge (single source:
+    // TERMS_REVIEWED) so crawlers read the same "last reviewed" date.
+    dateModified: TERMS_REVIEWED,
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["main h1", "main h1 + p", "main h1 ~ p:first-of-type"],
@@ -129,7 +132,7 @@ export default async function GlossaryPage({ params }) {
             ]}
           />
           <div className="mt-6 max-w-3xl">
-            <UpdatedBadge date="2026-05-29" locale={locale} className="mb-3" />
+            <UpdatedBadge date={TERMS_REVIEWED} locale={locale} className="mb-3" />
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-brand)]">
               {c.eyebrow}
             </p>

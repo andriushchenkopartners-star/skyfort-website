@@ -25,6 +25,7 @@ import {
   getTermIds,
   getGlossaryTerm,
   getRelatedGlossaryTerms,
+  TERMS_REVIEWED,
 } from "../../../_data/glossary";
 
 const CALENDLY = "https://calendly.com/andriushchenko-partners/new-meeting";
@@ -109,6 +110,10 @@ function buildJsonLd(locale, c, t, path) {
         url: `https://sky-fort.ca${path}`,
         name: t.term,
         isPartOf: { "@id": setUrl },
+        // Freshness signal — mirrors the visible UpdatedBadge so the
+        // structured data matches what the reader sees. YMYL pages lean on a
+        // dateModified for AI-overview extraction and core-update trust.
+        dateModified: TERMS_REVIEWED,
         speakable: {
           "@type": "SpeakableSpecification",
           cssSelector: ["main h1", "main h1 ~ p:first-of-type"],
@@ -154,7 +159,7 @@ export default async function GlossaryTermPage({ params }) {
             ]}
           />
           <div className="mt-6 space-y-3">
-            <UpdatedBadge date="2026-05-29" locale={locale} />
+            <UpdatedBadge date={TERMS_REVIEWED} locale={locale} />
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-brand)]">
               {c.termEyebrow}
             </p>
