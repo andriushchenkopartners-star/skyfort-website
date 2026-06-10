@@ -12,5 +12,6 @@ export { default as Steps } from "./Steps";
 export { default as EligibilityPromo } from "./EligibilityPromo";
 export { default as Faq } from "./Faq";
 export { default as Testimonials } from "./Testimonials";
+export { default as TikTokSection } from "./TikTokSection";
 export { default as FinalCta } from "./FinalCta";
 export { default as Footer } from "./Footer";

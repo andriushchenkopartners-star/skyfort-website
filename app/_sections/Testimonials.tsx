@@ -7,6 +7,7 @@
 
 import { Quote, ShieldCheck, Languages, Star, MapPin, ExternalLink } from "lucide-react";
 import { getTestimonials, getAggregateRating } from "../_data/testimonials";
+import Reveal from "../_components/Reveal";
 
 type Locale = "uk" | "ru" | "en";
 
@@ -220,7 +221,7 @@ export default function Testimonials({ locale = "uk" }: { locale?: Locale }) {
 
         {hasData ? (
           // Real testimonials grid
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <Reveal as="div" stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {items.map((t) => (
               <article
                 key={t.id}
@@ -256,7 +257,7 @@ export default function Testimonials({ locale = "uk" }: { locale?: Locale }) {
                 </div>
               </article>
             ))}
-          </div>
+          </Reveal>
         ) : (
           // Empty state — trust signals fallback
           <>
@@ -264,7 +265,7 @@ export default function Testimonials({ locale = "uk" }: { locale?: Locale }) {
               {c.emptyLead}
             </p>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <Reveal as="div" stagger className="grid gap-4 md:grid-cols-3">
               {c.trustSignals.map((sig, i) => {
                 const Inner = (
                   <div className="flex h-full flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 transition-colors hover:border-[var(--color-brand)]/40">
@@ -302,7 +303,7 @@ export default function Testimonials({ locale = "uk" }: { locale?: Locale }) {
                   <div key={i}>{Inner}</div>
                 );
               })}
-            </div>
+            </Reveal>
 
             <p className="mt-10 text-sm text-[var(--color-fg-subtle)]">
               {c.leaveReviewLine}

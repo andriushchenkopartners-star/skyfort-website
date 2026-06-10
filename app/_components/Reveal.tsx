@@ -2,20 +2,31 @@
 
 // Scroll-reveal wrapper. Adds `.is-visible` once the element scrolls into view,
 // then disconnects (reveal-once). Pairs with the `.reveal` / `.reveal-stagger`
-// classes in globals.css. Toggles a class via ref — no React state — so it stays
-// clear of the repo's react-hooks/set-state-in-effect rule. Falls back to
-// instantly visible when motion is reduced or IntersectionObserver is absent.
+// classes in globals.css. Polymorphic via `as` so the stagger can sit on a real
+// grid/list element (its direct children are what cascade). Toggles the class
+// via a ref — no React state — to stay clear of the repo's
+// react-hooks/set-state-in-effect rule. Falls back to instantly visible when
+// motion is reduced or IntersectionObserver is absent.
 
 import { useEffect, useRef } from "react";
-import type { ReactNode, HTMLAttributes } from "react";
+import type { ReactNode, ElementType } from "react";
 
-interface RevealProps extends HTMLAttributes<HTMLDivElement> {
+interface RevealProps {
+  as?: ElementType;
+  stagger?: boolean;
   className?: string;
   children?: ReactNode;
+  [key: string]: unknown;
 }
 
-export default function Reveal({ className = "reveal", children, ...rest }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function Reveal({
+  as: Tag = "div",
+  stagger = false,
+  className = "",
+  children,
+  ...rest
+}: RevealProps) {
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -44,9 +55,12 @@ export default function Reveal({ className = "reveal", children, ...rest }: Reve
     return () => io.disconnect();
   }, []);
 
+  const base = stagger ? "reveal-stagger" : "reveal";
+  const cls = className ? `${base} ${className}` : base;
+
   return (
-    <div ref={ref} className={className} {...rest}>
+    <Tag ref={ref} className={cls} {...rest}>
       {children}
-    </div>
+    </Tag>
   );
 }

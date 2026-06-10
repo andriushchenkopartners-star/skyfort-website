@@ -9,6 +9,8 @@ import Breadcrumbs from "../../../_components/Breadcrumbs";
 import TopicSuggestForm from "../../../_components/TopicSuggestForm";
 import StickyBlogCTA from "../../../_components/StickyBlogCTA";
 import CraLimits2026 from "../../../_components/CraLimits2026";
+import ReadingProgress from "../../../_components/ReadingProgress";
+import TikTokEmbed from "../../../_components/TikTokEmbed";
 
 // Which pillars get the 2026 CRA limits reference table embedded below
 // the article body. Skip Pillar values that don't relate to tax-sheltered
@@ -32,6 +34,8 @@ const COPY = {
     authorNrd: "NRD #4575551",
     authorVerify: "Перевірити реєстрацію",
     reviewedLine: "Освітній матеріал. Узгоджено з compliance Axcess Capital.",
+    tiktokTitle: "Дивись у форматі відео",
+    tiktokSub: "Останні відео — TFSA, RRSP та іпотека простою мовою",
   },
   ru: {
     crumbHome: "Главная",
@@ -47,6 +51,8 @@ const COPY = {
     authorNrd: "NRD #4575551",
     authorVerify: "Проверить регистрацию",
     reviewedLine: "Образовательный материал. Согласовано с compliance Axcess Capital.",
+    tiktokTitle: "Смотри в формате видео",
+    tiktokSub: "Последние видео — TFSA, RRSP и ипотека простым языком",
   },
   en: {
     crumbHome: "Home",
@@ -62,6 +68,8 @@ const COPY = {
     authorNrd: "NRD #4575551",
     authorVerify: "Verify registration",
     reviewedLine: "Educational content. Reviewed under Axcess Capital's compliance framework.",
+    tiktokTitle: "Watch it in video",
+    tiktokSub: "Latest clips — TFSA, RRSP and mortgages in plain language",
   },
 };
 
@@ -238,6 +246,7 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <main id="main" className="min-h-screen bg-[var(--color-bg)] text-[var(--color-fg)]">
+      <ReadingProgress />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -349,12 +358,28 @@ export default async function BlogPostPage({ params }) {
             href={CALENDLY}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+            className="btn-shine group mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-brand-hover)]"
           >
             {m.bookCta}
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </a>
         </aside>
+
+        {/* TikTok facade — most blog posts are written up from TikTok scripts,
+            so the creator feed is the natural "watch it instead" companion. Lazy
+            (poster → embed.js only on click), so it never touches the article's
+            load cost. */}
+        <section className="mt-12">
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-[var(--color-brand)]">
+            {m.tiktokTitle}
+          </h3>
+          <div className="mx-auto max-w-md">
+            <TikTokEmbed username="andrii.wealthcanada" title="@andrii.wealthcanada" subtitle={m.tiktokSub} />
+          </div>
+        </section>
 
         {/* Flagship tools — contextual deep-links so every blog post passes
             link equity to the 4 YMYL trust pages. 4th re-audit (1.12) flagged
@@ -466,7 +491,7 @@ export default async function BlogPostPage({ params }) {
         <div className="mt-12 text-center">
           <Link
             href={`/${locale}/blog`}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-fg-muted)] transition-colors hover:text-[var(--color-brand)]"
+            className="link-underline inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-fg-muted)] transition-colors hover:text-[var(--color-brand)]"
           >
             <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
             {m.back}

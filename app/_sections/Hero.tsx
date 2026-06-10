@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 import { CONFIG } from "../_i18n/config";
+import HeroBackground from "../_components/HeroBackground";
 
 interface HeroContent {
   hero: {
@@ -17,23 +18,7 @@ interface HeroContent {
 export default function Hero({ content }: { content: HeroContent }) {
   return (
     <section id="top" className="relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32">
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <Image
-          src="/calgary-hero.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-[var(--color-bg)]/68" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/80 via-transparent to-transparent" />
-      </div>
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <div className="absolute -right-40 -top-32 h-[600px] w-[600px] rounded-full bg-[var(--color-brand)] opacity-[0.08] blur-3xl" />
-        <div className="absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full bg-[var(--color-brand)] opacity-[0.06] blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)]/60 to-transparent" />
-      </div>
+      <HeroBackground />
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
         <div>
@@ -56,7 +41,7 @@ export default function Hero({ content }: { content: HeroContent }) {
               href={CONFIG.calendlyUrl}
               target="_blank"
               rel="noopener"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
+              className="btn-shine group inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-brand)] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-[var(--color-brand-hover)] active:scale-[0.98]"
             >
               {content.hero.ctaPrimary}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />

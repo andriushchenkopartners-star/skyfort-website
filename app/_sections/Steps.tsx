@@ -1,3 +1,5 @@
+import Reveal from "../_components/Reveal";
+
 interface StepItem {
   n: string;
   title: string;
@@ -16,7 +18,7 @@ export default function Steps({ content }: { content: StepsContent }) {
         <h2 className="mb-16 font-display text-4xl leading-[0.95] text-white md:text-6xl">
           {content.stepsTitle}
         </h2>
-        <ol className="grid gap-12 md:grid-cols-3">
+        <Reveal as="ol" stagger className="grid gap-12 md:grid-cols-3">
           {content.steps.map((s, i) => (
             <li key={i} className="relative">
               <div className="mb-6 font-display-tight text-6xl text-[var(--color-brand)]">
@@ -26,7 +28,7 @@ export default function Steps({ content }: { content: StepsContent }) {
               <p className="mt-4 leading-relaxed text-[var(--color-fg-muted)]">{s.desc}</p>
             </li>
           ))}
-        </ol>
+        </Reveal>
       </div>
     </section>
   );

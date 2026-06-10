@@ -14,6 +14,7 @@ import {
   EligibilityPromo,
   Faq,
   Testimonials,
+  TikTokSection,
   FinalCta,
   Footer,
 } from "../_sections";
@@ -41,13 +42,13 @@ export default function SkyFortLanding({ params }) {
           pageUrl={`https://sky-fort.ca/${locale}`}
         />
       </section>
-      <Reveal><Stats content={content} /></Reveal>
+      <Stats content={content} />
       <Reveal><About content={content} /></Reveal>
       <Guides content={content} />
       <Reveal><CalcPromo content={content} locale={locale} /></Reveal>
       <Reveal><FireCalcPromo locale={locale} /></Reveal>
       <Reveal><MortgagePromo locale={locale} /></Reveal>
-      <Reveal><Steps content={content} /></Reveal>
+      <Steps content={content} />
       <Reveal><EligibilityPromo locale={locale} /></Reveal>
 
       {/* Email capture — між Steps і FAQ, ~30% scroll */}
@@ -63,8 +64,9 @@ export default function SkyFortLanding({ params }) {
       </section>
 
       <Reveal><Faq content={content} /></Reveal>
-      <Reveal><Testimonials locale={locale} /></Reveal>
-      <Reveal><FinalCta content={content} locale={locale} /></Reveal>
+      <Testimonials locale={locale} />
+      <Reveal><TikTokSection locale={locale} /></Reveal>
+      <FinalCta content={content} locale={locale} />
       <Footer content={content} locale={locale} />
     </main>
   );
