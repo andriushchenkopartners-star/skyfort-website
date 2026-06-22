@@ -15,7 +15,7 @@
 // the visible UpdatedBadge and the dateModified in the WebPage JSON-LD on the
 // hub and every term page, so the freshness signal can never drift between
 // what the reader sees and what crawlers read. Bump when terms are reviewed.
-export const TERMS_REVIEWED = "2026-05-29";
+export const TERMS_REVIEWED = "2026-06-22";
 
 const TERMS_UK = [
   {
@@ -697,6 +697,26 @@ const GLOSSARY_FAQ = {
       { q: "Скільки CESG можна отримати на дитину?", a: "CESG — 20% від внеску, до $500 на рік і lifetime maximum $7,200 на дитину. Для повного річного гранту внесок має бути щонайменше $2,500 на рік." },
       { q: "Що буде з RESP, якщо дитина не піде вчитися?", a: "Внески повертаються без податку; накопичений CESG повертається уряду. Інвестиційний дохід можна перевести до $50,000 у власний RRSP (за наявності room) або зняти з податком + 20% (AIP rules)." },
     ],
+    "eligible-investor": [
+      { q: "Хто такий Eligible Investor у Канаді?", a: "Категорія за NI 45-106: дохід $75K+ соло або $125K+ з подружжям за останні 2 роки, АБО чисті активи $400K+ без урахування основного житла. Дає доступ до частини exempt market, часто з лімітом на суму в один продукт без поглибленого аналізу." },
+      { q: "Чим Eligible відрізняється від Accredited Investor?", a: "Eligible — нижчий поріг ($75K дохід / $400K активи), частіше з обмеженнями на суму. Accredited — вищий поріг і ширший доступ. Категорію підтверджують заново на момент кожної інвестиції." },
+    ],
+    "accredited-investor": [
+      { q: "Які пороги Accredited Investor у Канаді?", a: "За NI 45-106: фінансові активи понад $1M (без основного житла), АБО чисті активи від $5M, АБО дохід $200K соло / $300K з подружжям два роки поспіль з очікуванням продовження." },
+      { q: "Що дає статус Accredited Investor?", a: "Найширший доступ до exempt market, часто без жорстких лімітів на суму. Але KYC і suitability обовʼязкові — статус лише відчиняє двері, а прийнятність інвестиції оцінюється окремо." },
+    ],
+    emd: [
+      { q: "Що таке Exempt Market Dealer (EMD)?", a: "Категорія реєстрації за NI 31-103 — ліцензія на дистрибуцію приватних (exempt) securities: private MICs, REITs, development LP — для Eligible та Accredited інвесторів." },
+      { q: "Чим EMD відрізняється від банку чи CIRO-дилера?", a: "Банк і CIRO-дилери працюють з публічними продуктами (ETF, mutual funds, акції). EMD має доступ до приватного ринку. Це дві різні ліцензії та «полиці» — за приватним ринком звертаються до EMD." },
+    ],
+    ciro: [
+      { q: "Що таке CIRO?", a: "Canadian Investment Regulatory Organization — національний саморегулятор (з 2023, після злиття IIROC і MFDA), що наглядає за дилерами публічних цінних паперів і торговими ринками в Канаді." },
+      { q: "CIRO чи EMD — у чому різниця для інвестора?", a: "CIRO-дилери пропонують публічні продукти, доступні всім. EMD — приватний ринок, лише для Eligible/Accredited. Реєстрацію будь-кого з них перевіряють у базі NRD на сайті CSA." },
+    ],
+    nrd: [
+      { q: "Що таке NRD і як перевірити фінансового радника?", a: "National Registration Database — публічний реєстр CSA. На info.securities-administrators.ca вводиш імʼя або фірму і бачиш, чи особа зареєстрована, у яких провінціях, у якій категорії та чи є дисциплінарна історія. Безкоштовно." },
+      { q: "Що означає NRD-номер?", a: "Унікальний ідентифікатор зареєстрованої особи. Наприклад, NRD #4575551 — Andrii Andriushchenko при Axcess Capital Advisors (EMD). Якщо людини немає в базі — вона не має права приймати твої кошти на інвестиції." },
+    ],
   },
   ru: {
     tfsa: [
@@ -715,6 +735,26 @@ const GLOSSARY_FAQ = {
       { q: "Сколько CESG можно получить на ребёнка?", a: "CESG — 20% от взноса, до $500 в год и lifetime maximum $7,200 на ребёнка. Для полного годового гранта взнос должен быть минимум $2,500 в год." },
       { q: "Что будет с RESP, если ребёнок не пойдёт учиться?", a: "Взносы возвращаются без налога; накопленный CESG возвращается государству. Инвестиционный доход можно перевести до $50,000 в свой RRSP (при наличии room) или снять с налогом + 20% (AIP rules)." },
     ],
+    "eligible-investor": [
+      { q: "Кто такой Eligible Investor в Канаде?", a: "Категория по NI 45-106: доход $75K+ соло или $125K+ с супругом за последние 2 года, ЛИБО чистые активы $400K+ без учёта основного жилья. Даёт доступ к части exempt market, часто с лимитом на сумму в один продукт без углублённого анализа." },
+      { q: "Чем Eligible отличается от Accredited Investor?", a: "Eligible — ниже порог ($75K доход / $400K активы), чаще с ограничениями на сумму. Accredited — выше порог и шире доступ. Категорию подтверждают заново на момент каждой инвестиции." },
+    ],
+    "accredited-investor": [
+      { q: "Какие пороги Accredited Investor в Канаде?", a: "По NI 45-106: финансовые активы более $1M (без основного жилья), ЛИБО чистые активы от $5M, ЛИБО доход $200K соло / $300K с супругом два года подряд с ожиданием продолжения." },
+      { q: "Что даёт статус Accredited Investor?", a: "Самый широкий доступ к exempt market, часто без жёстких лимитов на сумму. Но KYC и suitability обязательны — статус лишь открывает двери, а приемлемость инвестиции оценивается отдельно." },
+    ],
+    emd: [
+      { q: "Что такое Exempt Market Dealer (EMD)?", a: "Категория регистрации по NI 31-103 — лицензия на дистрибуцию частных (exempt) securities: private MICs, REITs, development LP — для Eligible и Accredited инвесторов." },
+      { q: "Чем EMD отличается от банка или CIRO-дилера?", a: "Банк и CIRO-дилеры работают с публичными продуктами (ETF, mutual funds, акции). EMD имеет доступ к частному рынку. Это две разные лицензии и «полки» — за частным рынком обращаются к EMD." },
+    ],
+    ciro: [
+      { q: "Что такое CIRO?", a: "Canadian Investment Regulatory Organization — национальный саморегулятор (с 2023, после слияния IIROC и MFDA), надзирающий за дилерами публичных ценных бумаг и торговыми рынками в Канаде." },
+      { q: "CIRO или EMD — в чём разница для инвестора?", a: "CIRO-дилеры предлагают публичные продукты, доступные всем. EMD — частный рынок, только для Eligible/Accredited. Регистрацию любого из них проверяют в базе NRD на сайте CSA." },
+    ],
+    nrd: [
+      { q: "Что такое NRD и как проверить финансового советника?", a: "National Registration Database — публичный реестр CSA. На info.securities-administrators.ca вводишь имя или фирму и видишь, зарегистрировано ли лицо, в каких провинциях, в какой категории и есть ли дисциплинарная история. Бесплатно." },
+      { q: "Что означает NRD-номер?", a: "Уникальный идентификатор зарегистрированного лица. Например, NRD #4575551 — Andrii Andriushchenko при Axcess Capital Advisors (EMD). Если человека нет в базе — он не вправе принимать твои средства на инвестиции." },
+    ],
   },
   en: {
     tfsa: [
@@ -732,6 +772,26 @@ const GLOSSARY_FAQ = {
     resp: [
       { q: "How much CESG can I get per child?", a: "CESG is 20% of contributions, up to $500/year and a $7,200 lifetime maximum per child. To capture the full annual grant, contribute at least $2,500/year." },
       { q: "What happens to an RESP if my child doesn't pursue education?", a: "Contributions are returned tax-free; accumulated CESG is returned to the government. Investment growth can be moved up to $50,000 into your own RRSP (if you have room) or withdrawn with tax + 20% (AIP rules)." },
+    ],
+    "eligible-investor": [
+      { q: "Who is an Eligible Investor in Canada?", a: "A category under NI 45-106: income of $75K+ solo or $125K+ with a spouse over the last 2 years, OR net assets of $400K+ excluding your primary residence. It opens access to part of the exempt market, often with a per-offering cap absent deeper analysis." },
+      { q: "How does Eligible differ from Accredited Investor?", a: "Eligible has a lower threshold ($75K income / $400K assets), often with amount limits. Accredited has higher thresholds and broader access. The category is re-confirmed at the time of every investment." },
+    ],
+    "accredited-investor": [
+      { q: "What are the Accredited Investor thresholds in Canada?", a: "Under NI 45-106: financial assets over $1M (excluding your primary residence), OR net assets over $5M, OR income of $200K solo / $300K with a spouse for two consecutive years with a reasonable expectation it continues." },
+      { q: "What does Accredited Investor status give you?", a: "The widest exempt-market access, often without hard amount caps. But KYC and suitability are still required — the status only opens the door; the suitability of any investment is assessed separately." },
+    ],
+    emd: [
+      { q: "What is an Exempt Market Dealer (EMD)?", a: "A registration category under NI 31-103 — a licence to distribute private (exempt) securities: private MICs, REITs, development LPs — to Eligible and Accredited investors." },
+      { q: "How does an EMD differ from a bank or CIRO dealer?", a: "Banks and CIRO dealers handle public products (ETFs, mutual funds, stocks). An EMD has access to the private market. They're two different licences and 'shelves' — for the private market you go to an EMD." },
+    ],
+    ciro: [
+      { q: "What is CIRO?", a: "The Canadian Investment Regulatory Organization — Canada's national self-regulatory body (since 2023, after IIROC and the MFDA merged) overseeing public-securities dealers and trading marketplaces." },
+      { q: "CIRO or EMD — what's the difference for an investor?", a: "CIRO dealers offer public products available to everyone. An EMD handles the private market, only for Eligible/Accredited investors. Verify either one's registration in the CSA's NRD database." },
+    ],
+    nrd: [
+      { q: "What is the NRD and how do I verify a financial advisor?", a: "The National Registration Database — a public CSA registry. At info.securities-administrators.ca you enter a name or firm and see whether they're registered, in which provinces, in what category, and any disciplinary history. It's free." },
+      { q: "What does an NRD number mean?", a: "A unique identifier for a registered individual. For example, NRD #4575551 is Andrii Andriushchenko at Axcess Capital Advisors (EMD). If someone isn't in the database, they have no right to take your money for investments." },
     ],
   },
 };
